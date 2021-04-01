@@ -30,16 +30,23 @@ public class ContribuableController {
         return "index";
     }
 
-    @GetMapping("/enregistrer-contribuable")
+    @GetMapping("/savecontribuable")
     public String Contribuable(Model model) {
         Contribuables contribuable = new Contribuables();
         model.addAttribute("contribuable", contribuable);
         return "contribuable";
     }
     
-    @PostMapping("/save_contribuable")
+    @PostMapping("/savecontribuable")
     public String SaveContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
         contribuableService.saveContribuable(contribuable);
         return "redirect:/";
     }
+
+    @PostMapping("/majcontribuable")
+    public String majContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
+        contribuableService.saveContribuable(contribuable);
+        return "redirect:/";
+    }
+
 }

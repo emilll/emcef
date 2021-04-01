@@ -15,4 +15,5 @@ import java.util.List;
 public interface ContribuableService {
     List<Contribuables> getAllEmployees();
     void saveEmployee(Contribuables contribuable);
+    
 }
