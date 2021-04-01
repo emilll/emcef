@@ -1,6 +1,6 @@
 package com.emcef.model;
 
-import com.emcef.Journal.Journal_api_machine;
+import com.emcef.model.Journal.Journal_api_machine;
 import java.util.Vector;
 
 public class Types_acces_distance {

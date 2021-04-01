@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -36,7 +37,7 @@ public class ContribuableController {
         return "contribuable";
     }
     
-    @GetMapping("/save_contribuable")
+    @PostMapping("/save_contribuable")
     public String SaveContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
         contribuableService.saveContribuable(contribuable);
         return "redirect:/";

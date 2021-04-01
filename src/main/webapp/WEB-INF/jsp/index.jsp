@@ -168,25 +168,19 @@
                                         <hr>
                                         <thead>
                                             <tr>
-                                                <th><i class="fa fa-bullhorn"></i> Prénom(s)</th>
-                                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> Nom</th>
-                                                <th><i class="fa fa-bookmark"></i> Email de l'employé</th>
-                                                <th><i class=" fa fa-edit"></i> Statut</th>
-                                                <th><i class=" fa fa-edit"></i> Actions</th>
+                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Nom & Prénom(s)</th>
+                                                <th><i class="fa fa-bookmark"></i> Email </th>
+                                                <th><i class=" fa fa-edit"></i> IFU</th>
+                                                <th><i class=" fa fa-edit"></i> Ville</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="employe" items="${people}">
+                                            <c:forEach var="contribuable" items="${contribuable}">
                                                 <tr>
-                                                    <td><c:out value="${employe.firstname}"/></td>
-                                                    <td><c:out value="${employe.lastname}"/></td>
-                                                    <td><c:out value="${employe.email}"/></td>
-                                                    <td><span class="label label-info label-mini">Actif</span></td>
-                                                    <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifier/<c:out value='${employe.ID}'/>"><i class="fa fa-pencil"></i></a>
-                                                        <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/delete/<c:out value='${employe.ID}'/>"><i class="fa fa-trash-o "></i></a>
-                                                    </td>
+                                                    <td><c:out value="${contribuable.nom}"/></td>
+                                                    <td><c:out value="${contribuable.email}"/></td>
+                                                    <td><c:out value="${contribuable.ifu}"/></td>
+                                                    <td><c:out value="${contribuable.ville}"/></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

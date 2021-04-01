@@ -161,35 +161,42 @@
 
                 <div class="container-fluid">
                     <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Fabricant</h4></div>
-                        <form class="mb-2" action="/save_contribuable" modelAttribute="contribuable" method="post">
+                        <div class="row"><h4 class="text-dark">Nouveau Contribuable</h4></div>
+                        <s:form class="mb-2" action="/save_contribuable" modelAttribute="contribuable" method="post">
                             <div class="row">
                                 <div class=" col-sm-6 mb-3">
                                     <div class=" bg-white border p-3">
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
-                                                <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom et prénom">
+                                                <div>
+                                                    <s:input id="heure" path="date_heure" type="hidden" />
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Email">
+                                                    <s:input type="text" class="form-control style_form_control" path="ifu" placeholder="Numéro IFU"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Objet">
+                                                    <s:input type="text" class="form-control style_form_control" path="rccm" placeholder="RCCM"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <input type="number" class="form-control style_form_control" name="" placeholder="N° Téléphone">
+                                                    <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <textarea class="form-control style_form_control" name="" placeholder="Message"></textarea>
+                                                    <s:input type="text" class="form-control style_form_control" path="adresse2" placeholder="Adresse 2"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Tailles de l'entreprise</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>< 5 Employés</option>
-                                                        <option>< 5 Employés</option>
-                                                        <option>< 5 Employés</option>
-                                                    </select>
+                                                    <s:input type="text" class="form-control style_form_control" path="adresse3" placeholder="Adresse 3"/>
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <s:input type="text" class="form-control style_form_control" path="adresse4" placeholder="Adresse 4"/>
+                                                </div>
+                                                <div >
+                                                    <s:input id="date" class="form-control style_form_control" path="date_enregistrement"  type="hidden"/>
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <s:input type="text" class="form-control style_form_control" path="id_activite" placeholder="Id Activité"/>
+                                                </div>
+                                                <div class="col-sm-12 form-group">
+                                                    <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,40 +207,30 @@
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom et prénom">
+                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom et prénom"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Email">
+                                                    <s:input type="text" class="form-control style_form_control" path="contact_personnel" placeholder="Numéro Personnel"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom de l'entreprise">
+                                                    <s:input type="text" class="form-control style_form_control" path="description_location" placeholder="Domicile"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <input type="number" class="form-control style_form_control" name="" placeholder="N° Téléphone">
+                                                    <s:input type="text" class="form-control style_form_control" path="telephone" placeholder="N° Téléphone"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <label class="text-muted"><small>Pays</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Bénin</option>
-                                                        <option>Bénin</option>
-                                                        <option>Bénin</option>
-                                                    </select>
+                                                    <s:input type="text" class="form-control style_form_control" path="zip" placeholder="Code Zip"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <label class="text-muted"><small>Langue</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Fraçais</option>
-                                                        <option>Fraçais</option>
-                                                        <option>Fraçais</option>
-                                                    </select>
+                                                    <s:input type="text" class="form-control style_form_control" path="email" placeholder="E-Mail"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Intérêt</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Utilisation dan ma société</option>
-                                                        <option>Utilisation dan ma société</option>
-                                                        <option>Utilisation dan ma société</option>
-                                                    </select>
+                                                    <label class="text-muted"><small>Ville</small></label>
+                                                    <s:select class="form-control style_form_control" path="ville">
+                                                        <option>Cotonou</option>
+                                                        <option>Bohicon</option>
+                                                        <option>Abomey-Calavi</option>
+                                                    </s:select>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,14 +238,38 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3">Enregistrer le Fabricant</button>
+                                <button class="btn btn-block btn-danger mt-3" type="submit" onclick="setThen()">Enregistrer le Contribuable</button>
                             </div>
-                        </form>
+                        </s:form>
                     </div>
                 </div>
             </div>
         </div>
         <script>
+            function setThen(){
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById('heure').value = h + ":" + m + ":" + s;
+                
+                var ladate = new Date();
+                var d = ladate.getDay();
+                var mm = ladate.getMonth();
+                var y = ladate.getFullYear();
+                document.getElementById('date').value = d + "/" + mm + "/" + y;
+            }
+            
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i
+                }
+                ;  // add zero in front of numbers < 10
+                return i;
+            }
+
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
