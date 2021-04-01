@@ -1,0 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.emcef.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+/**
+ *
+ * @author Holy
+ */
+@Controller
+public class CentreController {
+    @GetMapping("/enregistrer-centre")
+    public String Centre(Model model){
+        //model.addAttribute("people", employeeService.getAllEmployees());
+        return "centre";
+    }
+}
