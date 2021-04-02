@@ -158,7 +158,7 @@
                     </div>
                 </nav>
 
-                <div class="container-fluid">
+                <!-- <div class="container-fluid">
                     <div class=" py-3">
                         <div class="row mt">
                             <div class="col-md-12">
@@ -187,9 +187,9 @@
                                     </table>
 
                                 </div>
-                                <!-- /content-panel -->
+                                
                             </div>
-                            <!-- /col-md-12 -->
+                            
                         </div>
                     </div>
                     <div class=" py-3">
@@ -226,9 +226,9 @@
                                     </table>
 
                                 </div>
-                                <!-- /content-panel -->
+                                
                             </div>
-                            <!-- /col-md-12 -->
+                            
                         </div>
                     </div>
                     <div class=" py-3">
@@ -265,9 +265,9 @@
                                     </table>
 
                                 </div>
-                                <!-- /content-panel -->
+                               
                             </div>
-                            <!-- /col-md-12 -->
+                            
                         </div>
                     </div>
                     <div class=" py-3">
@@ -304,12 +304,11 @@
                                     </table>
 
                                 </div>
-                                <!-- /content-panel -->
+                                
                             </div>
-                            <!-- /col-md-12 -->
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <script>

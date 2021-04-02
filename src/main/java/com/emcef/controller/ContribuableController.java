@@ -38,10 +38,10 @@ public class ContribuableController {
         return "contribuable/ajouter";
     }
     
-<<<<<<< HEAD
-    @PostMapping("/savecontribuable")
-    public String SaveContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
-=======
+// <<<<<<< HEAD
+    // @PostMapping("/savecontribuable")
+    // public String SaveContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
+// =======
     @GetMapping("/showcontribuable")
     public String show(Model model){
     model.addAttribute("contribuable", contribuableService.getAllContribuable());
@@ -50,7 +50,7 @@ public class ContribuableController {
     
     @PostMapping("/savecontribuable")
     public String SaveContribuable(@ModelAttribute("contribuable") Contribuable contribuable) {
->>>>>>> a1ec80c78514114371ea4e5799274f9baf9d8145
+// >>>>>>> a1ec80c78514114371ea4e5799274f9baf9d8145
         contribuableService.saveContribuable(contribuable);
         return "redirect:/showcontribuable";
     }
@@ -69,7 +69,7 @@ public class ContribuableController {
     }
 
     @PostMapping("/majcontribuable")
-    public String majContribuable(@ModelAttribute("contribuable") Contribuables contribuable) {
+    public String majContribuable(@ModelAttribute("contribuable") Contribuable contribuable) {
         contribuableService.saveContribuable(contribuable);
         return "redirect:/";
     }
