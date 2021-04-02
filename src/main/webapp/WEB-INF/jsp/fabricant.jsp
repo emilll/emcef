@@ -53,25 +53,25 @@
                                 <a href="#" class="style_dropdown_toggle pl-4"><i class="fa fa-home fa-sm mr-2"></i>  Enregistrer<i class="fa fa-caret-down float-right px-2"></i></a>
                                 <ul class="pl-0">
                                     <li class="active">
-                                        <a href="/enregistrer-fabricants" class="pl-4">Fabricants</a>
+                                        <a href="/showfabricants" class="pl-4">Fabricants</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-machines" class="pl-4">Machines</a>
+                                        <a href="/showmachines" class="pl-4">Machines</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-modeles" class="pl-4">Modèles</a>
+                                        <a href="/showmodeles" class="pl-4">Modèles</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-certificat" class="pl-4">Certificat</a>
+                                        <a href="/showcertificat" class="pl-4">Certificat</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-contribuable" class="pl-4">Contribuables</a>
+                                        <a href="/showcontribuable" class="pl-4">Contribuables</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-centre" class="pl-4">Centres</a>
+                                        <a href="/showcentre" class="pl-4">Centres</a>
                                     </li>
                                     <li class="">
-                                        <a href="/enregistrer-emplacement-machines" class="pl-4">Emplacement des Machines</a>
+                                        <a href="/showemplacementmachines" class="pl-4">Emplacement des Machines</a>
                                     </li>
                                 </ul>
                             </li>
@@ -162,7 +162,7 @@
                 <div class="container-fluid">
                     <div class="mx-sm-1 py-3">
                         <div class="row"><h4 class="text-dark">Nouveau Fabricant</h4></div>
-                        <form class="mb-2" action="/save_fabricant" modelAttribute="" method="post">
+                        <form class="mb-2" action="/savefabricant" modelAttribute="" method="post">
                             <div class="row">
                                 <div class=" col-sm-6 mb-3">
                                     <div class=" bg-white border p-3">

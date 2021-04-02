@@ -1,6 +1,6 @@
-package com.emcef.model.Contribuable;
+package com.emcef.model;
 
-import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contribuable")
-public class Contribuables {
+public class Contribuable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int _id;
