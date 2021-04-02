@@ -5,16 +5,15 @@
  */
 package com.emcef.repository;
 
+import com.emcef.model.Fabricant;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.emcef.model.Contribuable;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Holy
  */
-
 @Repository
-public interface ContribuableRepository extends JpaRepository<Contribuable, Integer> {
+public interface FabricantRepository extends JpaRepository<Fabricant, Integer> {
     
 }

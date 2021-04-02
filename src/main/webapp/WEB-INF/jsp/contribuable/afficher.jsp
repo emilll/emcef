@@ -160,115 +160,50 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Contribuable</h4></div>
-                        <s:form class="mb-2" action="/savecontribuable" modelAttribute="contribuable" method="post">
-                            <div class="row">
-                                <div class=" col-sm-6 mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                            <div class="row">
-                                                <div>
-                                                    <s:input id="heure" path="date_heure" type="hidden" />
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="ifu" placeholder="Numéro IFU"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="rccm" placeholder="RCCM"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse2" placeholder="Adresse 2"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse3" placeholder="Adresse 3"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse4" placeholder="Adresse 4"/>
-                                                </div>
-                                                <div >
-                                                    <s:input id="date" class="form-control style_form_control" path="date_enregistrement"  type="hidden"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="id_activite" placeholder="Id Activité"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class=" py-3">
+                        <div class="row mt">
+                            <div class="col-md-12">
+                                <div class="content-panel">
+                                    <table class="table table-striped table-advance table-hover">
+                                        <h4><i class="fa fa-angle-right"></i>Contribuables</h4>
+                                        <hr>
+                                        <a class="btn btn-primary btn-xs" style="margin-left: 20px" href="/savecontribuable">Ajouter un contribuable</a><hr>
+                                        <thead>
+                                            <tr>
+                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Nom & Prénom(s)</th>
+                                                <th><i class="fa fa-bookmark"></i> Email </th>
+                                                <th><i class=" fa fa-edit"></i> IFU</th>
+                                                <th><i class=" fa fa-edit"></i> Ville</th>
+                                                <th><i class=" fa fa-edit"></i> Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="contribuable" items="${contribuable}">
+                                                <tr>
+                                                    <td><c:out value="${contribuable.nom}"/></td>
+                                                    <td><c:out value="${contribuable.email}"/></td>
+                                                    <td><c:out value="${contribuable.ifu}"/></td>
+                                                    <td><c:out value="${contribuable.ville}"/></td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-xs" href="/modifiercontribuable/<c:out value='${contribuable.id}'/>"><i class="fa fa-pencil"></i>Modifier</a>
+                                                        <br><code>  </code><br>
+                                                        <a class="btn btn-danger btn-xs" href="/deletecontribuable/<c:out value='${contribuable.id}'/>"><i class="fa fa-trash-o "></i>Supprimer</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                                <div class=" col-sm-6 mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                            <div class="row">
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom et prénom"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="contact_personnel" placeholder="Numéro Personnel"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="description_location" placeholder="Domicile"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="telephone" placeholder="N° Téléphone"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="zip" placeholder="Code Zip"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="email" placeholder="E-Mail"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Ville</small></label>
-                                                    <s:select class="form-control style_form_control" path="ville">
-                                                        <option>Cotonou</option>
-                                                        <option>Bohicon</option>
-                                                        <option>Abomey-Calavi</option>
-                                                    </s:select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- /content-panel -->
                             </div>
-                            <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3" type="submit" onclick="setThen()">Enregistrer le Contribuable</button>
-                            </div>
-                        </s:form>
+                            <!-- /col-md-12 -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <script>
-            function setThen(){
-                var today = new Date();
-                var h = today.getHours();
-                var m = today.getMinutes();
-                var s = today.getSeconds();
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById('heure').value = h + ":" + m + ":" + s;
-                
-                var ladate = new Date();
-                var d = ladate.getDay();
-                var mm = ladate.getMonth();
-                var y = ladate.getFullYear();
-                document.getElementById('date').value = d + "/" + mm + "/" + y;
-            }
-            
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i
-                }
-                ;  // add zero in front of numbers < 10
-                return i;
-            }
 
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
@@ -436,3 +371,4 @@
     </script>
 </body>
 </html>
+

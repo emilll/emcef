@@ -161,42 +161,21 @@
 
                 <div class="container-fluid">
                     <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Contribuable</h4></div>
-                        <s:form class="mb-2" action="/savecontribuable" modelAttribute="contribuable" method="post">
+                        <div class="row"><h4 class="text-dark">Nouveau Fabricant</h4></div>
+                        <s:form class="mb-2" action="/savefabricant" modelAttribute="fabricant" method="post">
                             <div class="row">
                                 <div class=" col-sm-6 mb-3">
                                     <div class=" bg-white border p-3">
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
-                                                <div>
-                                                    <s:input id="heure" path="date_heure" type="hidden" />
-                                                </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="ifu" placeholder="Numéro IFU"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom & Prénom"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="rccm" placeholder="RCCM"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="pays" placeholder="Pays"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
                                                     <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse2" placeholder="Adresse 2"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse3" placeholder="Adresse 3"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse4" placeholder="Adresse 4"/>
-                                                </div>
-                                                <div >
-                                                    <s:input id="date" class="form-control style_form_control" path="date_enregistrement"  type="hidden"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="id_activite" placeholder="Id Activité"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -207,30 +186,10 @@
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom et prénom"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="contact_tel" placeholder="Numéro de Téléphone"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="contact_personnel" placeholder="Numéro Personnel"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="description_location" placeholder="Domicile"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="telephone" placeholder="N° Téléphone"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="zip" placeholder="Code Zip"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="email" placeholder="E-Mail"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Ville</small></label>
-                                                    <s:select class="form-control style_form_control" path="ville">
-                                                        <option>Cotonou</option>
-                                                        <option>Bohicon</option>
-                                                        <option>Abomey-Calavi</option>
-                                                    </s:select>
+                                                    <s:input type="text" class="form-control style_form_control" path="contact_email" placeholder="E-Mail"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,7 +197,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3" type="submit" onclick="setThen()">Enregistrer le Contribuable</button>
+                                <button class="btn btn-block btn-danger mt-3" type="submit" >Enregistrer le Fabricant</button>
                             </div>
                         </s:form>
                     </div>

@@ -7,23 +7,23 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="../assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
+        <link href="../assets/css/animate.css" rel="stylesheet">
+        <link href="../assets/css/style.css" rel="stylesheet">
+        <link href="../assets/css/all.min.css" rel="stylesheet">
+        <link href="../assets/css/aos.css" rel="stylesheet">
+        <link href="../assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+        <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="../assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="../assets/js/aos.js"></script>
+        <script src="../assets/js/Chart.min.js"></script>
     </head>
 
     <body>
@@ -36,7 +36,7 @@
                             <div class="media style_sousmenu_toggle pl-4 py-3">
                                 <div class="mr-3">
                                     <a class="" href="#">
-                                        <img src="assets/img/profilMan.jpg" width="50" height="50" class="img-fluid rounded-lg border" alt="...">
+                                        <img src="../assets/img/profilMan.jpg" width="50" height="50" class="img-fluid rounded-lg border" alt="...">
                                     </a>
                                 </div>
                                 <div class="media-body my-0">
@@ -104,8 +104,8 @@
                             <button class="text-success bg-light border-0 mr-sm-3" type="button" id="menu-toggle">
                                 <i class="fa fa-align-justify"></i>
                             </button>
-                            <a class="" href="index.html">
-                                <img src="assets/img/logo.png" width="100" class="img-fluid" alt="logo">
+                            <a class="" href="/">
+                                <img src="../assets/img/logo.png" width="100" class="img-fluid" alt="logo">
                             </a>
                         </div>
 
@@ -161,42 +161,24 @@
 
                 <div class="container-fluid">
                     <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Contribuable</h4></div>
-                        <s:form class="mb-2" action="/savecontribuable" modelAttribute="contribuable" method="post">
+                        <div class="row"><h4 class="text-dark">Modification de Fabricant</h4></div>
+                        <s:form class="mb-2" action="/savefabricant" modelAttribute="fabricant" method="post">
                             <div class="row">
                                 <div class=" col-sm-6 mb-3">
                                     <div class=" bg-white border p-3">
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div>
-                                                    <s:input id="heure" path="date_heure" type="hidden" />
+                                                    <s:input path="id" type="hidden" />
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="ifu" placeholder="Numéro IFU"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom & Prénom"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="rccm" placeholder="RCCM"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="pays" placeholder="Pays"/>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
                                                     <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse2" placeholder="Adresse 2"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse3" placeholder="Adresse 3"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse4" placeholder="Adresse 4"/>
-                                                </div>
-                                                <div >
-                                                    <s:input id="date" class="form-control style_form_control" path="date_enregistrement"  type="hidden"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="id_activite" placeholder="Id Activité"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -207,30 +189,10 @@
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom et prénom"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="contact_tel" placeholder="Numéro de Téléphone"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="contact_personnel" placeholder="Numéro Personnel"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="description_location" placeholder="Domicile"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="telephone" placeholder="N° Téléphone"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="zip" placeholder="Code Zip"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="email" placeholder="E-Mail"/>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Ville</small></label>
-                                                    <s:select class="form-control style_form_control" path="ville">
-                                                        <option>Cotonou</option>
-                                                        <option>Bohicon</option>
-                                                        <option>Abomey-Calavi</option>
-                                                    </s:select>
+                                                    <s:input type="text" class="form-control style_form_control" path="contact_email" placeholder="E-Mail"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,7 +200,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3" type="submit" onclick="setThen()">Enregistrer le Contribuable</button>
+                                <button class="btn btn-block btn-danger mt-3" type="submit">Modifier le Fabricant</button>
                             </div>
                         </s:form>
                     </div>
@@ -246,29 +208,6 @@
             </div>
         </div>
         <script>
-            function setThen(){
-                var today = new Date();
-                var h = today.getHours();
-                var m = today.getMinutes();
-                var s = today.getSeconds();
-                m = checkTime(m);
-                s = checkTime(s);
-                document.getElementById('heure').value = h + ":" + m + ":" + s;
-                
-                var ladate = new Date();
-                var d = ladate.getDay();
-                var mm = ladate.getMonth();
-                var y = ladate.getFullYear();
-                document.getElementById('date').value = d + "/" + mm + "/" + y;
-            }
-            
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i
-                }
-                ;  // add zero in front of numbers < 10
-                return i;
-            }
 
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
@@ -436,3 +375,4 @@
     </script>
 </body>
 </html>
+
