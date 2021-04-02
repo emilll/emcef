@@ -1,6 +1,6 @@
 package com.emcef.repository;
 
-import com.emcef.model.Modelsmachines;
+import com.emcef.model.Certificatsenregistres;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ModelsmachinesRepository extends JpaRepository<Modelsmachines,Long>{
+public interface CertificatsenregistresRepository extends JpaRepository<Certificatsenregistres,Long>{
 
 }
