@@ -23,7 +23,7 @@ public class MachinesenregistreesService {
     @Autowired
     private MachinesenregistreesRepository machinesenregistreesRepository;
 
-    public List<Machinesenregistrees> getAlltypes() {
+    public List<Machinesenregistrees> getAllMachinesenregistrees() {
         return machinesenregistreesRepository.findAll();
     }
 
