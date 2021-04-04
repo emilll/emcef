@@ -104,7 +104,7 @@
                             <button class="text-success bg-light border-0 mr-sm-3" type="button" id="menu-toggle">
                                 <i class="fa fa-align-justify"></i>
                             </button>
-                            <a class="" href="/">
+                            <a class="" href="index.html">
                                 <img src="assets/img/logo.png" width="100" class="img-fluid" alt="logo">
                             </a>
                         </div>
@@ -160,95 +160,51 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Fabricant</h4></div>
-                        <form class="mb-2" action="/savefabricant" modelAttribute="" method="post">
-                            <div class="row">
-                                <div class=" col-sm-6 mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                            <div class="row">
-                                                <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom et prénom">
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Objet">
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <input type="number" class="form-control style_form_control" name="" placeholder="N° Téléphone">
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <textarea class="form-control style_form_control" name="" placeholder="Message"></textarea>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Tailles de l'entreprise</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>< 5 Employés</option>
-                                                        <option>< 5 Employés</option>
-                                                        <option>< 5 Employés</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class=" py-3">
+                        <div class="row mt">
+                            <div class="col-md-12">
+                                <div class="content-panel">
+                                    <table class="table table-striped table-advance table-hover">
+                                        <h4><i class="fa fa-angle-right"></i>Fabricants</h4>
+                                        <hr>
+                                        <a class="btn btn-primary btn-xs" style="margin-left: 20px" href="/savefabricant">Ajouter un fabricant</a><hr>
+                                        <thead>
+                                            <tr>
+                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Nom & Prénom(s)</th>
+                                                <th><i class="fa fa-bookmark"></i> Pays </th>
+                                                <th><i class=" fa fa-edit"></i>Adresse</th>
+                                                <th><i class=" fa fa-edit"></i>E-Mail</th>
+                                                <th><i class=" fa fa-edit"></i> Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="fabricant" items="${fabricant}">
+                                                <tr>
+                                                    <td><c:out value="${fabricant.nom}"/></td>
+                                                    <td><c:out value="${fabricant.pays}"/></td>
+                                                    <td><c:out value="${fabricant.adresse}"/></td>
+                                                    <td><c:out value="${fabricant.contact_email}"/></td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-xs" href="/modifierfabricant/<c:out value='${fabricant.id}'/>"><i class="fa fa-pencil"></i>Modifier</a>
+                                                        <br><code>  </code><br>
+                                                        <a class="btn btn-danger btn-xs" href="/deletefabricant/<c:out value='${fabricant.id}'/>"><i class="fa fa-trash-o "></i>Supprimer</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                                <div class=" col-sm-6 mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                            <div class="row">
-                                                <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom et prénom">
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <input type="text" class="form-control style_form_control" name="" placeholder="Nom de l'entreprise">
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <input type="number" class="form-control style_form_control" name="" placeholder="N° Téléphone">
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <label class="text-muted"><small>Pays</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Bénin</option>
-                                                        <option>Bénin</option>
-                                                        <option>Bénin</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <label class="text-muted"><small>Langue</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Fraçais</option>
-                                                        <option>Fraçais</option>
-                                                        <option>Fraçais</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-12 form-group">
-                                                    <label class="text-muted"><small>Intérêt</small></label>
-                                                    <select class="form-control style_form_control">
-                                                        <option>Utilisation dan ma société</option>
-                                                        <option>Utilisation dan ma société</option>
-                                                        <option>Utilisation dan ma société</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- /content-panel -->
                             </div>
-                            <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3">Enregistrer le Fabricant</button>
-                            </div>
-                        </form>
+                            <!-- /col-md-12 -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <script>
+
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
@@ -415,3 +371,4 @@
     </script>
 </body>
 </html>
+
