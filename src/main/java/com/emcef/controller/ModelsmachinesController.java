@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author Holy
  */
 @Controller
-public class ModeleController {
+public class ModelsmachinesController {
     @GetMapping("/enregistrer-modeles")
     public String Modeles(Model model){
         //model.addAttribute("people", employeeService.getAllEmployees());
