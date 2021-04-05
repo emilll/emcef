@@ -260,6 +260,5 @@ public class FactureSelonSpecification {
 	@Column(name = "tax_specifique_f")
 	private BigDecimal tax_specifique_f;
 
-	public FactureSelonSpecification() {
-	}
+	
 }

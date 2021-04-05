@@ -86,8 +86,7 @@ public class Fabricant {
         this.contact_email = contact_email;
     }
 
-    public Fabricant() {
-    }
+    
     
     
 }
