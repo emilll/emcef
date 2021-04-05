@@ -14,6 +14,9 @@
         <link rel="stylesheet" type="text/css" href="css/evo-calendar.midnight-blue.css"/>
         <!--Fin Pour la date-->
 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/animate.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
@@ -22,6 +25,7 @@
         <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
         <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
@@ -33,7 +37,7 @@
 
     </head>
 
-    <body>
+    <body onload="getLineData()">
         <div class="d-flex bg-light" id="wrapper">
             <!-- Sidebar -->
             <div class="border-right resto" id="sidebar-wrapper">
@@ -170,70 +174,129 @@
 
                     <div class="container-fluid">
                         <div class="row">
-                            <div class=" col-sm-8 mb-3">
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>150</h3>
+
+                                        <p>Totaux de ce jour</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-android-list"></i>
+                                    </div>
+                                    <p class="small-box-footer">Factures <i class="fas fa-arrow-circle-right"></i></p>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                                        <p>Totaux d'aujourd'hui</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+                                    <p class="small-box-footer">Rapports <i class="fas fa-arrow-circle-right"></i></p>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>44</h3>
+
+                                        <p>Totaux d'aujourd'hui</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pricetag"></i>
+                                    </div>
+                                    <p class="small-box-footer">Montant <i class="fas fa-arrow-circle-right"></i></p>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>65</h3>
+
+                                        <p>Totaux Globaux</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pie-graph"></i>
+                                    </div>
+                                    <p class="small-box-footer">Montant <i class="fas fa-arrow-circle-right"></i></p>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class=" col-sm-6 mb-3">
                                 <div class=" bg-white border p-3">
-                                    <h4 class="text-dark">Line</h4>
+                                    <h4 class="text-dark">Total TTC et TVA</h4>
                                     <div>
                                         <canvas id="myLine" class="w-100"></canvas>
                                     </div>
                                 </div>
                             </div>
-                            <div class=" col-sm-4 mb-3">
-                                <div class="mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <h4 class="text-dark">Point</h4>
-                                        <div>
-                                            <canvas id="myPoint" class="w-100"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <h4 class="text-dark">Pie</h4>
-                                        <div>
-                                            <canvas id="myPie" class="w-100"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-sm-6 mb-3">
+                            <div class="col-sm-6 mb-3">
                                 <div class=" bg-white border p-3">
-                                    <h4 class="text-dark">Bar</h4>
+                                    <h4 class="text-dark">Totaux Globaux</h4>
                                     <div>
                                         <canvas id="myChart" class="w-100"></canvas>
                                     </div>
                                 </div>
                             </div>
-                            <div class=" col-sm-6 mb-3">
-                                <div class=" bg-white border p-3">
-                                    <h4 class="text-dark">Horizontal Bar</h4>
-                                    <div>
-                                        <canvas id="horizontalBar" class="w-100"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-sm-6 mb-3">
-                                <div class=" bg-white border p-3">
-                                    <h4 class="text-dark">Radar</h4>
-                                    <div>
-                                        <canvas id="radar" class="w-100"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-sm-6 mb-3">
-                                <div class=" bg-white border p-3">
-                                    <h4 class="text-dark">polarArea</h4>
-                                    <div>
-                                        <canvas id="polarArea" class="w-100"></canvas>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div id="calendar" class="col-sm-6" style=" width: 550px; float: left"></div>
+                        <br><br>
+                        <div class="card bg-gradient-success col-sm-12">
+                            <div class="card-header border-0">
+
+                                <h3 class="card-title">
+                                    <i class="far fa-calendar-alt"></i>
+                                    Récapitulatif Quotidienne
+                                </h3>
+                                <!-- tools card -->
+                                <div class="card-tools">
+                                    <!-- button with a dropdown -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu">
+                                            <a href="#" class="dropdown-item">Add new event</a>
+                                            <a href="#" class="dropdown-item">Clear events</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="#" class="dropdown-item">View calendar</a>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <!-- /. tools -->
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body pt-0">
+                                <!--The calendar -->
+                                <div id="calendar" style="width: 100%"></div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
             <script>
+                var liste = [0];
                 $("#menu-toggle").click(function (e) {
                     e.preventDefault();
                     $("#wrapper").toggleClass("toggled");
@@ -245,361 +308,97 @@
                 });
 
 
+                async function getLineData() {
+                    const response = await fetch('\json');
+                    var donne = await response.json();
+                    liste = [donne.janvier, donne.fevrier, donne.mars, donne.avril, donne.mai, donne.juin, donne.juillet, donne.aout, donne.septembre, donne.octobre, donne.novembre, donne.decembre];
+                    console.log(liste);
 
-                var ctx = document.getElementById('myLine').getContext('2d');
-                var myLine = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of 1',
-                                data: [12, 19, 3, 5, 2, 3],
-                                fill: false,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: '# of 2',
-                                data: [15, 15, 5, 3, 16, 10],
-                                fill: false,
-                                borderDash: [5, 5],
-                                borderColor: 'rgba(255, 159, 64, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: '# of 2',
-                                data: [3, 8, 5, 10, 2, 7],
-                                backgroundColor: 'rgba(153, 102, 255, 1)',
-                                borderColor: 'rgba(153, 102, 255, 1)',
-                                borderWidth: 1
+                    var ctx = document.getElementById('myLine').getContext('2d');
+                    var myLine = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            datasets: [{
+                                    label: 'Total TTC',
+                                    data: [liste[0], liste[1], liste[2], liste[3], liste[4], liste[5], liste[6], liste[7], liste[8], liste[9], liste[10], liste[11]],
+                                    fill: false,
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Total TVA',
+                                    data: [3, 8, 5, 10, 2, 7, 3, 8, 5, 10, 2, 7],
+                                    backgroundColor: 'rgba(153, 102, 255, 1)',
+                                    borderColor: 'red',
+                                    borderWidth: 1
+                                }
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
                             }
-                        ],
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
                         }
-                    }
-                });
+                    });
 
-                var ctx = document.getElementById('myPoint').getContext('2d');
-                var myPoint = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of 1',
-                                data: [{
-                                        x: 1,
-                                        y: -1.711e-2,
-                                    }, {
-                                        x: 1.26,
-                                        y: -2.708e-2,
-                                    }, {
-                                        x: 1.58,
-                                        y: -4.285e-2,
-                                    }, {
-                                        x: 2.0,
-                                        y: -6.772e-2,
-                                    }, {
-                                        x: 2.51,
-                                        y: -1.068e-1,
-                                    }, {
-                                        x: 3.16,
-                                        y: -1.681e-1,
-                                    }, {
-                                        x: 3.98,
-                                        y: -2.635e-1,
-                                    }, {
-                                        x: 5.01,
-                                        y: -4.106e-1,
-                                    }, {
-                                        x: 6.31,
-                                        y: -6.339e-1,
-                                    }, {
-                                        x: 7.94,
-                                        y: -9.659e-1,
-                                    }, {
-                                        x: 10.00,
-                                        y: -1.445,
-                                    }, {
-                                        x: 12.6,
-                                        y: -2.110,
-                                    }, {
-                                        x: 15.8,
-                                        y: -2.992,
-                                    }, {
-                                        x: 20.0,
-                                        y: -4.102,
-                                    }, {
-                                        x: 25.1,
-                                        y: -5.429,
-                                    }, {
-                                        x: 31.6,
-                                        y: -6.944,
-                                    }, {
-                                        x: 39.8,
-                                        y: -8.607,
-                                    }, {
-                                        x: 50.1,
-                                        y: -1.038e1,
-                                    }, {
-                                        x: 63.1,
-                                        y: -1.223e1,
-                                    }, {
-                                        x: 79.4,
-                                        y: -1.413e1,
-                                    }, {
-                                        x: 100.00,
-                                        y: -1.607e1,
-                                    }, {
-                                        x: 126,
-                                        y: -1.803e1,
-                                    }, {
-                                        x: 158,
-                                        y: -2e1,
-                                    }, {
-                                        x: 200,
-                                        y: -2.199e1,
-                                    }, {
-                                        x: 251,
-                                        y: -2.398e1,
-                                    }, {
-                                        x: 316,
-                                        y: -2.597e1,
-                                    }, {
-                                        x: 398,
-                                        y: -2.797e1,
-                                    }, {
-                                        x: 501,
-                                        y: -2.996e1,
-                                    }, {
-                                        x: 631,
-                                        y: -3.196e1,
-                                    }, {
-                                        x: 794,
-                                        y: -3.396e1,
-                                    }, {
-                                        x: 1000,
-                                        y: -3.596e1,
-                                    }],
-                                fill: false,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            datasets: [{
+                                    data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                        },
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            scales: {
+                                yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
                             }
-                        ],
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    type: 'linear',
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }],
-                            xAxes: [{
-                                    type: 'logarithmic',
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
                         }
-                    }
-                });
-
-                var ctx = document.getElementById('myPie').getContext('2d');
-                var myLine = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
-
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
-
-                var horizontalBar = document.getElementById('horizontalBar');
-                var myChart = new Chart(horizontalBar, {
-                    type: 'horizontalBar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
-
-                var radar = document.getElementById('radar');
-                var myChart = new Chart(radar, {
-                    type: 'radar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
-
-                var polarArea = document.getElementById('polarArea');
-                var myChart = new Chart(polarArea, {
-                    type: 'polarArea',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                        }
-                    }
-                });
+                    });
+                }
+                ;
 
 
 
