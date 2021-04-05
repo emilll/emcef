@@ -21,70 +21,72 @@ import javax.persistence.Table;
 public class Fabricant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int _id;
+    private int id;
     
     @Column(name = "nom")
-    private String _nom;
+    private String nom;
     
     @Column(name = "pays")
-    private String _pays;
+    private String pays;
     
     @Column(name = "adresse")
-    private String _adresse;
+    private String adresse;
     
     @Column(name = "telephone")
-    private String _contact_tel;
+    private String contact_tel;
     
     @Column(name = "email")
-    private String _contact_email;
+    private String contact_email;
 
     public int getId() {
-        return _id;
+        return id;
     }
 
-    public void setId(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
-        return _nom;
+        return nom;
     }
 
-    public void setNom(String _nom) {
-        this._nom = _nom;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getPays() {
-        return _pays;
+        return pays;
     }
 
-    public void setPays(String _pays) {
-        this._pays = _pays;
+    public void setPays(String pays) {
+        this.pays = pays;
     }
 
     public String getAdresse() {
-        return _adresse;
+        return adresse;
     }
 
-    public void setAdresse(String _adresse) {
-        this._adresse = _adresse;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getContact_tel() {
-        return _contact_tel;
+        return contact_tel;
     }
 
-    public void setContact_tel(String _contact_tel) {
-        this._contact_tel = _contact_tel;
+    public void setContact_tel(String contact_tel) {
+        this.contact_tel = contact_tel;
     }
 
     public String getContact_email() {
-        return _contact_email;
+        return contact_email;
     }
 
-    public void setContact_email(String _contact_email) {
-        this._contact_email = _contact_email;
+    public void setContact_email(String contact_email) {
+        this.contact_email = contact_email;
     }
+
+    
     
     
 }

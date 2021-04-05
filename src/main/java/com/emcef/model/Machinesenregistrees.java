@@ -41,16 +41,72 @@ public class Machinesenregistrees {
 	@Column(name = "analyseur")
 	private String analyseur;
 
-    public Machinesenregistrees(Certificatsenregistres certificatsenregistres,
-            Fabriquantapprouvees fabriquantapprouvees, Modelsmachines modelsmachines, Etatmachine etatmachine,
-            Date date_heure, String derniere_version, String commentaire, String analyseur) {
-        this.certificatsenregistres = certificatsenregistres;
-        this.fabriquantapprouvees = fabriquantapprouvees;
-        this.modelsmachines = modelsmachines;
-        this.etatmachine = etatmachine;
-        this.date_heure = date_heure;
-        this.derniere_version = derniere_version;
-        this.commentaire = commentaire;
-        this.analyseur = analyseur;
-    }	
+	public Certificatsenregistres getCertificatsenregistres() {
+		return certificatsenregistres;
+	}
+
+	public void setCertificatsenregistres(Certificatsenregistres certificatsenregistres) {
+		this.certificatsenregistres = certificatsenregistres;
+	}
+
+	public Fabriquantapprouvees getFabriquantapprouvees() {
+		return fabriquantapprouvees;
+	}
+
+	public void setFabriquantapprouvees(Fabriquantapprouvees fabriquantapprouvees) {
+		this.fabriquantapprouvees = fabriquantapprouvees;
+	}
+
+	public Modelsmachines getModelsmachines() {
+		return modelsmachines;
+	}
+
+	public void setModelsmachines(Modelsmachines modelsmachines) {
+		this.modelsmachines = modelsmachines;
+	}
+
+	public Etatmachine getEtatmachine() {
+		return etatmachine;
+	}
+
+	public void setEtatmachine(Etatmachine etatmachine) {
+		this.etatmachine = etatmachine;
+	}
+
+	public Date getDate_heure() {
+		return date_heure;
+	}
+
+	public void setDate_heure(Date date_heure) {
+		this.date_heure = date_heure;
+	}
+
+	public String getDerniere_version() {
+		return derniere_version;
+	}
+
+	public void setDerniere_version(String derniere_version) {
+		this.derniere_version = derniere_version;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+
+	public String getAnalyseur() {
+		return analyseur;
+	}
+
+	public void setAnalyseur(String analyseur) {
+		this.analyseur = analyseur;
+	}
+
+	public Machinesenregistrees() {
+	}
+
+   
 }
