@@ -41,4 +41,7 @@ public class Systeme {
 
 	@Column(name = "active")
 	private boolean active;
+
+	public Systeme() {
+	}
 }

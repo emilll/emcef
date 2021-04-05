@@ -42,5 +42,8 @@ public class Certificatsenregistres {
 
 	@Column(name = "date_revocation")
 	private Date date_revocation;
+
+	public Certificatsenregistres() {
+	}
 	
 }

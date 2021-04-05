@@ -117,6 +117,9 @@ public class Rapportcr {
 	@Column(name = "revision_hw")
 	private String revision_hw;
 
+	public Rapportcr() {
+	}
+
 
 
 

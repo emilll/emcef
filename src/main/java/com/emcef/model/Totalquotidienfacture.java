@@ -136,6 +136,9 @@ public class Totalquotidienfacture {
 	@Column(name = "nr_totaltaxable_d")
 	private BigDecimal nr_totaltaxable_d;
 
+	public Totalquotidienfacture() {
+	}
+
 
 
 	// les getter 

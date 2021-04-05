@@ -105,5 +105,8 @@ public class Machinesenregistrees {
 		this.analyseur = analyseur;
 	}
 
+	public Machinesenregistrees() {
+	}
+
    
 }

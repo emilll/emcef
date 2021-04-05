@@ -58,5 +58,8 @@ public class Typesmachines {
         this.nom = nom;
         this.description = description;
     }
+
+    public Typesmachines() {
+    }
     
 }

@@ -116,5 +116,8 @@ public class Etatmachine {
 		this.afficher_dans_machine_installer = afficher_dans_machine_installer;
 		this.afficher_dans_installation = afficher_dans_installation;
 	}
+
+	public Etatmachine() {
+	}
 	
 }
