@@ -1,10 +1,5 @@
 package com.emcef.model;
 
-
-// <<<<<<< HEAD:src/main/java/com/emcef/model/Contribuable/Contribuables.java
-
-// =======
-// >>>>>>> a1ec80c78514114371ea4e5799274f9baf9d8145:src/main/java/com/emcef/model/Contribuable.java
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -220,4 +215,5 @@ public class Contribuable {
 
     public Contribuable() {
     }
+
 }

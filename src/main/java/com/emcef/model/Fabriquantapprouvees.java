@@ -95,7 +95,6 @@ public class Fabriquantapprouvees {
 		this.email = email;
 	}
 
-	public Fabriquantapprouvees() {
-	}
+	
 
 }
