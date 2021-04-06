@@ -48,8 +48,6 @@ public class Modelsmachines {
     }
 
 
-    public Modelsmachines(String nom, String description) {
-        this.nom = nom;
-    }
+    
     
 }

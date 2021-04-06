@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.emcef.model.Contribuable.Contribuables;
+import com.emcef.model.Contribuable;
 
 @Entity
 @Table(name = "certificatsenregistres")
@@ -23,7 +23,7 @@ public class Certificatsenregistres {
 	Modelsmachines modelsmachines;
 
 	@OneToOne
-	Contribuables contribuables;
+	Contribuable contribuables;
 
 	@Column(name = "version_logiciel")
 	private String version_logiciel;

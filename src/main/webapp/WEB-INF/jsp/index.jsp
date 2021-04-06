@@ -9,6 +9,11 @@
         <link href="assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
+        <!--Pour la date-->
+        <link rel="stylesheet" type="text/css" href="css/evo-calendar.css"/>
+        <link rel="stylesheet" type="text/css" href="css/evo-calendar.midnight-blue.css"/>
+        <!--Fin Pour la date-->
+
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/animate.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
@@ -23,6 +28,9 @@
         <script type="text/javascript" src="assets/js/dynamique.js"></script>
         <script type="text/javascript" src="assets/js/aos.js"></script>
         <script src="assets/js/Chart.min.js"></script>
+
+
+
     </head>
 
     <body>
@@ -158,324 +166,483 @@
                     </div>
                 </nav>
 
-                <div class="container-fluid">
-                    <div class=" py-3">
-                        <div class="row mt">
-                            <div class="col-md-12">
-                                <div class="content-panel">
-                                    <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i>Emplacement</h4>
-                                        <hr>
-                                        <thead>
-                                            <tr>
-                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Nom & Prénom(s)</th>
-                                                <th><i class="fa fa-bookmark"></i> Email </th>
-                                                <th><i class=" fa fa-edit"></i> IFU</th>
-                                                <th><i class=" fa fa-edit"></i> Ville</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="contribuable" items="${contribuable}">
-                                                <tr>
-                                                    <td><c:out value="${contribuable.nom}"/></td>
-                                                    <td><c:out value="${contribuable.email}"/></td>
-                                                    <td><c:out value="${contribuable.ifu}"/></td>
-                                                    <td><c:out value="${contribuable.ville}"/></td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                <div class=" py-3">
 
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class=" col-sm-8 mb-3">
+                                <div class=" bg-white border p-3">
+                                    <h4 class="text-dark">Line</h4>
+                                    <div>
+                                        <canvas id="myLine" class="w-100"></canvas>
+                                    </div>
                                 </div>
-                                <!-- /content-panel -->
                             </div>
-                            <!-- /col-md-12 -->
-                        </div>
-                    </div>
-                    <div class=" py-3">
-                        <div class="row mt">
-                            <div class="col-md-12">
-                                <div class="content-panel">
-                                    <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i>Fabricant</h4>
-                                        <hr>
-                                        <thead>
-                                            <tr>
-                                                <th><i class="fa fa-bullhorn"></i> Prénom(s)</th>
-                                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> Nom</th>
-                                                <th><i class="fa fa-bookmark"></i> Email de l'employé</th>
-                                                <th><i class=" fa fa-edit"></i> Statut</th>
-                                                <th><i class=" fa fa-edit"></i> Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="employe" items="${people}">
-                                                <tr>
-                                                    <td><c:out value="${employe.firstname}"/></td>
-                                                    <td><c:out value="${employe.lastname}"/></td>
-                                                    <td><c:out value="${employe.email}"/></td>
-                                                    <td><span class="label label-info label-mini">Actif</span></td>
-                                                    <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifier/<c:out value='${employe.ID}'/>"><i class="fa fa-pencil"></i></a>
-                                                        <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/delete/<c:out value='${employe.ID}'/>"><i class="fa fa-trash-o "></i></a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-
+                            <div class=" col-sm-4 mb-3">
+                                <div class="mb-3">
+                                    <div class=" bg-white border p-3">
+                                        <h4 class="text-dark">Point</h4>
+                                        <div>
+                                            <canvas id="myPoint" class="w-100"></canvas>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /content-panel -->
-                            </div>
-                            <!-- /col-md-12 -->
-                        </div>
-                    </div>
-                    <div class=" py-3">
-                        <div class="row mt">
-                            <div class="col-md-12">
-                                <div class="content-panel">
-                                    <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i> Machines</h4>
-                                        <hr>
-                                        <thead>
-                                            <tr>
-                                                <th><i class="fa fa-bullhorn"></i> Prénom(s)</th>
-                                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> Nom</th>
-                                                <th><i class="fa fa-bookmark"></i> Email de l'employé</th>
-                                                <th><i class=" fa fa-edit"></i> Statut</th>
-                                                <th><i class=" fa fa-edit"></i> Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="employe" items="${people}">
-                                                <tr>
-                                                    <td><c:out value="${employe.firstname}"/></td>
-                                                    <td><c:out value="${employe.lastname}"/></td>
-                                                    <td><c:out value="${employe.email}"/></td>
-                                                    <td><span class="label label-info label-mini">Actif</span></td>
-                                                    <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifier/<c:out value='${employe.ID}'/>"><i class="fa fa-pencil"></i></a>
-                                                        <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/delete/<c:out value='${employe.ID}'/>"><i class="fa fa-trash-o "></i></a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-
+                                <div class="mb-3">
+                                    <div class=" bg-white border p-3">
+                                        <h4 class="text-dark">Pie</h4>
+                                        <div>
+                                            <canvas id="myPie" class="w-100"></canvas>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /content-panel -->
                             </div>
-                            <!-- /col-md-12 -->
-                        </div>
-                    </div>
-                    <div class=" py-3">
-                        <div class="row mt">
-                            <div class="col-md-12">
-                                <div class="content-panel">
-                                    <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i>Modèles</h4>
-                                        <hr>
-                                        <thead>
-                                            <tr>
-                                                <th><i class="fa fa-bullhorn"></i> Prénom(s)</th>
-                                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> Nom</th>
-                                                <th><i class="fa fa-bookmark"></i> Email de l'employé</th>
-                                                <th><i class=" fa fa-edit"></i> Statut</th>
-                                                <th><i class=" fa fa-edit"></i> Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="employe" items="${people}">
-                                                <tr>
-                                                    <td><c:out value="${employe.firstname}"/></td>
-                                                    <td><c:out value="${employe.lastname}"/></td>
-                                                    <td><c:out value="${employe.email}"/></td>
-                                                    <td><span class="label label-info label-mini">Actif</span></td>
-                                                    <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifier/<c:out value='${employe.ID}'/>"><i class="fa fa-pencil"></i></a>
-                                                        <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/delete/<c:out value='${employe.ID}'/>"><i class="fa fa-trash-o "></i></a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-
+                            <div class=" col-sm-6 mb-3">
+                                <div class=" bg-white border p-3">
+                                    <h4 class="text-dark">Bar</h4>
+                                    <div>
+                                        <canvas id="myChart" class="w-100"></canvas>
+                                    </div>
                                 </div>
-                                <!-- /content-panel -->
                             </div>
-                            <!-- /col-md-12 -->
+                            <div class=" col-sm-6 mb-3">
+                                <div class=" bg-white border p-3">
+                                    <h4 class="text-dark">Horizontal Bar</h4>
+                                    <div>
+                                        <canvas id="horizontalBar" class="w-100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-sm-6 mb-3">
+                                <div class=" bg-white border p-3">
+                                    <h4 class="text-dark">Radar</h4>
+                                    <div>
+                                        <canvas id="radar" class="w-100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-sm-6 mb-3">
+                                <div class=" bg-white border p-3">
+                                    <h4 class="text-dark">polarArea</h4>
+                                    <div>
+                                        <canvas id="polarArea" class="w-100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div id="calendar" class="col-sm-6" style=" width: 550px; float: left"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script>
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
+            <script>
+                $("#menu-toggle").click(function (e) {
+                    e.preventDefault();
+                    $("#wrapper").toggleClass("toggled");
+                });
 
-            $(".style_dropdown_toggle, .style_sousmenu_toggle").click(function (e) {
-                e.preventDefault();
-                $(this).parent().toggleClass("style_toggled");
-            });
+                $(".style_dropdown_toggle, .style_sousmenu_toggle").click(function (e) {
+                    e.preventDefault();
+                    $(this).parent().toggleClass("style_toggled");
+                });
 
-            var ctx = document.getElementById('myChart');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+
+
+                var ctx = document.getElementById('myLine').getContext('2d');
+                var myLine = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of 1',
+                                data: [12, 19, 3, 5, 2, 3],
+                                fill: false,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: '# of 2',
+                                data: [15, 15, 5, 3, 16, 10],
+                                fill: false,
+                                borderDash: [5, 5],
+                                borderColor: 'rgba(255, 159, 64, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: '# of 2',
+                                data: [3, 8, 5, 10, 2, 7],
+                                backgroundColor: 'rgba(153, 102, 255, 1)',
+                                borderColor: 'rgba(153, 102, 255, 1)',
+                                borderWidth: 1
+                            }
+                        ],
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
                     }
-                }
-            });
+                });
 
-            var horizontalBar = document.getElementById('horizontalBar');
-            var myChart = new Chart(horizontalBar, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+                var ctx = document.getElementById('myPoint').getContext('2d');
+                var myPoint = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of 1',
+                                data: [{
+                                        x: 1,
+                                        y: -1.711e-2,
+                                    }, {
+                                        x: 1.26,
+                                        y: -2.708e-2,
+                                    }, {
+                                        x: 1.58,
+                                        y: -4.285e-2,
+                                    }, {
+                                        x: 2.0,
+                                        y: -6.772e-2,
+                                    }, {
+                                        x: 2.51,
+                                        y: -1.068e-1,
+                                    }, {
+                                        x: 3.16,
+                                        y: -1.681e-1,
+                                    }, {
+                                        x: 3.98,
+                                        y: -2.635e-1,
+                                    }, {
+                                        x: 5.01,
+                                        y: -4.106e-1,
+                                    }, {
+                                        x: 6.31,
+                                        y: -6.339e-1,
+                                    }, {
+                                        x: 7.94,
+                                        y: -9.659e-1,
+                                    }, {
+                                        x: 10.00,
+                                        y: -1.445,
+                                    }, {
+                                        x: 12.6,
+                                        y: -2.110,
+                                    }, {
+                                        x: 15.8,
+                                        y: -2.992,
+                                    }, {
+                                        x: 20.0,
+                                        y: -4.102,
+                                    }, {
+                                        x: 25.1,
+                                        y: -5.429,
+                                    }, {
+                                        x: 31.6,
+                                        y: -6.944,
+                                    }, {
+                                        x: 39.8,
+                                        y: -8.607,
+                                    }, {
+                                        x: 50.1,
+                                        y: -1.038e1,
+                                    }, {
+                                        x: 63.1,
+                                        y: -1.223e1,
+                                    }, {
+                                        x: 79.4,
+                                        y: -1.413e1,
+                                    }, {
+                                        x: 100.00,
+                                        y: -1.607e1,
+                                    }, {
+                                        x: 126,
+                                        y: -1.803e1,
+                                    }, {
+                                        x: 158,
+                                        y: -2e1,
+                                    }, {
+                                        x: 200,
+                                        y: -2.199e1,
+                                    }, {
+                                        x: 251,
+                                        y: -2.398e1,
+                                    }, {
+                                        x: 316,
+                                        y: -2.597e1,
+                                    }, {
+                                        x: 398,
+                                        y: -2.797e1,
+                                    }, {
+                                        x: 501,
+                                        y: -2.996e1,
+                                    }, {
+                                        x: 631,
+                                        y: -3.196e1,
+                                    }, {
+                                        x: 794,
+                                        y: -3.396e1,
+                                    }, {
+                                        x: 1000,
+                                        y: -3.596e1,
+                                    }],
+                                fill: false,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }
+                        ],
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    type: 'linear',
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                            xAxes: [{
+                                    type: 'logarithmic',
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
                     }
-                }
-            });
+                });
 
-            var radar = document.getElementById('radar');
-            var myChart = new Chart(radar, {
-                type: 'radar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
+                var ctx = document.getElementById('myPie').getContext('2d');
+                var myLine = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
                             }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
                     }
-                }
-            });
+                });
 
-            var polarArea = document.getElementById('polarArea');
-            var myChart = new Chart(polarArea, {
-                type: 'polarArea',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
                             }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
                     }
-                }
-            });
+                });
 
-        </script>
-    </script>
-</body>
+                var horizontalBar = document.getElementById('horizontalBar');
+                var myChart = new Chart(horizontalBar, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
+                    }
+                });
+
+                var radar = document.getElementById('radar');
+                var myChart = new Chart(radar, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
+                    }
+                });
+
+                var polarArea = document.getElementById('polarArea');
+                var myChart = new Chart(polarArea, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
+                    }
+                });
+
+
+
+
+                $(document).ready(function () {
+                    $('#calendar').evoCalendar({
+                        theme: 'Midnight Blue',
+                        'language': 'fr',
+                        todayHighlight: true,
+                        'eventListToggler': false
+                    });
+                    var terre = [
+                        {
+                            id: 'kNybja6',
+                            name: 'Bien',
+                            date: 'March 27, 2021',
+                            type: 'birthday',
+                            everyYear: true // optional
+                        },
+                        {
+                            id: 'kNybja6',
+                            name: 'Ok',
+                            date: 'March 27, 2021',
+                            type: 'birthday',
+                            everyYear: true // optional
+                        },
+                        {
+                            id: 'asDf87L',
+                            name: 'Graduation Day!',
+                            date: 'March 21, 2021',
+                            type: 'event'
+                        }
+                    ];
+                    $('#calendar').evoCalendar('addCalendarEvent', terre);
+                    $('#calendar').evoCalendar('toggleEventList', false);
+                    $('#calendar').on('selectDate', function (event, newDate, oldDate) {
+                        var active_date = $('#calendar').evoCalendar('getActiveDate');
+                        alert(active_date);
+                    });
+                });
+
+
+            </script>
+            <script src="js/evo-calendar.js"></script>
+    </body>
 </html>

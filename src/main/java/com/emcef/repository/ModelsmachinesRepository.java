@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ModelsmachinesRepository extends JpaRepository<Modelsmachines,Long>{
+public interface ModelsmachinesRepository extends JpaRepository<Modelsmachines, Integer>{
 
 }

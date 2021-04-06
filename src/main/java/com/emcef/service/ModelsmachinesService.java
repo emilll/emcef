@@ -31,7 +31,7 @@ public class ModelsmachinesService {
         this.typesmachinesRepository.save(typesmachines);
     }
 
-    public Modelsmachines getModelsmachinesById(Long id) {
+    public Modelsmachines getModelsmachinesById(int id) {
         Optional<Modelsmachines> optional = typesmachinesRepository.findById(id);
         Modelsmachines typesmachines = null;
         if (optional.isPresent()) {
@@ -44,7 +44,7 @@ public class ModelsmachinesService {
     }
 
 
-    public Modelsmachines supModelsmachinesById(Long id) {
+    public Modelsmachines deleteModelsmachinesById(int id) {
 
         Optional<Modelsmachines> optional = typesmachinesRepository.findById(id);
         Modelsmachines typesmachines = null;
