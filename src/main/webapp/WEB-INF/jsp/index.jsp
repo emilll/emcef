@@ -178,7 +178,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3>150</h3>
+                                        <h3 id="factures">0</h3>
 
                                         <p>Totaux de ce jour</p>
                                     </div>
@@ -193,7 +193,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                        <h3 id="rapports">0</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -208,7 +208,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-warning">
                                     <div class="inner">
-                                        <h3>44</h3>
+                                        <h3 id="montant1">0</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -223,7 +223,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3 id="montant2">0</h3>
 
                                         <p>Totaux Globaux</p>
                                     </div>
@@ -263,26 +263,6 @@
                                     Récapitulatif Quotidienne
                                 </h3>
                                 <!-- tools card -->
-                                <div class="card-tools">
-                                    <!-- button with a dropdown -->
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                                            <i class="fas fa-bars"></i>
-                                        </button>
-                                        <div class="dropdown-menu" role="menu">
-                                            <a href="#" class="dropdown-item">Add new event</a>
-                                            <a href="#" class="dropdown-item">Clear events</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item">View calendar</a>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
                                 <!-- /. tools -->
                             </div>
                             <!-- /.card-header -->
@@ -293,152 +273,88 @@
                             <!-- /.card-body -->
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <script src="assets/js/reglo.js"></script>
             <script>
-                var liste = [0];
-                $("#menu-toggle").click(function (e) {
-                    e.preventDefault();
-                    $("#wrapper").toggleClass("toggled");
-                });
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
 
-                $(".style_dropdown_toggle, .style_sousmenu_toggle").click(function (e) {
-                    e.preventDefault();
-                    $(this).parent().toggleClass("style_toggled");
-                });
+        $(".style_dropdown_toggle, .style_sousmenu_toggle").click(function (e) {
+            e.preventDefault();
+            $(this).parent().toggleClass("style_toggled");
+        });
 
 
-                async function getLineData() {
-                    const response = await fetch('\json');
-                    var donne = await response.json();
-                    liste = [donne.janvier, donne.fevrier, donne.mars, donne.avril, donne.mai, donne.juin, donne.juillet, donne.aout, donne.septembre, donne.octobre, donne.novembre, donne.decembre];
-                    console.log(liste);
 
-                    var ctx = document.getElementById('myLine').getContext('2d');
-                    var myLine = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-                            datasets: [{
-                                    label: 'Total TTC',
-                                    data: [liste[0], liste[1], liste[2], liste[3], liste[4], liste[5], liste[6], liste[7], liste[8], liste[9], liste[10], liste[11]],
-                                    fill: false,
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 2
-                                },
-                                {
-                                    label: 'Total TVA',
-                                    data: [3, 8, 5, 10, 2, 7, 3, 8, 5, 10, 2, 7],
-                                    backgroundColor: 'rgba(153, 102, 255, 1)',
-                                    borderColor: 'red',
-                                    borderWidth: 1
-                                }
-                            ],
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                            }
-                        }
-                    });
 
-                    var ctx = document.getElementById('myChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-                            datasets: [{
-                                    data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                        },
-                        options: {
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                            }
-                        }
-                    });
+        $(document).ready(function () {
+            $('#calendar').evoCalendar({
+                theme: 'Midnight Blue',
+                'language': 'fr',
+                todayHighlight: true,
+                'eventListToggler': false
+            });
+            var terre = [
+                {
+                    id: 'kNybja6',
+                    name: 'Bien',
+                    date: 'March 27, 2021',
+                    type: 'birthday',
+                    everyYear: true // optional
+                },
+                {
+                    id: 'kNybja6',
+                    name: 'Ok',
+                    date: 'March 27, 2021',
+                    type: 'birthday',
+                    everyYear: true // optional
+                },
+                {
+                    id: 'asDf87L',
+                    name: 'Graduation Day!',
+                    date: 'March 21, 2021',
+                    type: 'event'
                 }
-                ;
+            ];
+            $('#calendar').evoCalendar('addCalendarEvent', terre);
+            $('#calendar').evoCalendar('toggleEventList', false);
+            $('#calendar').on('selectDate', function (event, newDate, oldDate) {
+                var today = new Date($('#calendar').evoCalendar('getActiveDate'));
+                var options = {year: 'numeric', month: 'long', day: 'numeric'};
+                var opt_weekday = {weekday: 'long'};
+                function toTitleCase(str) {
+                    return str.replace(
+                            /\w\S*/g,
+                            function (txt) {
+                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                            }
+                    );
+                }
 
-
-
-
-                $(document).ready(function () {
-                    $('#calendar').evoCalendar({
-                        theme: 'Midnight Blue',
-                        'language': 'fr',
-                        todayHighlight: true,
-                        'eventListToggler': false
-                    });
-                    var terre = [
-                        {
-                            id: 'kNybja6',
-                            name: 'Bien',
-                            date: 'March 27, 2021',
-                            type: 'birthday',
-                            everyYear: true // optional
-                        },
-                        {
-                            id: 'kNybja6',
-                            name: 'Ok',
-                            date: 'March 27, 2021',
-                            type: 'birthday',
-                            everyYear: true // optional
-                        },
-                        {
-                            id: 'asDf87L',
-                            name: 'Graduation Day!',
-                            date: 'March 21, 2021',
-                            type: 'event'
-                        }
-                    ];
-                    $('#calendar').evoCalendar('addCalendarEvent', terre);
-                    $('#calendar').evoCalendar('toggleEventList', false);
-                    $('#calendar').on('selectDate', function (event, newDate, oldDate) {
-                        var active_date = $('#calendar').evoCalendar('getActiveDate');
-                        alert(active_date);
-                    });
-                });
+                var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
+                var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
+                Swal.fire({
+                    icon: 'info',
+                    title: the_date,
+                    html:
+                            '<b>53</b> Rapports<br> ' +
+                            '<b>72</b> Factures<br> ' +
+                            '<b>18000</b> FCFA TTC<br>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    hideClass: {
+                        popup: 'swal2-hide',
+                        backdrop: 'swal2-backdrop-hide',
+                        icon: 'swal2-icon-hide'
+                    }
+                })
+            });
+        });
 
 
             </script>
