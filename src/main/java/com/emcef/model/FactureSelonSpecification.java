@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class FactureSelonSpecification {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@Column(name = "dateheure")
 	private Date date_time;

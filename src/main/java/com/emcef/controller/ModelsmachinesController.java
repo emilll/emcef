@@ -5,9 +5,15 @@
  */
 package com.emcef.controller;
 
+import com.emcef.model.Modelsmachines;
+import com.emcef.service.ModelsmachinesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -15,9 +21,38 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class ModelsmachinesController {
-    @GetMapping("/enregistrer-modeles")
-    public String Modeles(Model model){
-        //model.addAttribute("people", employeeService.getAllEmployees());
-        return "modele";
+    @Autowired
+    ModelsmachinesService modeleService;
+
+    @GetMapping("/savemodele")
+    public String Contribuable(Model model) {
+       Modelsmachines modele = new Modelsmachines();
+        model.addAttribute("modele", modele);
+        return "modele/ajouter";
+    }
+    
+    @GetMapping("/showmodeles")
+    public String show(Model model){
+    model.addAttribute("modele", modeleService.getAlltypes());
+    return "modele/afficher";
+    }
+    
+    @PostMapping("/savemodele")
+    public String SaveContribuable(@ModelAttribute("modele") Modelsmachines modele) {
+        modeleService.saveModelsmachines(modele);
+        return "redirect:/showmodele";
+    }
+    
+    @GetMapping("/modifiermodele/{id}")
+    public String viewPage(@PathVariable(value = "id") int id, Model model){
+        Modelsmachines modele = modeleService.getModelsmachinesById(id);
+        model.addAttribute("modele", modele);
+        return "modele/modifier";
+    }
+    
+    @GetMapping("/deletemodele/{id}")
+    public String delete(@PathVariable(value = "id") int id, Model model){
+        this.modeleService.deleteModelsmachinesById(id);
+        return "redirect:/showmodeles";
     }
 }
