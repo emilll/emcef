@@ -67,9 +67,4 @@ public class ContribuableController {
         this.contribuableService.deleteContribuableById(id);
         return "redirect:/showcontribuable";
     }
-
-    @GetMapping("/test2")
-    public void getTotal(){
-        factureService.totalf();
-    }
 }
