@@ -7,6 +7,8 @@ package com.emcef.controller;
 
 import com.emcef.model.Contribuable;
 import com.emcef.service.ContribuableService;
+import com.emcef.service.FactureService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ public class ContribuableController {
 
     @Autowired
     ContribuableService contribuableService;
+
+    @Autowired
+    FactureService factureService;
 
     @GetMapping("/")
     public String Accueil(Model model) {
@@ -61,5 +66,10 @@ public class ContribuableController {
     public String delete(@PathVariable(value = "id") int id, Model model){
         this.contribuableService.deleteContribuableById(id);
         return "redirect:/showcontribuable";
+    }
+
+    @GetMapping("/test2")
+    public void getTotal(){
+        factureService.totalf();
     }
 }

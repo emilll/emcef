@@ -4,36 +4,80 @@
  * and open the template in the editor.
  */
 package com.emcef.restcontroller;
+import com.emcef.service.FactureService;
 
-
-
-import com.emcef.model.FactureSelonSpecification;
-import com.emcef.repository.FactureSelonSpecificationRepository;
-import com.emcef.service.Autowired;
-import com.emcef.service.FactureSelonSpecificationService;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
+/**
+ *
+ * @author Em
+ */
 @RestController
 @RequestMapping("/api")
 public class TableaudeBordController {
-    @Autowired
-    FactureSelonSpecificationService factureService;
 
-    FactureSelonSpecificationRepository f;
+    @Autowired
+    FactureService factureService;
 
     @GetMapping("/totalttc")
-    public FactureSelonSpecification totalttc() {
-    //    System.out.println("le total  : "+f.getTotalTTC());
-        return null;
+    public Double getTotalTTC() {
+        return factureService.totalTTC();
     }
 
-    @GetMapping("/countfacture")
+    @GetMapping("/totaltva")
+    public Double getTotalTVA() {
+        return factureService.totalTVA();
+    }
+
+    @GetMapping("/nbrfacture")
     public long countfacture() {
         return factureService.countfacture();
     }
+
+    // @GetMapping("/")
+    // public String Accueil(Model model) {
+    // model.addAttribute("facture",
+    // factureService.getAllFactureSelonSpecification());
+    // return "index";
+    // }
+
+    // @GetMapping("/savefacture")
+    // public String FactureSelonSpecification(Model model) {
+    // FactureSelonSpecification facture = new FactureSelonSpecification();
+    // model.addAttribute("facture", facture);
+    // return "facture/ajouter";
+    // }
+
+    // @GetMapping("/showfacture")
+    // public String show(Model model){
+    // model.addAttribute("facture",
+    // factureService.getAllFactureSelonSpecification());
+    // return "facture/afficher";
+    // }
+
+    // @PostMapping("/savefacture")
+    // public String SaveFactureSelonSpecification(@ModelAttribute("facture")
+    // FactureSelonSpecification facture) {
+    // factureService.saveFactureSelonSpecification(facture);
+    // return "redirect:/showfacture";
+    // }
+
+    // @GetMapping("/modifierfacture/{id}")
+    // public String viewPage(@PathVariable(value = "id") Long id, Model model){
+    // FactureSelonSpecification facture =
+    // factureService.getFactureSelonSpecificationById(id);
+    // model.addAttribute("facture", facture);
+    // return "facture/modifier";
+    // }
+
+    // @GetMapping("/deletefacture/{id}")
+    // public String delete(@PathVariable(value = "id") Long id, Model model){
+    // this.factureService.deleteFactureSelonSpecificationById(id);
+    // return "redirect:/showfacture";
+    // }
+
 }

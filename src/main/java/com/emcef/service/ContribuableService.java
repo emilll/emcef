@@ -43,4 +43,6 @@ public class ContribuableService {
     public void deleteContribuableById(int id){
         this.contribuableRepository.deleteById(id);
     }
+
+    
 }

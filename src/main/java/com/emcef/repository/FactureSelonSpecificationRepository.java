@@ -1,8 +1,5 @@
 package com.emcef.repository;
 
-
-
-
 import com.emcef.model.FactureSelonSpecification;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,11 +20,14 @@ public interface FactureSelonSpecificationRepository extends JpaRepository<Factu
     //  @Query(value = "SELECT * FROM factureselonspecifiaction")
      
     @Query(value = "SELECT count(*) FROM factureselonspecifiaction n",nativeQuery = true)
-    long countFact();
+    long nbrFact();
 
 
     @Query(value = "SELECT sum(total) as totalTTC , sum(total_taxable) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
-    FactureSelonSpecification getTotalTTC();
+    Double getTotalTTC();
+
+    @Query(value = "SELECT sum(total_taxable) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
+    Double getTotalTVA();
 
     
 
