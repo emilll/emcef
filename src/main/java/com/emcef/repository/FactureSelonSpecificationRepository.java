@@ -26,7 +26,7 @@ public interface FactureSelonSpecificationRepository extends JpaRepository<Factu
     @Query(value = "SELECT sum(total) as totalTTC , sum(total_taxable) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
     Double getTotalTTC();
 
-    @Query(value = "SELECT sum(total_taxable) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
+    @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
     Double getTotalTVA();
 
     
