@@ -20,4 +20,13 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
 
     @Query(value="SELECT count(*) FROM factureselonspecification WHERE dateheure = ?1", nativeQuery=true)
     int TotalFactureToday(Date date);
+
+    @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification WHERE dateheure = ?1",nativeQuery = true)
+    Double getTotalTTC(Date date);
+
+    @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecification WHERE dateheure = ?1",nativeQuery = true)
+    Double getTotalTVA(Date date);
+    
+    @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
+    Double TotalMonthTTC(int year, int month);
 }

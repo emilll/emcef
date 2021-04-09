@@ -5,10 +5,7 @@
  */
 package com.emcef.service;
 import com.emcef.repository.FactureRepository;
-import com.emcef.model.Contribuable;
-import com.emcef.model.FactureSelonSpecification;
 import java.util.Date;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +18,18 @@ public class FactureService {
     @Autowired
     FactureRepository factureRepository;
 
-    public int factureParDate(Date date) {
+    public int factureTotalToday(Date date) {
         return factureRepository.TotalFactureToday(date);
+    }
+    public Double totalTTC(Date date){
+        return factureRepository.getTotalTTC(date);
+    }
+
+    public Double totalTVA(Date date){
+        return factureRepository.getTotalTVA(date);
+    }
+    
+    public Double totalMoisTTC(int year, int day){
+    return factureRepository.TotalMonthTTC(year, day);
     }
 }

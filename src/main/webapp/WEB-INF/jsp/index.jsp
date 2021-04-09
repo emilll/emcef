@@ -225,7 +225,7 @@
                                     <div class="inner">
                                         <h3 id="montant2">0</h3>
 
-                                        <p>Totaux Globaux</p>
+                                        <p>Totaux TVA</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-pie-graph"></i>
