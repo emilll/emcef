@@ -16,5 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RapportRepository {
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE date_heure = ?1",nativeQuery = true)
-    long nbrRapport(Date date);
+    int nbrRapport(Date date);
 }

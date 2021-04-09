@@ -178,7 +178,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3 id="factures">0</h3>
+                                        <h3 id="factures">1</h3>
 
                                         <p>Totaux de ce jour</p>
                                     </div>
@@ -193,7 +193,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
-                                        <h3 id="rapports">0</h3>
+                                        <h3 id="rapports">1</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -208,7 +208,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-warning">
                                     <div class="inner">
-                                        <h3 id="montant1">0</h3>
+                                        <h3 id="montant1">1</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -223,7 +223,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3 id="montant2">0</h3>
+                                        <h3 id="montant2">1</h3>
 
                                         <p>Totaux TVA</p>
                                     </div>
@@ -274,6 +274,47 @@
                         </div>
                     </div>
                 </div>
+                
+                <h3 id="1" hidden="hidden"></h3>
+                <h3 id="2" hidden="hidden"></h3>
+                <h3 id="3" hidden="hidden"></h3>
+                <h3 id="4" hidden="hidden"></h3>
+                <h3 id="5" hidden="hidden"></h3>
+                <h3 id="6" hidden="hidden"></h3>
+                <h3 id="7" hidden="hidden"></h3>
+                <h3 id="8" hidden="hidden"></h3>
+                <h3 id="9" hidden="hidden"></h3>
+                <h3 id="10" hidden="hidden"></h3>
+                <h3 id="11" hidden="hidden"></h3>
+                <h3 id="12" hidden="hidden"></h3>
+                
+                
+                <h3 id="n1" hidden="hidden"></h3>
+                <h3 id="n2" hidden="hidden"></h3>
+                <h3 id="n3" hidden="hidden"></h3>
+                <h3 id="n4" hidden="hidden"></h3>
+                <h3 id="n5" hidden="hidden"></h3>
+                <h3 id="n6" hidden="hidden"></h3>
+                <h3 id="n7" hidden="hidden"></h3>
+                <h3 id="n8" hidden="hidden"></h3>
+                <h3 id="n9" hidden="hidden"></h3>
+                <h3 id="n10" hidden="hidden"></h3>
+                <h3 id="n11" hidden="hidden"></h3>
+                <h3 id="n12" hidden="hidden"></h3>
+                
+                
+                <h3 id="t1" hidden="hidden"></h3>
+                <h3 id="t2" hidden="hidden"></h3>
+                <h3 id="t3" hidden="hidden"></h3>
+                <h3 id="t4" hidden="hidden"></h3>
+                <h3 id="t5" hidden="hidden"></h3>
+                <h3 id="t6" hidden="hidden"></h3>
+                <h3 id="t7" hidden="hidden"></h3>
+                <h3 id="t8" hidden="hidden"></h3>
+                <h3 id="t9" hidden="hidden"></h3>
+                <h3 id="t10" hidden="hidden"></h3>
+                <h3 id="t11" hidden="hidden"></h3>
+                <h3 id="t12" hidden="hidden"></h3>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
             <script src="assets/js/reglo.js"></script>

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RapportService {
     RapportRepository rapportRepository;
-    public Long rapportTotal(Date date){
+    public int rapportTotal(Date date){
         return rapportRepository.nbrRapport(date);
     }
 }

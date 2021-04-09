@@ -27,21 +27,37 @@ public class FactureController {
 
     @GetMapping("/nbrfacture/{date}")
     public int facture(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        return factureService.factureTotalToday(date);
+        try{
+            return factureService.factureTotalToday(date);
+        }catch(Exception e){
+        return 0;
+        }
     }
     
     @GetMapping("/totalttc/{date}")
-     public Double totalTTC(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        return factureService.totalTTC(date);
+     public Double totalTTC(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) { 
+        try{
+            return factureService.totalTTC(date);
+        }catch(Exception e){
+        return 0.;
+        }
     }
      
      @GetMapping("/totaltva/{date}")
-      public Double totalTVA(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        return factureService.totalTVA(date);
+      public Double totalTVA(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {        
+        try{
+            return factureService.totalTVA(date);
+        }catch(Exception e){
+        return 0.;
+        }
     }
       
       @GetMapping("/json/{year}/{month}")
-      public Double totalTVA(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
-        return factureService.totalMoisTTC(year, month);
+      public Double totalMonthTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {       
+        try{
+            return factureService.totalMoisTTC(year, month);
+        }catch(Exception e){
+        return 0.;
+        }
     }
 }

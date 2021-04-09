@@ -35,12 +35,11 @@ public class RapportController {
     }
 
     @GetMapping("/nbrrapport/{date}")
-    public long countfacture(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        String valeur = rapportService.rapportTotal(date).toString();
-        if (isNumeric(valeur)) {
+    public int countRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        try{
             return rapportService.rapportTotal(date);
-        } else {
-            return 0;
+        }catch(Exception e){
+        return 0;
         }
     }
 }
