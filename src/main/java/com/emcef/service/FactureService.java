@@ -9,7 +9,6 @@ import com.emcef.model.FactureSelonSpecification;
 
 import com.emcef.repository.FactureSelonSpecificationRepository;
 
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,7 @@ public class FactureService {
     
     
     
-    public void deleteFactureSelonSpecificationById(Long id){
-        this.factureRep.deleteById(id);
-    }
+    
 
     public Double totalTTC(){
         return factureRep.getTotalTTC();
@@ -41,10 +38,22 @@ public class FactureService {
     public Long countfacture(){
         return factureRep.nbrFact();
     }
+
+
+    public String getFactTotauxContribuable(String ifu){
+        return factureRep.getFactTotauxContribuable(ifu);
+    }
+
+    public Double getFactTotauxContribuable2(String ifu, String d1){
+        return factureRep.getFactTotauxContribuable2(ifu,d1);
+    }
     
 
 
 
+    public void deleteFactureSelonSpecificationById(Long id){
+        this.factureRep.deleteById(id);
+    }
 
     public List<FactureSelonSpecification> getAllFactureSelonSpecification() {
         return factureRep.findAll();
