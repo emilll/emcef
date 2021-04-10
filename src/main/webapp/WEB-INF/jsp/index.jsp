@@ -178,7 +178,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <h3 id="factures">1</h3>
+                                        <h3 id="factures">0</h3>
 
                                         <p>Totaux de ce jour</p>
                                     </div>
@@ -193,7 +193,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
-                                        <h3 id="rapports">1</h3>
+                                        <h3 id="rapports">0</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -208,7 +208,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-warning">
                                     <div class="inner">
-                                        <h3 id="montant1">1</h3>
+                                        <h3 id="montant1">0</h3>
 
                                         <p>Totaux d'aujourd'hui</p>
                                     </div>
@@ -223,7 +223,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <h3 id="montant2">1</h3>
+                                        <h3 id="montant2">0</h3>
 
                                         <p>Totaux TVA</p>
                                     </div>
@@ -274,7 +274,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <h3 id="1" hidden="hidden"></h3>
                 <h3 id="2" hidden="hidden"></h3>
                 <h3 id="3" hidden="hidden"></h3>
@@ -287,8 +287,8 @@
                 <h3 id="10" hidden="hidden"></h3>
                 <h3 id="11" hidden="hidden"></h3>
                 <h3 id="12" hidden="hidden"></h3>
-                
-                
+
+
                 <h3 id="n1" hidden="hidden"></h3>
                 <h3 id="n2" hidden="hidden"></h3>
                 <h3 id="n3" hidden="hidden"></h3>
@@ -301,8 +301,8 @@
                 <h3 id="n10" hidden="hidden"></h3>
                 <h3 id="n11" hidden="hidden"></h3>
                 <h3 id="n12" hidden="hidden"></h3>
-                
-                
+
+
                 <h3 id="t1" hidden="hidden"></h3>
                 <h3 id="t2" hidden="hidden"></h3>
                 <h3 id="t3" hidden="hidden"></h3>
@@ -378,22 +378,52 @@
 
                 var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
                 var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
-                Swal.fire({
-                    icon: 'info',
-                    title: the_date,
-                    html:
-                            '<b>53</b> Rapports<br> ' +
-                            '<b>72</b> Factures<br> ' +
-                            '<b>18000</b> FCFA TTC<br>',
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    showCloseButton: true,
-                    hideClass: {
-                        popup: 'swal2-hide',
-                        backdrop: 'swal2-backdrop-hide',
-                        icon: 'swal2-icon-hide'
+
+                async function getDayResult() {
+                    var dt = new Date($('#calendar').evoCalendar('getActiveDate'));
+                    var DD = ("0" + dt.getDate()).slice(-2);
+                    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    var YYYY = dt.getFullYear();
+                    
+                    var ttc, rapports, factures;
+                    
+                    const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
+                    ttc = await facture1.json();
+                    if (typeof ttc !== 'number') {
+                       ttc = 0;
                     }
-                })
+
+                    const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
+                    rapports = await facture2.json();
+                    if (typeof rapports !== 'number') {
+                        rapports = 0;
+                    }
+
+                    const facture3 = await fetch('/api/factures/' + YYYY + '/' + MM + '/' + DD);
+                    factures = await facture3.json();
+                    if (typeof factures !== 'number') {
+                        factures = 0;
+                    }                    
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: the_date,
+                        html:
+                                '<b>' + rapports + '</b> Rapports<br> ' +
+                                '<b>' + factures + '</b> Factures<br> ' +
+                                '<b>' + ttc + '</b> FCFA TTC<br>',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                        hideClass: {
+                            popup: 'swal2-hide',
+                            backdrop: 'swal2-backdrop-hide',
+                            icon: 'swal2-icon-hide'
+                        }
+                    })
+                }
+                getDayResult();
+
             });
         });
 

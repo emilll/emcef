@@ -7,7 +7,6 @@ package com.emcef.controller;
 
 import com.emcef.service.RapportService;
 import java.util.Date;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +24,6 @@ public class RapportController {
 
     @Autowired
     RapportService rapportService;
-
-    public static boolean isNumeric(String string) {
-        // Checks if the provided string
-        // is a numeric by applying a regular
-        // expression on it.
-        String regex = "[0-9]+[\\.]?[0-9]*";
-        return Pattern.matches(regex, string);
-    }
 
     @GetMapping("/nbrrapport/{date}")
     public int countRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {

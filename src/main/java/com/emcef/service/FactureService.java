@@ -29,7 +29,23 @@ public class FactureService {
         return factureRepository.getTotalTVA(date);
     }
     
+    public Double total(int year, int month){
+        return factureRepository.getTotal(year, month);
+    }
+    
     public Double totalMoisTTC(int year, int day){
     return factureRepository.TotalMonthTTC(year, day);
+    }
+    
+    public double DayTTC(int year, int month, int day){
+    return factureRepository.DayTTC(year,month, day);
+    }
+    
+    public int DayRapports(int year, int month, int day){
+    return factureRepository.DayRapports(year,month, day);
+    }
+    
+    public int DayFactures(int year, int month, int day){
+    return factureRepository.DayFactures(year,month, day);
     }
 }

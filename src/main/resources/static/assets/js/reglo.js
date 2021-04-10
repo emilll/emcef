@@ -1,10 +1,3 @@
-var test = setInterval(getLineData, 5000);
-var test1 = setInterval(getTotalFactures, 1000);
-var test2 = setInterval(getTotalRapports, 1000);
-var test3 = setInterval(getTotalTTC, 1000);
-var test4 = setInterval(getTotalTVA, 1000);
-
-
 async function getTotalFactures() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
@@ -185,7 +178,7 @@ async function valeur2(dr, n) {
 
 //Diagramme 3
 async function valeur3(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/'+n)
+        var tr = fetch('/api/total/' + dr + '/'+n)
                 .then(response => response.json())
                 .then(function (response) {
                      $("#t"+n).text(JSON.stringify(response)) ;
@@ -276,3 +269,10 @@ async function valeur3(dr, n) {
         }
     });
 }
+
+getLineData();
+var test = setInterval(getLineData, 5000);
+var test1 = setInterval(getTotalFactures, 1000);
+var test2 = setInterval(getTotalRapports, 1000);
+var test3 = setInterval(getTotalTTC, 1000);
+var test4 = setInterval(getTotalTVA, 1000);

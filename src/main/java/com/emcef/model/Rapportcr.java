@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +26,14 @@ public class Rapportcr {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "date_heure")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dateheure")
     private Date date_heure;
 
     @OneToOne
     Machinesenregistrees machinesenregistrees;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_rapport")
     private Date date_rapport;
 
