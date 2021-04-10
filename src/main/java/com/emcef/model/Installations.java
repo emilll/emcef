@@ -195,7 +195,4 @@ public class Installations {
 	}
 
 	
-	// public Secteurs id_secteur;
-
-	
 }

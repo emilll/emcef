@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Em
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apitest")
 public class TableaudeBordController {
 
     @Autowired
@@ -52,46 +52,4 @@ public class TableaudeBordController {
         System.out.println("je suis dans total");
         return factureService.getFactTotauxContribuable2(ifu,dateFac);
     }
-    // @GetMapping("/")
-    // public String Accueil(Model model) {
-    // model.addAttribute("facture",
-    // factureService.getAllFactureSelonSpecification());
-    // return "index";
-    // }
-
-    // @GetMapping("/savefacture")
-    // public String FactureSelonSpecification(Model model) {
-    // FactureSelonSpecification facture = new FactureSelonSpecification();
-    // model.addAttribute("facture", facture);
-    // return "facture/ajouter";
-    // }
-
-    // @GetMapping("/showfacture")
-    // public String show(Model model){
-    // model.addAttribute("facture",
-    // factureService.getAllFactureSelonSpecification());
-    // return "facture/afficher";
-    // }
-
-    // @PostMapping("/savefacture")
-    // public String SaveFactureSelonSpecification(@ModelAttribute("facture")
-    // FactureSelonSpecification facture) {
-    // factureService.saveFactureSelonSpecification(facture);
-    // return "redirect:/showfacture";
-    // }
-
-    // @GetMapping("/modifierfacture/{id}")
-    // public String viewPage(@PathVariable(value = "id") Long id, Model model){
-    // FactureSelonSpecification facture =
-    // factureService.getFactureSelonSpecificationById(id);
-    // model.addAttribute("facture", facture);
-    // return "facture/modifier";
-    // }
-
-    // @GetMapping("/deletefacture/{id}")
-    // public String delete(@PathVariable(value = "id") Long id, Model model){
-    // this.factureService.deleteFactureSelonSpecificationById(id);
-    // return "redirect:/showfacture";
-    // }
-
 }
