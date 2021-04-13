@@ -1,9 +1,3 @@
-var test = setInterval(getLineData, 5000);
-var test1 = setInterval(getTotalFactures, 1000);
-var test2 = setInterval(getTotalRapports, 1000);
-var test3 = setInterval(getTotalTTC, 1000);
-var test4 = setInterval(getTotalTVA, 1000);
-
 async function getTotalFactures() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
@@ -23,9 +17,9 @@ async function getTotalRapports() {
     var rapport_date = YYYY + "-" + MM + "-" + DD;
     const rapport = await fetch('/api/nbrrapport/' + rapport_date);
     var total_rapport = await rapport.json();
-    if(typeof total_rapport  !== 'number'){
-    document.getElementById("rapports").innerHTML = 0;
-    }else{
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("rapports").innerHTML = 0;
+    } else {
         document.getElementById("rapports").innerHTML = total_rapport;
     }
 }
@@ -36,13 +30,14 @@ async function getTotalTTC() {
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
     var ttc_date = YYYY + "-" + MM + "-" + DD;
-    const ttc = await fetch('/api/totalttc/' + ttc_date);
-    var total_ttc = await ttc.json();
-    if(typeof total_ttc  !== 'number'){
-    document.getElementById("montant1").innerHTML = 0;
-    }else{
-       document.getElementById("montant1").innerHTML = total_ttc;
-    }
+    fetch('/api/totalttc/' + ttc_date)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("montant1").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("montant1").innerHTML = 0;
+            });
 }
 
 async function getTotalTVA() {
@@ -51,107 +46,102 @@ async function getTotalTVA() {
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
     var global_date = YYYY + "-" + MM + "-" + DD;
-    const global = await fetch('/api/totaltva/' + global_date);
-    var total_global = await global.json();
-    if(typeof total_global  !== 'number'){
-    document.getElementById("montant2").innerHTML = 0;
-    }else{
-       document.getElementById("montant2").innerHTML = total_global;
-    }
+    var total_global = fetch('/api/totaltva/' + global_date)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("montant2").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("montant2").innerHTML = 0;
+            });
 }
 
 
 async function getLineData() {
-    //const response = await fetch('/api/json');
-    //var donne = await response.json();
-    //liste = [donne.janvier, donne.fevrier, donne.mars, donne.avril, donne.mai, donne.juin, donne.juillet, donne.aout, donne.septembre, donne.octobre, donne.novembre, donne.decembre];
-    //console.log(liste);
     var dt = new Date();
     var date = dt.getFullYear();
+//Diagramme 1
+    async function valeur1(dr, n) {
+        var tr = fetch('/api/json/' + dr + '/' + n)
+                .then(response => response.json())
+                .then(function (response) {
+                    $("#" + n).text(JSON.stringify(response));
+                })
+                .catch(function (error) {
+                    $("#" + n).text(0);
+                });
+    }
+
+    for (let pas = 1; pas <= 12; pas++) {
+        valeur1(date, pas);
+    }
     //Janvier
-    const ttc1 = await fetch('/api/json/' + date + '/1');
-    var test1 = await ttc1.json();
-    var total1 = 0;
-    if(typeof test1  === 'number'){
-        total1 = test1;
-    }
+    var total1 = $("#1").text();
+    console.log(total1);
     //Fevrier
-    const ttc2 = await fetch('/api/json/' + date + '/2');
-    var test2 = await ttc2.json();
-    var total2 = 0;
-    if(typeof test2  === 'number'){
-        total2 = test2;
-    }
+    var total2 = $("#2").text();
     //Mars
-    const ttc3 = await fetch('/api/json/' + date + '/3');
-    var test3 = await ttc3.json();
-    var total3 = 0;
-    if(typeof test3  === 'number'){
-        total3 = test3;
-    }
+    var total3 = $("#3").text();
     //Avril
-    const ttc4 = await fetch('/api/json/' + date + '/4');
-    var test4 = await ttc4.json();
-    var total4 = 0;
-    if(typeof test4  === 'number'){
-        total4 = test4;
-    }
+    var total4 = $("#4").text();
     //Mai
-    const ttc5 = await fetch('/api/json/' + date + '/5');
-    var test5 = await ttc5.json();
-    var total5 = 0;
-    if(typeof test5  === 'number'){
-        total5 = test5;
-    }
+    var total5 = $("#5").text();
     //Juin
-    const ttc6 = await fetch('/api/json/' + date + '/6');
-    var test6 = await ttc6.json();
-    var total6 = 0;
-    if(typeof test6  === 'number'){
-        total6 = test6;
-    }
+    var total6 = $("#6").text();
     //Juillet
-    const ttc7 = await fetch('/api/json/' + date + '/7');
-   var test7 = await ttc7.json();
-    var total7 = 0;
-    if(typeof test7  === 'number'){
-        total7 = test7;
-    }
+    var total7 = $("#7").text();
     //Août
-    const ttc8 = await fetch('/api/json/' + date + '/8');
-    var test8 = await ttc8.json();
-    var total8 = 0;
-    if(typeof test8  === 'number'){
-        total8 = test8;
-    }
+    var total8 = $("#8").text();
     //Septembre
-    const ttc9 = await fetch('/api/json/' + date + '/9');
-    var test9 = await ttc9.json();
-    var total9 = 0;
-    if(typeof test9  === 'number'){
-        total9 = test9;
-    }
+    var total9 = $("#9").text();
     //Octobre
-    const ttc10 = await fetch('/api/json/' + date + '/10');
-   var test10 = await ttc10.json();
-    var total10 = 0;
-    if(typeof test10  === 'number'){
-        total10 = test10;
-    }
+    var total10 = $("#10").text();
     //Novembre
-    const ttc11 = await fetch('/api/json/' + date + '/11');
-   var test11 = await ttc11.json();
-    var total11 = 0;
-    if(typeof test11  === 'number'){
-        total11 = test11;
-    }
+    var total11 = $("#11").text();
     //Decembre
-    const ttc12 = await fetch('/api/json/' + date + '/12');
-    var test12 = await ttc12.json();
-    var total12 = 0;
-    if(typeof test12  === 'number'){
-        total12 = test12;
+    var total12 = $("#12").text();
+    
+    //Diagramme 2
+
+async function valeur2(dr, n) {
+        var tr = fetch('/api/json/' + dr + '/'+n)
+                .then(response => response.json())
+                .then(function (response) {
+                     $("#n"+n).text(JSON.stringify(response)) ;
+                })
+                .catch(function (error) {
+                     $("#n"+n).text(0) ;
+                });
     }
+    
+    for (let pas = 1; pas <= 12; pas++) {
+  valeur2(date, pas);
+}
+    //Janvier
+    var test1 = $("#n1").text();
+    console.log(test1);
+    //Fevrier
+    var test2 = $("#n2").text();
+    //Mars
+    var test3 = $("#n3").text();
+    //Avril
+    var test4 = $("#n4").text();
+    //Mai
+    var test5 = $("#n5").text();
+    //Juin
+    var test6 = $("#n6").text();
+    //Juillet
+    var test7 = $("#n7").text();
+    //Août
+    var test8 = $("#n8").text();
+    //Septembre
+    var test9 = $("#n9").text();
+    //Octobre
+    var test10 = $("#n10").text();
+    //Novembre
+    var test11 = $("#n11").text();
+    //Decembre
+    var test12 = $("#n12").text();
 
     var ctx = document.getElementById('myLine').getContext('2d');
     var myLine = new Chart(ctx, {
@@ -167,7 +157,7 @@ async function getLineData() {
                 },
                 {
                     label: 'Total TVA',
-                    data: [3, 8, 5, 10, 2, 7, 3, 8, 5, 10, 2, 7],
+                    data: [test1, test2, test3, test1, test2, test3, test1, test2, test3, test1, test2, test3],
                     backgroundColor: 'rgba(153, 102, 255, 1)',
                     borderColor: 'red',
                     borderWidth: 1
@@ -185,13 +175,55 @@ async function getLineData() {
         }
     });
 
+
+//Diagramme 3
+async function valeur3(dr, n) {
+        var tr = fetch('/api/total/' + dr + '/'+n)
+                .then(response => response.json())
+                .then(function (response) {
+                     $("#t"+n).text(JSON.stringify(response)) ;
+                })
+                .catch(function (error) {
+                     $("#t"+n).text(0) ;
+                });
+    }
+    
+    for (let pas = 1; pas <= 12; pas++) {
+  valeur3(date, pas);
+}
+    //Janvier
+    var try1 = $("#t1").text();
+    console.log(try1);
+    //Fevrier
+    var try2 = $("#t2").text();
+    //Mars
+    var try3 = $("#t3").text();
+    //Avril
+    var try4 = $("#t4").text();
+    //Mai
+    var try5 = $("#t5").text();
+    //Juin
+    var try6 = $("#t6").text();
+    //Juillet
+    var try7 = $("#t7").text();
+    //Août
+    var try8 = $("#t8").text();
+    //Septembre
+    var try9 = $("#t9").text();
+    //Octobre
+    var try10 = $("#t10").text();
+    //Novembre
+    var try11 = $("#t11").text();
+    //Decembre
+    var try12 = $("#t12").text();
+    
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             datasets: [{
-                    data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                    data: [try1, try2, try3, try4, try5, try6, try7, try8, try9, try10, try11, try12],
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
@@ -237,3 +269,10 @@ async function getLineData() {
         }
     });
 }
+
+getLineData();
+var test = setInterval(getLineData, 5000);
+var test1 = setInterval(getTotalFactures, 1000);
+var test2 = setInterval(getTotalRapports, 1000);
+var test3 = setInterval(getTotalTTC, 1000);
+var test4 = setInterval(getTotalTVA, 1000);

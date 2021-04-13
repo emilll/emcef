@@ -27,9 +27,6 @@ public class ContribuableController {
     @Autowired
     ContribuableService contribuableService;
 
-    @Autowired
-    FactureService factureService;
-
     @GetMapping("/")
     public String Accueil(Model model) {
         model.addAttribute("contribuable", contribuableService.getAllContribuable());

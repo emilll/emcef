@@ -274,6 +274,47 @@
                         </div>
                     </div>
                 </div>
+
+                <h3 id="1" hidden="hidden"></h3>
+                <h3 id="2" hidden="hidden"></h3>
+                <h3 id="3" hidden="hidden"></h3>
+                <h3 id="4" hidden="hidden"></h3>
+                <h3 id="5" hidden="hidden"></h3>
+                <h3 id="6" hidden="hidden"></h3>
+                <h3 id="7" hidden="hidden"></h3>
+                <h3 id="8" hidden="hidden"></h3>
+                <h3 id="9" hidden="hidden"></h3>
+                <h3 id="10" hidden="hidden"></h3>
+                <h3 id="11" hidden="hidden"></h3>
+                <h3 id="12" hidden="hidden"></h3>
+
+
+                <h3 id="n1" hidden="hidden"></h3>
+                <h3 id="n2" hidden="hidden"></h3>
+                <h3 id="n3" hidden="hidden"></h3>
+                <h3 id="n4" hidden="hidden"></h3>
+                <h3 id="n5" hidden="hidden"></h3>
+                <h3 id="n6" hidden="hidden"></h3>
+                <h3 id="n7" hidden="hidden"></h3>
+                <h3 id="n8" hidden="hidden"></h3>
+                <h3 id="n9" hidden="hidden"></h3>
+                <h3 id="n10" hidden="hidden"></h3>
+                <h3 id="n11" hidden="hidden"></h3>
+                <h3 id="n12" hidden="hidden"></h3>
+
+
+                <h3 id="t1" hidden="hidden"></h3>
+                <h3 id="t2" hidden="hidden"></h3>
+                <h3 id="t3" hidden="hidden"></h3>
+                <h3 id="t4" hidden="hidden"></h3>
+                <h3 id="t5" hidden="hidden"></h3>
+                <h3 id="t6" hidden="hidden"></h3>
+                <h3 id="t7" hidden="hidden"></h3>
+                <h3 id="t8" hidden="hidden"></h3>
+                <h3 id="t9" hidden="hidden"></h3>
+                <h3 id="t10" hidden="hidden"></h3>
+                <h3 id="t11" hidden="hidden"></h3>
+                <h3 id="t12" hidden="hidden"></h3>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
             <script src="assets/js/reglo.js"></script>
@@ -337,22 +378,52 @@
 
                 var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
                 var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
-                Swal.fire({
-                    icon: 'info',
-                    title: the_date,
-                    html:
-                            '<b>53</b> Rapports<br> ' +
-                            '<b>72</b> Factures<br> ' +
-                            '<b>18000</b> FCFA TTC<br>',
-                    allowOutsideClick: false,
-                    showConfirmButton: false,
-                    showCloseButton: true,
-                    hideClass: {
-                        popup: 'swal2-hide',
-                        backdrop: 'swal2-backdrop-hide',
-                        icon: 'swal2-icon-hide'
+
+                async function getDayResult() {
+                    var dt = new Date($('#calendar').evoCalendar('getActiveDate'));
+                    var DD = ("0" + dt.getDate()).slice(-2);
+                    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+                    var YYYY = dt.getFullYear();
+                    
+                    var ttc, rapports, factures;
+                    
+                    const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
+                    ttc = await facture1.json();
+                    if (typeof ttc !== 'number') {
+                       ttc = 0;
                     }
-                })
+
+                    const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
+                    rapports = await facture2.json();
+                    if (typeof rapports !== 'number') {
+                        rapports = 0;
+                    }
+
+                    const facture3 = await fetch('/api/factures/' + YYYY + '/' + MM + '/' + DD);
+                    factures = await facture3.json();
+                    if (typeof factures !== 'number') {
+                        factures = 0;
+                    }                    
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: the_date,
+                        html:
+                                '<b>' + rapports + '</b> Rapports<br> ' +
+                                '<b>' + factures + '</b> Factures<br> ' +
+                                '<b>' + ttc + '</b> FCFA TTC<br>',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        showCloseButton: true,
+                        hideClass: {
+                            popup: 'swal2-hide',
+                            backdrop: 'swal2-backdrop-hide',
+                            icon: 'swal2-icon-hide'
+                        }
+                    })
+                }
+                getDayResult();
+
             });
         });
 
