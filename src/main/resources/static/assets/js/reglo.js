@@ -38,19 +38,19 @@ async function GetRange() {
     if (formValues) {
         var ttc, rapports, factures;
 
-                    const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
+                    const facture1 = await fetch('/api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
                     ttc = await facture1.json();
                     if (typeof ttc !== 'number') {
                         ttc = 0;
                     }
 
-                    const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
+                    const facture2 = await fetch('/api/betweenRapports/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
                     rapports = await facture2.json();
                     if (typeof rapports !== 'number') {
                         rapports = 0;
                     }
 
-                    const facture3 = await fetch('/api/factures/' + YYYY + '/' + MM + '/' + DD);
+                    const facture3 = await fetch('/api/betweenFactures/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
                     factures = await facture3.json();
                     if (typeof factures !== 'number') {
                         factures = 0;
