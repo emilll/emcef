@@ -1,80 +1,3 @@
-async function GetRange() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var ladate = YYYY + "-" + MM + "-" + DD;
-    function convert (vet){
-        var today = new Date(vet);
-                var options = {year: 'numeric', month: 'long', day: 'numeric'};
-                var opt_weekday = {weekday: 'long'};
-                function toTitleCase(str) {
-                    return str.replace(
-                            /\w\S*/g,
-                            function (txt) {
-                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                            }
-                    );
-                }
-
-                var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
-                var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
-                return the_date;
-    }
-    const {value: formValues} = await Swal.fire({
-        title: 'Sélectionnez la rangée de date',
-        html:
-                '<input id="swal-input1" class="swal2-input" type="date" value="'+ladate+'" min="2000-01-01" max="'+ladate+'">' +
-                '<input id="swal-input2" class="swal2-input" type="date" value="'+ladate+'" min="2000-01-01" max="'+ladate+'">',
-        focusConfirm: false,
-        preConfirm: () => {
-            return [
-                document.getElementById('swal-input1').value,
-                document.getElementById('swal-input2').value
-            ]
-        }
-    })
-
-    if (formValues) {
-        var ttc, rapports, factures;
-
-                    const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
-                    ttc = await facture1.json();
-                    if (typeof ttc !== 'number') {
-                        ttc = 0;
-                    }
-
-                    const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
-                    rapports = await facture2.json();
-                    if (typeof rapports !== 'number') {
-                        rapports = 0;
-                    }
-
-                    const facture3 = await fetch('/api/factures/' + YYYY + '/' + MM + '/' + DD);
-                    factures = await facture3.json();
-                    if (typeof factures !== 'number') {
-                        factures = 0;
-                    }
-
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Du '+convert(JSON.stringify(formValues[0]))+' au '+convert(JSON.stringify(formValues[1])),
-                        html:
-                                '<b>' + rapports + '</b> Rapports<br> ' +
-                                '<b>' + factures + '</b> Factures<br> ' +
-                                '<b>' + ttc + '</b> FCFA TTC<br>',
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                        showCloseButton: true,
-                        hideClass: {
-                            popup: 'swal2-hide',
-                            backdrop: 'swal2-backdrop-hide',
-                            icon: 'swal2-icon-hide'
-                        }
-                    })
-    }
-}
-
 async function getTotalFactures() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
@@ -177,23 +100,23 @@ async function getLineData() {
     var total11 = $("#11").text();
     //Decembre
     var total12 = $("#12").text();
-
+    
     //Diagramme 2
 
-    async function valeur2(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/' + n)
+async function valeur2(dr, n) {
+        var tr = fetch('/api/json/' + dr + '/'+n)
                 .then(response => response.json())
                 .then(function (response) {
-                    $("#n" + n).text(JSON.stringify(response));
+                     $("#n"+n).text(JSON.stringify(response)) ;
                 })
                 .catch(function (error) {
-                    $("#n" + n).text(0);
+                     $("#n"+n).text(0) ;
                 });
     }
-
+    
     for (let pas = 1; pas <= 12; pas++) {
-        valeur2(date, pas);
-    }
+  valeur2(date, pas);
+}
     //Janvier
     var test1 = $("#n1").text();
     console.log(test1);
@@ -254,20 +177,20 @@ async function getLineData() {
 
 
 //Diagramme 3
-    async function valeur3(dr, n) {
-        var tr = fetch('/api/total/' + dr + '/' + n)
+async function valeur3(dr, n) {
+        var tr = fetch('/api/total/' + dr + '/'+n)
                 .then(response => response.json())
                 .then(function (response) {
-                    $("#t" + n).text(JSON.stringify(response));
+                     $("#t"+n).text(JSON.stringify(response)) ;
                 })
                 .catch(function (error) {
-                    $("#t" + n).text(0);
+                     $("#t"+n).text(0) ;
                 });
     }
-
+    
     for (let pas = 1; pas <= 12; pas++) {
-        valeur3(date, pas);
-    }
+  valeur3(date, pas);
+}
     //Janvier
     var try1 = $("#t1").text();
     console.log(try1);
@@ -293,7 +216,7 @@ async function getLineData() {
     var try11 = $("#t11").text();
     //Decembre
     var try12 = $("#t12").text();
-
+    
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',

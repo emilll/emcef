@@ -51,7 +51,7 @@
                                     </a>
                                 </div>
                                 <div class="media-body my-0">
-                                    <p class="my-0 text-white">Général</p>
+                                    <p class="my-0 text-white">Entreprise</p>
                                     <small class="">Profil</small>
                                 </div>
                             </div>
@@ -263,14 +263,6 @@
                                     Récapitulatif Quotidienne
                                 </h3>
                                 <!-- tools card -->
-                                <div class="card-tools">
-                                    <!-- button with a dropdown -->
-                                    <div class="btn-group">
-                                        <a id="eventspace" class="btn btn-success btn-sm" onclick="GetRange()">
-                                            <i class="fas fa-bars"></i> Sélectionner un intervalle
-                                        </a>
-                                    </div>
-                                </div>
                                 <!-- /. tools -->
                             </div>
                             <!-- /.card-header -->
@@ -325,7 +317,7 @@
                 <h3 id="t12" hidden="hidden"></h3>
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-            <script src="assets/js/reglo.js"></script>
+            <script src="assets/js/reglo1.js"></script>
             <script>
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -336,6 +328,8 @@
             e.preventDefault();
             $(this).parent().toggleClass("style_toggled");
         });
+
+
 
 
         $(document).ready(function () {
@@ -390,13 +384,13 @@
                     var DD = ("0" + dt.getDate()).slice(-2);
                     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
                     var YYYY = dt.getFullYear();
-
+                    
                     var ttc, rapports, factures;
-
+                    
                     const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
                     ttc = await facture1.json();
                     if (typeof ttc !== 'number') {
-                        ttc = 0;
+                       ttc = 0;
                     }
 
                     const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
@@ -409,7 +403,7 @@
                     factures = await facture3.json();
                     if (typeof factures !== 'number') {
                         factures = 0;
-                    }
+                    }                    
 
                     Swal.fire({
                         icon: 'info',
@@ -433,7 +427,9 @@
             });
         });
 
+
             </script>
             <script src="js/evo-calendar.js"></script>
     </body>
 </html>
+
