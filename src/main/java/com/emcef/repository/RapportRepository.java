@@ -18,6 +18,18 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RapportRepository extends JpaRepository<Rapportcr, Integer>{
+    //Interface Générale
+    
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1", nativeQuery = true)
     int nbrRapport(Date date);
+    
+    //Interface Entreprise
+    
+    @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1 AND WHERE ifu = ?2", nativeQuery = true)
+    int nbrEntRapport(Date date, int ifu);
+    
+    //Interface Machines
+    
+    @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1", nativeQuery = true)
+    int nbrMachRapport(Date date);
 }

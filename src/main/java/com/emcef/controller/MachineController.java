@@ -25,9 +25,4 @@ public class MachineController {
     public String Machine(){
         return "index2";
     }
-    
-    @GetMapping("/company")
-    public String Company(){
-        return "index1";
-    }
 }

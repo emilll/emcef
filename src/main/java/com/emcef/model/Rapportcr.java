@@ -102,6 +102,9 @@ public class Rapportcr {
 
     @Column(name = "apn")
     private String apn;
+    
+    @Column(name = "ifu")
+    private int ifu;
 
     @Column(name = "utilisation_apn")
     private String utilisation_apn;
