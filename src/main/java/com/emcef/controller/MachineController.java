@@ -20,4 +20,14 @@ public class MachineController {
         //model.addAttribute("people", employeeService.getAllEmployees());
         return "machine";
     }
+    
+    @GetMapping("/machine")
+    public String Machine(){
+        return "index2";
+    }
+    
+    @GetMapping("/company")
+    public String Company(){
+        return "index1";
+    }
 }

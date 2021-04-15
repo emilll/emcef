@@ -87,4 +87,16 @@ public class FactureService {
     public int DayFactures(int year, int month, int day){
     return factureRepository.DayFactures(year,month, day);
     }
+    
+    public double getBetweenTTC(Date day1, Date day2){
+    return factureRepository.getBetweenTTC(day1, day2);
+    }
+    
+    public double getBetweenRapports(Date day1, Date day2){
+    return factureRepository.getBetweenRapports(day1, day2);
+    }
+    
+    public double getBetweenFactures(Date day1, Date day2){
+    return factureRepository.getBetweenFactures(day1, day2);
+    }
 }

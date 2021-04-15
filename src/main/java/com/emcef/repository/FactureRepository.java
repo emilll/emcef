@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -62,4 +62,13 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     
     @Query(value = "SELECT count(*) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3",nativeQuery = true)
     int DayFactures(int year, int month, int day);
+    
+    @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
+    double getBetweenTTC(@Param("d1")Date d1, @Param("d2")Date d2);
+    
+    @Query(value = "SELECT count(*) as totalTTC FROM factureselonspecification f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
+    double getBetweenFactures(@Param("d1")Date d1, @Param("d2")Date d2);
+    
+    @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
+    double getBetweenRapports(@Param("d1")Date d1, @Param("d2")Date d2);
 }
