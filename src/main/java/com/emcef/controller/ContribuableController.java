@@ -7,7 +7,9 @@ package com.emcef.controller;
 
 import com.emcef.model.Contribuable;
 import com.emcef.service.ContribuableService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,18 @@ public class ContribuableController {
     public String show(Model model){
     model.addAttribute("contribuable", contribuableService.getAllContribuable());
     return "contribuable/afficher";
+    }
+    
+    @GetMapping("/showinfo")
+    public String info(Model model){
+    model.addAttribute("information", contribuableService.getAllContribuable());
+    return "contribuable/informations/info";
+    }
+    
+    @GetMapping("/showdayinfo/{date}")
+    public String dayinfo(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+    //model.addAttribute("information", contribuableService.getAllContribuable());
+    return "dayinfo";
     }
     
     @PostMapping("/savecontribuable")

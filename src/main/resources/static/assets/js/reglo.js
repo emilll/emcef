@@ -178,48 +178,6 @@ async function getLineData() {
     //Decembre
     var total12 = $("#12").text();
 
-    //Diagramme 2
-
-    async function valeur2(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/' + n)
-                .then(response => response.json())
-                .then(function (response) {
-                    $("#n" + n).text(JSON.stringify(response));
-                })
-                .catch(function (error) {
-                    $("#n" + n).text(0);
-                });
-    }
-
-    for (let pas = 1; pas <= 12; pas++) {
-        valeur2(date, pas);
-    }
-    //Janvier
-    var test1 = $("#n1").text();
-    console.log(test1);
-    //Fevrier
-    var test2 = $("#n2").text();
-    //Mars
-    var test3 = $("#n3").text();
-    //Avril
-    var test4 = $("#n4").text();
-    //Mai
-    var test5 = $("#n5").text();
-    //Juin
-    var test6 = $("#n6").text();
-    //Juillet
-    var test7 = $("#n7").text();
-    //Août
-    var test8 = $("#n8").text();
-    //Septembre
-    var test9 = $("#n9").text();
-    //Octobre
-    var test10 = $("#n10").text();
-    //Novembre
-    var test11 = $("#n11").text();
-    //Decembre
-    var test12 = $("#n12").text();
-
     var ctx = document.getElementById('myLine').getContext('2d');
     var myLine = new Chart(ctx, {
         type: 'line',
@@ -231,13 +189,6 @@ async function getLineData() {
                     fill: false,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2
-                },
-                {
-                    label: 'Total TVA',
-                    data: [test1, test2, test3, test1, test2, test3, test1, test2, test3, test1, test2, test3],
-                    backgroundColor: 'rgba(153, 102, 255, 1)',
-                    borderColor: 'red',
-                    borderWidth: 1
                 }
             ],
         },
@@ -270,7 +221,6 @@ async function getLineData() {
     }
     //Janvier
     var try1 = $("#t1").text();
-    console.log(try1);
     //Fevrier
     var try2 = $("#t2").text();
     //Mars

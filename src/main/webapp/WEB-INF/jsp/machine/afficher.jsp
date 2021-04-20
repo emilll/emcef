@@ -55,7 +55,7 @@
                                     <li class="active">
                                         <a href="/showfabricants" class="pl-4">Fabricants</a>
                                     </li>
-                                    <li class="">
+                                    <li class="active">
                                         <a href="/showmachines" class="pl-4">Machines</a>
                                     </li>
                                     <li class="">
@@ -165,29 +165,27 @@
                             <div class="col-md-12">
                                 <div class="content-panel">
                                     <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i>Fabricants</h4>
+                                        <h4><i class="fa fa-angle-right"></i>Machines</h4>
                                         <hr>
-                                        <a class="btn btn-primary btn-xs" style="margin-left: 20px" href="/savefabricant">Ajouter un fabricant</a><hr>
+                                        <a class="btn btn-primary btn-xs" style="margin-left: 20px" href="/savemachine">Ajouter une machine</a><hr>
                                         <thead>
                                             <tr>
-                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Nom & Prénom(s)</th>
-                                                <th><i class="fa fa-bookmark"></i> Pays </th>
-                                                <th><i class=" fa fa-edit"></i>Adresse</th>
-                                                <th><i class=" fa fa-edit"></i>E-Mail</th>
+                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Date</th>
+                                                <th><i class="fa fa-bookmark"></i> Version </th>
+                                                <th><i class=" fa fa-edit"></i>Commentaire</th>
                                                 <th><i class=" fa fa-edit"></i> Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="fabricant" items="${fabricant}">
+                                            <c:forEach var="machine" items="${machine}">
                                                 <tr>
-                                                    <td><c:out value="${fabricant.nom}"/></td>
-                                                    <td><c:out value="${fabricant.pays}"/></td>
-                                                    <td><c:out value="${fabricant.adresse}"/></td>
-                                                    <td><c:out value="${fabricant.contact_email}"/></td>
+                                                    <td><c:out value="${machine.date_heure}"/></td>
+                                                    <td><c:out value="${fabricant.derniere_version}"/></td>
+                                                    <td><c:out value="${fabricant.commentaire}"/></td>
                                                     <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifierfabricant/<c:out value='${fabricant.id}'/>"><i class="fa fa-pencil"></i>Modifier</a>
+                                                        <a class="btn btn-primary btn-xs" href="/modifiermachine/<c:out value='${machine.id}'/>"><i class="fa fa-pencil"></i>Modifier</a>
                                                         <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/deletefabricant/<c:out value='${fabricant.id}'/>"><i class="fa fa-trash-o "></i>Supprimer</a>
+                                                        <a class="btn btn-danger btn-xs" href="/deletemachine/<c:out value='${machine.id}'/>"><i class="fa fa-trash-o "></i>Supprimer</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

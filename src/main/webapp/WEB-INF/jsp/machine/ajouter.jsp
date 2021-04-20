@@ -161,21 +161,18 @@
 
                 <div class="container-fluid">
                     <div class="mx-sm-1 py-3">
-                        <div class="row"><h4 class="text-dark">Nouveau Fabricant</h4></div>
-                        <s:form class="mb-2" action="/savefabricant" modelAttribute="fabricant" method="post">
+                        <div class="row"><h4 class="text-dark">Nouvelle Machine</h4></div>
+                        <s:form class="mb-2" action="/savemachine" modelAttribute="machine" method="post">
                             <div class="row">
                                 <div class=" col-sm-6 mb-3">
                                     <div class=" bg-white border p-3">
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom & Prénom"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="date_heure" placeholder="Date"/>
                                                 </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="pays" placeholder="Pays"/>
-                                                </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
+                                                <div class="col-sm-12 form-group">
+                                                    <s:input type="text" class="form-control style_form_control" path="derniere_version" placeholder="Version"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -186,10 +183,10 @@
                                         <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
                                             <div class="row">
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="contact_tel" placeholder="Numéro de Téléphone"/>
+                                                    <s:input type="text" class="form-control style_form_control" path="identification" placeholder="Numéro d'identification"/>
                                                 </div>
                                                 <div class="col-sm-12 form-group">
-                                                    <s:input type="text" class="form-control style_form_control" path="contact_email" placeholder="E-Mail"/>
+                                                    <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -197,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 form-group">
-                                <button class="btn btn-block btn-danger mt-3" type="submit" >Enregistrer le Fabricant</button>
+                                <button class="btn btn-block btn-danger mt-3" type="submit" >Enregistrer la machine</button>
                             </div>
                         </s:form>
                     </div>
