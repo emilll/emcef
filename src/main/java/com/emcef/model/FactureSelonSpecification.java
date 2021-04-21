@@ -1,5 +1,6 @@
 package com.emcef.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "factureselonspecification")
-public class FactureSelonSpecification {
+public class FactureSelonSpecification implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

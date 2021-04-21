@@ -7,7 +7,6 @@ package com.emcef.controller;
 
 import com.emcef.model.Contribuable;
 import com.emcef.service.ContribuableService;
-import com.emcef.service.FactureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

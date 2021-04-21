@@ -58,6 +58,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+    
+      <dependency>
+        <groupId>io.github.cquiroz</groupId>
+        <artifactId>scala-java-locales_3.0.0-RC2</artifactId>
+        <version>1.1.2</version>
+      </dependency>
     </dependencies>
 
     <build>

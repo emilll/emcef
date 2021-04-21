@@ -5,8 +5,12 @@
  */
 package com.emcef.repository;
 
+
+
 import com.emcef.model.FactureSelonSpecification;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Repository;
 /**
  *
  * @author Holy
+ * 
  */
 @Repository
 public interface FactureRepository extends JpaRepository<FactureSelonSpecification, Integer> {
@@ -71,4 +76,17 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     
     @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
     double getBetweenRapports(@Param("d1")Date d1, @Param("d2")Date d2);
+
+    
+    @Query(value = "SELECT f.dateheure,COUNT(*) FROM factureselonspecification f GROUP BY f.dateheure",nativeQuery = true)
+    public List<Object[]> getNbreFactureByDate();
+
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f",nativeQuery = true)
+    public Object[] getTotauxGlobaux();
+
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month",nativeQuery = true)
+    public Object[] getTotauxMonth(@Param("year") int year ,@Param("month") int month);
+
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day",nativeQuery = true)
+    public Object[] getTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day);
 }

@@ -5,8 +5,15 @@
  */
 package com.emcef.controller;
 
+import com.emcef.dao.CalendrierTB;
 import com.emcef.service.FactureService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -124,4 +131,65 @@ public class FactureController {
         }
     }
 
+    @GetMapping("/countfractbydate")
+    public List<CalendrierTB> getNbreFactureByDate() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        List<CalendrierTB> list = new ArrayList<>();
+
+        for(Object[] ob : factureService.getNbreFactureByDate()){
+            CalendrierTB ca = new CalendrierTB();
+            String dt = sdf.format(ob[0]);
+            Date date = sdf.parse(dt);
+            long millis = date.getTime();
+
+            ca.setmillis(""+millis);
+            ca.setNbreFacture(""+ob[1]);
+
+            list.add(ca);
+        }
+        System.out.println(list);
+
+        return list;
+    }
+
+    @GetMapping("/countfacture")
+    public long countfacture() {
+        try {
+            return factureService.countfacture();
+        } catch (Exception e) {
+            return 0;
+        }
+       
+    }
+
+    @GetMapping("/totauxglobaux")
+    public Object[] totauxglobaux() {
+        try {
+            return factureService.getTotauxGlobaux();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @GetMapping("/totauxmonth/{year}/{month}")
+    public Object [] getTotauxMonth(@PathVariable(value = "year")int year,
+    @PathVariable(value = "month") int month) {
+        try {
+            return factureService.getTotauxMonth(year,month);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @GetMapping("/totauxday/{year}/{month}/{day}")
+    public Object [] getTotauxDay(@PathVariable(value = "year")int year,
+    @PathVariable(value = "month") int month,
+    @PathVariable(value = "day")int day) {
+        try {
+            return factureService.getTotauxDay(year,month,day);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.emcef.service;
+
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.repository.FactureRepository;
 import java.util.Date;
@@ -20,32 +21,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class FactureService {
     @Autowired
-   FactureRepository factureRepository;
+    FactureRepository factureRepository;
 
-    public Double totalTTC(){
+    public Double totalTTC() {
         return factureRepository.getTotalTTC();
     }
 
-    public Double totalTVA(){
+    public Double totalTVA() {
         return factureRepository.getTotalTVA();
     }
 
-    public Long countfacture(){
+    public Long countfacture() {
         return factureRepository.nbrFact();
     }
 
-    public String getFactTotauxContribuable(String ifu){
+    public String getFactTotauxContribuable(String ifu) {
         return factureRepository.getFactTotauxContribuable(ifu);
     }
 
-    public Double getFactTotauxContribuable2(String ifu, String d1){
-        return factureRepository.getFactTotauxContribuable2(ifu,d1);
+    public Double getFactTotauxContribuable2(String ifu, String d1) {
+        return factureRepository.getFactTotauxContribuable2(ifu, d1);
     }
-    
 
-
-
-    public void deleteFactureSelonSpecificationById(int id){
+    public void deleteFactureSelonSpecificationById(int id) {
         this.factureRepository.deleteById(id);
     }
 
@@ -56,47 +54,68 @@ public class FactureService {
     public void saveFactureSelonSpecification(FactureSelonSpecification facture) {
         this.factureRepository.save(facture);
     }
-    
+
     public int factureTotalToday(Date date) {
         return factureRepository.TotalFactureToday(date);
     }
-    public Double totalTTC(Date date){
+
+    public Double totalTTC(Date date) {
         return factureRepository.getTotalTTC(date);
     }
 
-    public Double totalTVA(Date date){
+    public Double totalTVA(Date date) {
         return factureRepository.getTotalTVA(date);
     }
-    
-    public Double total(int year, int month){
+
+    public Double total(int year, int month) {
         return factureRepository.getTotal(year, month);
     }
-    
-    public Double totalMoisTTC(int year, int day){
-    return factureRepository.TotalMonthTTC(year, day);
+
+    public Double totalMoisTTC(int year, int day) {
+        return factureRepository.TotalMonthTTC(year, day);
     }
-    
-    public double DayTTC(int year, int month, int day){
-    return factureRepository.DayTTC(year,month, day);
+
+    public double DayTTC(int year, int month, int day) {
+        return factureRepository.DayTTC(year, month, day);
     }
-    
-    public int DayRapports(int year, int month, int day){
-    return factureRepository.DayRapports(year,month, day);
+
+    public int DayRapports(int year, int month, int day) {
+        return factureRepository.DayRapports(year, month, day);
     }
-    
-    public int DayFactures(int year, int month, int day){
-    return factureRepository.DayFactures(year,month, day);
+
+    public int DayFactures(int year, int month, int day) {
+        return factureRepository.DayFactures(year, month, day);
     }
-    
-    public double getBetweenTTC(Date day1, Date day2){
-    return factureRepository.getBetweenTTC(day1, day2);
+
+    public double getBetweenTTC(Date day1, Date day2) {
+        return factureRepository.getBetweenTTC(day1, day2);
     }
-    
-    public double getBetweenRapports(Date day1, Date day2){
-    return factureRepository.getBetweenRapports(day1, day2);
+
+    public double getBetweenRapports(Date day1, Date day2) {
+        return factureRepository.getBetweenRapports(day1, day2);
     }
+
+    public double getBetweenFactures(Date day1, Date day2) {
+        return factureRepository.getBetweenFactures(day1, day2);
+    }
+
+    public List<Object[]> getNbreFactureByDate() {
+       
+        return factureRepository.getNbreFactureByDate();
+    }
+
+    public Object[] getTotauxGlobaux() {
     
-    public double getBetweenFactures(Date day1, Date day2){
-    return factureRepository.getBetweenFactures(day1, day2);
+        return factureRepository.getTotauxGlobaux();
+    }
+
+    public Object[] getTotauxMonth(int year , int month) {
+    
+        return factureRepository.getTotauxMonth(year,month);
+    }
+
+    public Object[] getTotauxDay(int year , int month, int day) {
+    
+        return factureRepository.getTotauxDay(year,month,day);
     }
 }
