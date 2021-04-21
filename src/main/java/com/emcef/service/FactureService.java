@@ -55,6 +55,9 @@ public class FactureService {
         this.factureRepository.save(facture);
     }
 
+    
+
+    //Interface Générale
     public int factureTotalToday(Date date) {
         return factureRepository.TotalFactureToday(date);
     }
@@ -98,7 +101,13 @@ public class FactureService {
     public double getBetweenFactures(Date day1, Date day2) {
         return factureRepository.getBetweenFactures(day1, day2);
     }
+    
+    public int factureMonth(int year, int month){
+    return factureRepository.factureMonth(year,month);
+    }
+    
 
+    
     public List<Object[]> getNbreFactureByDate() {
        
         return factureRepository.getNbreFactureByDate();
@@ -118,4 +127,14 @@ public class FactureService {
     
         return factureRepository.getTotauxDay(year,month,day);
     }
+
+
+    
+    //Interface Entreprise
+    
+    
+    
+     //Interface Machines
+    
+    
 }

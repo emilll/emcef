@@ -13,100 +13,111 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "machinesenregistrees")
 public class Machinesenregistrees {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@OneToOne
-	Certificatsenregistres certificatsenregistres;
 
-	@OneToOne
-	Fabriquantapprouvees fabriquantapprouvees;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@OneToOne
-	Modelsmachines modelsmachines;
+    @OneToOne
+    Certificatsenregistres certificatsenregistres;
 
-	@OneToOne
-	Etatmachine etatmachine;
-	
-	@Column(name = "date_heure")
-	private Date date_heure;
+    @OneToOne
+    Fabriquantapprouvees fabriquantapprouvees;
 
-	@Column(name = "derniere_version")
-	private String derniere_version;
+    @OneToOne
+    Modelsmachines modelsmachines;
 
-	@Column(name = "commentaire")
-	private String commentaire;
+    @OneToOne
+    Etatmachine etatmachine;
 
-	@Column(name = "analyseur")
-	private String analyseur;
+    @Column(name = "date_heure")
+    private Date date_heure;
 
-	public Certificatsenregistres getCertificatsenregistres() {
-		return certificatsenregistres;
-	}
+    @Column(name = "identification")
+    private String identification;
 
-	public void setCertificatsenregistres(Certificatsenregistres certificatsenregistres) {
-		this.certificatsenregistres = certificatsenregistres;
-	}
+    @Column(name = "derniere_version")
+    private String derniere_version;
 
-	public Fabriquantapprouvees getFabriquantapprouvees() {
-		return fabriquantapprouvees;
-	}
+    @Column(name = "commentaire")
+    private String commentaire;
 
-	public void setFabriquantapprouvees(Fabriquantapprouvees fabriquantapprouvees) {
-		this.fabriquantapprouvees = fabriquantapprouvees;
-	}
+    @Column(name = "analyseur")
+    private String analyseur;
 
-	public Modelsmachines getModelsmachines() {
-		return modelsmachines;
-	}
+    public Certificatsenregistres getCertificatsenregistres() {
+        return certificatsenregistres;
+    }
 
-	public void setModelsmachines(Modelsmachines modelsmachines) {
-		this.modelsmachines = modelsmachines;
-	}
+    public void setCertificatsenregistres(Certificatsenregistres certificatsenregistres) {
+        this.certificatsenregistres = certificatsenregistres;
+    }
 
-	public Etatmachine getEtatmachine() {
-		return etatmachine;
-	}
+    public Fabriquantapprouvees getFabriquantapprouvees() {
+        return fabriquantapprouvees;
+    }
 
-	public void setEtatmachine(Etatmachine etatmachine) {
-		this.etatmachine = etatmachine;
-	}
+    public void setFabriquantapprouvees(Fabriquantapprouvees fabriquantapprouvees) {
+        this.fabriquantapprouvees = fabriquantapprouvees;
+    }
 
-	public Date getDate_heure() {
-		return date_heure;
-	}
+    public Modelsmachines getModelsmachines() {
+        return modelsmachines;
+    }
 
-	public void setDate_heure(Date date_heure) {
-		this.date_heure = date_heure;
-	}
+    public void setModelsmachines(Modelsmachines modelsmachines) {
+        this.modelsmachines = modelsmachines;
+    }
 
-	public String getDerniere_version() {
-		return derniere_version;
-	}
+    public Etatmachine getEtatmachine() {
+        return etatmachine;
+    }
 
-	public void setDerniere_version(String derniere_version) {
-		this.derniere_version = derniere_version;
-	}
+    public void setEtatmachine(Etatmachine etatmachine) {
+        this.etatmachine = etatmachine;
+    }
 
-	public String getCommentaire() {
-		return commentaire;
-	}
+    public Date getDate_heure() {
+        return date_heure;
+    }
 
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
-	}
+    public void setDate_heure(Date date_heure) {
+        this.date_heure = date_heure;
+    }
 
-	public String getAnalyseur() {
-		return analyseur;
-	}
+    public String getDerniere_version() {
+        return derniere_version;
+    }
 
-	public void setAnalyseur(String analyseur) {
-		this.analyseur = analyseur;
-	}
+    public void setDerniere_version(String derniere_version) {
+        this.derniere_version = derniere_version;
+    }
 
-	public Machinesenregistrees() {
-	}
+    public String getCommentaire() {
+        return commentaire;
+    }
 
-   
+    public void setCommentaire(String commentaire) {
+        this.commentaire = commentaire;
+    }
+    
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public String getAnalyseur() {
+        return analyseur;
+    }
+
+    public void setAnalyseur(String analyseur) {
+        this.analyseur = analyseur;
+    }
+
+    public Machinesenregistrees() {
+    }
+
 }

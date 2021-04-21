@@ -5,9 +5,15 @@
  */
 package com.emcef.controller;
 
+import com.emcef.model.Machinesenregistrees;
+import com.emcef.service.MachinesenregistreesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -15,19 +21,43 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class MachineController {
-    @GetMapping("/enregistrer-machines")
-    public String Machines(Model model){
-        //model.addAttribute("people", employeeService.getAllEmployees());
-        return "machine";
+    @Autowired
+    MachinesenregistreesService machineService;
+
+    @GetMapping("/savemachine")
+    public String Contribuable(Model model) {
+        Machinesenregistrees machine = new Machinesenregistrees();
+        model.addAttribute("machine", machine);
+        return "machine/ajouter";
+    }
+    
+    @GetMapping("/showmachines")
+    public String show(Model model){
+    model.addAttribute("machine", machineService.getAllMachinesenregistrees());
+    return "machine/afficher";
+    }
+    
+    @PostMapping("/savemachine")
+    public String SaveContribuable(@ModelAttribute("machine") Machinesenregistrees machine) {
+        machineService.saveMachinesenregistrees(machine);
+        return "redirect:/showmachines";
+    }
+    
+    @GetMapping("/modifiermachine/{id}")
+    public String viewPage(@PathVariable(value = "id") long id, Model model){
+        Machinesenregistrees machine = machineService.getMachinesenregistreesById(id);
+        model.addAttribute("machine", machine);
+        return "machine/modifier";
+    }
+    
+    @GetMapping("/deletemachine/{id}")
+    public String delete(@PathVariable(value = "id") long id, Model model){
+        this.machineService.supMachinesenregistreesById(id);
+        return "redirect:/showmachines";
     }
     
     @GetMapping("/machine")
     public String Machine(){
         return "index2";
-    }
-    
-    @GetMapping("/company")
-    public String Company(){
-        return "index1";
     }
 }

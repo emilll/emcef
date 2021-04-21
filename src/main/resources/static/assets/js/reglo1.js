@@ -3,8 +3,10 @@ async function getTotalFactures() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
+    var chemin = window.location.pathname;
+    var splits = chemin.split("/", 3);
     var facture_date = YYYY + "-" + MM + "-" + DD;
-    const facture = await fetch('/api/nbrfacture/' + facture_date);
+    const facture = await fetch('/api/ent/nbrfacture/' + facture_date + '/' + splits["2"]);
     var total_facture = await facture.json();
     document.getElementById("factures").innerHTML = total_facture;
 }
@@ -14,8 +16,10 @@ async function getTotalRapports() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
+    var chemin = window.location.pathname;
+    var splits = chemin.split("/", 3);
     var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    const rapport = await fetch('/api/ent/nbrrapport/' + rapport_date + '/' + splits["2"]);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
         document.getElementById("rapports").innerHTML = 0;
@@ -29,8 +33,10 @@ async function getTotalTTC() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
+    var chemin = window.location.pathname;
+    var splits = chemin.split("/", 3);
     var ttc_date = YYYY + "-" + MM + "-" + DD;
-    fetch('/api/totalttc/' + ttc_date)
+    fetch('/api/ent/totalttc/' + ttc_date + '/' + splits["2"])
             .then(response => response.json())
             .then(function (response) {
                 document.getElementById("montant1").innerHTML = JSON.stringify(response);
@@ -45,8 +51,10 @@ async function getTotalTVA() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
+    var chemin = window.location.pathname;
+    var splits = chemin.split("/", 3);
     var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/api/totaltva/' + global_date)
+    var total_global = fetch('/api/ent/totaltva/' + global_date + '/' + splits["2"])
             .then(response => response.json())
             .then(function (response) {
                 document.getElementById("montant2").innerHTML = JSON.stringify(response);
@@ -62,7 +70,9 @@ async function getLineData() {
     var date = dt.getFullYear();
 //Diagramme 1
     async function valeur1(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/' + n)
+        var chemin = window.location.pathname;
+        var splits = chemin.split("/", 3);
+        var tr = fetch('/api/ent/json/' + dr + '/' + n + '/' + splits["2"])
                 .then(response => response.json())
                 .then(function (response) {
                     $("#" + n).text(JSON.stringify(response));
@@ -77,7 +87,6 @@ async function getLineData() {
     }
     //Janvier
     var total1 = $("#1").text();
-    console.log(total1);
     //Fevrier
     var total2 = $("#2").text();
     //Mars
@@ -100,26 +109,27 @@ async function getLineData() {
     var total11 = $("#11").text();
     //Decembre
     var total12 = $("#12").text();
-    
+
     //Diagramme 2
 
-async function valeur2(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/'+n)
+    async function valeur2(dr, n) {
+        var chemin = window.location.pathname;
+        var splits = chemin.split("/", 3);
+        var tr = fetch('/api/ent/json/' + dr + '/' + n + '/' + splits["2"])
                 .then(response => response.json())
                 .then(function (response) {
-                     $("#n"+n).text(JSON.stringify(response)) ;
+                    $("#n" + n).text(JSON.stringify(response));
                 })
                 .catch(function (error) {
-                     $("#n"+n).text(0) ;
+                    $("#n" + n).text(0);
                 });
     }
-    
+
     for (let pas = 1; pas <= 12; pas++) {
-  valeur2(date, pas);
-}
+        valeur2(date, pas);
+    }
     //Janvier
     var test1 = $("#n1").text();
-    console.log(test1);
     //Fevrier
     var test2 = $("#n2").text();
     //Mars
@@ -177,23 +187,24 @@ async function valeur2(dr, n) {
 
 
 //Diagramme 3
-async function valeur3(dr, n) {
-        var tr = fetch('/api/total/' + dr + '/'+n)
+    async function valeur3(dr, n) {
+        var chemin = window.location.pathname;
+        var splits = chemin.split("/", 3);
+        var tr = fetch('/api/ent/total/' + dr + '/' + n + '/' + splits["2"])
                 .then(response => response.json())
                 .then(function (response) {
-                     $("#t"+n).text(JSON.stringify(response)) ;
+                    $("#t" + n).text(JSON.stringify(response));
                 })
                 .catch(function (error) {
-                     $("#t"+n).text(0) ;
+                    $("#t" + n).text(0);
                 });
     }
-    
+
     for (let pas = 1; pas <= 12; pas++) {
-  valeur3(date, pas);
-}
+        valeur3(date, pas);
+    }
     //Janvier
     var try1 = $("#t1").text();
-    console.log(try1);
     //Fevrier
     var try2 = $("#t2").text();
     //Mars
@@ -216,7 +227,7 @@ async function valeur3(dr, n) {
     var try11 = $("#t11").text();
     //Decembre
     var try12 = $("#t12").text();
-    
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',

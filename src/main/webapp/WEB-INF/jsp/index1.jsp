@@ -10,30 +10,28 @@
         <title>Reglo</title>
 
         <!--Pour la date-->
-        <link rel="stylesheet" type="text/css" href="css/evo-calendar.css"/>
-        <link rel="stylesheet" type="text/css" href="css/evo-calendar.midnight-blue.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/evo-calendar.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/evo-calendar.midnight-blue.css"/>
         <!--Fin Pour la date-->
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
+        <link href="../assets/css/animate.css" rel="stylesheet">
+        <link href="../assets/css/style.css" rel="stylesheet">
+        <link href="../assets/css/all.min.css" rel="stylesheet">
+        <link href="../assets/css/aos.css" rel="stylesheet">
+        <link href="../assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
-
-
+        <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="../assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="../assets/js/aos.js"></script>
+        <script src="../assets/js/Chart.min.js"></script>
 
     </head>
 
@@ -47,7 +45,7 @@
                             <div class="media style_sousmenu_toggle pl-4 py-3">
                                 <div class="mr-3">
                                     <a class="" href="#">
-                                        <img src="assets/img/profilMan.jpg" width="50" height="50" class="img-fluid rounded-lg border" alt="...">
+                                        <img src="../assets/img/profilMan.jpg" width="50" height="50" class="img-fluid rounded-lg border" alt="...">
                                     </a>
                                 </div>
                                 <div class="media-body my-0">
@@ -116,7 +114,7 @@
                                 <i class="fa fa-align-justify"></i>
                             </button>
                             <a class="" href="index.html">
-                                <img src="assets/img/logo.png" width="100" class="img-fluid" alt="logo">
+                                <img src="../assets/img/logo.png" width="100" class="img-fluid" alt="logo">
                             </a>
                         </div>
 
@@ -315,9 +313,10 @@
                 <h3 id="t10" hidden="hidden"></h3>
                 <h3 id="t11" hidden="hidden"></h3>
                 <h3 id="t12" hidden="hidden"></h3>
+
             </div>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-            <script src="assets/js/reglo1.js"></script>
+            <script src="../assets/js/reglo1.js"></script>
             <script>
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
@@ -328,8 +327,6 @@
             e.preventDefault();
             $(this).parent().toggleClass("style_toggled");
         });
-
-
 
 
         $(document).ready(function () {
@@ -384,26 +381,29 @@
                     var DD = ("0" + dt.getDate()).slice(-2);
                     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
                     var YYYY = dt.getFullYear();
-                    
+
+                    var chemin = window.location.pathname;
+                    var splits = chemin.split("/", 3);
+
                     var ttc, rapports, factures;
-                    
-                    const facture1 = await fetch('/api/ttc/' + YYYY + '/' + MM + '/' + DD);
+
+                    const facture1 = await fetch('/api/ent/ttc/' + YYYY + '/' + MM + '/' + DD + '/' + splits["2"]);
                     ttc = await facture1.json();
                     if (typeof ttc !== 'number') {
-                       ttc = 0;
+                        ttc = 0;
                     }
 
-                    const facture2 = await fetch('/api/rapports/' + YYYY + '/' + MM + '/' + DD);
+                    const facture2 = await fetch('/api/ent/rapports/' + YYYY + '/' + MM + '/' + DD + '/' + splits["2"]);
                     rapports = await facture2.json();
                     if (typeof rapports !== 'number') {
                         rapports = 0;
                     }
 
-                    const facture3 = await fetch('/api/factures/' + YYYY + '/' + MM + '/' + DD);
+                    const facture3 = await fetch('/api/ent/factures/' + YYYY + '/' + MM + '/' + DD + '/' + splits["2"]);
                     factures = await facture3.json();
                     if (typeof factures !== 'number') {
                         factures = 0;
-                    }                    
+                    }
 
                     Swal.fire({
                         icon: 'info',
@@ -429,7 +429,7 @@
 
 
             </script>
-            <script src="js/evo-calendar.js"></script>
+            <script src="../js/evo-calendar.js"></script>
     </body>
 </html>
 

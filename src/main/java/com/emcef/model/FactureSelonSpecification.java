@@ -50,7 +50,7 @@ public class FactureSelonSpecification implements Serializable  {
     private Date info_date;
 
     @Column(name = "ifu")
-    private String ifu;
+    private int ifu;
 
     @Column(name = "taux_tax_a")
     private BigDecimal taux_tax_a;
@@ -173,7 +173,7 @@ public class FactureSelonSpecification implements Serializable  {
     private String pieds3;
 
     @Column(name = "ifu_client")
-    private String ifu_client;
+    private int ifu_client;
 
     @Column(name = "nom_client")
     private String nom_client;
@@ -345,11 +345,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.info_date = info_date;
     }
 
-    public String getIfu() {
+    public int getIfu() {
         return ifu;
     }
 
-    public void setIfu(String ifu) {
+    public void setIfu(int ifu) {
         this.ifu = ifu;
     }
 
@@ -673,11 +673,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.pieds3 = pieds3;
     }
 
-    public String getIfu_client() {
+    public int getIfu_client() {
         return ifu_client;
     }
 
-    public void setIfu_client(String ifu_client) {
+    public void setIfu_client(int ifu_client) {
         this.ifu_client = ifu_client;
     }
 

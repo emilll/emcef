@@ -18,7 +18,22 @@ import org.springframework.stereotype.Service;
 public class RapportService {
     @Autowired
     RapportRepository rapportRepository;
+    
+    //Interface Générale
+    
     public int rapportTotal(Date date){
         return rapportRepository.nbrRapport(date);
+    }
+    
+    //Interface Entreprise
+    
+    public int EntRapportTotal(Date date, int ifu){
+        return rapportRepository.nbrEntRapport(date, ifu);
+    }
+    
+    //Interface Machines
+    
+    public int MachRapportTotal(Date date){
+        return rapportRepository.nbrMachRapport(date);
     }
 }

@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,10 +9,10 @@
         <link href="assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <!--Pour la date-->
+        //Pour la date
         <link rel="stylesheet" type="text/css" href="css/evo-calendar.css"/>
         <link rel="stylesheet" type="text/css" href="css/evo-calendar.midnight-blue.css"/>
-        <!--Fin Pour la date-->
+        //Fin Pour la date
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
@@ -39,7 +39,7 @@
 
     <body onload="getLineData()">
         <div class="d-flex bg-light" id="wrapper">
-            <!-- Sidebar -->
+            //Sidebar
             <div class="border-right resto" id="sidebar-wrapper">
                 <div class="sidebar-wrapper-bloc">
                     <nav>
@@ -105,9 +105,9 @@
                     </nav>
                 </div>
             </div>
-            <!-- /#sidebar-wrapper -->
+            //#sidebar-wrapper
 
-            <!-- Page Content -->
+            //Page Content 
             <div id="page-content-wrapper">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light py-1 border-bottom style_navbar_sticky">
                     <div class="container-fluid position-relative">
@@ -175,7 +175,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-3 col-6">
-                                <!-- small box -->
+                                //small box
                                 <div class="small-box bg-info">
                                     <div class="inner">
                                         <h3 id="factures">0</h3>
@@ -188,9 +188,9 @@
                                     <p class="small-box-footer">Factures <i class="fas fa-arrow-circle-right"></i></p>
                                 </div>
                             </div>
-                            <!-- ./col -->
+                            //col
                             <div class="col-lg-3 col-6">
-                                <!-- small box -->
+                                small box
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3 id="rapports">0</h3>
@@ -203,9 +203,9 @@
                                     <p class="small-box-footer">Rapports <i class="fas fa-arrow-circle-right"></i></p>
                                 </div>
                             </div>
-                            <!-- ./col -->
+                            ./col
                             <div class="col-lg-3 col-6">
-                                <!-- small box -->
+                                small box
                                 <div class="small-box bg-warning">
                                     <div class="inner">
                                         <h3 id="montant1">0</h3>
@@ -218,9 +218,9 @@
                                     <p class="small-box-footer">Montant <i class="fas fa-arrow-circle-right"></i></p>
                                 </div>
                             </div>
-                            <!-- ./col -->
+                            //col
                             <div class="col-lg-3 col-6">
-                                <!-- small box -->
+                                small box
                                 <div class="small-box bg-danger">
                                     <div class="inner">
                                         <h3 id="montant2">0</h3>
@@ -233,7 +233,7 @@
                                     <p class="small-box-footer">Montant <i class="fas fa-arrow-circle-right"></i></p>
                                 </div>
                             </div>
-                            <!-- ./col -->
+                            ./col
                         </div>
                         <hr/>
                         <div class="row">
@@ -262,23 +262,23 @@
                                     <i class="far fa-calendar-alt"></i>
                                     Récapitulatif Quotidienne
                                 </h3>
-                                <!-- tools card -->
+                                tools card
                                 <div class="card-tools">
-                                    <!-- button with a dropdown -->
+                                    button with a dropdown
                                     <div class="btn-group">
                                         <a id="eventspace" class="btn btn-success btn-sm" onclick="GetRange()">
                                             <i class="fas fa-bars"></i> Sélectionner un intervalle
                                         </a>
                                     </div>
                                 </div>
-                                <!-- /. tools -->
+                                tools
                             </div>
-                            <!-- /.card-header -->
+                            //.card-header
                             <div class="card-body pt-0">
-                                <!--The calendar -->
+                                The calendar
                                 <div id="calendar" style="width: 100%"></div>
                             </div>
-                            <!-- /.card-body -->
+                            /.card-body
                         </div>
                     </div>
                 </div>
@@ -435,5 +435,297 @@
 
             </script>
             <script src="js/evo-calendar.js"></script>
+    </body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <title>Reglo</title>
+
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/animate.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+        <link href="assets/css/all.min.css" rel="stylesheet">
+        <link href="assets/css/aos.css" rel="stylesheet">
+        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
+        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+
+
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="assets/js/aos.js"></script>
+        <script src="assets/js/slick.min.js"></script>
+        <script src="assets/js/Chart.min.js"></script>
+    </head>
+
+    <body>
+        <header id="header_top">
+            <nav class="navbar navbar-expand-lg navbar-dark style_bg p-0 fixed-top">
+                <div class="container-fluid position-relative">
+                    <div class="navbar-brand">
+                        <h4><a href="home.html" class="mr-3"><i class="fa fa-th-large"></i></a>Réglo</h4>
+                    </div>
+                    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Acceuil</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Recherche
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/showcontribuable">Contribuable</a>
+                                    <a class="dropdown-item" href="#">Machines</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto align-items-sm-center">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa fa-bell"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa fa-user-clock"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa fa-cog"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa fa-comments"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Déconnexion</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="mt-5 bg-white py-1 border-bottom">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h5 class="flex-fill">Tableau de <span class="text-success">Bord</span></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white py-1 border-bottom">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+
+                        <p aria-label="breadcrumb m-0 flex-fill">
+                        <h4 class="breadcrumb m-0 py-1">
+                            <li class="breadcrumb-item active text-dark">Statistiques</li>
+                        </h4>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="bg-light">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="border-bottom">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Factures</th>
+                            <th scope="col">Rapports</th>
+                            <th scope="col">Montant TTC</th>
+                            <th scope="col">Montant HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class=""><b>Totaux Globaux</b></td>
+                            <td>
+                                <span class="counter">12</span>
+                            </td>
+                            <td>
+                                <span class="counter">12</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter">90000000000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=""><b>Totaux de ce mois</b></td>
+                            <td>
+                                <span class="counter" id="month1">12</span>
+                            </td>
+                            <td>
+                                <span class="counter" id="month2">12</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter" id="month3">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter" id="month4">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=""><b>Totaux de ce jour</b></td>
+                            <td>
+                                <span class="counter" id="factures">12</span>
+                            </td>
+                            <td>
+                                <span class="counter" id="rapports">12</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter" id="montant1">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class=""><b>Machines</b></td>
+                            <td>
+                                <span class="counter">12</span>
+                            </td>
+                            <td>
+                                <span class="counter">12</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                            <td>
+                                <span class="text-danger counter">90000</span>
+                                <span class="badge style_bg text-white">FCFA</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class=" bg-white border p-3">
+                    <h4 class="text-dark">Total TTC</h4>
+                    <div>
+                        <canvas id="myLine" class="w-100"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class=" bg-white border p-3">
+                    <h4 class="text-dark">Total HT</h4>
+                    <div>
+                        <canvas id="myChart" class="w-100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-auto" style="margin: auto;">
+                <div id="pilier" class="chart"></div>
+            </div>
+        </div>
+
+        <h3 id="1" hidden="hidden"></h3>
+        <h3 id="2" hidden="hidden"></h3>
+        <h3 id="3" hidden="hidden"></h3>
+        <h3 id="4" hidden="hidden"></h3>
+        <h3 id="5" hidden="hidden"></h3>
+        <h3 id="6" hidden="hidden"></h3>
+        <h3 id="7" hidden="hidden"></h3>
+        <h3 id="8" hidden="hidden"></h3>
+        <h3 id="9" hidden="hidden"></h3>
+        <h3 id="10" hidden="hidden"></h3>
+        <h3 id="11" hidden="hidden"></h3>
+        <h3 id="12" hidden="hidden"></h3>
+
+        <h3 id="t1" hidden="hidden"></h3>
+        <h3 id="t2" hidden="hidden"></h3>
+        <h3 id="t3" hidden="hidden"></h3>
+        <h3 id="t4" hidden="hidden"></h3>
+        <h3 id="t5" hidden="hidden"></h3>
+        <h3 id="t6" hidden="hidden"></h3>
+        <h3 id="t7" hidden="hidden"></h3>
+        <h3 id="t8" hidden="hidden"></h3>
+        <h3 id="t9" hidden="hidden"></h3>
+        <h3 id="t10" hidden="hidden"></h3>
+        <h3 id="t11" hidden="hidden"></h3>
+        <h3 id="t12" hidden="hidden"></h3>
+        <script src="assets/js/jquery-1.12.4.min.js"></script>
+        <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
+        <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
+        <script src="assets/js/reglo.js" type="application/javascript"></script>
+
+        <script src="assets/js/jquery.counterup.min.js" type="application/javascript"></script>
+        <script src="assets/js/waypoints.min.js" type="application/javascript"></script>
+
+
+        <script>
+            function compter(){
+                $('.counter').counterUp({
+                delay: 10,
+                time: 3000
+            });
+            }
+            setTimeout(compter, 1500);
+
+            var tr = Date.parse(new Date('2021-04-12'));
+            function convertir(ladate) {
+                var currentTimeStamp = Date.parse(new Date(ladate));
+                return currentTimeStamp / 1000;
+            }
+            var data = {
+                "1618185600": 1000
+            };
+
+
+            yearcal = new CalHeatMap();
+            var dt = new Date();
+            yearcal.init({
+                subDomain: "day",
+                domain: "month",
+                displayLegend: true,
+                cellRadius: 10,
+                cellSize: 16,
+                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
+                considerMissingDataAsZero: false,
+                itemSelector: "#pilier",
+                start: new Date(),
+                subDomainTextFormat: "%d",
+                data: data,
+                highlight: ["now", dt],
+                onClick: function (date, nb) {
+                    function convert(str) {
+                        var date = new Date(str),
+                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                day = ("0" + date.getDate()).slice(-2);
+                        return [date.getFullYear(), mnth, day].join("-");
+                    }
+                    window.location.replace('/showdayinfo/'+convert(date));
+                }
+            });
+        </script>
     </body>
 </html>
