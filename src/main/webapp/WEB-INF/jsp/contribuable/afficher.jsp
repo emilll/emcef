@@ -410,27 +410,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Clients</a>
+                                <a class="nav-link" href="/">Acceuil</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Fournisseurs
+                                    Recherche
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Option 1</a>
-                                    <a class="dropdown-item" href="#">Option 2</a>
-                                    <a class="dropdown-item" href="#">Option 3</a>
-                                    <a class="dropdown-item" href="#">Option 4</a>
-                                    <a class="dropdown-item" href="#">Option 5</a>
-                                    <div class="dropdown-divider my-0"></div>
-                                    <a class="dropdown-item" href="#">Autres option</a>
+                                    <a class="dropdown-item" href="/showcontribuable">Contribuable</a>
+                                    <a class="dropdown-item" href="#">Machines</a>
                                 </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html">Analyse</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="prx.html">Configuration</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto align-items-sm-center">

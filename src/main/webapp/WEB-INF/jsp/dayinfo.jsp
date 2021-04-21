@@ -90,8 +90,7 @@
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between align-items-center mb-1">
-                        <h5 class="flex-fill">Vendredi 15 <span class="text-success">Janvier 2021</span></h5>
-
+                        <h5 class="flex-fill text-success" id="date"></h5>
                     </div>
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
@@ -128,7 +127,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">068746968517161</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Factures</h5>
                                                 </div>
                                             </div>
@@ -136,7 +135,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">0876187686871</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Rapports</h5>
                                                 </div>
                                             </div>
@@ -146,7 +145,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">015446874446</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Montant TTC</h5>
                                                 </div>
                                             </div>
@@ -154,7 +153,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">06846874681</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Montant HT</h5>
                                                 </div>
                                             </div>
@@ -168,7 +167,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">068746968517161</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Machines enregistrées</h5>
                                                 </div>
                                             </div>
@@ -176,7 +175,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">0876187686871</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Machines installées</h5>
                                                 </div>
                                             </div>
@@ -186,7 +185,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">015446874446</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Facture en attente</h5>
                                                 </div>
                                             </div>
@@ -194,7 +193,7 @@
                                         <div class="col-sm-6 form-group">
                                             <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                 <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">06846874681</span>
+                                                    <span class="display font-weight-bold border-bottom text-success">0</span>
                                                     <h5 class="card-title mt-3">Factures traités</h5>
                                                 </div>
                                             </div>
@@ -209,11 +208,7 @@
         </div>
     </div>
 </header>
-<main class="bg-light">
-    <div class="py-3">
-        
-    </div>
-</main>
+
 <h3 id="1" hidden="hidden"></h3>
 <h3 id="2" hidden="hidden"></h3>
 <h3 id="3" hidden="hidden"></h3>
@@ -226,7 +221,28 @@
 <h3 id="10" hidden="hidden"></h3>
 <h3 id="11" hidden="hidden"></h3>
 <h3 id="12" hidden="hidden"></h3>
-<script src="../assets/js/reglo.js" type="application/javascript"></script>
+<script>
+    function convert (vet){
+        var today = new Date(vet);
+                var options = {year: 'numeric', month: 'long', day: 'numeric'};
+                var opt_weekday = {weekday: 'long'};
+                function toTitleCase(str) {
+                    return str.replace(
+                            /\w\S*/g,
+                            function (txt) {
+                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                            }
+                    );
+                }
+
+                var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
+                var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
+                return the_date;
+    }
+    var chemin = window.location.pathname;
+    var splits = chemin.split("/", 3);
+    document.getElementById("date").innerHTML = convert(splits[2]);
+</script>
 </body>
 </html>
 

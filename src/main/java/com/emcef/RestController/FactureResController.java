@@ -27,6 +27,7 @@ public class FactureResController {
     
     //Interface Général
 
+    //Nombre de factures d'une date donnée
     @GetMapping("/nbrfacture/{date}")
     public int facture(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try{
@@ -36,6 +37,17 @@ public class FactureResController {
         }
     }
     
+    //Nombre de facture d'un mois donné
+    @GetMapping("/nbrfacture/{year}/{month}")
+      public int factureMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {        
+        try{
+            return factureService.factureMonth(year, month);
+        }catch(Exception e){
+        return 0;
+        }
+    }
+    
+      //Total TTC d'une date donnée
     @GetMapping("/totalttc/{date}")
      public Double totalTTC(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) { 
         try{
@@ -107,6 +119,7 @@ public class FactureResController {
         return 0;
         }
     }
+      
       
       @GetMapping("/rapports/{year}/{month}/{day}")
       public int DayRapports(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month, @PathVariable(value = "day") int day) {       

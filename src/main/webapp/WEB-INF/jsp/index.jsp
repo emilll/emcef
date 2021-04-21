@@ -480,35 +480,24 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Clients</a>
+                                <a class="nav-link" href="/">Acceuil</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Fournisseurs
+                                    Recherche
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Option 1</a>
-                                    <a class="dropdown-item" href="#">Option 2</a>
-                                    <a class="dropdown-item" href="#">Option 3</a>
-                                    <a class="dropdown-item" href="#">Option 4</a>
-                                    <a class="dropdown-item" href="#">Option 5</a>
-                                    <div class="dropdown-divider my-0"></div>
-                                    <a class="dropdown-item" href="#">Autres option</a>
+                                    <a class="dropdown-item" href="/showcontribuable">Contribuable</a>
+                                    <a class="dropdown-item" href="#">Machines</a>
                                 </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html">Analyse</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="prx.html">Configuration</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto align-items-sm-center">
                             <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html"><i class="fa fa-bell"></i></a>
+                                <a class="nav-link" href="#"><i class="fa fa-bell"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html"><i class="fa fa-user-clock"></i></a>
+                                <a class="nav-link" href="#"><i class="fa fa-user-clock"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa fa-cog"></i></a>
@@ -521,8 +510,6 @@
                                     <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Profil</a>
-                                    <div class="dropdown-divider my-0"></div>
                                     <a class="dropdown-item" href="#">Déconnexion</a>
                                 </div>
                             </li>
@@ -583,30 +570,30 @@
                         <tr>
                             <td class=""><b>Totaux de ce mois</b></td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="month1">12</span>
                             </td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="month2">12</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="month3">90000</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="month4">90000</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                         </tr>
                         <tr>
                             <td class=""><b>Totaux de ce jour</b></td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="factures">12</span>
                             </td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="rapports">12</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="montant1">90000</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
@@ -696,10 +683,13 @@
 
 
         <script>
-            $('.counter').counterUp({
+            function compter(){
+                $('.counter').counterUp({
                 delay: 10,
                 time: 3000
             });
+            }
+            setTimeout(compter, 1500);
 
             var tr = Date.parse(new Date('2021-04-12'));
             function convertir(ladate) {
@@ -725,9 +715,17 @@
                 start: new Date(),
                 subDomainTextFormat: "%d",
                 data: data,
-                highlight: ["now", dt]
+                highlight: ["now", dt],
+                onClick: function (date, nb) {
+                    function convert(str) {
+                        var date = new Date(str),
+                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                day = ("0" + date.getDate()).slice(-2);
+                        return [date.getFullYear(), mnth, day].join("-");
+                    }
+                    window.location.replace('/showdayinfo/'+convert(date));
+                }
             });
-
         </script>
     </body>
 </html>

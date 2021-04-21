@@ -86,6 +86,70 @@ async function getTotalFactures() {
     document.getElementById("factures").innerHTML = total_facture;
 }
 
+async function getMonthFacture() {
+    var dt = new Date();
+    var DD = ("0" + dt.getDate()).slice(-2);
+    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var YYYY = dt.getFullYear();
+    var global_date = YYYY + "-" + MM + "-" + DD;
+    var total_global = fetch('/nbrfacture/' + YYYY+'/'+MM)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("month1").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("month1").innerHTML = 0;
+            });
+}
+
+async function getMonthRapports() {
+    var dt = new Date();
+    var DD = ("0" + dt.getDate()).slice(-2);
+    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var YYYY = dt.getFullYear();
+    var global_date = YYYY + "-" + MM + "-" + DD;
+    var total_global = fetch('/api/totaltva/' + global_date)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("month2").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("month2").innerHTML = 0;
+            });
+}
+
+async function getMonthTTC() {
+    var dt = new Date();
+    var DD = ("0" + dt.getDate()).slice(-2);
+    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var YYYY = dt.getFullYear();
+    var global_date = YYYY + "-" + MM + "-" + DD;
+    var total_global = fetch('/api/totaltva/' + global_date)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("month3").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("month3").innerHTML = 0;
+            });
+}
+
+async function getMonthHT() {
+    var dt = new Date();
+    var DD = ("0" + dt.getDate()).slice(-2);
+    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var YYYY = dt.getFullYear();
+    var global_date = YYYY + "-" + MM + "-" + DD;
+    var total_global = fetch('/api/totaltva/' + global_date)
+            .then(response => response.json())
+            .then(function (response) {
+                document.getElementById("month4").innerHTML = JSON.stringify(response);
+            })
+            .catch(function (error) {
+                document.getElementById("month4").innerHTML = 0;
+            });
+}
+
 async function getTotalRapports() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);

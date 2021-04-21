@@ -46,6 +46,10 @@ public class FactureService {
     return factureRepository.DayRapports(year,month, day);
     }
     
+    public int factureMonth(int year, int month){
+    return factureRepository.factureMonth(year,month);
+    }
+    
     public int DayFactures(int year, int month, int day){
     return factureRepository.DayFactures(year,month, day);
     }
