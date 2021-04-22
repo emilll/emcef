@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
 
 package com.emcef.restcontroller;
+=======
+package com.emcef.RestController;
+>>>>>>> prodEmile
 
 import com.emcef.dao.CalendrierTB;
 import com.emcef.service.FactureService;

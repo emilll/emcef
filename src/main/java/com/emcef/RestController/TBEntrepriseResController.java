@@ -1,4 +1,4 @@
-package com.emcef.restcontroller;
+package com.emcef.RestController;
 
 import java.util.Date;
 
