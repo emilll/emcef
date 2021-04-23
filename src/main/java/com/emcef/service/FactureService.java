@@ -124,8 +124,12 @@ public class FactureService {
     }
 
     public Object[] getTotauxDay(int year , int month, int day) {
-    
         return factureRepository.getTotauxDay(year,month,day);
+    }
+
+    public Object [] getTotauxDay(int year , int month, int day,int ifu) {
+        return factureRepository.getEntTotauxDay(year,month,day,ifu);
+        // System.out.println(tbEnRep.getEntTotauxDay(year,month,day,ifu));
     }
 
 
