@@ -26,13 +26,13 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     
     //Interface Générale
 
-    @Query(value = "SELECT count(*) FROM factureselonspecifiaction n",nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM factureselonspecification n",nativeQuery = true)
     long nbrFact();
 
-    @Query(value = "SELECT sum(total) as totalTTC , sum(total_taxable) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
+    @Query(value = "SELECT sum(total) as totalTTC , sum(total_taxable) as totalTVA FROM factureselonspecification",nativeQuery = true)
     Double getTotalTTC();
 
-    @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecifiaction",nativeQuery = true)
+    @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecification",nativeQuery = true)
     Double getTotalTVA();
 
 
@@ -54,14 +54,14 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
     Double TotalMonthTTC(int year, int month);
 
-    @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecifiaction f WHERE f.ifu =:ifu",nativeQuery = true)
+    /*@Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecification f WHERE f.ifu =:ifu",nativeQuery = true)
     String getFactTotauxContribuable(@Param("ifu")String ifu);
 
-    @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecifiaction f WHERE f.ifu =:ifu AND f.dateheure=:d1 ",nativeQuery = true)
-    Double getFactTotauxContribuable2(@Param("ifu")String ifu,@Param("d1")String d1);
+    @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecification f WHERE f.ifu =:ifu AND f.dateheure=:d1 ",nativeQuery = true)
+    Double getFactTotauxContribuable2(@Param("ifu")String ifu,@Param("d1")Date d1);
 
-    @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecifiaction f WHERE f.ifu =:ifu AND f.dateheure BETWEN :d1 AND :d2 ",nativeQuery = true)
-    Double getFactTotauxContribuable3(@Param("ifu")String ifu,@Param("d1")Date d1, @Param("d2")Date d2);
+    @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecification f WHERE f.ifu =:ifu AND f.dateheure BETWEN :d1 AND :d2 ",nativeQuery = true)
+    Double getFactTotauxContribuable3(@Param("ifu")String ifu,@Param("d1")Date d1, @Param("d2")Date d2);*/
 
     
     @Query(value = "SELECT sum(total) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3",nativeQuery = true)

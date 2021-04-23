@@ -35,13 +35,13 @@ public class FactureService {
         return factureRepository.nbrFact();
     }
 
-    public String getFactTotauxContribuable(String ifu) {
+    /*public String getFactTotauxContribuable(String ifu) {
         return factureRepository.getFactTotauxContribuable(ifu);
     }
 
     public Double getFactTotauxContribuable2(String ifu, String d1) {
         return factureRepository.getFactTotauxContribuable2(ifu, d1);
-    }
+    }*/
 
     public void deleteFactureSelonSpecificationById(int id) {
         this.factureRepository.deleteById(id);

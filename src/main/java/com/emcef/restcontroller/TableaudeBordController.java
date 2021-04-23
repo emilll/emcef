@@ -5,9 +5,7 @@ import com.emcef.service.FactureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -37,7 +35,7 @@ public class TableaudeBordController {
         return factureService.countfacture();
     }
 
-    @GetMapping("/totaux/{ifu}")
+   /* @GetMapping("/totaux/{ifu}")
     public @ResponseBody String getFactTotalContribuable(@PathVariable(value = "ifu") String ifu) {
         return factureService.getFactTotauxContribuable(ifu);
     }
@@ -47,7 +45,7 @@ public class TableaudeBordController {
             @PathVariable(name = "dateFac") String dateFac) {
         System.out.println("je suis dans total");
         return factureService.getFactTotauxContribuable2(ifu, dateFac);
-    }
+    }*/
 
     
 }
