@@ -6,6 +6,8 @@
 package com.emcef.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.emcef.model.Contribuable;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +18,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContribuableRepository extends JpaRepository<Contribuable, Integer> {
-    
+
+    // @Query(value = "SELECT c.ifu FROM contribuable c WHERE ifu=:ifu", nativeQuery
+    // = true)
+    public Object[] findByifu(int ifu);
+
+    @Query(value = "SELECT * FROM contribuable c ", nativeQuery = true)
+    public Object[] rehContribuableifu();
+
 }

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class ContribuableService {
     @Autowired
     ContribuableRepository contribuableRepository;
-    
+
     public List<Contribuable> getAllContribuable() {
         return contribuableRepository.findAll();
     }
@@ -28,21 +28,25 @@ public class ContribuableService {
     public void saveContribuable(Contribuable contribuable) {
         this.contribuableRepository.save(contribuable);
     }
-    
-    public Contribuable getContribuableById(int id){
+
+    public Contribuable getContribuableById(int id) {
         Optional<Contribuable> optional = contribuableRepository.findById(id);
         Contribuable contribuable = null;
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             contribuable = optional.get();
-        }else{
+        } else {
             throw new RuntimeException("Employé non trouvé pour l'Id :: " + id);
         }
         return contribuable;
     }
-    
-    public void deleteContribuableById(int id){
+
+    public void deleteContribuableById(int id) {
         this.contribuableRepository.deleteById(id);
     }
 
-    
+    public Object[] findContribuableByIfu(int ifu) {
+        // System.out.println(ContribuableRepository.findByifu(ifu));
+        return contribuableRepository.findByifu(ifu);
+    }
+
 }
