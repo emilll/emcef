@@ -77,7 +77,7 @@ public class ContribuableController {
         return "redirect:/showcontribuable";
     }
 
-    // rechercher et retourne les informations d'un contribuable par son ifu
+    // rechercher et retourner les informations d'un contribuable par son ifu
     @GetMapping("/getcontribuablebyifu/{ifu}")
     public Contribuable getContribuableByIfu(Model model, @PathVariable(value = "ifu") int ifu) {
         Contribuable contribuable = contribuableService.findContribuableByIfu(ifu);

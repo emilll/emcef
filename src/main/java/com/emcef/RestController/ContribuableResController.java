@@ -24,7 +24,7 @@ public class ContribuableResController {
     @Autowired
     ContribuableService contribuableService;
 
-    // rechercher et retourne un ID d'un contribuable par son ifu
+    // rechercher et retourner un ID d'un contribuable par son ifu
     @GetMapping("/ent/findcontribuablebyifu/{ifu}")
     public int getByIfu(@PathVariable(value = "ifu") int ifu) {
         try {
@@ -34,7 +34,7 @@ public class ContribuableResController {
         }
     }
 
-    // rechercher et retourne un ID d'un contribuable par le registre du commerce
+    // rechercher et retourner un ID d'un contribuable par le registre du commerce
     // (RCCM)
     @GetMapping("/ent/findcontribuablebyrccm/{rccm}")
     public int findContribuableByRccm(@PathVariable(value = "rccm") String rccm) {
@@ -45,7 +45,7 @@ public class ContribuableResController {
         }
     }
 
-    // rechercher et retourne un ID d'un contribuable par la raison social (Nom)
+    // rechercher et retourner un ID d'un contribuable par la raison social (Nom)
     @GetMapping("/ent/findcontribuablebynom/{nom}")
     public int findContribuableByNom(@PathVariable(value = "nom") String nom) {
         try {
