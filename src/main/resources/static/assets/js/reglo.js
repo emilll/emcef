@@ -142,6 +142,7 @@ async function getTotauxDay() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
+    var rapport_date = YYYY + "-" + MM + "-" + DD;
     const facture = await fetch('/api/totauxday/' + YYYY + '/' + MM + '/' + DD);
     liste = await facture.json();
     const rapport = await fetch('/api/nbrrapport/' +rapport_date);
@@ -183,7 +184,6 @@ async function getMonthRapports() {
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
-    var rapport_date = YYYY + "-" + MM + "-" + DD;
     const rapport = await fetch('/api/rapports/' + YYYY+'/'+MM);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {

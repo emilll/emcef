@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.emcef.restcontroller;
-
+package com.emcef.RestController;
 
 import com.emcef.service.FactureService;
 import org.json.simple.JSONObject;
@@ -31,8 +30,8 @@ public class FactureResController {
     @Autowired
     FactureService factureService;
 
-    //Interface Général
-    //Nombre de factures d'une date donnée
+    // Interface Général
+    // Nombre de factures d'une date donnée
     @GetMapping("/nbrfacture/{date}")
     public int facture(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try {
@@ -42,7 +41,7 @@ public class FactureResController {
         }
     }
 
-    //Nombre de facture d'un mois donné
+    // Nombre de facture d'un mois donné
     @GetMapping("/nbrfacture/{year}/{month}")
     public int factureMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
@@ -52,7 +51,7 @@ public class FactureResController {
         }
     }
 
-    //Total TTC d'une date donnée
+    // Total TTC d'une date donnée
     @GetMapping("/totalttc/{date}")
     public Double totalTTC(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try {
@@ -90,7 +89,8 @@ public class FactureResController {
     }
 
     @GetMapping("/ttc/{year}/{month}/{day}")
-    public double DayTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month, @PathVariable(value = "day") int day) {
+    public double DayTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+            @PathVariable(value = "day") int day) {
         try {
             return factureService.DayTTC(year, month, day);
         } catch (Exception e) {
@@ -99,7 +99,8 @@ public class FactureResController {
     }
 
     @GetMapping("/betweenTtc/{day1}/{day2}")
-    public double getBetweenTTC(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
+    public double getBetweenTTC(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
+            @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return factureService.getBetweenTTC(day1, day2);
         } catch (Exception e) {
@@ -108,7 +109,8 @@ public class FactureResController {
     }
 
     @GetMapping("/betweenFactures/{day1}/{day2}")
-    public double getBetweenFactures(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
+    public double getBetweenFactures(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
+            @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return factureService.getBetweenFactures(day1, day2);
         } catch (Exception e) {
@@ -117,7 +119,8 @@ public class FactureResController {
     }
 
     @GetMapping("/factures/{year}/{month}/{day}")
-    public int DayFactures(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month, @PathVariable(value = "day") int day) {
+    public int DayFactures(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+            @PathVariable(value = "day") int day) {
         try {
             return factureService.DayFactures(year, month, day);
         } catch (Exception e) {
@@ -136,6 +139,7 @@ public class FactureResController {
     }
 
     // tableau de bord Général
+    // Nombre de fature par date
     @GetMapping("/countfacturebydate")
     public JSONObject getNbreFactureByDate() throws ParseException {
 
@@ -145,13 +149,13 @@ public class FactureResController {
         for (Object[] ob : factureService.getNbreFactureByDate()) {
             String dt = sdf.format(ob[0]);
             Date date = sdf.parse(dt);
-            long millis = date.getTime()/1000;
-            obj.put(millis,ob[1]);
+            long millis = date.getTime() / 1000;
+            obj.put(millis, ob[1]);
         }
-        
         return obj;
     }
 
+    // Nombre de fature , total TTC et totalTVA
     @GetMapping("/totauxglobaux")
     public Object[] totauxglobaux() {
         try {
@@ -161,9 +165,9 @@ public class FactureResController {
         }
     }
 
+    // Nombre de fature , total TTC et totalTVA par année et par mois
     @GetMapping("/totauxmonth/{year}/{month}")
-    public Object[] getTotauxMonth(@PathVariable(value = "year") int year,
-            @PathVariable(value = "month") int month) {
+    public Object[] getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
             return factureService.getTotauxMonth(year, month);
         } catch (Exception e) {
@@ -171,9 +175,9 @@ public class FactureResController {
         }
     }
 
+    // Nombre de fature , total TTC et totalTVA par année par mois et par jour
     @GetMapping("/totauxday/{year}/{month}/{day}")
-    public Object[] getTotauxDay(@PathVariable(value = "year") int year,
-            @PathVariable(value = "month") int month,
+    public Object[] getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day) {
         try {
             return factureService.getTotauxDay(year, month, day);
@@ -181,4 +185,5 @@ public class FactureResController {
             return null;
         }
     }
+
 }

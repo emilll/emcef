@@ -4,25 +4,25 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="../assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
+        <link href="../assets/css/animate.css" rel="stylesheet">
+        <link href="../assets/css/style.css" rel="stylesheet">
+        <link href="../assets/css/all.min.css" rel="stylesheet">
+        <link href="../assets/css/aos.css" rel="stylesheet">
+        <link href="../assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/cal-heatmap.css" />
+        <link href="../assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+        <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="../assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="../assets/js/aos.js"></script>
+        <script src="../assets/js/slick.min.js"></script>
+        <script src="../assets/js/Chart.min.js"></script>
     </head>
 
     <body>
@@ -65,7 +65,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
+                                    <img src="../assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">Profil</a>
@@ -114,7 +114,7 @@
                                 <div class="align-items-center border p-3">
                                     <div class="row mb-3 my-auto">
                                         <a href="#">
-                                            <img src="assets/img/logo.png" loading='lazy' width="200" class="img-fluid" alt="logo">
+                                            <img src="../assets/img/logo.png" loading='lazy' width="200" class="img-fluid" alt="logo">
                                         </a>
                                     </div><br>
                                     <div class="row mb-3 my-auto">
@@ -592,10 +592,10 @@
         <h3 id="11" hidden="hidden"></h3>
         <h3 id="12" hidden="hidden"></h3>
 
-        <script src="assets/js/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
-        <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
-        <script src="assets/js/reglo.js" type="application/javascript"></script>
+        <script src="../assets/js/jquery-1.12.4.min.js"></script>
+        <script src="../assets/js/d3.v3.min.js" type="application/javascript"></script>
+        <script src="../assets/js/cal-heatmap.js" type="application/javascript"></script>
+        <script src="../assets/js/reglo.js" type="application/javascript"></script>
         <script>
             yearcal = new CalHeatMap();
             var dt = new Date();

@@ -482,7 +482,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/">Acceuil</a>
                             </li>
-                             <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Ajouter
                                 </a>
@@ -754,13 +754,13 @@
                                                         '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
                                                         '<div class="row">' +
                                                         '<div class="col-sm-12 form-group">' +
-                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
+                                                        '<input type="text" class="form-control style_form_control" id="val2" name="" placeholder="Nom">' +
                                                         '</div>' +
                                                         '<div class="col-sm-6 form-group">' +
-                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="IFU">' +
+                                                        '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
                                                         '</div>' +
                                                         '<div class="col-sm-6 form-group">' +
-                                                        '<input type="number" class="form-control style_form_control" name="" placeholder="RCCM">' +
+                                                        '<input type="number" class="form-control style_form_control" id="val3" name="" placeholder="RCCM">' +
                                                         '</div>' +
                                                         '</div>' +
                                                         '</div>' +
@@ -770,7 +770,15 @@
                                                 confirmButtonText: 'Rechercher',
                                                 showLoaderOnConfirm: true,
                                                 preConfirm: (login) => {
-                                                    return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                    var variable;
+                                                    if (document.getElementById('val1').value !== "") {
+                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                                                    } else if (document.getElementById('val2').value !== "") {
+                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val2').value;
+                                                    } else if (document.getElementById('val3').value !== "") {
+                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val3').value;
+                                                    }
+                                                    return fetch(variable)
                                                             .then(response => {
                                                                 if (!response.ok) {
                                                                     throw new Error(response.statusText)
@@ -785,12 +793,35 @@
                                                 },
                                                 allowOutsideClick: () => !Swal.isLoading()
                                             }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    window.location.href = "/showinfo"
+                                                if (result.value!==0) {
+                                                    const Toast = Swal.mixin({
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 3000,
+                                                        timerProgressBar: true,
+                                                        didOpen: (toast) => {
+                                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                        }
+                                                    })
+
+                                                    Toast.fire({
+                                                        icon: 'success',
+                                                        title: 'Trouvé. Redirection en cours . . .'
+                                                    })
+                                                    window.location.href = "/showinfo/" + result.value
+                                                } else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Erreur...',
+                                                        text: 'Ce contribuable n\'existe pas!',
+                                                        footer: '<ahref="javascript:void(0);" onclick="recherche1()">Réessayer</a>'
+                                                    })
                                                 }
                                             })
                                         }
-                                        
+
                                         async function recherche2() {
                                             const man = Swal.mixin({
                                                 customClass: {
@@ -806,7 +837,7 @@
                                                         '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
                                                         '<div class="row">' +
                                                         '<div class="col-sm-12 form-group">' +
-                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="NIM">' +
+                                                        '<input type="text" class="form-control style_form_control" id="nim" name="" placeholder="NIM">' +
                                                         '</div>' +
                                                         '</div>' +
                                                         '</div>' +
@@ -816,6 +847,14 @@
                                                 confirmButtonText: 'Rechercher',
                                                 showLoaderOnConfirm: true,
                                                 preConfirm: (login) => {
+                                                    var variable;
+                                                    if (document.getElementById('nim').value !== "") {
+                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                                                    }else{
+                                                        Swal.showValidationMessage(
+                                                                        'Le champ NIM est vide!'
+                                                                        )
+                                                    }
                                                     return fetch(`http://localhost:8080/api/countfacturebydate`)
                                                             .then(response => {
                                                                 if (!response.ok) {
@@ -836,7 +875,7 @@
                                                 }
                                             })
                                         }
-                                        
+
                                         async function recherche3() {
                                             const man = Swal.mixin({
                                                 customClass: {

@@ -102,17 +102,18 @@ public class FactureService {
     }
 
     public Object[] getTotauxGlobaux() {
-    
         return factureRepository.getTotauxGlobaux();
     }
 
     public Object[] getTotauxMonth(int year , int month) {
-    
         return factureRepository.getTotauxMonth(year,month);
     }
 
     public Object[] getTotauxDay(int year , int month, int day) {
-    
         return factureRepository.getTotauxDay(year,month,day);
+    }
+
+    public Object [] getEntTotauxDay(int year , int month, int day,int ifu) {
+        return factureRepository.getEntTotauxDay(year,month,day,ifu);
     }
 }

@@ -90,6 +90,9 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day",nativeQuery = true)
     public Object[] getTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day);
+
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day AND ifu =:ifu",nativeQuery = true)
+    public Object[] getEntTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day,@Param("ifu") int ifu);
     
     
     

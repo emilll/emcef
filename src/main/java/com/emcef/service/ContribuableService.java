@@ -8,7 +8,6 @@ package com.emcef.service;
 import com.emcef.model.Contribuable;
 import com.emcef.repository.ContribuableRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class ContribuableService {
     @Autowired
     ContribuableRepository contribuableRepository;
-    
+
     public List<Contribuable> getAllContribuable() {
         return contribuableRepository.findAll();
     }
@@ -28,21 +27,36 @@ public class ContribuableService {
     public void saveContribuable(Contribuable contribuable) {
         this.contribuableRepository.save(contribuable);
     }
-    
-    public Contribuable getContribuableById(int id){
-        Optional<Contribuable> optional = contribuableRepository.findById(id);
-        Contribuable contribuable = null;
-        if(optional.isPresent()){
-            contribuable = optional.get();
-        }else{
-            throw new RuntimeException("Employé non trouvé pour l'Id :: " + id);
-        }
-        return contribuable;
-    }
-    
-    public void deleteContribuableById(int id){
+
+    public void deleteContribuableById(int id) {
         this.contribuableRepository.deleteById(id);
     }
 
-    
+    public Contribuable findContribuableByIfu(String ifu) {
+        return contribuableRepository.findByIfu(ifu);
+    }
+
+    public Contribuable findContribuableByRccm(String rccm) {
+        return contribuableRepository.findByRccm(rccm);
+    }
+
+    public Contribuable findContribuableByNom(String nom) {
+        return contribuableRepository.findByNom(nom);
+    }
+
+    // **********************service des API DEBUT*********************
+    public int getIdByIfu(String ifu) {
+        return contribuableRepository.getIdByIfu(ifu);
+    }
+
+    public int getIdByRccm(String rccm) {
+        return contribuableRepository.getIdByRccm(rccm);
+    }
+
+    public int getIdByNom(String nom) {
+        return contribuableRepository.getIdByNom(nom);
+    }
+
+    // **********************service des API FIN*********************
+
 }
