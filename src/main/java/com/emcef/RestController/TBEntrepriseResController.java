@@ -140,6 +140,7 @@ public class TBEntrepriseResController {
         }
     }
 
+    // Nombre de fature , totalTTC et TotalTH pour une entreprise
     @GetMapping("/ent/totauxglobaux/{ifu}")
     public Object[] getEnttotauxglobaux(@PathVariable(value = "ifu") int ifu) {
         try {
@@ -149,6 +150,8 @@ public class TBEntrepriseResController {
         }
     }
 
+    // Nombre de fature , totalTTC et TotalTH pour une entreprise par année et par
+    // mois
     @GetMapping("/ent/totauxmonth/{year}/{month}/{ifu}")
     public Object[] getEntTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "ifu") int ifu) {
@@ -160,6 +163,8 @@ public class TBEntrepriseResController {
         }
     }
 
+    // Nombre de fature , totalTTC et TotalTH pour une entreprise par année et par
+    // mois par jour
     @GetMapping("/ent/totauxday/{year}/{month}/{day}/{ifu}")
     public Object[] getEntTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day, @PathVariable(value = "ifu") int ifu) {

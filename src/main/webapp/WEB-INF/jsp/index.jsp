@@ -487,7 +487,7 @@
                                     Recherche
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/showcontribuable">Contribuable</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="recherche()">Contribuable</a>
                                     <a class="dropdown-item" href="#">Machines</a>
                                 </div>
                             </li>
@@ -553,68 +553,68 @@
                         <tr>
                             <td class=""><b>Totaux Globaux</b></td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="global1">0</span>
                             </td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="global2">0</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="global3">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000000000</span>
+                                <span class="text-danger counter" id="global4">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                         </tr>
                         <tr>
                             <td class=""><b>Totaux de ce mois</b></td>
                             <td>
-                                <span class="counter" id="month1">12</span>
+                                <span class="counter" id="month1">0</span>
                             </td>
                             <td>
-                                <span class="counter" id="month2">12</span>
+                                <span class="counter" id="month2">0</span>
                             </td>
                             <td>
-                                <span class="text-danger counter" id="month3">90000</span>
+                                <span class="text-danger counter" id="month3">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
-                                <span class="text-danger counter" id="month4">90000</span>
+                                <span class="text-danger counter" id="month4">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                         </tr>
                         <tr>
                             <td class=""><b>Totaux de ce jour</b></td>
                             <td>
-                                <span class="counter" id="factures">12</span>
+                                <span class="counter" id="day1">0</span>
                             </td>
                             <td>
-                                <span class="counter" id="rapports">12</span>
+                                <span class="counter" id="day2">0</span>
                             </td>
                             <td>
-                                <span class="text-danger counter" id="montant1">90000</span>
+                                <span class="text-danger counter" id="day3">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="day4">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                         </tr>
                         <tr>
                             <td class=""><b>Machines</b></td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="mach1">0</span>
                             </td>
                             <td>
-                                <span class="counter">12</span>
+                                <span class="counter" id="mach2">0</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="mach3">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                             <td>
-                                <span class="text-danger counter">90000</span>
+                                <span class="text-danger counter" id="mach4">0</span>
                                 <span class="badge style_bg text-white">FCFA</span>
                             </td>
                         </tr>
@@ -680,52 +680,103 @@
 
         <script src="assets/js/jquery.counterup.min.js" type="application/javascript"></script>
         <script src="assets/js/waypoints.min.js" type="application/javascript"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
-            function compter(){
-                $('.counter').counterUp({
-                delay: 10,
-                time: 3000
-            });
-            }
-            setTimeout(compter, 1500);
+                                        function compter() {
+                                            $('.counter').counterUp({
+                                                delay: 10,
+                                                time: 3000
+                                            });
+                                        }
+                                        setTimeout(compter, 1500);
 
-            var tr = Date.parse(new Date('2021-04-12'));
-            function convertir(ladate) {
-                var currentTimeStamp = Date.parse(new Date(ladate));
-                return currentTimeStamp / 1000;
-            }
-            var data = {
-                "1618185600": 1000
-            };
+                                        var tr = Date.parse(new Date('2021-04-12'));
+                                        function convertir(ladate) {
+                                            var currentTimeStamp = Date.parse(new Date(ladate));
+                                            return currentTimeStamp / 1000;
+                                        }
+
+                                        yearcal = new CalHeatMap();
+                                        var dt = new Date();
+                                        yearcal.init({
+                                            subDomain: "day",
+                                            domain: "month",
+                                            displayLegend: true,
+                                            cellRadius: 10,
+                                            cellSize: 16,
+                                            legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
+                                            considerMissingDataAsZero: false,
+                                            itemSelector: "#pilier",
+                                            start: new Date(),
+                                            subDomainTextFormat: "%d",
+                                            data: 'http://localhost:8080/api/countfacturebydate',
+                                            highlight: ["now", dt],
+                                            onClick: function (date, nb) {
+                                                function convert(str) {
+                                                    var date = new Date(str),
+                                                            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                            day = ("0" + date.getDate()).slice(-2);
+                                                    return [date.getFullYear(), mnth, day].join("-");
+                                                }
+                                                window.location.replace('/showdayinfo/' + convert(date));
+                                            }
+                                        });
 
 
-            yearcal = new CalHeatMap();
-            var dt = new Date();
-            yearcal.init({
-                subDomain: "day",
-                domain: "month",
-                displayLegend: true,
-                cellRadius: 10,
-                cellSize: 16,
-                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
-                considerMissingDataAsZero: false,
-                itemSelector: "#pilier",
-                start: new Date(),
-                subDomainTextFormat: "%d",
-                data: data,
-                highlight: ["now", dt],
-                onClick: function (date, nb) {
-                    function convert(str) {
-                        var date = new Date(str),
-                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                day = ("0" + date.getDate()).slice(-2);
-                        return [date.getFullYear(), mnth, day].join("-");
-                    }
-                    window.location.replace('/showdayinfo/'+convert(date));
-                }
-            });
+
+                                        async function recherche() {
+                                            const man = Swal.mixin({
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success col-sm-12 ',
+                                                    cancelButton: 'btn btn-danger col-sm-12'
+                                                },
+                                                buttonsStyling: false
+                                            })
+                                            man.fire({
+                                                html:
+                                                        '<div class="col-sm-12 my-auto">' +
+                                                        '<div class="mb-2">' +
+                                                        '<h2 class="text-dark mb-3">Recherche</h2>' +
+                                                        '<div class="row">' +
+                                                        '<div class="col-sm-12 form-group">' +
+                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
+                                                        '</div>' +
+                                                        '<div class="col-sm-6 form-group">' +
+                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="IFU">' +
+                                                        '</div>' +
+                                                        '<div class="col-sm-6 form-group">' +
+                                                        '<input type="number" class="form-control style_form_control" name="" placeholder="RCCM">' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>',
+                                                showCancelButton: true,
+                                                cancelButtonText: 'Annuler',
+                                                confirmButtonText: 'Rechercher',
+                                                showLoaderOnConfirm: true,
+                                                preConfirm: (login) => {
+                                                    return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                            .then(response => {
+                                                                if (!response.ok) {
+                                                                    throw new Error(response.statusText)
+                                                                }
+                                                                return response.json()
+                                                            })
+                                                            .catch(error => {
+                                                                Swal.showValidationMessage(
+                                                                        `La requête a échoué: ${error}`
+                                                                        )
+                                                            })
+                                                },
+                                                allowOutsideClick: () => !Swal.isLoading()
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.location.href="/showinfo"
+                                                }
+                                            })
+                                        }
+
         </script>
     </body>
 </html>

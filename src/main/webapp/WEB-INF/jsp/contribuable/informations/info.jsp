@@ -13,6 +13,7 @@
         <link href="assets/css/all.min.css" rel="stylesheet">
         <link href="assets/css/aos.css" rel="stylesheet">
         <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
         <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
@@ -155,53 +156,82 @@
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <div class="col-sm-6 my-auto">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class=" bg-white border p-3">
-                                            <h4 class="text-dark">Total TTC</h4>
-                                            <div>
-                                                <canvas id="myLine" class="w-100"></canvas>
+                            <div class="col-sm-12 my-auto">
+                                <div class="bg-info align-items-center border p-3">
+                                    <div class="row mb-3 my-auto">
+                                        <a href="#">
+                                            <img src="assets/img/logo.png" loading='lazy' width="200" class="img-fluid" alt="logo">
+                                        </a>
+                                    </div><br>
+                                    <div class="row mb-3 my-auto">
+                                        <p class="mb-2 badge style_bg text-white">
+                                            <a href="#">Dénomination: </a>
+                                        </p>
+                                        <p class="mb-2">
+                                            &nbsp;&nbsp;ASSANA SERVICES
+                                        </p>
+                                    </div>
+                                    <div class="row mb-3 my-auto">
+                                        <p class="mb-2 badge style_bg text-white">
+                                            IFU: 
+                                        </p>
+                                        <p class="mb-2">
+                                            &nbsp;&nbsp;1234567891025
+                                        </p>
+                                    </div>
+                                    <div class="row mb-3 my-auto">
+                                        <p class="mb-2 badge style_bg text-white">
+                                            <a href="#">E-Mail: </a>
+                                        </p>
+                                        <p class="mb-2">
+                                            &nbsp;&nbsp;contact@contact.com
+                                        </p>
+                                    </div>
+                                    <div class="row mb-3 my-auto">
+                                        <p class="mb-2 badge style_bg text-white">
+                                            <a href="#">Téléphone: </a>
+                                        </p>
+                                        <p class="mb-2">
+                                            &nbsp;&nbsp;(+229) 66153347
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 my-auto">
+                            <div class="row">
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-6 form-group">
+                                        <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                            <div class="card-body">
+                                                <span class="display font-weight-bold border-bottom text-success">068746968517161</span>
+                                                <h5 class="card-title mt-3">Factures</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 form-group">
+                                        <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                            <div class="card-body">
+                                                <span class="display font-weight-bold border-bottom text-success">0876187686871</span>
+                                                <h5 class="card-title mt-3">Rapports</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 my-auto">
-                                <div class="row">
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-6 form-group">
-                                            <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">068746968517161</span>
-                                                    <h5 class="card-title mt-3">Factures</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">0876187686871</span>
-                                                    <h5 class="card-title mt-3">Rapports</h5>
-                                                </div>
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-6 form-group">
+                                        <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                            <div class="card-body">
+                                                <span class="display font-weight-bold border-bottom text-success">015446874446</span>
+                                                <h5 class="card-title mt-3">Montant TTC</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-6 form-group">
-                                            <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">015446874446</span>
-                                                    <h5 class="card-title mt-3">Montant TTC</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                <div class="card-body">
-                                                    <span class="display font-weight-bold border-bottom text-success">06846874681</span>
-                                                    <h5 class="card-title mt-3">Montant HT</h5>
-                                                </div>
+                                    <div class="col-sm-6 form-group">
+                                        <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                            <div class="card-body">
+                                                <span class="display font-weight-bold border-bottom text-success">06846874681</span>
+                                                <h5 class="card-title mt-3">Montant HT</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -210,320 +240,434 @@
                         </div>
                     </div>
                 </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-auto" style="margin: auto;">
+                    <div id="pilier" class="chart"></div>
+                </div>
             </div>
-        </div>
-    </div>
-</header>
-<main class="bg-light">
-    <div class="py-3">
-        <div class="container-fluid">
-            <div class="bg-white p-2">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead class="border-bottom">
-                            <tr>
-                                <th scope="col">N°</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Libellé</th>
-                                <th scope="col">Badge</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <span class="text-dark">11/05/20</span>
-                                    <small class="text-muted">15:58</small>
-                                </td>
-                                <td>
-                                    <span>Lorem ipsum dolor sit amet...</span>
-                                </td>
-                                <td>
-                                    <span class="badge style_bg text-white">Badge</span>
-                                </td>
-                                <td>
-                                    <span class="text-success">90.000</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                        <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                        <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
+        </header>
+        <main class="bg-light">
+            <div class="py-3">
+                <div class="container-fluid">
+                    <div class="bg-white p-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="border-bottom">
+                                    <tr>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Date d'Activation</th>
+                                        <th scope="col">Propriétaire</th>
+                                        <th scope="col">ID SIM</th>
+                                        <th scope="col">Numéro SIM</th>
+                                        <th scope="col">NIM</th>
+                                        <th scope="col">Opérateur</th>
+                                        <th scope="col">Date Dernier Rapport</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
+                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
+                                                <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <p>2 éléments sur 6</p>
-                    <nav class=''>
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p>2 éléments sur 6</p>
+                            <nav class=''>
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</main>
-<h3 id="1" hidden="hidden"></h3>
-<h3 id="2" hidden="hidden"></h3>
-<h3 id="3" hidden="hidden"></h3>
-<h3 id="4" hidden="hidden"></h3>
-<h3 id="5" hidden="hidden"></h3>
-<h3 id="6" hidden="hidden"></h3>
-<h3 id="7" hidden="hidden"></h3>
-<h3 id="8" hidden="hidden"></h3>
-<h3 id="9" hidden="hidden"></h3>
-<h3 id="10" hidden="hidden"></h3>
-<h3 id="11" hidden="hidden"></h3>
-<h3 id="12" hidden="hidden"></h3>
-<script src="assets/js/reglo.js" type="application/javascript"></script>
-</body>
+        </main>
+        <h3 id="1" hidden="hidden"></h3>
+        <h3 id="2" hidden="hidden"></h3>
+        <h3 id="3" hidden="hidden"></h3>
+        <h3 id="4" hidden="hidden"></h3>
+        <h3 id="5" hidden="hidden"></h3>
+        <h3 id="6" hidden="hidden"></h3>
+        <h3 id="7" hidden="hidden"></h3>
+        <h3 id="8" hidden="hidden"></h3>
+        <h3 id="9" hidden="hidden"></h3>
+        <h3 id="10" hidden="hidden"></h3>
+        <h3 id="11" hidden="hidden"></h3>
+        <h3 id="12" hidden="hidden"></h3>
+
+        <script src="assets/js/jquery-1.12.4.min.js"></script>
+        <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
+        <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
+        <script src="assets/js/reglo.js" type="application/javascript"></script>
+        <script>
+            yearcal = new CalHeatMap();
+            var dt = new Date();
+            yearcal.init({
+                subDomain: "day",
+                domain: "month",
+                displayLegend: true,
+                cellRadius: 10,
+                cellSize: 16,
+                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
+                considerMissingDataAsZero: false,
+                itemSelector: "#pilier",
+                start: new Date(),
+                subDomainTextFormat: "%d",
+                data: 'http://localhost:8080/api/countfacturebydate',
+                highlight: ["now", dt],
+                onClick: function (date, nb) {
+                    function convert(str) {
+                        var date = new Date(str),
+                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                day = ("0" + date.getDate()).slice(-2);
+                        return [date.getFullYear(), mnth, day].join("-");
+                    }
+                    window.location.replace('/showdayinfo/' + convert(date));
+                }
+            });
+        </script>
+    </body>
 </html>

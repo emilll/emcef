@@ -24,10 +24,34 @@ public class ContribuableResController {
     @Autowired
     ContribuableService contribuableService;
 
-    @GetMapping("/ent/findcontribuable/{ifu}")
-    public Object[] findContribuable(@PathVariable(value = "ifu") int ifu) {
+    // rechercher et retourne un ID d'un contribuable par son ifu
+    @GetMapping("/ent/findcontribuablebyifu/{ifu}")
+    public int getByIfu(@PathVariable(value = "ifu") int ifu) {
+        try {
+            return contribuableService.getIdByIfu(ifu);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
-        return contribuableService.findContribuableByIfu(ifu);
+    // rechercher et retourne un ID d'un contribuable par le registre du commerce
+    // (RCCM)
+    @GetMapping("/ent/findcontribuablebyrccm/{rccm}")
+    public int findContribuableByRccm(@PathVariable(value = "rccm") String rccm) {
+        try {
+            return contribuableService.getIdByRccm(rccm);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 
+    // rechercher et retourne un ID d'un contribuable par la raison social (Nom)
+    @GetMapping("/ent/findcontribuablebynom/{nom}")
+    public int findContribuableByNom(@PathVariable(value = "nom") String nom) {
+        try {
+            return contribuableService.getIdByNom(nom);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

@@ -4,28 +4,28 @@ async function GetRange() {
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
     var ladate = YYYY + "-" + MM + "-" + DD;
-    function convert (vet){
+    function convert(vet) {
         var today = new Date(vet);
-                var options = {year: 'numeric', month: 'long', day: 'numeric'};
-                var opt_weekday = {weekday: 'long'};
-                function toTitleCase(str) {
-                    return str.replace(
-                            /\w\S*/g,
-                            function (txt) {
-                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                            }
-                    );
-                }
+        var options = {year: 'numeric', month: 'long', day: 'numeric'};
+        var opt_weekday = {weekday: 'long'};
+        function toTitleCase(str) {
+            return str.replace(
+                    /\w\S*/g,
+                    function (txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    }
+            );
+        }
 
-                var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
-                var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
-                return the_date;
+        var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
+        var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
+        return the_date;
     }
     const {value: formValues} = await Swal.fire({
         title: 'Sélectionnez la rangée de date',
         html:
-                '<input id="swal-input1" class="swal2-input" type="date" value="'+ladate+'" min="2000-01-01" max="'+ladate+'">' +
-                '<input id="swal-input2" class="swal2-input" type="date" value="'+ladate+'" min="2000-01-01" max="'+ladate+'">',
+                '<input id="swal-input1" class="swal2-input" type="date" value="' + ladate + '" min="2000-01-01" max="' + ladate + '">' +
+                '<input id="swal-input2" class="swal2-input" type="date" value="' + ladate + '" min="2000-01-01" max="' + ladate + '">',
         focusConfirm: false,
         preConfirm: () => {
             return [
@@ -38,119 +38,116 @@ async function GetRange() {
     if (formValues) {
         var ttc, rapports, factures;
 
-                    const facture1 = await fetch('/api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
-                    ttc = await facture1.json();
-                    if (typeof ttc !== 'number') {
-                        ttc = 0;
-                    }
+        const facture1 = await fetch('/api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        ttc = await facture1.json();
+        if (typeof ttc !== 'number') {
+            ttc = 0;
+        }
 
-                    const facture2 = await fetch('/api/betweenRapports/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
-                    rapports = await facture2.json();
-                    if (typeof rapports !== 'number') {
-                        rapports = 0;
-                    }
+        const facture2 = await fetch('/api/betweenRapports/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        rapports = await facture2.json();
+        if (typeof rapports !== 'number') {
+            rapports = 0;
+        }
 
-                    const facture3 = await fetch('/api/betweenFactures/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
-                    factures = await facture3.json();
-                    if (typeof factures !== 'number') {
-                        factures = 0;
-                    }
+        const facture3 = await fetch('/api/betweenFactures/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        factures = await facture3.json();
+        if (typeof factures !== 'number') {
+            factures = 0;
+        }
 
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Du '+convert(JSON.stringify(formValues[0]))+' au '+convert(JSON.stringify(formValues[1])),
-                        html:
-                                '<b>' + rapports + '</b> Rapports<br> ' +
-                                '<b>' + factures + '</b> Factures<br> ' +
-                                '<b>' + ttc + '</b> FCFA TTC<br>',
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                        showCloseButton: true,
-                        hideClass: {
-                            popup: 'swal2-hide',
-                            backdrop: 'swal2-backdrop-hide',
-                            icon: 'swal2-icon-hide'
-                        }
-                    })
+        Swal.fire({
+            icon: 'info',
+            title: 'Du ' + convert(JSON.stringify(formValues[0])) + ' au ' + convert(JSON.stringify(formValues[1])),
+            html:
+                    '<b>' + rapports + '</b> Rapports<br> ' +
+                    '<b>' + factures + '</b> Factures<br> ' +
+                    '<b>' + ttc + '</b> FCFA TTC<br>',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            showCloseButton: true,
+            hideClass: {
+                popup: 'swal2-hide',
+                backdrop: 'swal2-backdrop-hide',
+                icon: 'swal2-icon-hide'
+            }
+        })
     }
 }
 
-async function getTotalFactures() {
+async function getTotauxGlobaux() {
+    var liste = [];
+    const facture = await fetch('/api/totauxglobaux/');
+    liste = await facture.json();
+    if (typeof liste[0][0] !== 'number') {
+        document.getElementById("global1").innerHTML = 0;
+    } else {
+        document.getElementById("global1").innerHTML = liste[0][0];
+    }
+    if (typeof liste[0][1] !== 'number') {
+        document.getElementById("global3").innerHTML = 0;
+    } else {
+        document.getElementById("global3").innerHTML = liste[0][1];
+    }
+    if (typeof liste[0][2] !== 'number') {
+        document.getElementById("global4").innerHTML = 0;
+    } else {
+        document.getElementById("global4").innerHTML = liste[0][2];
+    }
+
+}
+
+async function getTotauxMonth() {
+    var liste = [];
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
-    var facture_date = YYYY + "-" + MM + "-" + DD;
-    const facture = await fetch('/api/nbrfacture/' + facture_date);
-    var total_facture = await facture.json();
-    document.getElementById("factures").innerHTML = total_facture;
+    const facture = await fetch('/api/totauxmonth/' + YYYY + '/' + MM);
+    liste = await facture.json();
+    if (typeof liste[0][0] !== 'number') {
+        document.getElementById("month1").innerHTML = 0;
+    } else {
+        document.getElementById("month1").innerHTML = liste[0][0];
+    }
+    if (typeof liste[0][1] !== 'number') {
+        document.getElementById("month3").innerHTML = 0;
+    } else {
+        document.getElementById("month3").innerHTML = liste[0][1];
+    }
+    if (typeof liste[0][2] !== 'number') {
+        document.getElementById("month4").innerHTML = 0;
+    } else {
+        document.getElementById("month4").innerHTML = liste[0][2];
+    }
 }
 
-async function getMonthFacture() {
+async function getTotauxDay() {
+    var liste = [];
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
-    var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/nbrfacture/' + YYYY+'/'+MM)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("month1").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("month1").innerHTML = 0;
-            });
+    const facture = await fetch('/api/totauxday/' + YYYY + '/' + MM + '/' + DD);
+    liste = await facture.json();
+    if (typeof liste[0][0] !== 'number') {
+        document.getElementById("day1").innerHTML = 0;
+    } else {
+        document.getElementById("day1").innerHTML = liste[0][0];
+    }
+    if (typeof liste[0][1] !== 'number') {
+        document.getElementById("day3").innerHTML = 0;
+    } else {
+        document.getElementById("day3").innerHTML = liste[0][1];
+    }
+    if (typeof liste[0][2] !== 'number') {
+        document.getElementById("day4").innerHTML = 0;
+    } else {
+        document.getElementById("day4").innerHTML = liste[0][2];
+    }
 }
 
-async function getMonthRapports() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/api/totaltva/' + global_date)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("month2").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("month2").innerHTML = 0;
-            });
-}
-
-async function getMonthTTC() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/api/totaltva/' + global_date)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("month3").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("month3").innerHTML = 0;
-            });
-}
-
-async function getMonthHT() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/api/totaltva/' + global_date)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("month4").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("month4").innerHTML = 0;
-            });
-}
-
-async function getTotalRapports() {
+async function getGlobalRapports() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
@@ -165,36 +162,34 @@ async function getTotalRapports() {
     }
 }
 
-async function getTotalTTC() {
+async function getMonthRapports() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
-    var ttc_date = YYYY + "-" + MM + "-" + DD;
-    fetch('/api/totalttc/' + ttc_date)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("montant1").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("montant1").innerHTML = 0;
-            });
+    var rapport_date = YYYY + "-" + MM + "-" + DD;
+    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    var total_rapport = await rapport.json();
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("rapports").innerHTML = 0;
+    } else {
+        document.getElementById("rapports").innerHTML = total_rapport;
+    }
 }
 
-async function getTotalTVA() {
+async function getDayRapports() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
-    var global_date = YYYY + "-" + MM + "-" + DD;
-    var total_global = fetch('/api/totaltva/' + global_date)
-            .then(response => response.json())
-            .then(function (response) {
-                document.getElementById("montant2").innerHTML = JSON.stringify(response);
-            })
-            .catch(function (error) {
-                document.getElementById("montant2").innerHTML = 0;
-            });
+    var rapport_date = YYYY + "-" + MM + "-" + DD;
+    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    var total_rapport = await rapport.json();
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("rapports").innerHTML = 0;
+    } else {
+        document.getElementById("rapports").innerHTML = total_rapport;
+    }
 }
 
 
@@ -363,7 +358,6 @@ async function getLineData() {
 
 getLineData();
 var test = setInterval(getLineData, 5000);
-var test1 = setInterval(getTotalFactures, 1000);
-var test2 = setInterval(getTotalRapports, 1000);
-var test3 = setInterval(getTotalTTC, 1000);
-var test4 = setInterval(getTotalTVA, 1000);
+var test1 = setInterval(getTotauxGlobaux, 1000);
+var test2 = setInterval(getTotauxMonth, 1000);
+var test3 = setInterval(getTotauxDay, 1000);

@@ -19,11 +19,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContribuableRepository extends JpaRepository<Contribuable, Integer> {
 
-    // @Query(value = "SELECT c.ifu FROM contribuable c WHERE ifu=:ifu", nativeQuery
-    // = true)
-    public Object[] findByifu(int ifu);
+    @Query(value = "SELECT id FROM contribuable WHERE ifu=:ifu", nativeQuery = true)
+    int getIdByIfu(int ifu);
 
-    @Query(value = "SELECT * FROM contribuable c ", nativeQuery = true)
-    public Object[] rehContribuableifu();
+    Contribuable findByIfu(int ifu);
+
+    @Query(value = "SELECT id FROM contribuable WHERE rccm=:rccm", nativeQuery = true)
+    int getIdByRccm(String rccm);
+
+    Contribuable findByRccm(String rccm);
+
+    @Query(value = "SELECT id FROM contribuable WHERE nom=:nom", nativeQuery = true)
+    int getIdByNom(String nom);
+
+    Contribuable findByNom(String nom);
 
 }
