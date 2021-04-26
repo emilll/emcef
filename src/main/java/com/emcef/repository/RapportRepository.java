@@ -10,6 +10,7 @@ import com.emcef.model.Rapportcr;
 import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,8 +21,17 @@ import org.springframework.stereotype.Repository;
 public interface RapportRepository extends JpaRepository<Rapportcr, Integer>{
     //Interface Générale
     
+    @Query(value = "SELECT count(*) FROM  rapportcr", nativeQuery = true)
+    int totalRapport();
+    
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1", nativeQuery = true)
     int nbrRapport(Date date);
+    
+    @Query(value = "SELECT count(*) FROM rapportcr WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
+    int MonthRapports(int year, int month);
+    
+    @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
+    double getBetweenRapports(@Param("d1")Date d1, @Param("d2")Date d2);
     
     //Interface Entreprise
     

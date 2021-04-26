@@ -35,37 +35,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Clients</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Fournisseurs
-                                </a>
-                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Option 1</a>
-                                    <a class="dropdown-item" href="#">Option 2</a>
-                                    <a class="dropdown-item" href="#">Option 3</a>
-                                    <a class="dropdown-item" href="#">Option 4</a>
-                                    <a class="dropdown-item" href="#">Option 5</a>
-                                    <div class="dropdown-divider my-0"></div>
-                                    <a class="dropdown-item" href="#">Autres option</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html">Analyse</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="prx.html">Configuration</a>
-                            </li>
-                        </ul>
                         <ul class="navbar-nav ml-auto align-items-sm-center">
                             <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html"><i class="fa fa-bell"></i></a>
+                                <a class="nav-link" href=""><i class="fa fa-bell"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="apprendre.html"><i class="fa fa-user-clock"></i></a>
+                                <a class="nav-link" href=""><i class="fa fa-user-clock"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa fa-cog"></i></a>

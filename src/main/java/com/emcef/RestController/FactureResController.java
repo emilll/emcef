@@ -81,9 +81,9 @@ public class FactureResController {
     }
 
     @GetMapping("/json/{year}/{month}")
-    public Double totalMonthTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+    public Double totalMonthHT(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
-            return factureService.totalMoisTTC(year, month);
+            return factureService.totalMoisHT(year, month);
         } catch (Exception e) {
             return 0.;
         }
@@ -107,28 +107,10 @@ public class FactureResController {
         }
     }
 
-    @GetMapping("/betweenRapports/{day1}/{day2}")
-    public double getBetweenRapports(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
-        try {
-            return factureService.getBetweenRapports(day1, day2);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     @GetMapping("/betweenFactures/{day1}/{day2}")
     public double getBetweenFactures(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return factureService.getBetweenFactures(day1, day2);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    @GetMapping("/rapports/{year}/{month}/{day}")
-    public int DayRapports(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month, @PathVariable(value = "day") int day) {
-        try {
-            return factureService.DayRapports(year, month, day);
         } catch (Exception e) {
             return 0;
         }

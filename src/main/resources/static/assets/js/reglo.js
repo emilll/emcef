@@ -79,6 +79,13 @@ async function getTotauxGlobaux() {
     var liste = [];
     const facture = await fetch('/api/totauxglobaux/');
     liste = await facture.json();
+    const rapport = await fetch('/api/nbrrapport');
+    var total_rapport = await rapport.json();
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("global2").innerHTML = 0;
+    } else {
+        document.getElementById("global2").innerHTML = total_rapport;
+    }
     if (typeof liste[0][0] !== 'number') {
         document.getElementById("global1").innerHTML = 0;
     } else {
@@ -105,6 +112,13 @@ async function getTotauxMonth() {
     var YYYY = dt.getFullYear();
     const facture = await fetch('/api/totauxmonth/' + YYYY + '/' + MM);
     liste = await facture.json();
+    const rapport = await fetch('/api/rapports/' + YYYY+'/'+MM);
+    var total_rapport = await rapport.json();
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("month2").innerHTML = 0;
+    } else {
+        document.getElementById("month2").innerHTML = total_rapport;
+    }
     if (typeof liste[0][0] !== 'number') {
         document.getElementById("month1").innerHTML = 0;
     } else {
@@ -130,6 +144,13 @@ async function getTotauxDay() {
     var YYYY = dt.getFullYear();
     const facture = await fetch('/api/totauxday/' + YYYY + '/' + MM + '/' + DD);
     liste = await facture.json();
+    const rapport = await fetch('/api/nbrrapport/' +rapport_date);
+    var total_rapport = await rapport.json();
+    if (typeof total_rapport !== 'number') {
+        document.getElementById("day2").innerHTML = 0;
+    } else {
+        document.getElementById("day2").innerHTML = total_rapport;
+    }
     if (typeof liste[0][0] !== 'number') {
         document.getElementById("day1").innerHTML = 0;
     } else {
@@ -148,17 +169,12 @@ async function getTotauxDay() {
 }
 
 async function getGlobalRapports() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    const rapport = await fetch('/api/nbrrapport');
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
-        document.getElementById("rapports").innerHTML = 0;
+        document.getElementById("global2").innerHTML = 0;
     } else {
-        document.getElementById("rapports").innerHTML = total_rapport;
+        document.getElementById("global2").innerHTML = total_rapport;
     }
 }
 
@@ -168,12 +184,12 @@ async function getMonthRapports() {
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
     var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    const rapport = await fetch('/api/rapports/' + YYYY+'/'+MM);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
-        document.getElementById("rapports").innerHTML = 0;
+        document.getElementById("month2").innerHTML = 0;
     } else {
-        document.getElementById("rapports").innerHTML = total_rapport;
+        document.getElementById("month2").innerHTML = total_rapport;
     }
 }
 
@@ -183,12 +199,12 @@ async function getDayRapports() {
     var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
     var YYYY = dt.getFullYear();
     var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
+    const rapport = await fetch('/api/nbrrapport/' +rapport_date);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
-        document.getElementById("rapports").innerHTML = 0;
+        document.getElementById("day2").innerHTML = 0;
     } else {
-        document.getElementById("rapports").innerHTML = total_rapport;
+        document.getElementById("day2").innerHTML = total_rapport;
     }
 }
 

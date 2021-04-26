@@ -35,14 +35,6 @@ public class FactureService {
         return factureRepository.nbrFact();
     }
 
-    /*public String getFactTotauxContribuable(String ifu) {
-        return factureRepository.getFactTotauxContribuable(ifu);
-    }
-
-    public Double getFactTotauxContribuable2(String ifu, String d1) {
-        return factureRepository.getFactTotauxContribuable2(ifu, d1);
-    }*/
-
     public void deleteFactureSelonSpecificationById(int id) {
         this.factureRepository.deleteById(id);
     }
@@ -77,13 +69,13 @@ public class FactureService {
     public Double totalMoisTTC(int year, int day) {
         return factureRepository.TotalMonthTTC(year, day);
     }
+    
+    public Double totalMoisHT(int year, int day) {
+        return factureRepository.TotalMonthHT(year, day);
+    }
 
     public double DayTTC(int year, int month, int day) {
         return factureRepository.DayTTC(year, month, day);
-    }
-
-    public int DayRapports(int year, int month, int day) {
-        return factureRepository.DayRapports(year, month, day);
     }
 
     public int DayFactures(int year, int month, int day) {
@@ -92,10 +84,6 @@ public class FactureService {
 
     public double getBetweenTTC(Date day1, Date day2) {
         return factureRepository.getBetweenTTC(day1, day2);
-    }
-
-    public double getBetweenRapports(Date day1, Date day2) {
-        return factureRepository.getBetweenRapports(day1, day2);
     }
 
     public double getBetweenFactures(Date day1, Date day2) {
@@ -127,14 +115,4 @@ public class FactureService {
     
         return factureRepository.getTotauxDay(year,month,day);
     }
-
-
-    
-    //Interface Entreprise
-    
-    
-    
-     //Interface Machines
-    
-    
 }

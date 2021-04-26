@@ -21,6 +21,4 @@ public class FactureController {
     public String entreprise(@PathVariable(value = "ifu") int ifu){
         return "index1";
     }
-
-    
 }

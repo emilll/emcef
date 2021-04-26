@@ -49,12 +49,11 @@ public class ContribuableController {
     @GetMapping("/showinfo")
     public String info(Model model){
     model.addAttribute("information", contribuableService.getAllContribuable());
-    return "contribuable/informations/info";
+    return "/informations/info";
     }
     
     @GetMapping("/showdayinfo/{date}")
     public String dayinfo(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-    //model.addAttribute("information", contribuableService.getAllContribuable());
     return "dayinfo";
     }
     

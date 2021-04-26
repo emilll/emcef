@@ -482,13 +482,27 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/">Acceuil</a>
                             </li>
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ajouter
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/">Contribuable</a>
+                                    <a class="dropdown-item" href="/">Machines</a>
+                                    <a class="dropdown-item" href="/">Département</a>
+                                    <a class="dropdown-item" href="/">Commune</a>
+                                    <a class="dropdown-item" href="/">Ville</a>
+                                    <a class="dropdown-item" href="/">Point de Vente</a>
+                                </div>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Recherche
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:void(0);" onclick="recherche()">Contribuable</a>
-                                    <a class="dropdown-item" href="#">Machines</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="recherche1()">Contribuable</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="recherche2()">Machines</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="recherche3()">Point de Vente</a>
                                 </div>
                             </li>
                         </ul>
@@ -725,7 +739,7 @@
 
 
 
-                                        async function recherche() {
+                                        async function recherche1() {
                                             const man = Swal.mixin({
                                                 customClass: {
                                                     confirmButton: 'btn btn-success col-sm-12 ',
@@ -737,7 +751,7 @@
                                                 html:
                                                         '<div class="col-sm-12 my-auto">' +
                                                         '<div class="mb-2">' +
-                                                        '<h2 class="text-dark mb-3">Recherche</h2>' +
+                                                        '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
                                                         '<div class="row">' +
                                                         '<div class="col-sm-12 form-group">' +
                                                         '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
@@ -772,7 +786,105 @@
                                                 allowOutsideClick: () => !Swal.isLoading()
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
-                                                    window.location.href="/showinfo"
+                                                    window.location.href = "/showinfo"
+                                                }
+                                            })
+                                        }
+                                        
+                                        async function recherche2() {
+                                            const man = Swal.mixin({
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success col-sm-12 ',
+                                                    cancelButton: 'btn btn-danger col-sm-12'
+                                                },
+                                                buttonsStyling: false
+                                            })
+                                            man.fire({
+                                                html:
+                                                        '<div class="col-sm-12 my-auto">' +
+                                                        '<div class="mb-2">' +
+                                                        '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
+                                                        '<div class="row">' +
+                                                        '<div class="col-sm-12 form-group">' +
+                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="NIM">' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>',
+                                                showCancelButton: true,
+                                                cancelButtonText: 'Annuler',
+                                                confirmButtonText: 'Rechercher',
+                                                showLoaderOnConfirm: true,
+                                                preConfirm: (login) => {
+                                                    return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                            .then(response => {
+                                                                if (!response.ok) {
+                                                                    throw new Error(response.statusText)
+                                                                }
+                                                                return response.json()
+                                                            })
+                                                            .catch(error => {
+                                                                Swal.showValidationMessage(
+                                                                        `La requête a échoué: ${error}`
+                                                                        )
+                                                            })
+                                                },
+                                                allowOutsideClick: () => !Swal.isLoading()
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.location.href = "/showinfo"
+                                                }
+                                            })
+                                        }
+                                        
+                                        async function recherche3() {
+                                            const man = Swal.mixin({
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success col-sm-12 ',
+                                                    cancelButton: 'btn btn-danger col-sm-12'
+                                                },
+                                                buttonsStyling: false
+                                            })
+                                            man.fire({
+                                                html:
+                                                        '<div class="col-sm-12 my-auto">' +
+                                                        '<div class="mb-2">' +
+                                                        '<h2 class="text-dark mb-3">Recherche Point de Vente</h2>' +
+                                                        '<div class="row">' +
+                                                        '<div class="col-sm-12 form-group">' +
+                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
+                                                        '</div>' +
+                                                        '<div class="col-sm-6 form-group">' +
+                                                        '<input type="text" class="form-control style_form_control" name="" placeholder="----">' +
+                                                        '</div>' +
+                                                        '<div class="col-sm-6 form-group">' +
+                                                        '<input type="number" class="form-control style_form_control" name="" placeholder="----">' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>' +
+                                                        '</div>',
+                                                showCancelButton: true,
+                                                cancelButtonText: 'Annuler',
+                                                confirmButtonText: 'Rechercher',
+                                                showLoaderOnConfirm: true,
+                                                preConfirm: (login) => {
+                                                    return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                            .then(response => {
+                                                                if (!response.ok) {
+                                                                    throw new Error(response.statusText)
+                                                                }
+                                                                return response.json()
+                                                            })
+                                                            .catch(error => {
+                                                                Swal.showValidationMessage(
+                                                                        `La requête a échoué: ${error}`
+                                                                        )
+                                                            })
+                                                },
+                                                allowOutsideClick: () => !Swal.isLoading()
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    window.location.href = "/showinfo"
                                                 }
                                             })
                                         }

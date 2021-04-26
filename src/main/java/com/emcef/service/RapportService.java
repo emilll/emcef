@@ -16,24 +16,34 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RapportService {
+
     @Autowired
     RapportRepository rapportRepository;
-    
+
     //Interface Générale
+    public int rapport() {
+        return rapportRepository.totalRapport();
+    }
     
-    public int rapportTotal(Date date){
+    public int rapportTotal(Date date) {
         return rapportRepository.nbrRapport(date);
     }
-    
+
+    public double getBetweenRapports(Date day1, Date day2) {
+        return rapportRepository.getBetweenRapports(day1, day2);
+    }
+
+    public int MonthRapports(int year, int month) {
+        return rapportRepository.MonthRapports(year, month);
+    }
+
     //Interface Entreprise
-    
-    public int EntRapportTotal(Date date, int ifu){
+    public int EntRapportTotal(Date date, int ifu) {
         return rapportRepository.nbrEntRapport(date, ifu);
     }
-    
+
     //Interface Machines
-    
-    public int MachRapportTotal(Date date){
+    public int MachRapportTotal(Date date) {
         return rapportRepository.nbrMachRapport(date);
     }
 }

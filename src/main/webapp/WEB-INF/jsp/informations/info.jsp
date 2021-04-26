@@ -93,53 +93,7 @@
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContentDetail">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><small><i class="fa fa-circle mr-1"></i>Autre</small></a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Filtre 1</a>
-                                        <a class="dropdown-item" href="#">Filtre 2</a>
-                                        <a class="dropdown-item" href="#">Filtre 3</a>
-                                        <a class="dropdown-item" href="#">Filtre 4</a>
-                                        <a class="dropdown-item" href="#">Filtre 5</a>
-                                        <div class="dropdown-divider my-0"></div>
-                                        <a class="dropdown-item" href="#">Autres option</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-th-list mr-1"></i>Regrouper</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Regroupement 1</a>
-                                        <a class="dropdown-item" href="#">Regroupement 2</a>
-                                        <a class="dropdown-item" href="#">Regroupement 3</a>
-                                        <a class="dropdown-item" href="#">Regroupement 4</a>
-                                        <a class="dropdown-item" href="#">Regroupement 5</a>
-                                        <div class="dropdown-divider my-0"></div>
-                                        <a class="dropdown-item" href="#">Autres option</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-star mr-1"></i>Favoris</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Filtre 1</a>
-                                        <a class="dropdown-item" href="#">Filtre 2</a>
-                                        <a class="dropdown-item" href="#">Filtre 3</a>
-                                        <a class="dropdown-item" href="#">Filtre 4</a>
-                                        <a class="dropdown-item" href="#">Filtre 5</a>
-                                        <div class="dropdown-divider my-0"></div>
-                                        <a class="dropdown-item" href="#">Autres option</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            
                             <ul class="navbar-nav ml-auto align-items-sm-center">
                                 <div class="d-flex align-items-center flex-wrap">
                                     <button class="btn btn-sm btn-secondary mr-1"><i class="fa fa-list-ol"></i></button>
@@ -157,7 +111,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <div class="col-sm-12 my-auto">
-                                <div class="bg-info align-items-center border p-3">
+                                <div class="align-items-center border p-3">
                                     <div class="row mb-3 my-auto">
                                         <a href="#">
                                             <img src="assets/img/logo.png" loading='lazy' width="200" class="img-fluid" alt="logo">

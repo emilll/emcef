@@ -29,7 +29,7 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT count(*) FROM factureselonspecification n",nativeQuery = true)
     long nbrFact();
 
-    @Query(value = "SELECT sum(total) as totalTTC , sum(total_taxable) as totalTVA FROM factureselonspecification",nativeQuery = true)
+    @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification",nativeQuery = true)
     Double getTotalTTC();
 
     @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecification",nativeQuery = true)
@@ -45,7 +45,7 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT(sum(total)  - sum(total_taxable)) as totalTVA FROM factureselonspecification WHERE dateheure = ?1",nativeQuery = true)
     Double getTotalTVA(Date date);
     
-    @Query(value = "SELECT(sum(total)  + sum(total_taxable)) as total FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
+    @Query(value = "SELECT(sum(total)) as total FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
     Double getTotal(int year, int month);
     
     @Query(value = "SELECT count(*) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
@@ -53,6 +53,9 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     
     @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
     Double TotalMonthTTC(int year, int month);
+    
+    @Query(value = "SELECT sum(total_taxable) as totalHT FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
+    Double TotalMonthHT(int year, int month);
 
     /*@Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecification f WHERE f.ifu =:ifu",nativeQuery = true)
     String getFactTotauxContribuable(@Param("ifu")String ifu);
@@ -67,9 +70,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT sum(total) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3",nativeQuery = true)
     double DayTTC(int year, int month, int day);
     
-    @Query(value = "SELECT count(*) FROM rapportcr WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3",nativeQuery = true)
-    int DayRapports(int year, int month, int day);
-    
     @Query(value = "SELECT count(*) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3",nativeQuery = true)
     int DayFactures(int year, int month, int day);
     
@@ -78,9 +78,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     
     @Query(value = "SELECT count(*) as totalTTC FROM factureselonspecification f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
     double getBetweenFactures(@Param("d1")Date d1, @Param("d2")Date d2);
-    
-    @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ",nativeQuery = true)
-    double getBetweenRapports(@Param("d1")Date d1, @Param("d2")Date d2);
 
     @Query(value = "SELECT f.dateheure,COUNT(*) FROM factureselonspecification f GROUP BY f.dateheure",nativeQuery = true)
     public List<Object[]> getNbreFactureByDate();
