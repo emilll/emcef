@@ -439,6 +439,15 @@
 </html>
 -->
 
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -451,6 +460,7 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet">
         <link href="assets/css/animate.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
+        <link href="assets/css/new_style.css" rel="stylesheet">
         <link href="assets/css/all.min.css" rel="stylesheet">
         <link href="assets/css/aos.css" rel="stylesheet">
         <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
@@ -484,16 +494,55 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Ajouter
+                                    Aujourd'hui
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/">Contribuable</a>
-                                    <a class="dropdown-item" href="/">Machines</a>
-                                    <a class="dropdown-item" href="/">Département</a>
-                                    <a class="dropdown-item" href="/">Commune</a>
-                                    <a class="dropdown-item" href="/">Ville</a>
-                                    <a class="dropdown-item" href="/">Point de Vente</a>
+                                    <a class="dropdown-item" href="/ajoutercontribuable">Factures d'aujourd'hui</a>
+                                    <a class="dropdown-item" href="/ajoutermachine">Machines signalées aujourd'hui</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Machines non signalées aujourd'hui</a>
+                                    <a class="dropdown-item" href="/ajoutercommune">Journal d'audit</a>
+                                    <a class="dropdown-item" href="/ajouterville">Données du jour</a>
+                                    <a class="dropdown-item" href="/ajouterinstallation">Statut d'aujourd'hui</a>
+                                    <a class="dropdown-item" href="/ajouterinstallation">Statistiques quotidiennes</a>
                                 </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Enregistrement
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/ajoutercontribuable">Contribuable</a>
+                                    <a class="dropdown-item" href="/ajoutermachine">Machines</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Point de Vente</a>
+                                    <a class="dropdown-item" href="/ajoutercommune">Emplacement des machines</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Données
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/ajoutercontribuable">Factures</a>
+                                    <a class="dropdown-item" href="/ajoutermachine">Totaux quotidiennes</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Statuts</a>
+                                    <a class="dropdown-item" href="/ajoutercommune">Rapport quotidiennes</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Audits
+                                </a>
+                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/ajoutercontribuable">Journal d'audits</a>
+                                    <a class="dropdown-item" href="/ajoutermachine">Totaux des audits quotidiennes</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Dates des rapports des machines</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Vérifier</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Rapports</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -538,131 +587,388 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white py-1 border-bottom">
-                <div class="container-fluid">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-
-                        <p aria-label="breadcrumb m-0 flex-fill">
-                        <h4 class="breadcrumb m-0 py-1">
-                            <li class="breadcrumb-item active text-dark">Statistiques</li>
-                        </h4>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            
         </header>
         <div class="bg-light">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <thead class="border-bottom">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Factures</th>
-                            <th scope="col">Rapports</th>
-                            <th scope="col">Montant TTC</th>
-                            <th scope="col">Montant HT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class=""><b>Totaux Globaux</b></td>
-                            <td>
-                                <span class="counter" id="global1">0</span>
-                            </td>
-                            <td>
-                                <span class="counter" id="global2">0</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="global3">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="global4">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=""><b>Totaux de ce mois</b></td>
-                            <td>
-                                <span class="counter" id="month1">0</span>
-                            </td>
-                            <td>
-                                <span class="counter" id="month2">0</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="month3">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="month4">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=""><b>Totaux de ce jour</b></td>
-                            <td>
-                                <span class="counter" id="day1">0</span>
-                            </td>
-                            <td>
-                                <span class="counter" id="day2">0</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="day3">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="day4">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class=""><b>Machines</b></td>
-                            <td>
-                                <span class="counter" id="mach1">0</span>
-                            </td>
-                            <td>
-                                <span class="counter" id="mach2">0</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="mach3">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                            <td>
-                                <span class="text-danger counter" id="mach4">0</span>
-                                <span class="badge style_bg text-white">FCFA</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div>
+                <div class="row">
+            <!-- Info Boxes Style 2 -->
+            <div class="info-box bg-warning col-md marge">
+              <span class="info-box-icon"><i class="fas fa-file-invoice"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Factures Traités</span>
+                <span class="info-box-number">5,200</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            <div class="info-box bg-success col-md marge">
+              <span class="info-box-icon"><i class="fas fa-file-invoice"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Factures en attente</span>
+                <span class="info-box-number">92,050</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            <div class="info-box bg-danger col-md marge">
+              <span class="info-box-icon"><i class="fas fa-receipt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Rapports Traités</span>
+                <span class="info-box-number">114,381</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            <div class="info-box bg-info col-md marge">
+              <span class="info-box-icon"><i class="fas fa-receipt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Rapports en attente</span>
+                <span class="info-box-number">163,921</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
             </div>
         </div>
-        <br><br>
-        <div class="row">
+
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Données</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Graphes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Calendrier</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row table-responsive container-fluid" style="margin-left: auto; margin-right: auto; padding-top: 20px; padding-bottom: 20px;">
+            <table class="offset-md-1 col-md-10 offset-md-1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Factures</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-title col-md">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Rapports</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Montant TTC</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Montant HT</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Totaux Globaux</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="global1">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="global2">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="global3">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="global4">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Totaux de ce mois</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="month1">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="month2">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="month3">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="month4">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Totaux d'aujourd'hui</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="day1">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="day2">00000000</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="day3">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number counter" id="day4">00000000</span><span class="badge style_bg text-white"> FCFA</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="info-box bg-title col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">Machines</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Connectés depuis 7 jours</span>
+                <span class="info-box-number">10/60/514</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Déconnectés</span>
+                <span class="info-box-number">246</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Connectés</span>
+                <span class="info-box-number">315</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                        <td>
+                            <div class="info-box bg-content col-md ">
+              <span class="info-box-icon"></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Nombres Total</span>
+                <span class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="row" style="margin-top: 20px;">
             <div class="col-md-6">
                 <div class=" bg-white border p-3">
                     <h4 class="text-dark">Total TTC</h4>
                     <div>
-                        <canvas id="myLine" class="w-100"></canvas>
+                        <canvas id="myLine" class="w-100" height="100"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
                 <div class=" bg-white border p-3">
                     <h4 class="text-dark">Total HT</h4>
-                    <div>
-                        <canvas id="myChart" class="w-100"></canvas>
+                    <div class="table-responsive">
+                        <canvas id="myChart" class="w-100" height="100"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br>
-        <div class="row">
+  </div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <div class="row" style="margin-top: 20px;">
             <div class="col-md-auto" style="margin: auto;">
-                <div id="pilier" class="chart"></div>
+                <div id="pilier" class="chart align-content-center"></div>
             </div>
         </div>
-
-        <h3 id="1" hidden="hidden"></h3>
+  </div>
+</div>
+            
+             <h3 id="1" hidden="hidden"></h3>
         <h3 id="2" hidden="hidden"></h3>
         <h3 id="3" hidden="hidden"></h3>
         <h3 id="4" hidden="hidden"></h3>
@@ -687,6 +993,7 @@
         <h3 id="t10" hidden="hidden"></h3>
         <h3 id="t11" hidden="hidden"></h3>
         <h3 id="t12" hidden="hidden"></h3>
+
         <script src="assets/js/jquery-1.12.4.min.js"></script>
         <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
         <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
@@ -754,13 +1061,7 @@
                                                         '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
                                                         '<div class="row">' +
                                                         '<div class="col-sm-12 form-group">' +
-                                                        '<input type="text" class="form-control style_form_control" id="val2" name="" placeholder="Nom">' +
-                                                        '</div>' +
-                                                        '<div class="col-sm-6 form-group">' +
                                                         '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
-                                                        '</div>' +
-                                                        '<div class="col-sm-6 form-group">' +
-                                                        '<input type="number" class="form-control style_form_control" id="val3" name="" placeholder="RCCM">' +
                                                         '</div>' +
                                                         '</div>' +
                                                         '</div>' +
@@ -773,10 +1074,10 @@
                                                     var variable;
                                                     if (document.getElementById('val1').value !== "") {
                                                         variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                                                    } else if (document.getElementById('val2').value !== "") {
-                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val2').value;
-                                                    } else if (document.getElementById('val3').value !== "") {
-                                                        variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val3').value;
+                                                    } else {
+                                                        Swal.showValidationMessage(
+                                                                'Le champ IFU est vide!'
+                                                                )
                                                     }
                                                     return fetch(variable)
                                                             .then(response => {
@@ -793,7 +1094,7 @@
                                                 },
                                                 allowOutsideClick: () => !Swal.isLoading()
                                             }).then((result) => {
-                                                if (result.value!==0) {
+                                                if (result.value !== 0) {
                                                     const Toast = Swal.mixin({
                                                         toast: true,
                                                         position: 'top-end',
@@ -810,13 +1111,12 @@
                                                         icon: 'success',
                                                         title: 'Trouvé. Redirection en cours . . .'
                                                     })
-                                                    window.location.href = "/showinfo/" + result.value
+                                                    window.location.href = "/InfoContribuable/" + result.value
                                                 } else {
                                                     Swal.fire({
                                                         icon: 'error',
                                                         title: 'Erreur...',
-                                                        text: 'Ce contribuable n\'existe pas!',
-                                                        footer: '<ahref="javascript:void(0);" onclick="recherche1()">Réessayer</a>'
+                                                        text: 'Ce contribuable n\'existe pas!'
                                                     })
                                                 }
                                             })
@@ -850,12 +1150,12 @@
                                                     var variable;
                                                     if (document.getElementById('nim').value !== "") {
                                                         variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                                                    }else{
+                                                    } else {
                                                         Swal.showValidationMessage(
-                                                                        'Le champ NIM est vide!'
-                                                                        )
+                                                                'Le champ NIM est vide!'
+                                                                )
                                                     }
-                                                    return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                    return fetch(variable)
                                                             .then(response => {
                                                                 if (!response.ok) {
                                                                     throw new Error(response.statusText)
@@ -870,8 +1170,30 @@
                                                 },
                                                 allowOutsideClick: () => !Swal.isLoading()
                                             }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    window.location.href = "/showinfo"
+                                                if (result.value !== 0) {
+                                                    const Toast = Swal.mixin({
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 3000,
+                                                        timerProgressBar: true,
+                                                        didOpen: (toast) => {
+                                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                        }
+                                                    })
+
+                                                    Toast.fire({
+                                                        icon: 'success',
+                                                        title: 'Trouvé. Redirection en cours . . .'
+                                                    })
+                                                    window.location.href = "/InfoMachine/" + result.value
+                                                } else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: 'Erreur...',
+                                                        text: 'Cette machine n\'existe pas!'
+                                                    })
                                                 }
                                             })
                                         }
@@ -923,11 +1245,10 @@
                                                 allowOutsideClick: () => !Swal.isLoading()
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
-                                                    window.location.href = "/showinfo"
+                                                    //window.location.href = "/showinfo"
                                                 }
                                             })
                                         }
-
         </script>
     </body>
 </html>

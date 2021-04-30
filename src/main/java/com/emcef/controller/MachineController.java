@@ -56,8 +56,8 @@ public class MachineController {
         return "redirect:/showmachines";
     }
     
-    @GetMapping("/machine")
-    public String Machine(){
-        return "index2";
+    @GetMapping("/InfoMachine/{id}")
+    public String info(@PathVariable(value = "id") String id){
+    return "/informations/MachineInfo";
     }
 }

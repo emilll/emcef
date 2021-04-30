@@ -45,7 +45,7 @@ public class ContribuableService {
     }
 
     // **********************service des API DEBUT*********************
-    public int getIdByIfu(String ifu) {
+    public int getIdByIfu(int ifu) {
         return contribuableRepository.getIdByIfu(ifu);
     }
 

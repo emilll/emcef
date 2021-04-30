@@ -1,0 +1,95 @@
+.bg-warning {
+    background-color: #ffc107;
+}
+
+.info-box {
+    background-color: #fff;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 1rem;
+    min-height: 60px;
+    padding: .2rem;
+    position: relative;
+    width: 100%;
+    border-radius: .50rem;
+}
+
+.marge{
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.info-box .info-box-icon {
+    border-radius: .25rem;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.875rem;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    width: 50px;
+}
+
+.info-box .info-box-content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: 1.8;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 10px;
+}
+
+.info-box .info-box-text, .info-box .progress-description {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-box .info-box-content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: 1.8;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 5px;
+}
+
+.info-box .info-box-number {
+    display: block;
+    margin-top: .25rem;
+    font-weight: 700;
+}
+
+.bg-title {
+  background-color: rgb(243,241,163) !important;
+}
+
+a.bg-title:hover, a.bg-title:focus,
+button.bg-title:hover,
+button.bg-title:focus {
+  background-color: rgb(243,241,163) !important;
+}
+
+.bg-content {
+  background-color: rgb(133,248,126) !important;
+}
+
+a.bg-content:hover, a.bg-content:focus,
+button.bg-content:hover,
+button.bg-content:focus {
+  background-color: rgb(133,248,126) !important;
+}
+

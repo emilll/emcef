@@ -214,7 +214,7 @@ async function getLineData() {
     var date = dt.getFullYear();
 //Diagramme 1
     async function valeur1(dr, n) {
-        var tr = fetch('/api/json/' + dr + '/' + n)
+        var tr = fetch('/api/total/' + dr + '/' + n)
                 .then(response => response.json())
                 .then(function (response) {
                     $("#" + n).text(JSON.stringify(response));
@@ -281,7 +281,7 @@ async function getLineData() {
 
 //Diagramme 3
     async function valeur3(dr, n) {
-        var tr = fetch('/api/total/' + dr + '/' + n)
+        var tr = fetch('/api/json/' + dr + '/' + n)
                 .then(response => response.json())
                 .then(function (response) {
                     $("#t" + n).text(JSON.stringify(response));

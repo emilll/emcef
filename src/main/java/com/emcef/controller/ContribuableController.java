@@ -33,23 +33,24 @@ public class ContribuableController {
         return "index";
     }
 
-    @GetMapping("/savecontribuable")
+    /*@GetMapping("/savecontribuable")
     public String Contribuable(Model model) {
         Contribuable contribuable = new Contribuable();
         model.addAttribute("contribuable", contribuable);
         return "contribuable/ajouter";
-    }
+    }*/
 
-    @GetMapping("/showcontribuable")
+    @GetMapping("/ajoutercontribuable")
     public String show(Model model) {
-        model.addAttribute("contribuable", contribuableService.getAllContribuable());
-        return "contribuable/afficher";
+        Contribuable contribuable = new Contribuable();
+        model.addAttribute("contribuable", contribuable);
+        model.addAttribute("afficher", contribuableService.getAllContribuable());
+        return "/contribuable/ajouter";
     }
 
-    @GetMapping("/showinfo/{id}")
-    public String info(@PathVariable(value = "id") String id, Model model){
-    //model.addAttribute("information", contribuableService.getAllContribuable());
-    return "/informations/info";
+    @GetMapping("/InfoContribuable/{id}")
+    public String info(@PathVariable(value = "id") String id){
+    return "/informations/ContribuableInfo";
     }
 
     @GetMapping("/showdayinfo/{date}")
@@ -60,7 +61,7 @@ public class ContribuableController {
     @PostMapping("/savecontribuable")
     public String SaveContribuable(@ModelAttribute("contribuable") Contribuable contribuable) {
         contribuableService.saveContribuable(contribuable);
-        return "redirect:/showcontribuable";
+        return "redirect:/ajoutercontribuable";
     }
 
     /*@GetMapping("/modifiercontribuable/{id}")

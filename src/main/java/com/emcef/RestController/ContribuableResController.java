@@ -26,7 +26,7 @@ public class ContribuableResController {
 
     // rechercher et retourner un ID d'un contribuable par son ifu
     @GetMapping("/ent/findcontribuablebyifu/{ifu}")
-    public int getByIfu(@PathVariable(value = "ifu") String ifu) {
+    public int getByIfu(@PathVariable(value = "ifu") int ifu) {
         try {
             return contribuableService.getIdByIfu(ifu);
         } catch (Exception e) {

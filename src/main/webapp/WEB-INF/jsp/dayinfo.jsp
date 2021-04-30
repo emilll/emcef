@@ -71,7 +71,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="container-fluid position-relative">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <a class="btn btn-sm btn-danger mr-1" href="/">Retour</a>
+                            <a class="btn btn-sm btn-danger mr-1" href="../">Retour</a>
                         </div>
                         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fa fa-ellipsis-h"></i>
