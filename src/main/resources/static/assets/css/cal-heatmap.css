@@ -31,8 +31,7 @@
 }
 
 .cal-heatmap-container .subdomain-text {
-	font-size: 8px;
-	fill: #999;
+	font-size: 11px;
 	pointer-events: none
 }
 

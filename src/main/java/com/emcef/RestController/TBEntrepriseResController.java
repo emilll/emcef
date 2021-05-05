@@ -156,7 +156,6 @@ public class TBEntrepriseResController {
     public Object[] getEntTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "ifu") int ifu) {
         try {
-            System.out.println(tbEntrepriseService.getTotauxMonth(year, month, ifu));
             return tbEntrepriseService.getTotauxMonth(year, month, ifu);
         } catch (Exception e) {
             return null;

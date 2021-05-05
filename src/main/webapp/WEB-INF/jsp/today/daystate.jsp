@@ -1,7 +1,3 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +33,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark style_bg p-0 fixed-top">
                 <div class="container-fluid position-relative">
                     <div class="navbar-brand">
-                        <h4><a href="home.html" class="mr-3"><i class="fa fa-th-large"></i></a>RÃ©glo</h4>
+                        <h4><a href="home.html" class="mr-3"><i class="fa fa-th-large"></i></a>Réglo</h4>
                     </div>
                     <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -53,10 +49,10 @@
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/facttoday">Factures d'aujourd'hui</a>
-                                    <a class="dropdown-item" href="/machinessignales">Machines signalÃ©es aujourd'hui</a>
-                                    <a class="dropdown-item" href="/machinesnonsignales">Machines non signalÃ©es aujourd'hui</a>
+                                    <a class="dropdown-item" href="/machinessignales">Machines signalées aujourd'hui</a>
+                                    <a class="dropdown-item" href="/machinesnonsignales">Machines non signalées aujourd'hui</a>
                                     <a class="dropdown-item" href="/journalaudit">Journal d'audit</a>
-                                    <a class="dropdown-item" href="/donnees">DonnÃ©es du jour</a>
+                                    <a class="dropdown-item" href="/donnees">Paquets des transactions</a>
                                     <a class="dropdown-item" href="/daystate">Statut d'aujourd'hui</a>
                                     <a class="dropdown-item" href="/daystats">Statistiques quotidiennes</a>
                                 </div>
@@ -74,12 +70,12 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    DonnÃ©es
+                                    Données
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/ajoutercontribuable">Factures</a>
                                     <a class="dropdown-item" href="/ajoutermachine">Totaux quotidiennes</a>
-                                    <a class="dropdown-item" href="/ajouterdÃ©partement">Statuts</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Statuts</a>
                                     <a class="dropdown-item" href="/ajoutercommune">Rapport quotidiennes</a>
                                 </div>
                             </li>
@@ -90,11 +86,11 @@
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/ajoutercontribuable">Journal d'audits</a>
                                     <a class="dropdown-item" href="/ajoutermachine">Totaux des audits quotidiennes</a>
-                                    <a class="dropdown-item" href="/ajouterdÃ©partement">Dates des rapports des machines</a>
+                                    <a class="dropdown-item" href="/ajouterdépartement">Dates des rapports des machines</a>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">VÃ©rifier</a>
+                                <a class="nav-link" href="">Vérifier</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Rapports</a>
@@ -125,10 +121,10 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prÃ©nom
+                                    <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
                                 </a>
                                 <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">DÃ©connexion</a>
+                                    <a class="dropdown-item" href="#">Déconnexion</a>
                                 </div>
                             </li>
                         </ul>
@@ -138,116 +134,53 @@
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between align-items-center mb-1">
-                        <h5 class="flex-fill">Ajouter <span class="text-success">Contribuable</span></h5>
+                        <h5 class="flex-fill">Statut d'<span class="text-success">aujourd'hui</span></h5>
                     </div>
                 </div>
             </div>
-        </header>
 
-        <div class="row">
+        </header>
+        <div class="bg-light">
             <div class="container-fluid">
-                <div class="mx-sm-1 py-3">
-                    <div class="row"><h4 class="text-dark"></h4></div>
-                        <s:form class="mb-2" action="/savecontribuable" modelAttribute="contribuable" method="post">
-                        <div class="row">
-                            <div class=" col-sm-6 mb-3">
-                                <div class=" bg-white border p-3">
-                                    <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                        <div class="row">
-                                            <div>
-                                                <s:input id="heure" path="date_heure" type="hidden" />
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="ifu" placeholder="NumÃ©ro IFU"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="rccm" placeholder="RCCM"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="adresse" placeholder="Adresse"/>
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="adresse2" placeholder="Adresse 2"/>
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="adresse3" placeholder="Adresse 3"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="adresse4" placeholder="Adresse 4"/>
-                                            </div>
-                                            <div >
-                                                <s:input id="date" class="form-control style_form_control" path="date_enregistrement"  type="hidden"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="id_activite" placeholder="Id ActivitÃ©"/>
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <s:textarea class="form-control style_form_control" path="commentaire" placeholder="Commentaire"></s:textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=" col-sm-6 mb-3">
-                                    <div class=" bg-white border p-3">
-                                        <div class="p-3 style_shadow rounded-lg bg-white mb-2 h-100">
-                                            <div class="row">
-                                                <div class="col-sm-12 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="nom" placeholder="Nom et prÃ©nom"/>
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="contact_personnel" placeholder="NumÃ©ro Personnel"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="description_location" placeholder="Domicile"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="telephone" placeholder="NÂ° TÃ©lÃ©phone"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="zip" placeholder="Code Zip"/>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <s:input type="text" class="form-control style_form_control" path="email" placeholder="E-Mail"/>
-                                            </div>
-                                            <div class="col-sm-12 form-group">
-                                                <label class="text-muted"><small>Ville</small></label>
-                                                <s:select class="form-control style_form_control" path="ville">
-                                                    <option>Cotonou</option>
-                                                    <option>Bohicon</option>
-                                                    <option>Abomey-Calavi</option>
-                                                </s:select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="row align-items-center justify-content-center">
+                    <!-- Info Boxes Style 2 -->
+                    <div class="info-box bg-title col-md-5 marge">
+                        <div class="info-box-content">
+                            <div class="col-sm-12 form-group">
+                                <input id="ifu" name="ifu" placeholder="IFU Contribuable" type="text" class="form-control style_form_control" autocomplete="off" value=""/>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <button class="btn btn-block btn-danger mt-3"><i class="fas fa-filter"></i>Filtrer</button>
                             </div>
                         </div>
-                        <div class="col-sm-3 form-group">
-                            <button class="btn btn-block btn-danger mt-3 justify-content-center" type="submit" onclick="">Enregistrer le Contribuable</button>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                    <div class="info-box bg-content col-md-5 marge">
+                        <div class="info-box-content">
+                            <div class="col-sm-12 form-group">
+                                <input id="ifu" name="ifu" placeholder="IFU Client" type="text" class="form-control style_form_control" value=""/>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <button class="btn btn-block btn-danger mt-3"><i class="fas fa-filter"></i>Filtrer</button>
+                            </div>
                         </div>
-                    </s:form>
+                        <!-- /.info-box-content -->
+                    </div>
                 </div>
-            </div>
-        </div>
-        <br>
-
-        <div class="bg-light">
-            <div class="py-3">
-                <div class="container-fluid">
-                    <div class="bg-white p-2">
+                <div class="row">
+                    <div class="bg-white p-2 col-md-12">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered">
                                 <thead class="border-bottom">
                                     <tr>
-                                        <th scope="col">IFU</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Telephone</th>
-                                        <th scope="col">E-mail</th>
-                                        <th scope="col">Ville</th>
-                                        <th scope="col">Code Zip</th>
-                                        <th scope="col">RCCM</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Date d'enregistrement</th>
+                                        <th scope="col">IFU Contribuable</th>
+                                        <th scope="col">IFU Client</th>
+                                        <th scope="col">Total TTC</th>
+                                        <th scope="col">Total HT</th>
+                                        <th scope="col">ID Document</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -272,12 +205,225 @@
                                         <td>
                                             <span class="text-success">90.000</span>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
                                         <td>
-                                            <div class="d-flex">
-                                                <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                <a href="#" title="DÃ©tail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                            </div>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="text-dark">11/05/20</span>
+                                            <small class="text-muted">15:58</small>
+                                        </td>
+                                        <td>
+                                            <span>Lorem ipsum dolor sit amet...</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge style_bg text-white">Badge</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">90.000</span>
                                         </td>
                                     </tr>
 
@@ -285,7 +431,7 @@
                             </table>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <p>2 Ã©lÃ©ments sur 6</p>
+                            <p>2 éléments sur 6</p>
                             <nav class=''>
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item">
@@ -307,15 +453,16 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <script src="assets/js/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/counter/jquery.counterup.min.js" type="application/javascript"></script>
-        <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>
-        <script src="assets/js/counter/counterup-active.js" type="application/javascript"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-        <script>
+
+            <script src="assets/js/jquery-1.12.4.min.js"></script>
+            <script src="assets/js/counter/jquery.counterup.min.js" type="application/javascript"></script>
+            <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>
+            <script src="assets/js/counter/counterup-active.js" type="application/javascript"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+            <script>
 
                                         $('.counter').each(function () {
                                             $(this).prop('Counter', 0).animate({
@@ -385,7 +532,7 @@
                                                             })
                                                             .catch(error => {
                                                                 Swal.showValidationMessage(
-                                                                        `La requÃªte a Ã©chouÃ©: ${error}`
+                                                                        `La requête a échoué: ${error}`
                                                                         )
                                                             })
                                                 },
@@ -406,7 +553,7 @@
 
                                                     Toast.fire({
                                                         icon: 'success',
-                                                        title: 'TrouvÃ©. Redirection en cours . . .'
+                                                        title: 'Trouvé. Redirection en cours . . .'
                                                     })
                                                     window.location.href = "/InfoContribuable/" + result.value
                                                 } else {
@@ -461,7 +608,7 @@
                                                             })
                                                             .catch(error => {
                                                                 Swal.showValidationMessage(
-                                                                        `La requÃªte a Ã©chouÃ©: ${error}`
+                                                                        `La requête a échoué: ${error}`
                                                                         )
                                                             })
                                                 },
@@ -482,7 +629,7 @@
 
                                                     Toast.fire({
                                                         icon: 'success',
-                                                        title: 'TrouvÃ©. Redirection en cours . . .'
+                                                        title: 'Trouvé. Redirection en cours . . .'
                                                     })
                                                     window.location.href = "/InfoMachine/" + result.value
                                                 } else {
@@ -535,7 +682,7 @@
                                                             })
                                                             .catch(error => {
                                                                 Swal.showValidationMessage(
-                                                                        `La requÃªte a Ã©chouÃ©: ${error}`
+                                                                        `La requête a échoué: ${error}`
                                                                         )
                                                             })
                                                 },
@@ -546,6 +693,7 @@
                                                 }
                                             })
                                         }
-        </script>
+            </script>
     </body>
 </html>
+

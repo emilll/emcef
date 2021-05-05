@@ -1,3 +1,20 @@
+var app = angular.module('demo', []);
+app.controller('indexController', function ($scope) {
+  $scope.myForm = {
+        total1: Math.floor(Math.random() * 100),
+        total2: 60
+    };
+    
+    $scope.valeur = {
+        total1: Math.floor(Math.random() * 100),
+        total2: 60
+    };
+
+  $scope.question = 2;
+  //alert( $scope.valeur.total1);
+});
+
+
 async function GetRange() {
     var dt = new Date();
     var DD = ("0" + dt.getDate()).slice(-2);
@@ -75,6 +92,8 @@ async function GetRange() {
     }
 }
 
+let question;
+
 async function getTotauxGlobaux() {
     var liste = [];
     const facture = await fetch('/api/totauxglobaux/');
@@ -89,17 +108,17 @@ async function getTotauxGlobaux() {
     if (typeof liste[0][0] !== 'number') {
         document.getElementById("global1").innerHTML = 0;
     } else {
-        document.getElementById("global1").innerHTML = liste[0][0];
+        document.getElementById("global1").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
     }
     if (typeof liste[0][1] !== 'number') {
         document.getElementById("global3").innerHTML = 0;
     } else {
-        document.getElementById("global3").innerHTML = liste[0][1];
+        document.getElementById("global3").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][1]);
     }
     if (typeof liste[0][2] !== 'number') {
         document.getElementById("global4").innerHTML = 0;
     } else {
-        document.getElementById("global4").innerHTML = liste[0][2];
+        document.getElementById("global4").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][2]);
     }
 
 }
@@ -122,17 +141,17 @@ async function getTotauxMonth() {
     if (typeof liste[0][0] !== 'number') {
         document.getElementById("month1").innerHTML = 0;
     } else {
-        document.getElementById("month1").innerHTML = liste[0][0];
+        document.getElementById("month1").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
     }
     if (typeof liste[0][1] !== 'number') {
         document.getElementById("month3").innerHTML = 0;
     } else {
-        document.getElementById("month3").innerHTML = liste[0][1];
+        document.getElementById("month3").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][1]);
     }
     if (typeof liste[0][2] !== 'number') {
         document.getElementById("month4").innerHTML = 0;
     } else {
-        document.getElementById("month4").innerHTML = liste[0][2];
+        document.getElementById("month4").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][2]);
     }
 }
 
@@ -169,46 +188,6 @@ async function getTotauxDay() {
     }
 }
 
-async function getGlobalRapports() {
-    const rapport = await fetch('/api/nbrrapport');
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("global2").innerHTML = 0;
-    } else {
-        document.getElementById("global2").innerHTML = total_rapport;
-    }
-}
-
-async function getMonthRapports() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    const rapport = await fetch('/api/rapports/' + YYYY+'/'+MM);
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("month2").innerHTML = 0;
-    } else {
-        document.getElementById("month2").innerHTML = total_rapport;
-    }
-}
-
-async function getDayRapports() {
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const rapport = await fetch('/api/nbrrapport/' +rapport_date);
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("day2").innerHTML = 0;
-    } else {
-        document.getElementById("day2").innerHTML = total_rapport;
-    }
-}
-
-
 async function getLineData() {
     var dt = new Date();
     var date = dt.getFullYear();
@@ -229,7 +208,6 @@ async function getLineData() {
     }
     //Janvier
     var total1 = $("#1").text();
-    console.log(total1);
     //Fevrier
     var total2 = $("#2").text();
     //Mars

@@ -27,11 +27,11 @@ public class ContribuableController {
     @Autowired
     ContribuableService contribuableService;
 
-    @GetMapping("/amettre")
+   /* @GetMapping("/amettre")
     public String Accueil(Model model) {
         model.addAttribute("contribuable", contribuableService.getAllContribuable());
         return "index";
-    }
+    }*/
 
     /*@GetMapping("/savecontribuable")
     public String Contribuable(Model model) {
