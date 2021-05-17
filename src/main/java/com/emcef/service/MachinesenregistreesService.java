@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.emcef.service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,6 @@ public class MachinesenregistreesService {
         return machinesenregistrees;
     }
 
-
     public Machinesenregistrees supMachinesenregistreesById(Long id) {
 
         Optional<Machinesenregistrees> optional = machinesenregistreesRepository.findById(id);
@@ -56,10 +56,18 @@ public class MachinesenregistreesService {
         }
         return machinesenregistrees;
     }
-    
 
-    
     public void modMachinesenregistrees(Machinesenregistrees machinesenregistrees) {
         this.machinesenregistreesRepository.save(machinesenregistrees);
+    }
+
+    // nombre total de machine enrégistrée
+    public int gettotalmachineEnr() {
+        return machinesenregistreesRepository.gettotalmachineEnr();
+    }
+
+    // montant total (TTC et HT ) De la machine
+    public int gettotauxGlobauxmachine(int idmach){
+        return machinesenregistreesRepository.gettotauxGlobauxmachine(idmach);
     }
 }

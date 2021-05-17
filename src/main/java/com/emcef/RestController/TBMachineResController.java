@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class TBMachineResController {
 
+
     @Autowired
     TBMachineService tbMachineService;
 
@@ -170,4 +171,5 @@ public class TBMachineResController {
     // return null;
     // }
     // }
+
 }

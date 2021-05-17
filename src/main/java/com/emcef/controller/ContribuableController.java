@@ -64,12 +64,12 @@ public class ContribuableController {
         return "redirect:/showcontribuable";
     }
 
-    @GetMapping("/modifiercontribuable/{id}")
-    public String viewPage(@PathVariable(value = "id") int id, Model model) {
-        Contribuable contribuable = contribuableService.getContribuableById(id);
-        model.addAttribute("contribuable", contribuable);
-        return "contribuable/modifier";
-    }
+    // @GetMapping("/modifiercontribuable/{id}")
+    // public String viewPage(@PathVariable(value = "id") int id, Model model) {
+    //     Contribuable contribuable = contribuableService.getContribuableById(id);
+    //     model.addAttribute("contribuable", contribuable);
+    //     return "contribuable/modifier";
+    // }
 
     @GetMapping("/deletecontribuable/{id}")
     public String delete(@PathVariable(value = "id") int id, Model model) {
