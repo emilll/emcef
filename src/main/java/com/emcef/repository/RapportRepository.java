@@ -24,8 +24,8 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer>{
     @Query(value = "SELECT count(*) FROM  rapportcr", nativeQuery = true)
     int totalRapport();
     
-    @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1", nativeQuery = true)
-    int nbrRapport(Date date);
+    @Query(value = "SELECT count(*) FROM  rapportcr WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
+    int nbrRapport(@Param("year") int year ,@Param("month") int month,@Param("day") int day);
     
     @Query(value = "SELECT count(*) FROM rapportcr WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2",nativeQuery = true)
     int MonthRapports(int year, int month);

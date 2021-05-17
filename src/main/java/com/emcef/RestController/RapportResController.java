@@ -25,35 +25,7 @@ public class RapportResController {
     @Autowired
     RapportService rapportService;
 
-    //Interface Général
-    @GetMapping("/nbrrapport")
-    public int Rapport() {
-        try {
-            return rapportService.rapport();
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-    
-    @GetMapping("/nbrrapport/{date}")
-    public int countRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        try {
-            return rapportService.rapportTotal(date);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    @GetMapping("/rapports/{year}/{month}")
-    public int MonthRapports(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
-        try {
-            return rapportService.MonthRapports(year, month);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-    
-        @GetMapping("/betweenRapports/{day1}/{day2}")
+    @GetMapping("/betweenRapports/{day1}/{day2}")
     public double getBetweenRapports(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return rapportService.getBetweenRapports(day1, day2);

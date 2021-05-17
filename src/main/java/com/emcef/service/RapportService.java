@@ -25,8 +25,8 @@ public class RapportService {
         return rapportRepository.totalRapport();
     }
     
-    public int rapportTotal(Date date) {
-        return rapportRepository.nbrRapport(date);
+    public int rapportTotal(int year , int month, int day) {
+        return rapportRepository.nbrRapport(year,month,day);
     }
 
     public double getBetweenRapports(Date day1, Date day2) {

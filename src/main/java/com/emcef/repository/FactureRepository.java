@@ -10,6 +10,7 @@ package com.emcef.repository;
 import com.emcef.model.FactureSelonSpecification;
 import java.util.Date;
 import java.util.List;
+import org.json.simple.JSONObject;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -83,13 +84,13 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     public List<Object[]> getNbreFactureByDate();
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f",nativeQuery = true)
-    public Object[] getTotauxGlobaux();
+    public JSONObject getTotauxGlobaux();
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month",nativeQuery = true)
-    public Object[] getTotauxMonth(@Param("year") int year ,@Param("month") int month);
+    public JSONObject getTotauxMonth(@Param("year") int year ,@Param("month") int month);
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day",nativeQuery = true)
-    public Object[] getTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day);
+    public JSONObject getTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day);
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day AND ifu =:ifu",nativeQuery = true)
     public Object[] getEntTotauxDay(@Param("year") int year ,@Param("month") int month,@Param("day") int day,@Param("ifu") int ifu);

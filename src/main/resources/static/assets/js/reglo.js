@@ -1,17 +1,75 @@
 var app = angular.module('demo', []);
-app.controller('indexController', function ($scope) {
-  $scope.myForm = {
-        total1: Math.floor(Math.random() * 100),
-        total2: 60
-    };
-    
-    $scope.valeur = {
-        total1: Math.floor(Math.random() * 100),
-        total2: 60
-    };
+app.controller('tableController', function ($scope, $http) {
 
-  $scope.question = 2;
-  //alert( $scope.valeur.total1);
+    $scope.question = 250000;
+    var dt = new Date();
+    var DD = ("0" + dt.getDate()).slice(-2);
+    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var YYYY = dt.getFullYear();
+    var method = "GET";
+    var url1 = "/api/totauxglobaux/";
+    var url2 = "/api/totauxmonth/" + YYYY + "/" + MM;
+    var url3 = "/api/totauxday/" + YYYY + "/" + MM + "/" + DD;
+
+    $scope.verification = function (valeur) {
+        if (typeof valeur !== 'number') {
+            return 0;
+        } else {
+            return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(valeur);
+        }
+    }
+    ;
+
+//Totaux Globaux
+    $http({
+        method: method,
+        url: url1,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).success(function (data, status) {
+        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+        $scope.global1 = $scope.verification(data.nbre);
+        $scope.global2 = $scope.verification(data.rapport);
+        $scope.global3 = $scope.verification(data.totalttc);
+        $scope.global4 = $scope.verification(data.totalht);
+    })
+            .error(function (data, status) {})
+
+    //Totaux Mensuel
+    $http({
+        method: method,
+        url: url2,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).success(function (data, status) {
+        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+        $scope.month1 = $scope.verification(data.nbre);
+        $scope.month2 = $scope.verification(data.rapport);
+        $scope.month3 = $scope.verification(data.totalttc);
+        $scope.month4 = $scope.verification(data.totalht);
+    })
+            .error(function (data, status) {})
+
+    //Totaux Journaliers
+    $http({
+        method: method,
+        url: url3,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).success(function (data, status) {
+        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+        $scope.day1 = $scope.verification(data.nbre);
+        $scope.day2 = $scope.verification(data.rapport);
+        $scope.day3 = $scope.verification(data.totalttc);
+        $scope.day4 = $scope.verification(data.totalht);
+    })
+            .error(function (data, status) {})
+
+    console.log($scope);
+    //alert( $scope.valeur.total1);
 });
 
 
@@ -131,7 +189,7 @@ async function getTotauxMonth() {
     var YYYY = dt.getFullYear();
     const facture = await fetch('/api/totauxmonth/' + YYYY + '/' + MM);
     liste = await facture.json();
-    const rapport = await fetch('/api/rapports/' + YYYY+'/'+MM);
+    const rapport = await fetch('/api/rapports/' + YYYY + '/' + MM);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
         document.getElementById("month2").innerHTML = 0;
@@ -164,7 +222,7 @@ async function getTotauxDay() {
     var rapport_date = YYYY + "-" + MM + "-" + DD;
     const facture = await fetch('/api/totauxday/' + YYYY + '/' + MM + '/' + DD);
     liste = await facture.json();
-    const rapport = await fetch('/api/nbrrapport/' +rapport_date);
+    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
     var total_rapport = await rapport.json();
     if (typeof total_rapport !== 'number') {
         document.getElementById("day2").innerHTML = 0;
@@ -350,8 +408,9 @@ async function getLineData() {
     });
 }
 
-getLineData();
-var test = setInterval(getLineData, 5000);
-var test1 = setInterval(getTotauxGlobaux, 1000);
-var test2 = setInterval(getTotauxMonth, 1000);
-var test3 = setInterval(getTotauxDay, 1000);
+/*getLineData();
+ var test = setInterval(getLineData, 5000);
+ var test1 = setInterval(getTotauxGlobaux, 1000);
+ var test2 = setInterval(getTotauxMonth, 1000);
+ var test3 = setInterval(getTotauxDay, 1000);
+ */

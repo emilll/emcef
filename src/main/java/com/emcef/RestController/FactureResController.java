@@ -6,12 +6,12 @@
 package com.emcef.RestController;
 
 import com.emcef.service.FactureService;
+import com.emcef.service.RapportService;
 import org.json.simple.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +30,9 @@ public class FactureResController {
 
     @Autowired
     FactureService factureService;
+
+    @Autowired
+    RapportService rapportService;
 
     // Interface Général
     // Nombre de factures d'une date donnée
@@ -158,9 +161,11 @@ public class FactureResController {
 
     // Nombre de fature , total TTC et totalTVA
     @GetMapping("/totauxglobaux")
-    public Object[] totauxglobaux() {
+    public JSONObject totauxglobaux() {
         try {
-            return factureService.getTotauxGlobaux();
+            JSONObject obj = factureService.getTotauxGlobaux();
+            obj.put("rapport", rapportService.rapport());
+            return obj;
         } catch (Exception e) {
             return null;
         }
@@ -168,20 +173,24 @@ public class FactureResController {
 
     // Nombre de fature , total TTC et totalTVA par année et par mois
     @GetMapping("/totauxmonth/{year}/{month}")
-    public Object[] getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+    public JSONObject getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
-            return factureService.getTotauxMonth(year, month);
+            JSONObject obj = factureService.getTotauxMonth(year, month);
+            obj.put("rapport", rapportService.MonthRapports(year, month));
+            return obj;
         } catch (Exception e) {
             return null;
         }
     }
 
-    // Nombre de fature , total TTC et totalTVA par année par mois et par jour
+    // Nombre de fature , total TTC,rapport et totalTVA par année par mois et par jour
     @GetMapping("/totauxday/{year}/{month}/{day}")
-    public Object[] getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+    public JSONObject getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day) {
         try {
-            return factureService.getTotauxDay(year, month, day);
+            JSONObject obj = factureService.getTotauxDay(year, month, day);
+            obj.put("rapport", rapportService.rapportTotal(year, month, day));
+            return obj;
         } catch (Exception e) {
             return null;
         }

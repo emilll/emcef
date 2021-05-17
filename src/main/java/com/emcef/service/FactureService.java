@@ -9,6 +9,7 @@ import com.emcef.model.FactureSelonSpecification;
 import com.emcef.repository.FactureRepository;
 import java.util.Date;
 import java.util.List;
+import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,15 +102,15 @@ public class FactureService {
         return factureRepository.getNbreFactureByDate();
     }
 
-    public Object[] getTotauxGlobaux() {
+    public JSONObject getTotauxGlobaux() {
         return factureRepository.getTotauxGlobaux();
     }
 
-    public Object[] getTotauxMonth(int year , int month) {
+    public JSONObject getTotauxMonth(int year , int month) {
         return factureRepository.getTotauxMonth(year,month);
     }
 
-    public Object[] getTotauxDay(int year , int month, int day) {
+    public JSONObject getTotauxDay(int year , int month, int day) {
         return factureRepository.getTotauxDay(year,month,day);
     }
 
