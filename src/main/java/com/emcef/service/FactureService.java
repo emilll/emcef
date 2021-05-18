@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class FactureService {
     @Autowired
     FactureRepository factureRepository;
+    
+    
 
     public Double totalTTC() {
         return factureRepository.getTotalTTC();

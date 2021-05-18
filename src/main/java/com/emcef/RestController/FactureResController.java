@@ -5,8 +5,13 @@
  */
 package com.emcef.RestController;
 
+import com.emcef.model.User;
 import com.emcef.service.FactureService;
+import com.emcef.service.UserService;
 import com.emcef.service.RapportService;
+import com.emcef.utility.JWTUtility;
+import com.emcef.utility.JwtRequest;
+import com.emcef.utility.JwtResponse;
 import org.json.simple.JSONObject;
 
 import java.text.ParseException;
@@ -15,8 +20,14 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +44,44 @@ public class FactureResController {
 
     @Autowired
     RapportService rapportService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    private JWTUtility jwtUtility;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping("/authenticate")
+    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
+
+       try {System.out.println(jwtRequest.getUsername());System.out.println(jwtRequest.getPassword());
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            jwtRequest.getUsername(),
+                            jwtRequest.getPassword()
+                    )
+            );
+            System.out.println(jwtRequest.getUsername());
+        } catch (BadCredentialsException e) {
+           throw new Exception("INVALID_CREDENTIALS", e);
+        }
+        //System.out.println(jwtRequest.getUsername());
+        JwtResponse reponse = new JwtResponse();
+        final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
+        if (!userDetails.getUsername().equals(jwtRequest.getUsername())) {
+            reponse.setStatus("NO");
+            return reponse;
+        } else {
+            final String token = jwtUtility.generateToken(userDetails);
+            reponse.setJwtToken(token);
+            reponse.setStatus("YES");
+            return reponse;
+        }
+
+    }
 
     // Interface Général
     // Nombre de factures d'une date donnée
