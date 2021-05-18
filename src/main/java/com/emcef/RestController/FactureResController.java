@@ -57,20 +57,21 @@ public class FactureResController {
     @PostMapping("/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
-       try {System.out.println(jwtRequest.getUsername());System.out.println(jwtRequest.getPassword());
+        try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             jwtRequest.getUsername(),
                             jwtRequest.getPassword()
                     )
             );
-            System.out.println(jwtRequest.getUsername());
         } catch (BadCredentialsException e) {
-           throw new Exception("INVALID_CREDENTIALS", e);
+            throw new Exception("Le nom d'utilisateur et le mot de passe sont invalides.");
         }
         //System.out.println(jwtRequest.getUsername());
         JwtResponse reponse = new JwtResponse();
         final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
+        System.out.println(userDetails.getUsername());
+        System.out.println(userDetails.getPassword());
         if (!userDetails.getUsername().equals(jwtRequest.getUsername())) {
             reponse.setStatus("NO");
             return reponse;
@@ -81,6 +82,11 @@ public class FactureResController {
             return reponse;
         }
 
+    }
+
+    @GetMapping("/user/{name}")
+    public User getUser(@PathVariable(value = "name")String username) {
+        return userService.getUser(username);
     }
 
     // Interface Général

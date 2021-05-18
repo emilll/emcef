@@ -5,7 +5,6 @@
  */
 package com.emcef.model;
 
-import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,6 +63,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
 }
