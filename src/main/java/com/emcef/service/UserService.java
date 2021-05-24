@@ -5,33 +5,11 @@
  */
 package com.emcef.service;
 
-/*import com.emcef.model.User;
-import com.emcef.repository.UserRepository;
-import java.util.ArrayList;
-import org.json.simple.JSONObject;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;*/
 /**
  *
  * @author Holy
  */
-/*@Service
-public class UserService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        System.out.println(user.getPassword());
-        return new UserServicePrincipal(user);
-    }
-}*/
 import org.springframework.beans.factory.annotation.Autowired;
 import com.emcef.model.User;
 import com.emcef.repository.UserRepository;
@@ -54,7 +32,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        System.out.println("Mot de Passe" + user.getPassword());
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
 
     }

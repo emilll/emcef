@@ -53,6 +53,7 @@ public class FactureResController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    
 
     @PostMapping("/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -70,8 +71,7 @@ public class FactureResController {
         //System.out.println(jwtRequest.getUsername());
         JwtResponse reponse = new JwtResponse();
         final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
-        System.out.println(userDetails.getUsername());
-        System.out.println(userDetails.getPassword());
+
         if (!userDetails.getUsername().equals(jwtRequest.getUsername())) {
             reponse.setStatus("NO");
             return reponse;

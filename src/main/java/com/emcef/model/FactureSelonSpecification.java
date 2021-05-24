@@ -32,6 +32,12 @@ public class FactureSelonSpecification implements Serializable  {
 
     @Column(name = "type")
     private String type;
+    
+    @Column(name = "uid")
+    private String uid;
+    
+    @Column(name = "en_attente")
+    private boolean enAttente;
 
     @Column(name = "type_document")
     private String type_document;

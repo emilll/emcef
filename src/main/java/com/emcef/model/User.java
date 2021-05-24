@@ -31,6 +31,17 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+    
+    @Column(name = "ifu", nullable = false, unique = true)
+    private int ifu;
+
+    public int getIfu() {
+        return ifu;
+    }
+
+    public void setIfu(int ifu) {
+        this.ifu = ifu;
+    }
 
     public int getId() {
         return id;

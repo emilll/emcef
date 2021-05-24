@@ -11,42 +11,40 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "")
 public class Secteurs {
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    private int id;
 
-	@Column(name = "nom")
-	private String nom;
+    @Column(name = "nom")
+    private String nom;
 
-	@ManyToOne
-	District district;
+    @ManyToOne
+    District district;
 
-	@Override
-	public String toString() {
-		return "Secteurs [id=" + id + ", nom=" + nom + "]";
-	}
+    @Override
+    public String toString() {
+        return "Secteurs [id=" + id + ", nom=" + nom + "]";
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public Secteurs() {
-	}
+    public Secteurs() {
+    }
 
-	// public District id_district;
-
-
-	
+    // public District id_district;
 }

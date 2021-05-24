@@ -45,9 +45,5 @@ public class Modelsmachines {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-
-    
-    
+    }    
 }

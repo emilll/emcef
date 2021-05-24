@@ -29,6 +29,9 @@ public class Machinesenregistrees {
 
     @OneToOne
     Etatmachine etatmachine;
+    
+    @OneToOne
+    MachinesInstallees machinesinstalles;
 
     @Column(name = "date_heure")
     private Date date_heure;
@@ -41,9 +44,20 @@ public class Machinesenregistrees {
 
     @Column(name = "commentaire")
     private String commentaire;
+    
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "analyseur")
     private String analyseur;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Certificatsenregistres getCertificatsenregistres() {
         return certificatsenregistres;

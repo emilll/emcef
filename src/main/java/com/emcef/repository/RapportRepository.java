@@ -8,6 +8,8 @@ package com.emcef.repository;
 
 import com.emcef.model.Rapportcr;
 import java.util.Date;
+import java.util.List;
+import org.json.simple.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +21,28 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RapportRepository extends JpaRepository<Rapportcr, Integer>{
-    //Interface Générale
+    
+    //Début API Statut
+    @Query(value = "SELECT ifu FROM  utilisateurs u WHERE u.username =:user", nativeQuery = true)
+    int getIfu(@Param("user") String username);
+    
+    @Query(value = "SELECT derniere_version FROM  machinesenregistrees u, machineinstallees f WHERE u.machinesinstalles_id = f.id AND f.ifu =:ifu", nativeQuery = true)
+    String getVersion(@Param("ifu") int ifu);
+    
+    @Query(value = "SELECT nim FROM  machineinstallees u WHERE u.ifu =:ifu", nativeQuery = true)
+    String getNim(@Param("ifu") int ifu);
+    
+    @Query(value = "SELECT count(*) FROM  factureselonspecification u WHERE u.en_attente = false", nativeQuery = true)
+    int getCountPending();
+    
+    @Query(value = "SELECT dateheure date, uid FROM  factureselonspecification u WHERE u.en_attente = false", nativeQuery = true)
+    List<JSONObject> getAllPending();
+    //Fin API Statut
+    
+    //Début API Information sur les e-mcf
+    @Query(value = "SELECT nim, u.status, nom_commercial shopname, i.adresse address1, i.description_location address2, i.ville address3, i.telephone contact1, i.email contact2, i.contact_personnel contact3 FROM  machineinstallees u, machinesenregistrees m, installations i WHERE m.machinesinstalles_id=u.id AND u.id_installation_id = i.id", nativeQuery = true)
+    List<JSONObject> getData();
+    //Fin API Information sur les e-mcf
     
     @Query(value = "SELECT count(*) FROM  rapportcr", nativeQuery = true)
     int totalRapport();

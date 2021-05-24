@@ -8,53 +8,54 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "typesaccesdistance")
+@Table(name = "typesaccesdistance")
 public class TypesAccesDistance {
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    private int id;
 
-	@Column( name = "nom")
-	private String nom;
+    @Column(name = "nom")
+    private String nom;
 
-	@Column( name = "controlleur")
-	private String controlleur;
+    @Column(name = "controlleur")
+    private String controlleur;
 
-	@Column( name = "visible")
-	private Boolean visible;
+    @Column(name = "visible")
+    private Boolean visible;
 
-	public TypesAccesDistance() {
-	}
+    public TypesAccesDistance() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public String getControlleur() {
-		return controlleur;
-	}
+    public String getControlleur() {
+        return controlleur;
+    }
 
-	public void setControlleur(String controlleur) {
-		this.controlleur = controlleur;
-	}
+    public void setControlleur(String controlleur) {
+        this.controlleur = controlleur;
+    }
 
-	public Boolean getVisible() {
-		return visible;
-	}
+    public Boolean getVisible() {
+        return visible;
+    }
 
-	public void setVisible(Boolean visible) {
-		this.visible = visible;
-	}
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 }
