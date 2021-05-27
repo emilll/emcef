@@ -56,7 +56,7 @@ public class RapportResController {
         String authorization = httpServletRequest.getHeader("Authorization");
         String token = null;
         String userName = null;
-        int ifu = 0;
+        String ifu = "";
         Date valid = null;
 
         if (null != authorization && authorization.startsWith("Bearer ")) {
@@ -88,7 +88,7 @@ public class RapportResController {
         String authorization = httpServletRequest.getHeader("Authorization");
         String token = null;
         String userName = null;
-        int ifu = 0;
+        String ifu = "";
         Date valid = null;
 
         if (null != authorization && authorization.startsWith("Bearer ")) {
@@ -107,6 +107,45 @@ public class RapportResController {
         return statutEmcfResponse;
     }
     //Fin API Information sur les e-mcf
+
+    //Début API Types de paiement
+    @GetMapping("/info/paymentTypes")
+    public List<JSONObject> paiement(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        String authorization = httpServletRequest.getHeader("Authorization");
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            return rapportService.Pay();
+        } else {
+            return null;
+        }
+    }
+    //Fin API Types de paiement
+
+    //Début API Groupe de taxation
+    @GetMapping("/info/taxGroups")
+    public JSONObject taxes(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        String authorization = httpServletRequest.getHeader("Authorization");
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            return rapportService.Tax();
+        } else {
+            return null;
+        }
+    }
+    //FIN API Groupe de taxation
+
+    //Début API Types de factures
+    @GetMapping("/info/invoiceTypes")
+    public List<JSONObject> factures(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        String authorization = httpServletRequest.getHeader("Authorization");
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            return rapportService.Fact();
+        } else {
+            return null;
+        }
+    }
+    //Fin API Types de factures
 
     //Interface Entreprise
     @GetMapping("/ent/nbrrapport/{date}/{ifu}")

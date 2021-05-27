@@ -28,15 +28,15 @@ public class RapportService {
     }
 
     //Début API Statut
-    public int ifu(String username) {
+    public String ifu(String username) {
         return rapportRepository.getIfu(username);
     }
 
-    public String nim(int ifu) {
+    public String nim(String ifu) {
         return rapportRepository.getNim(ifu);
     }
 
-    public String version(int ifu) {
+    public String version(String ifu) {
         return rapportRepository.getVersion(ifu);
     }
 
@@ -54,6 +54,24 @@ public class RapportService {
         return rapportRepository.getData();
     }
     //Fin API Information sur les e-mcf
+    
+     //Début API Types de paiement
+    public List<JSONObject> Pay() {
+        return rapportRepository.getPay();
+    }
+    //Fin API Types de paiement
+            
+    //Début API Types de factures
+    public List<JSONObject> Fact() {
+        return rapportRepository.getFact();
+    }
+    //Fin API Types de factures
+    
+    //Début API Groupe de taxation
+    public JSONObject Tax() {
+        return rapportRepository.getTax();
+    }
+    //FIN API Groupe de taxation
 
     public int rapportTotal(int year, int month, int day) {
         return rapportRepository.nbrRapport(year, month, day);

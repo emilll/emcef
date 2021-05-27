@@ -40,7 +40,7 @@ public class MachinesInstallees implements Serializable {
     private String nim;
 
     @Column(name = "ifu", unique = true, nullable = false)
-    private int ifu;
+    private String ifu;
 
     @Column(name = "date_enregistement")
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -136,11 +136,11 @@ public class MachinesInstallees implements Serializable {
         this.nim = nim;
     }
 
-    public int getIfu() {
+    public String getIfu() {
         return ifu;
     }
 
-    public void setIfu(int ifu) {
+    public void setIfu(String ifu) {
         this.ifu = ifu;
     }
 

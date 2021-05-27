@@ -19,7 +19,7 @@ public class StatutResponse {
 
     private boolean status;
     private String version;
-    private int ifu;
+    private String ifu;
     private String nim;
     private Date tokenValid;
     private Date serverDateTime;
@@ -42,11 +42,11 @@ public class StatutResponse {
         this.version = version;
     }
 
-    public int getIfu() {
+    public String getIfu() {
         return ifu;
     }
 
-    public void setIfu(int ifu) {
+    public void setIfu(String ifu) {
         this.ifu = ifu;
     }
 

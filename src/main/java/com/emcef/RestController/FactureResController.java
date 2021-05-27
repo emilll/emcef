@@ -6,6 +6,10 @@
 package com.emcef.RestController;
 
 import com.emcef.model.User;
+import com.emcef.request.FactureRequest;
+import com.emcef.request.ItemDto;
+import com.emcef.response.FactureResponse;
+import com.emcef.response.FinalFactureResponse;
 import com.emcef.service.FactureService;
 import com.emcef.service.UserService;
 import com.emcef.service.RapportService;
@@ -17,6 +21,7 @@ import org.json.simple.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,17 +48,100 @@ public class FactureResController {
     FactureService factureService;
 
     @Autowired
-    RapportService rapportService;
-
-    @Autowired
     UserService userService;
+    
+    @Autowired
+    RapportService rapportService;
 
     @Autowired
     private JWTUtility jwtUtility;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    String getAlphaNumericString(int n) {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     
+    String getParticularString(int n) {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789";
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
+    
+    @PostMapping("/invoice/{uid}/{action}")
+    public FinalFactureResponse finaliser(@PathVariable(value = "uid") String uid, @PathVariable(value = "action") String action, HttpServletRequest httpServletRequest) throws Exception {
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String token = null;
+        String userName = null;
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            token = authorization.substring(7);
+            userName = jwtUtility.getUsernameFromToken(token);
+        }
+        
+        FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
+        if("confirm".equals(action)){
+            int id = 0;
+            Date date = factureService.getDate(uid);
+            String code="", qrcode="", datetime="", counters="", nim="";
+            String code1="", code2="", code3="", code4="", code5="", code6="";
+        factureService.confirmFacture(uid);
+        id = factureService.getId(uid);
+        code1 = getParticularString(4);
+        code2 = getParticularString(4);
+        code3 = getParticularString(4);
+        code4 = getParticularString(4);
+        code5 = getParticularString(4);
+        code6 = getParticularString(4);
+        code = code1 + "-"+ code2 + "-"+ code3 + "-"+ code4 + "-"+ code5 + "-"+ code6;
+        counters = factureService.validatedFacture() + "/" + factureService.pendingFacture() + "FV";
+        datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        nim = factureService.getNim(uid);
+        qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + factureService.getIfu(userName) + ";" + date.getYear() + date.getMonth() + date.getDay() + date.getHours() + date.getMinutes() + date.getSeconds();
+        factureService.setFactureNormalisee(code, counters, datetime, nim, qrcode, id);
+        finalFactureResponse.setCodeMECeFDGI(code);
+        finalFactureResponse.setCounters(counters);
+        finalFactureResponse.setDateTime(datetime);
+        finalFactureResponse.setNim(nim);
+        finalFactureResponse.setQrCode(qrcode);
+        }
+        if("cancel".equals(action)){
+        Date date = factureService.getDate(uid);
+        String datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+         finalFactureResponse.setDateTime(datetime);
+        }
+        return finalFactureResponse;
+    }
 
     @PostMapping("/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -68,7 +156,6 @@ public class FactureResController {
         } catch (BadCredentialsException e) {
             throw new Exception("Le nom d'utilisateur et le mot de passe sont invalides.");
         }
-        //System.out.println(jwtRequest.getUsername());
         JwtResponse reponse = new JwtResponse();
         final UserDetails userDetails = userService.loadUserByUsername(jwtRequest.getUsername());
 
@@ -84,8 +171,140 @@ public class FactureResController {
 
     }
 
+    @PostMapping("/invoice")
+    public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String token = null;
+        String userName = null;
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            token = authorization.substring(7);
+            userName = jwtUtility.getUsernameFromToken(token);
+        }
+        
+        double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
+        JSONObject tax = factureService.getTaxGroup();
+        int tax_a = (int) tax.get("a"), tax_b = (int) tax.get("b"), tax_c = (int) tax.get("c"), tax_d = (int) tax.get("d");
+        Date maintenant = new Date();
+        String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
+        int position = factureService.getLastId() + 1;
+        int taxe = 0;
+
+        for (ItemDto str : factureRequest.getItems()) {
+            if ("A".equals(str.getTaxGroup())) {
+                taa = taa + str.getPrice() * str.getQuantity();
+            }
+            if ("B".equals(str.getTaxGroup())) {
+                tab = tab + str.getPrice() * str.getQuantity();
+            }
+            if ("C".equals(str.getTaxGroup())) {
+                tac = tac + str.getPrice() * str.getQuantity();
+            }
+            if ("D".equals(str.getTaxGroup())) {
+                tad = tad + str.getPrice() * str.getQuantity();
+            }
+            if ("E".equals(str.getTaxGroup())) {
+                tae = tae + str.getPrice() * str.getQuantity();
+            }
+            if ("F".equals(str.getTaxGroup())) {
+                taf = taf + str.getPrice() * str.getQuantity();
+            }
+            total = total + (str.getPrice() * str.getQuantity());
+        }
+
+        factureService.setFacture(
+                factureService.actualNim(factureService.getIfu(userName)),
+                maintenant,
+                uid,
+                position,
+                factureRequest.getIfu(),
+                factureRequest.getType(),
+                factureRequest.getClient().getContact(),
+                factureRequest.getClient().getIfu(),
+                factureRequest.getClient().getName(),
+                factureRequest.getClient().getAddress(),
+                factureRequest.getOperator().getName(),
+                factureRequest.getOperator().getId(),
+                tax_a,
+                tax_b,
+                tax_c,
+                tax_d,
+                taa,
+                tab,
+                tac,
+                tad,
+                tae,
+                taf,
+                tab - (tab * (tax_b * 0.01)),
+                tad - (tad * (tax_d * 0.01)),
+                tab * (tax_b * 0.01),
+                tad * (tax_d * 0.01),
+                total
+        );
+        
+        String group="";
+        for (ItemDto str : factureRequest.getItems()) {
+
+            if ("A".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("a");
+                group = "A";
+            }
+            if ("B".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("a");
+                group = "B";
+            }
+            if ("C".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("c");
+                group = "C";
+            }
+            if ("D".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("d");
+                group = "D";
+            }
+            if ("E".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("e");
+                group = "E";
+            }
+            if ("F".equals(str.getTaxGroup())) {
+                taxe = (int) tax.get("f");
+                group = "F";
+            }
+            double mont = str.getPrice() * str.getQuantity();
+            double ht = mont - (mont * (taxe / 100));
+            factureService.setLigneFacture(str.getCode(), str.getPrice() * str.getQuantity(), ht, str.getName(), str.getPrice(), str.getPrice() * (taxe / 100), str.getQuantity(), group, taxe, mont * (taxe / 100), position);
+        }
+
+        JSONObject reponse = factureService.getAllFacture(position);
+        FactureResponse last=new FactureResponse() ;
+        
+        last.setUid(uid);
+        last.setTa((int) reponse.get("taux_tax_a"));
+        last.setTb((int) reponse.get("taux_tax_b"));
+        last.setTc((int) reponse.get("taux_tax_c"));
+        last.setTd((int) reponse.get("taux_tax_d"));
+        last.setTaa((double) reponse.get("total_a"));
+        last.setTab((double) reponse.get("total_b"));
+        last.setTac((double) reponse.get("total_c"));
+        last.setTad((double) reponse.get("total_d"));
+        last.setTae((double) reponse.get("total_e"));
+        last.setTaf((double) reponse.get("total_f"));
+        last.setHab((double) reponse.get("taxable_b"));
+        last.setHad((double) reponse.get("taxable_d"));
+        last.setVab((double) reponse.get("total_tax_b"));
+        last.setVad((double) reponse.get("total_tax_d"));
+        last.setAib(0);
+        last.setTs(0);
+        last.setTotal((double) reponse.get("total"));
+        
+        /* try {
+        } catch (BadCredentialsException e) {
+            throw new Exception("Le nom d'utilisateur et le mot de passe sont invalides.");
+        }*/
+        return last;
+    }
+
     @GetMapping("/user/{name}")
-    public User getUser(@PathVariable(value = "name")String username) {
+    public User getUser(@PathVariable(value = "name") String username) {
         return userService.getUser(username);
     }
 

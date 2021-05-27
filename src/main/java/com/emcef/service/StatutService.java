@@ -17,7 +17,7 @@ public class StatutService {
     @Autowired
     StatutRepository statutRepository;
     
-    public int ifu(String username) {
+    public String ifu(String username) {
         return statutRepository.getIfu(username);
     }
 }

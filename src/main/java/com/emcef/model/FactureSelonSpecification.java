@@ -1,7 +1,6 @@
 package com.emcef.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -56,64 +55,67 @@ public class FactureSelonSpecification implements Serializable  {
     private Date info_date;
 
     @Column(name = "ifu")
-    private int ifu;
+    private String ifu;
+    
+    @Column(name = "nim")
+    private String nim;
 
     @Column(name = "taux_tax_a")
-    private BigDecimal taux_tax_a;
+    private int taux_tax_a;
 
     @Column(name = "taux_tax_b")
-    private BigDecimal taux_tax_b;
+    private int taux_tax_b;
 
     @Column(name = "taux_tax_c")
-    private BigDecimal taux_tax_c;
+    private int taux_tax_c;
 
     @Column(name = "taux_tax_d")
-    private BigDecimal taux_tax_d;
+    private int taux_tax_d;
 
     @Column(name = "total")
-    private BigDecimal total;
+    private double total;
 
     @Column(name = "total_a")
-    private BigDecimal total_a;
+    private double total_a;
 
     @Column(name = "total_b")
-    private BigDecimal total_b;
+    private double total_b;
 
     @Column(name = "total_c")
-    private BigDecimal total_c;
+    private double total_c;
 
     @Column(name = "total_d")
-    private BigDecimal total_d;
+    private double total_d;
 
     @Column(name = "total_taxable")
-    private BigDecimal total_taxable;
+    private double total_taxable;
 
     @Column(name = "taxable_a")
-    private BigDecimal taxable_a;
+    private double taxable_a;
 
     @Column(name = "taxable_b")
-    private BigDecimal taxable_b;
+    private double taxable_b;
 
     @Column(name = "taxable_c")
-    private BigDecimal taxable_c;
+    private double taxable_c;
 
     @Column(name = "taxable_d")
-    private BigDecimal taxable_d;
+    private double taxable_d;
 
     @Column(name = "total_tax")
-    private BigDecimal total_tax;
+    private double total_tax;
 
     @Column(name = "total_tax_a")
-    private BigDecimal total_tax_a;
+    private double total_tax_a;
 
     @Column(name = "total_tax_b")
-    private BigDecimal total_tax_b;
+    private double total_tax_b;
 
     @Column(name = "total_tax_c")
-    private BigDecimal total_tax_c;
+    private double total_tax_c;
 
     @Column(name = "total_tax_d")
-    private BigDecimal total_tax_d;
+    private double total_tax_d;
 
     @Column(name = "mrc")
     private String mrc;
@@ -179,7 +181,7 @@ public class FactureSelonSpecification implements Serializable  {
     private String pieds3;
 
     @Column(name = "ifu_client")
-    private int ifu_client;
+    private String ifu_client;
 
     @Column(name = "nom_client")
     private String nom_client;
@@ -200,34 +202,37 @@ public class FactureSelonSpecification implements Serializable  {
     private String payement;
 
     @Column(name = "montant_payement")
-    private BigDecimal montant_payement;
+    private double montant_payement;
 
     @Column(name = "operateur")
     private String operateur;
+    
+    @Column(name = "operateur_id")
+    private String operateur_id;
 
     @Column(name = "reference_remboursement")
     private String reference_remboursement;
 
     @Column(name = "aib")
-    private BigDecimal aib;
+    private int aib;
 
     @Column(name = "montant_aib")
-    private BigDecimal montant_aib;
+    private double montant_aib;
 
     @Column(name = "tax_specifique_a")
-    private BigDecimal tax_specifique_a;
+    private double tax_specifique_a;
 
     @Column(name = "tax_specifique_b")
-    private BigDecimal tax_specifique_b;
+    private double tax_specifique_b;
 
     @Column(name = "tax_specifique_c")
-    private BigDecimal tax_specifique_c;
+    private double tax_specifique_c;
 
     @Column(name = "tax_specifique_d")
-    private BigDecimal tax_specifique_d;
+    private double tax_specifique_d;
 
     @Column(name = "total_tax_specifique")
-    private BigDecimal total_tax_specifique;
+    private double total_tax_specifique;
 
     @Column(name = "status")
     private Boolean status;
@@ -236,28 +241,28 @@ public class FactureSelonSpecification implements Serializable  {
     private boolean calcul;
 
     @Column(name = "tauxtax_e")
-    private BigDecimal tauxtax_e;
+    private int tauxtax_e;
 
     @Column(name = "tauxtax_f")
-    private BigDecimal tauxtax_f;
+    private int tauxtax_f;
 
     @Column(name = "total_e")
-    private BigDecimal total_e;
+    private double total_e;
 
     @Column(name = "total_f")
-    private BigDecimal total_f;
+    private double total_f;
 
     @Column(name = "taxable_e")
-    private BigDecimal taxable_e;
+    private double taxable_e;
 
     @Column(name = "taxable_f")
-    private BigDecimal taxable_f;
+    private double taxable_f;
 
     @Column(name = "total_tax_e")
-    private BigDecimal total_tax_e;
+    private double total_tax_e;
 
     @Column(name = "total_tax_f")
-    private BigDecimal total_tax_f;
+    private double total_tax_f;
 
     @Column(name = "adresse3")
     private String adresse3;
@@ -266,10 +271,18 @@ public class FactureSelonSpecification implements Serializable  {
     private String contact3;
 
     @Column(name = "tax_specifique_e")
-    private BigDecimal tax_specifique_e;
+    private double tax_specifique_e;
 
     @Column(name = "tax_specifique_f")
-    private BigDecimal tax_specifique_f;
+    private double tax_specifique_f;
+
+    public String getNim() {
+        return nim;
+    }
+
+    public void setNim(String nim) {
+        this.nim = nim;
+    }
 
     public int getId() {
         return id;
@@ -309,6 +322,22 @@ public class FactureSelonSpecification implements Serializable  {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public boolean isEnAttente() {
+        return enAttente;
+    }
+
+    public void setEnAttente(boolean enAttente) {
+        this.enAttente = enAttente;
     }
 
     public String getType_document() {
@@ -351,163 +380,163 @@ public class FactureSelonSpecification implements Serializable  {
         this.info_date = info_date;
     }
 
-    public int getIfu() {
+    public String getIfu() {
         return ifu;
     }
 
-    public void setIfu(int ifu) {
+    public void setIfu(String ifu) {
         this.ifu = ifu;
     }
 
-    public BigDecimal getTaux_tax_a() {
+    public int getTaux_tax_a() {
         return taux_tax_a;
     }
 
-    public void setTaux_tax_a(BigDecimal taux_tax_a) {
+    public void setTaux_tax_a(int taux_tax_a) {
         this.taux_tax_a = taux_tax_a;
     }
 
-    public BigDecimal getTaux_tax_b() {
+    public int getTaux_tax_b() {
         return taux_tax_b;
     }
 
-    public void setTaux_tax_b(BigDecimal taux_tax_b) {
+    public void setTaux_tax_b(int taux_tax_b) {
         this.taux_tax_b = taux_tax_b;
     }
 
-    public BigDecimal getTaux_tax_c() {
+    public int getTaux_tax_c() {
         return taux_tax_c;
     }
 
-    public void setTaux_tax_c(BigDecimal taux_tax_c) {
+    public void setTaux_tax_c(int taux_tax_c) {
         this.taux_tax_c = taux_tax_c;
     }
 
-    public BigDecimal getTaux_tax_d() {
+    public int getTaux_tax_d() {
         return taux_tax_d;
     }
 
-    public void setTaux_tax_d(BigDecimal taux_tax_d) {
+    public void setTaux_tax_d(int taux_tax_d) {
         this.taux_tax_d = taux_tax_d;
     }
 
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public BigDecimal getTotal_a() {
+    public double getTotal_a() {
         return total_a;
     }
 
-    public void setTotal_a(BigDecimal total_a) {
+    public void setTotal_a(double total_a) {
         this.total_a = total_a;
     }
 
-    public BigDecimal getTotal_b() {
+    public double getTotal_b() {
         return total_b;
     }
 
-    public void setTotal_b(BigDecimal total_b) {
+    public void setTotal_b(double total_b) {
         this.total_b = total_b;
     }
 
-    public BigDecimal getTotal_c() {
+    public double getTotal_c() {
         return total_c;
     }
 
-    public void setTotal_c(BigDecimal total_c) {
+    public void setTotal_c(double total_c) {
         this.total_c = total_c;
     }
 
-    public BigDecimal getTotal_d() {
+    public double getTotal_d() {
         return total_d;
     }
 
-    public void setTotal_d(BigDecimal total_d) {
+    public void setTotal_d(double total_d) {
         this.total_d = total_d;
     }
 
-    public BigDecimal getTotal_taxable() {
+    public double getTotal_taxable() {
         return total_taxable;
     }
 
-    public void setTotal_taxable(BigDecimal total_taxable) {
+    public void setTotal_taxable(double total_taxable) {
         this.total_taxable = total_taxable;
     }
 
-    public BigDecimal getTaxable_a() {
+    public double getTaxable_a() {
         return taxable_a;
     }
 
-    public void setTaxable_a(BigDecimal taxable_a) {
+    public void setTaxable_a(double taxable_a) {
         this.taxable_a = taxable_a;
     }
 
-    public BigDecimal getTaxable_b() {
+    public double getTaxable_b() {
         return taxable_b;
     }
 
-    public void setTaxable_b(BigDecimal taxable_b) {
+    public void setTaxable_b(double taxable_b) {
         this.taxable_b = taxable_b;
     }
 
-    public BigDecimal getTaxable_c() {
+    public double getTaxable_c() {
         return taxable_c;
     }
 
-    public void setTaxable_c(BigDecimal taxable_c) {
+    public void setTaxable_c(double taxable_c) {
         this.taxable_c = taxable_c;
     }
 
-    public BigDecimal getTaxable_d() {
+    public double getTaxable_d() {
         return taxable_d;
     }
 
-    public void setTaxable_d(BigDecimal taxable_d) {
+    public void setTaxable_d(double taxable_d) {
         this.taxable_d = taxable_d;
     }
 
-    public BigDecimal getTotal_tax() {
+    public double getTotal_tax() {
         return total_tax;
     }
 
-    public void setTotal_tax(BigDecimal total_tax) {
+    public void setTotal_tax(double total_tax) {
         this.total_tax = total_tax;
     }
 
-    public BigDecimal getTotal_tax_a() {
+    public double getTotal_tax_a() {
         return total_tax_a;
     }
 
-    public void setTotal_tax_a(BigDecimal total_tax_a) {
+    public void setTotal_tax_a(double total_tax_a) {
         this.total_tax_a = total_tax_a;
     }
 
-    public BigDecimal getTotal_tax_b() {
+    public double getTotal_tax_b() {
         return total_tax_b;
     }
 
-    public void setTotal_tax_b(BigDecimal total_tax_b) {
+    public void setTotal_tax_b(double total_tax_b) {
         this.total_tax_b = total_tax_b;
     }
 
-    public BigDecimal getTotal_tax_c() {
+    public double getTotal_tax_c() {
         return total_tax_c;
     }
 
-    public void setTotal_tax_c(BigDecimal total_tax_c) {
+    public void setTotal_tax_c(double total_tax_c) {
         this.total_tax_c = total_tax_c;
     }
 
-    public BigDecimal getTotal_tax_d() {
+    public double getTotal_tax_d() {
         return total_tax_d;
     }
 
-    public void setTotal_tax_d(BigDecimal total_tax_d) {
+    public void setTotal_tax_d(double total_tax_d) {
         this.total_tax_d = total_tax_d;
     }
 
@@ -679,11 +708,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.pieds3 = pieds3;
     }
 
-    public int getIfu_client() {
+    public String getIfu_client() {
         return ifu_client;
     }
 
-    public void setIfu_client(int ifu_client) {
+    public void setIfu_client(String ifu_client) {
         this.ifu_client = ifu_client;
     }
 
@@ -735,11 +764,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.payement = payement;
     }
 
-    public BigDecimal getMontant_payement() {
+    public double getMontant_payement() {
         return montant_payement;
     }
 
-    public void setMontant_payement(BigDecimal montant_payement) {
+    public void setMontant_payement(double montant_payement) {
         this.montant_payement = montant_payement;
     }
 
@@ -751,6 +780,14 @@ public class FactureSelonSpecification implements Serializable  {
         this.operateur = operateur;
     }
 
+    public String getOperateur_id() {
+        return operateur_id;
+    }
+
+    public void setOperateur_id(String operateur_id) {
+        this.operateur_id = operateur_id;
+    }
+
     public String getReference_remboursement() {
         return reference_remboursement;
     }
@@ -759,59 +796,59 @@ public class FactureSelonSpecification implements Serializable  {
         this.reference_remboursement = reference_remboursement;
     }
 
-    public BigDecimal getAib() {
+    public int getAib() {
         return aib;
     }
 
-    public void setAib(BigDecimal aib) {
+    public void setAib(int aib) {
         this.aib = aib;
     }
 
-    public BigDecimal getMontant_aib() {
+    public double getMontant_aib() {
         return montant_aib;
     }
 
-    public void setMontant_aib(BigDecimal montant_aib) {
+    public void setMontant_aib(double montant_aib) {
         this.montant_aib = montant_aib;
     }
 
-    public BigDecimal getTax_specifique_a() {
+    public double getTax_specifique_a() {
         return tax_specifique_a;
     }
 
-    public void setTax_specifique_a(BigDecimal tax_specifique_a) {
+    public void setTax_specifique_a(double tax_specifique_a) {
         this.tax_specifique_a = tax_specifique_a;
     }
 
-    public BigDecimal getTax_specifique_b() {
+    public double getTax_specifique_b() {
         return tax_specifique_b;
     }
 
-    public void setTax_specifique_b(BigDecimal tax_specifique_b) {
+    public void setTax_specifique_b(double tax_specifique_b) {
         this.tax_specifique_b = tax_specifique_b;
     }
 
-    public BigDecimal getTax_specifique_c() {
+    public double getTax_specifique_c() {
         return tax_specifique_c;
     }
 
-    public void setTax_specifique_c(BigDecimal tax_specifique_c) {
+    public void setTax_specifique_c(double tax_specifique_c) {
         this.tax_specifique_c = tax_specifique_c;
     }
 
-    public BigDecimal getTax_specifique_d() {
+    public double getTax_specifique_d() {
         return tax_specifique_d;
     }
 
-    public void setTax_specifique_d(BigDecimal tax_specifique_d) {
+    public void setTax_specifique_d(double tax_specifique_d) {
         this.tax_specifique_d = tax_specifique_d;
     }
 
-    public BigDecimal getTotal_tax_specifique() {
+    public double getTotal_tax_specifique() {
         return total_tax_specifique;
     }
 
-    public void setTotal_tax_specifique(BigDecimal total_tax_specifique) {
+    public void setTotal_tax_specifique(double total_tax_specifique) {
         this.total_tax_specifique = total_tax_specifique;
     }
 
@@ -831,67 +868,67 @@ public class FactureSelonSpecification implements Serializable  {
         this.calcul = calcul;
     }
 
-    public BigDecimal getTauxtax_e() {
+    public int getTauxtax_e() {
         return tauxtax_e;
     }
 
-    public void setTauxtax_e(BigDecimal tauxtax_e) {
+    public void setTauxtax_e(int tauxtax_e) {
         this.tauxtax_e = tauxtax_e;
     }
 
-    public BigDecimal getTauxtax_f() {
+    public int getTauxtax_f() {
         return tauxtax_f;
     }
 
-    public void setTauxtax_f(BigDecimal tauxtax_f) {
+    public void setTauxtax_f(int tauxtax_f) {
         this.tauxtax_f = tauxtax_f;
     }
 
-    public BigDecimal getTotal_e() {
+    public double getTotal_e() {
         return total_e;
     }
 
-    public void setTotal_e(BigDecimal total_e) {
+    public void setTotal_e(double total_e) {
         this.total_e = total_e;
     }
 
-    public BigDecimal getTotal_f() {
+    public double getTotal_f() {
         return total_f;
     }
 
-    public void setTotal_f(BigDecimal total_f) {
+    public void setTotal_f(double total_f) {
         this.total_f = total_f;
     }
 
-    public BigDecimal getTaxable_e() {
+    public double getTaxable_e() {
         return taxable_e;
     }
 
-    public void setTaxable_e(BigDecimal taxable_e) {
+    public void setTaxable_e(double taxable_e) {
         this.taxable_e = taxable_e;
     }
 
-    public BigDecimal getTaxable_f() {
+    public double getTaxable_f() {
         return taxable_f;
     }
 
-    public void setTaxable_f(BigDecimal taxable_f) {
+    public void setTaxable_f(double taxable_f) {
         this.taxable_f = taxable_f;
     }
 
-    public BigDecimal getTotal_tax_e() {
+    public double getTotal_tax_e() {
         return total_tax_e;
     }
 
-    public void setTotal_tax_e(BigDecimal total_tax_e) {
+    public void setTotal_tax_e(double total_tax_e) {
         this.total_tax_e = total_tax_e;
     }
 
-    public BigDecimal getTotal_tax_f() {
+    public double getTotal_tax_f() {
         return total_tax_f;
     }
 
-    public void setTotal_tax_f(BigDecimal total_tax_f) {
+    public void setTotal_tax_f(double total_tax_f) {
         this.total_tax_f = total_tax_f;
     }
 
@@ -911,22 +948,19 @@ public class FactureSelonSpecification implements Serializable  {
         this.contact3 = contact3;
     }
 
-    public BigDecimal getTax_specifique_e() {
+    public double getTax_specifique_e() {
         return tax_specifique_e;
     }
 
-    public void setTax_specifique_e(BigDecimal tax_specifique_e) {
+    public void setTax_specifique_e(double tax_specifique_e) {
         this.tax_specifique_e = tax_specifique_e;
     }
 
-    public BigDecimal getTax_specifique_f() {
+    public double getTax_specifique_f() {
         return tax_specifique_f;
     }
 
-    public void setTax_specifique_f(BigDecimal tax_specifique_f) {
+    public void setTax_specifique_f(double tax_specifique_f) {
         this.tax_specifique_f = tax_specifique_f;
     }
-    
-    
-
 }

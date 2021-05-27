@@ -18,5 +18,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StatutRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT ifu FROM  utilisateurs u WHERE u.username =:user", nativeQuery = true)
-    int getIfu(@Param("user") String username);
+    String getIfu(@Param("user") String username);
 }
