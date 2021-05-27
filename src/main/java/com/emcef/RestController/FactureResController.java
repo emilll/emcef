@@ -49,7 +49,7 @@ public class FactureResController {
 
     @Autowired
     UserService userService;
-    
+
     @Autowired
     RapportService rapportService;
 
@@ -79,6 +79,14 @@ public class FactureResController {
         return sb.toString();
     }
     
+    public String transform(int valeur) {
+        String val = "" + valeur;
+        if ( valeur < 10) {
+            val = "0"+valeur;
+        }
+        return val;
+    }
+
     String getParticularString(int n) {
         // chose a Character random from this String
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -97,7 +105,7 @@ public class FactureResController {
         }
         return sb.toString();
     }
-    
+
     @PostMapping("/invoice/{uid}/{action}")
     public FinalFactureResponse finaliser(@PathVariable(value = "uid") String uid, @PathVariable(value = "action") String action, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -108,14 +116,20 @@ public class FactureResController {
             token = authorization.substring(7);
             userName = jwtUtility.getUsernameFromToken(token);
         }
-        
-        FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
-        if("confirm".equals(action)){
+    
+
+    FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
+
+    if ("confirm".equals(action) 
+        ) {
             int id = 0;
-            Date date = factureService.getDate(uid);
-            String code="", qrcode="", datetime="", counters="", nim="";
-            String code1="", code2="", code3="", code4="", code5="", code6="";
+        Date date = factureService.getDate(uid);
+        String code = "", qrcode = "", datetime = "", counters = "", nim = "";
+        String code1 = "", code2 = "", code3 = "", code4 = "", code5 = "", code6 = "";
+        int pending = factureService.pendingFacture();
         factureService.confirmFacture(uid);
+        int validated = factureService.validatedFacture();
+        counters = validated + "/" + pending + "FV";
         id = factureService.getId(uid);
         code1 = getParticularString(4);
         code2 = getParticularString(4);
@@ -123,28 +137,29 @@ public class FactureResController {
         code4 = getParticularString(4);
         code5 = getParticularString(4);
         code6 = getParticularString(4);
-        code = code1 + "-"+ code2 + "-"+ code3 + "-"+ code4 + "-"+ code5 + "-"+ code6;
-        counters = factureService.validatedFacture() + "/" + factureService.pendingFacture() + "FV";
-        datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
+        datetime = transform(date.getDate()) + "/" + transform(date.getMonth()+1) + "/" + transform(date.getYear()+1900) + " " + transform(date.getHours()) + ":" + transform(date.getMinutes()) + ":" + transform(date.getSeconds());
         nim = factureService.getNim(uid);
-        qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + factureService.getIfu(userName) + ";" + date.getYear() + date.getMonth() + date.getDay() + date.getHours() + date.getMinutes() + date.getSeconds();
+        qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + factureService.getIfu(userName) + ";" + transform(date.getYear()+1900) + transform(date.getMonth()+1) + transform(date.getDate()) + transform(date.getHours()) + transform(date.getMinutes()) + transform(date.getSeconds());
         factureService.setFactureNormalisee(code, counters, datetime, nim, qrcode, id);
         finalFactureResponse.setCodeMECeFDGI(code);
         finalFactureResponse.setCounters(counters);
         finalFactureResponse.setDateTime(datetime);
         finalFactureResponse.setNim(nim);
         finalFactureResponse.setQrCode(qrcode);
-        }
-        if("cancel".equals(action)){
-        Date date = factureService.getDate(uid);
-        String datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-         finalFactureResponse.setDateTime(datetime);
-        }
-        return finalFactureResponse;
     }
 
-    @PostMapping("/authenticate")
-    public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
+    if ("cancel".equals(action) 
+        ) {
+            Date date = factureService.getDate(uid);
+        String datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        finalFactureResponse.setDateTime(datetime);
+    }
+    return finalFactureResponse ;
+}
+
+@PostMapping("/authenticate")
+        public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {
             authenticationManager.authenticate(
@@ -172,7 +187,7 @@ public class FactureResController {
     }
 
     @PostMapping("/invoice")
-    public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
+        public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
         String token = null;
         String userName = null;
@@ -181,7 +196,7 @@ public class FactureResController {
             token = authorization.substring(7);
             userName = jwtUtility.getUsernameFromToken(token);
         }
-        
+
         double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
         JSONObject tax = factureService.getTaxGroup();
         int tax_a = (int) tax.get("a"), tax_b = (int) tax.get("b"), tax_c = (int) tax.get("c"), tax_d = (int) tax.get("d");
@@ -241,8 +256,8 @@ public class FactureResController {
                 tad * (tax_d * 0.01),
                 total
         );
-        
-        String group="";
+
+        String group = "";
         for (ItemDto str : factureRequest.getItems()) {
 
             if ("A".equals(str.getTaxGroup())) {
@@ -275,8 +290,8 @@ public class FactureResController {
         }
 
         JSONObject reponse = factureService.getAllFacture(position);
-        FactureResponse last=new FactureResponse() ;
-        
+        FactureResponse last = new FactureResponse();
+
         last.setUid(uid);
         last.setTa((int) reponse.get("taux_tax_a"));
         last.setTb((int) reponse.get("taux_tax_b"));
@@ -295,7 +310,7 @@ public class FactureResController {
         last.setAib(0);
         last.setTs(0);
         last.setTotal((double) reponse.get("total"));
-        
+
         /* try {
         } catch (BadCredentialsException e) {
             throw new Exception("Le nom d'utilisateur et le mot de passe sont invalides.");
@@ -304,14 +319,15 @@ public class FactureResController {
     }
 
     @GetMapping("/user/{name}")
-    public User getUser(@PathVariable(value = "name") String username) {
+        public User getUser(@PathVariable(value = "name") String username) {
         return userService.getUser(username);
     }
 
     // Interface Général
     // Nombre de factures d'une date donnée
     @GetMapping("/nbrfacture/{date}")
-    public int facture(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        public int facture(@PathVariable(value = "date")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try {
             return factureService.factureTotalToday(date);
         } catch (Exception e) {
@@ -321,7 +337,7 @@ public class FactureResController {
 
     // Nombre de facture d'un mois donné
     @GetMapping("/nbrfacture/{year}/{month}")
-    public int factureMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+        public int factureMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
             return factureService.factureMonth(year, month);
         } catch (Exception e) {
@@ -331,7 +347,8 @@ public class FactureResController {
 
     // Total TTC d'une date donnée
     @GetMapping("/totalttc/{date}")
-    public Double totalTTC(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        public Double totalTTC(@PathVariable(value = "date")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try {
             return factureService.totalTTC(date);
         } catch (Exception e) {
@@ -340,7 +357,8 @@ public class FactureResController {
     }
 
     @GetMapping("/totaltva/{date}")
-    public Double totalTVA(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        public Double totalTVA(@PathVariable(value = "date")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         try {
             return factureService.totalTVA(date);
         } catch (Exception e) {
@@ -349,7 +367,7 @@ public class FactureResController {
     }
 
     @GetMapping("/total/{year}/{month}")
-    public Double total(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+        public Double total(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
             return factureService.total(year, month);
         } catch (Exception e) {
@@ -358,7 +376,7 @@ public class FactureResController {
     }
 
     @GetMapping("/json/{year}/{month}")
-    public Double totalMonthHT(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+        public Double totalMonthHT(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
             return factureService.totalMoisHT(year, month);
         } catch (Exception e) {
@@ -367,7 +385,7 @@ public class FactureResController {
     }
 
     @GetMapping("/ttc/{year}/{month}/{day}")
-    public double DayTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+        public double DayTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day) {
         try {
             return factureService.DayTTC(year, month, day);
@@ -377,8 +395,10 @@ public class FactureResController {
     }
 
     @GetMapping("/betweenTtc/{day1}/{day2}")
-    public double getBetweenTTC(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
-            @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
+        public double getBetweenTTC(@PathVariable(value = "day1")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
+            @PathVariable(value = "day2")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return factureService.getBetweenTTC(day1, day2);
         } catch (Exception e) {
@@ -387,8 +407,10 @@ public class FactureResController {
     }
 
     @GetMapping("/betweenFactures/{day1}/{day2}")
-    public double getBetweenFactures(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
-            @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
+        public double getBetweenFactures(@PathVariable(value = "day1")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
+            @PathVariable(value = "day2")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
         try {
             return factureService.getBetweenFactures(day1, day2);
         } catch (Exception e) {
@@ -397,7 +419,7 @@ public class FactureResController {
     }
 
     @GetMapping("/factures/{year}/{month}/{day}")
-    public int DayFactures(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+        public int DayFactures(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day) {
         try {
             return factureService.DayFactures(year, month, day);
@@ -407,7 +429,7 @@ public class FactureResController {
     }
 
     @GetMapping("/countfacture")
-    public long countfacture() {
+        public long countfacture() {
         try {
             return factureService.countfacture();
         } catch (Exception e) {
@@ -419,7 +441,7 @@ public class FactureResController {
     // tableau de bord Général
     // Nombre de fature par date
     @GetMapping("/countfacturebydate")
-    public JSONObject getNbreFactureByDate() throws ParseException {
+        public JSONObject getNbreFactureByDate() throws ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         JSONObject obj = new JSONObject();
@@ -435,7 +457,7 @@ public class FactureResController {
 
     // Nombre de fature , total TTC et totalTVA
     @GetMapping("/totauxglobaux")
-    public JSONObject totauxglobaux() {
+        public JSONObject totauxglobaux() {
         try {
             JSONObject obj = factureService.getTotauxGlobaux();
             obj.put("rapport", rapportService.rapport());
@@ -447,7 +469,7 @@ public class FactureResController {
 
     // Nombre de fature , total TTC et totalTVA par année et par mois
     @GetMapping("/totauxmonth/{year}/{month}")
-    public JSONObject getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+        public JSONObject getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
             JSONObject obj = factureService.getTotauxMonth(year, month);
             obj.put("rapport", rapportService.MonthRapports(year, month));
@@ -459,7 +481,7 @@ public class FactureResController {
 
     // Nombre de fature , total TTC,rapport et totalTVA par année par mois et par jour
     @GetMapping("/totauxday/{year}/{month}/{day}")
-    public JSONObject getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
+        public JSONObject getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
             @PathVariable(value = "day") int day) {
         try {
             JSONObject obj = factureService.getTotauxDay(year, month, day);
