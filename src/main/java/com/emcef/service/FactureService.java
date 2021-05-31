@@ -7,6 +7,8 @@ package com.emcef.service;
 
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.repository.FactureRepository;
+import com.emcef.request.ItemDto;
+import com.emcef.request.PaymentDto;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -120,8 +122,8 @@ public class FactureService {
         return factureRepository.getTaxGroup();
     }
 
-    public void setFacture(String nim, Date date, String uid, long id, String ifu, String type, String contact1_client, String ifu_client, String nom_client, String adresse1_client, String operateur, String operateur_id, int taux_tax_a, int taux_tax_b, int taux_tax_c, int taux_tax_d, double total_a, double total_b, double total_c, double total_d, double total_e, double total_f, double taxable_b, double taxable_d, double total_tax_b, double total_tax_d, double total) {
-        factureRepository.setFacture(nim, date, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total);
+    public void setFacture(String methode, int payed, String nim, Date date, String uid, long id, String ifu, String type, String contact1_client, String ifu_client, String nom_client, String adresse1_client, String operateur, String operateur_id, int taux_tax_a, int taux_tax_b, int taux_tax_c, int taux_tax_d, double total_a, double total_b, double total_c, double total_d, double total_e, double total_f, double taxable_b, double taxable_d, double total_tax_b, double total_tax_d, double total) {
+        factureRepository.setFacture(methode, payed, nim, date, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total);
     }
 
     public void setLigneFacture(String code, double amount, double amounttaxable, String name, double price, double pricetaxable, double quantity, String taxratelabel, int tax, double taxamount, int facture_id) {
@@ -174,4 +176,22 @@ public class FactureService {
         return factureRepository.getNim(uid);
     }
     //Fin API Finalisation de facture
+
+    //Début API demande de détails sur une facture en attente
+    public JSONObject UidInfo(String uid) {
+        return factureRepository.UidInfo(uid);
+    }
+    
+    public List<JSONObject> Payement(String uid) {
+        return factureRepository.Payement(uid);
+    }
+    
+    public List<JSONObject> Item(int id) {
+        return factureRepository.Item(id);
+    }
+    
+    public int uidId(String uid) {
+        return factureRepository.uidId(uid);
+    }
+//Fin API demande de détails sur une facture en attente
 }

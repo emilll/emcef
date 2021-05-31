@@ -119,6 +119,12 @@ public class FactureSelonSpecification implements Serializable  {
 
     @Column(name = "mrc")
     private String mrc;
+    
+    @Column(name = "methode")
+    private String methode;
+    
+    @Column(name = "payed")
+    private int payed;
 
     @Column(name = "controle_identifaction")
     private String controle_identifaction;
@@ -275,6 +281,22 @@ public class FactureSelonSpecification implements Serializable  {
 
     @Column(name = "tax_specifique_f")
     private double tax_specifique_f;
+
+    public String getMethode() {
+        return methode;
+    }
+
+    public void setMethode(String methode) {
+        this.methode = methode;
+    }
+
+    public int getPayed() {
+        return payed;
+    }
+
+    public void setPayed(int payed) {
+        this.payed = payed;
+    }
 
     public String getNim() {
         return nim;

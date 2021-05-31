@@ -12,7 +12,7 @@ package com.emcef.request;
 public class ItemDto {
     private String code;
     private String name;
-    private int price;
+    private double price;
     private double quantity;
     private String taxGroup;
     private int taxSpecific;
@@ -35,11 +35,11 @@ public class ItemDto {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

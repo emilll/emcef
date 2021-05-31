@@ -408,9 +408,9 @@ async function getLineData() {
     });
 }
 
-/*getLineData();
+getLineData();
  var test = setInterval(getLineData, 5000);
  var test1 = setInterval(getTotauxGlobaux, 1000);
  var test2 = setInterval(getTotauxMonth, 1000);
  var test3 = setInterval(getTotauxDay, 1000);
- */
+ 

@@ -469,8 +469,7 @@
                                                             });
                                                         });
                                                     }
-                                                    $timeout(countUp, 1000);
-
+                                                    countUp();
 
                                                     function convertir(ladate) {
                                                         var currentTimeStamp = Date.parse(new Date(ladate));
@@ -490,7 +489,7 @@
                                                         considerMissingDataAsZero: false,
                                                         itemSelector: "#pilier1",
                                                         subDomainTextFormat: "%d",
-                                                        data: 'http://localhost:8080/api/countfacturebydate',
+                                                        data: 'http://localhost:8082/api/countfacturebydate',
                                                         highlight: ["now", dt],
                                                         domainMargin: 5,
                                                         legendVerticalPosition: "center",
@@ -535,7 +534,7 @@
                                                             preConfirm: (login) => {
                                                                 var variable;
                                                                 if (document.getElementById('val1').value !== "") {
-                                                                    variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                                                                    variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
                                                                 } else {
                                                                     Swal.showValidationMessage(
                                                                             'Le champ IFU est vide!'
@@ -573,7 +572,7 @@
                                                                     icon: 'success',
                                                                     title: 'Trouvé. Redirection en cours . . .'
                                                                 })
-                                                                window.location.href = "/InfoContribuable/" + result.value
+                                                                window.location.href = "/InfoContribuable/" + result.value;
                                                             } else {
                                                                 Swal.fire({
                                                                     icon: 'error',
@@ -611,7 +610,7 @@
                                                             preConfirm: (login) => {
                                                                 var variable;
                                                                 if (document.getElementById('nim').value !== "") {
-                                                                    variable = "http://localhost:8080/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                                                                    variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
                                                                 } else {
                                                                     Swal.showValidationMessage(
                                                                             'Le champ NIM est vide!'
@@ -691,7 +690,7 @@
                                                             confirmButtonText: 'Rechercher',
                                                             showLoaderOnConfirm: true,
                                                             preConfirm: (login) => {
-                                                                return fetch(`http://localhost:8080/api/countfacturebydate`)
+                                                                return fetch(`http://localhost:8082/api/countfacturebydate`)
                                                                         .then(response => {
                                                                             if (!response.ok) {
                                                                                 throw new Error(response.statusText)

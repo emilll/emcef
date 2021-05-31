@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -32,39 +34,48 @@ public class IndexController {
 
     @Autowired
     ContribuableService contribuableService;
-    
+
+    @RequestMapping("/login")
+    public String loginError(@RequestParam(value = "error", defaultValue = "false") boolean test) {
+        if (test) {
+            return "/loginerror";
+        } else {
+            return "/login";
+        }
+    }
+
     @GetMapping("/facttoday")
-    public String facturesToday(){
+    public String facturesToday() {
         return "/today/today";
     }
-    
+
     @GetMapping("/machinessignales")
-    public String MachSignToday(){
+    public String MachSignToday() {
         return "/today/machinessignales";
     }
-    
+
     @GetMapping("/machinesnonsignales")
-    public String MachNonSignToday(){
+    public String MachNonSignToday() {
         return "/today/machinesnonsignales";
     }
-    
+
     @GetMapping("/journalaudit")
-    public String AuditToday(){
+    public String AuditToday() {
         return "/today/audit";
     }
-    
+
     @GetMapping("/donnees")
-    public String DataToday(){
+    public String DataToday() {
         return "/today/donnees";
     }
-    
+
     @GetMapping("/daystate")
-    public String StateToday(){
+    public String StateToday() {
         return "/today/daystate";
     }
-    
+
     @GetMapping("/daystats")
-    public String StatsToday(){
+    public String StatsToday() {
         return "/today/daystats";
     }
 

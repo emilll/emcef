@@ -6,6 +6,8 @@
 package com.emcef.repository;
 
 import com.emcef.model.FactureSelonSpecification;
+import com.emcef.request.ItemDto;
+import com.emcef.request.PaymentDto;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -94,8 +96,8 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     //Début API Demande de facture
     @Transactional
     @Modifying
-    @Query(value = "insert into factureselonspecification (nim, dateheure, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total, status) values (:nim, :dateheure, :uid, :id, :ifu, :type, :contact1_client, :ifu_client, :nom_client, :adresse1_client, :operateur, :operateur_id, :taux_tax_a, :taux_tax_b, :taux_tax_c, :taux_tax_d, :total_a, :total_b, :total_c, :total_d, :total_e, :total_f, :taxable_b, :taxable_d, :total_tax_b, :total_tax_d, :total, false)", nativeQuery = true)
-    void setFacture(@Param("nim") String nim, @Param("dateheure") Date date, @Param("uid") String uid, @Param("id") long id, @Param("ifu") String ifu, @Param("type") String type, @Param("contact1_client") String contact1_client, @Param("ifu_client") String ifu_client, @Param("nom_client") String nom_client, @Param("adresse1_client") String adresse1_client, @Param("operateur") String operateur, @Param("operateur_id") String operateur_id, @Param("taux_tax_a") int taux_tax_a, @Param("taux_tax_b") int taux_tax_b, @Param("taux_tax_c") int taux_tax_c, @Param("taux_tax_d") int taux_tax_d, @Param("total_a") double total_a, @Param("total_b") double total_b, @Param("total_c") double total_c, @Param("total_d") double total_d, @Param("total_e") double total_e, @Param("total_f") double total_f, @Param("taxable_b") double taxable_b, @Param("taxable_d") double taxable_d, @Param("total_tax_b") double total_tax_b, @Param("total_tax_d") double total_tax_d, @Param("total") double total);
+    @Query(value = "insert into factureselonspecification (methode, payed, nim, dateheure, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total, status) values (:methode, :payed, :nim, :dateheure, :uid, :id, :ifu, :type, :contact1_client, :ifu_client, :nom_client, :adresse1_client, :operateur, :operateur_id, :taux_tax_a, :taux_tax_b, :taux_tax_c, :taux_tax_d, :total_a, :total_b, :total_c, :total_d, :total_e, :total_f, :taxable_b, :taxable_d, :total_tax_b, :total_tax_d, :total, false)", nativeQuery = true)
+    void setFacture(@Param("method") String method, @Param("payed") int payed, @Param("nim") String nim, @Param("dateheure") Date date, @Param("uid") String uid, @Param("id") long id, @Param("ifu") String ifu, @Param("type") String type, @Param("contact1_client") String contact1_client, @Param("ifu_client") String ifu_client, @Param("nom_client") String nom_client, @Param("adresse1_client") String adresse1_client, @Param("operateur") String operateur, @Param("operateur_id") String operateur_id, @Param("taux_tax_a") int taux_tax_a, @Param("taux_tax_b") int taux_tax_b, @Param("taux_tax_c") int taux_tax_c, @Param("taux_tax_d") int taux_tax_d, @Param("total_a") double total_a, @Param("total_b") double total_b, @Param("total_c") double total_c, @Param("total_d") double total_d, @Param("total_e") double total_e, @Param("total_f") double total_f, @Param("taxable_b") double taxable_b, @Param("taxable_d") double taxable_d, @Param("total_tax_b") double total_tax_b, @Param("total_tax_d") double total_tax_d, @Param("total") double total);
 
     @Query(value = "SELECT a, b, c, d FROM taxesgroupes", nativeQuery = true)
     JSONObject getTaxGroup();
@@ -147,4 +149,18 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     String getNim(@Param("uid") String uid);
 
     //Fin API Finalisation de facture
+    
+    //Début API demande de détails sur une facture en attente
+    @Query(value = "SELECT ifu, type, operateur_id, operateur, contact1_client, ifu_client, nom_client, adresse1_client FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)
+    JSONObject UidInfo(@Param("uid") String uid);
+    
+    @Query(value = "SELECT methode as name, payed as amount FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)
+    List<JSONObject> Payement(@Param("uid") String uid);
+    
+    @Query(value = "SELECT code, name, price, quantity, taxratelabel  FROM  lignedefacture u WHERE u.facture_id =:id", nativeQuery = true)
+    List<JSONObject> Item(@Param("id") int id);
+    
+    @Query(value = "SELECT id  FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)
+    int uidId(@Param("uid") String uid);
+    //Fin API demande de détails sur une facture en attente
 }

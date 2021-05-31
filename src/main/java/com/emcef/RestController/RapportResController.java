@@ -10,7 +10,6 @@ import com.emcef.response.StatutResponse;
 import com.emcef.service.RapportService;
 import com.emcef.utility.JWTUtility;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -166,4 +165,13 @@ public class RapportResController {
             return 0;
         }
     }
+    
+    /*@GetMapping("/mach/nbrrapport/{date}")
+    public int CountRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        try {
+            return rapportService.MachRapportTotal(date);
+        } catch (Exception e) {
+            return 0;
+        }
+    }*/
 }
