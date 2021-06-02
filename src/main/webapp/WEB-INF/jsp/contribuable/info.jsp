@@ -62,8 +62,23 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <ul class="nav nav-tabs">
                                 <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                                <li><button class="btn btn-sm btn-outline-success mr-1"data-toggle="pill" href="#graphes">Graphes</button></li>
-                                <li><button class="btn btn-sm btn-outline-success mr-1" data-toggle="pill" href="#calendrier">Calendrier</button></li>
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse">
+
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
+                                    </a>
+                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">NIM</a>
+                                        <a class="dropdown-item" href="#">Date d'Activation</a>
+                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
+                                        <a class="dropdown-item" href="#">Facture (Croissant)</a>
+                                        <a class="dropdown-item" href="#">Facture (Décroissant)</a>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -74,7 +89,8 @@
                     <div class="d-flex justify-content-between align-items-center mb-1 flex-wrap">
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
-                                <li class="breadcrumb-item active text-danger">Accueil</li>
+                                <li class="breadcrumb-item text-info">Accueil</li>
+                                <li class="breadcrumb-item text-danger">Informations</li>
                             </ol>
                         </nav>
                     </div>
@@ -85,7 +101,7 @@
             <div class="py-3">
                 <div class="container-fluid">
                     <div class="bg-white p-2 tab-content">
-                        <div id="home" class="tab-pane fade in active show">
+                        <div>
                             <div class="row gutters-sm">
                                 <div class="col-md-4 mb-3">
                                     <div class="card">
@@ -150,7 +166,7 @@
                                                     Cotonou, Jéricho, C/524
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <br>
                                             <div class="row">
                                                 <div class="col-sm-12">
 
@@ -158,182 +174,79 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row gutters-sm">
-                                        <div class="col-sm-12 mb-3">
-                                            <form>
-                                                <div class="inner-form">
-                                                    <div class="basic-search">
-                                                        <div class="input-field">
-                                                            <input id="search" type="text" placeholder="Type Keywords" />
-                                                            <div class="icon-wrap">
-                                                                <svg class="svg-inline--fa fa-search fa-w-16" fill="#ccc" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                                <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="advance-search">
-                                                        <span class="desc">ADVANCED SEARCH</span>
-                                                        <div class="row">
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Accessories</option>
-                                                                        <option>Subject b</option>
-                                                                        <option>Subject c</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Color</option>
-                                                                        <option>Subject b</option>
-                                                                        <option>Subject c</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Size</option>
-                                                                        <option>Subject b</option>
-                                                                        <option>Subject c</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row second">
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Sale</option>
-                                                                        <option>Subject b</option>
-                                                                        <option>Subject c</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Time</option>
-                                                                        <option>Last time</option>
-                                                                        <option>Today</option>
-                                                                        <option>This week</option>
-                                                                        <option>This month</option>
-                                                                        <option>This year</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="input-field">
-                                                                <div class="input-select">
-                                                                    <select data-trigger="" name="choices-single-defaul">
-                                                                        <option placeholder="" value="">Type</option>
-                                                                        <option>Subject b</option>
-                                                                        <option>Subject c</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row third">
-                                                            <div class="input-field">
-                                                                <div class="result-count">
-                                                                    <span>108 </span>results</div>
-                                                                <div class="group-btn">
-                                                                    <button class="btn-delete" id="delete">RESET</button>
-                                                                    <button class="btn-search">SEARCH</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                </div>
+                            </div>
+                            <div class="row gutters-sm">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between align-items-center mb-1 float-right">
+                                            <form class="flex-fill">
+                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="graphes" class="tab-pane fade">
-                            <div class="bg-white py-1 navbar navbar-expand-lg p-0">
-                                <div class="container-fluid">
-                                    <div class="d-flex justify-content-between align-items-center mb-1 float-right flex-fill">
-                                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
-                                            <i class="fa fa-ellipsis-h"></i>
-                                        </button>
-                                        <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContentDetail">
-                                            <ul class="ml-auto align-items-sm-center">
-                                                <div class="d-flex align-items-center flex-wrap nav nav-tabs">
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1 active" data-toggle="pill" href="#tab1"><i class="fa fa-chart-line"></i></button>
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab2"><i class="fa fa-circle"></i></button>
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab3"><i class="fa fa-chart-area"></i></button
-                                                </div>
-                                            </ul>
-                                        </div>
+                            <div class="row gutters-sm">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="border-bottom">
+                                                <tr>
+                                                    <th scope="col">N°</th>
+                                                    <th scope="col">NIM</th>
+                                                    <th scope="col">Date d'Activation</th>
+                                                    <th scope="col">Date d'enregistrement</th>
+                                                    <th scope="col">Nombre de Factures</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <span class="text-dark">11/05/20</span>
+                                                        <small class="text-muted">15:58</small>
+                                                    </td>
+                                                    <td>
+                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge style_bg text-white">Badge</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">90.000</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <span class="text-dark">11/05/20</span>
+                                                        <small class="text-muted">15:58</small>
+                                                    </td>
+                                                    <td>
+                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge style_bg text-white">Badge</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">90.000</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-content">
-                                <!--Sous-menu 1-->
-                                <div class="tab-pane fade in active show" id="tab1">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TTC</h4>
-                                                <div>
-                                                    <canvas id="myLine" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total HT</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="myChart" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Sous-menu 2-->
-                                <div class="tab-pane fade" id="tab2">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TTC</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="myPie" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total HT</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="polarArea" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Sous-menu 3-->
-                                <div class="tab-pane fade" id="tab3">
-                                    <div class="row">
-                                        <div class="col-md-12 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TVA</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="radar" class="w-100" height="70"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="calendrier" class="tab-pane fade">
-                            <div class="row table-responsive">
-                                <div class="col-md-auto" style="margin-left: auto; margin-right:  auto; margin-top: 50px">
-                                    <div id="pilier1" class="chart" style="margin-top: 50px"></div>
                                 </div>
                             </div>
                         </div>

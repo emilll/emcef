@@ -27,19 +27,18 @@ public class ContribuableController {
     @Autowired
     ContribuableService contribuableService;
 
-   /* @GetMapping("/amettre")
+    /* @GetMapping("/amettre")
     public String Accueil(Model model) {
         model.addAttribute("contribuable", contribuableService.getAllContribuable());
         return "index";
     }*/
 
-    /*@GetMapping("/savecontribuable")
+ /*@GetMapping("/savecontribuable")
     public String Contribuable(Model model) {
         Contribuable contribuable = new Contribuable();
         model.addAttribute("contribuable", contribuable);
         return "contribuable/ajouter";
     }*/
-
     @GetMapping("/ajoutercontribuable")
     public String show(Model model) {
         Contribuable contribuable = new Contribuable();
@@ -49,13 +48,18 @@ public class ContribuableController {
     }
 
     @GetMapping("/InfoContribuable/{id}")
-    public String info(@PathVariable(value = "id") String id){
-    return "/informations/ContribuableInfo";
+    public String info(@PathVariable(value = "id") String id) {
+        return "/informations/ContribuableInfo";
+    }
+
+    @GetMapping("/contibuable")
+    public String all() {
+        return "/contribuable/afficher";
     }
 
     @GetMapping("/showdayinfo/{date}")
-    public String dayinfo(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-    return "dayinfo";
+    public String dayinfo(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return "dayinfo";
     }
 
     @PostMapping("/savecontribuable")
@@ -70,7 +74,6 @@ public class ContribuableController {
         model.addAttribute("contribuable", contribuable);
         return "contribuable/modifier";
     }*/
-
     @GetMapping("/deletecontribuable/{id}")
     public String delete(@PathVariable(value = "id") int id, Model model) {
         this.contribuableService.deleteContribuableById(id);
@@ -84,9 +87,9 @@ public class ContribuableController {
         model.addAttribute("contribuable", contribuable);
         return null;
     }
-    
+
     @GetMapping("/info")
-    public String info(){
+    public String info() {
         return "contribuable/info";
     }
 
