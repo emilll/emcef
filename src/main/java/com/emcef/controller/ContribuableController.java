@@ -84,5 +84,10 @@ public class ContribuableController {
         model.addAttribute("contribuable", contribuable);
         return null;
     }
+    
+    @GetMapping("/info")
+    public String info(){
+        return "contribuable/info";
+    }
 
 }
