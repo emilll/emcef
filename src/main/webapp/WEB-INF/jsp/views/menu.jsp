@@ -13,27 +13,12 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Aujourd'hui
-                    </a>
-                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/facttoday">Factures d'aujourd'hui</a>
-                        <a class="dropdown-item" href="/machinessignales">Machines signalées aujourd'hui</a>
-                        <a class="dropdown-item" href="/machinesnonsignales">Machines non signalées aujourd'hui</a>
-                        <a class="dropdown-item" href="/journalaudit">Journal d'audit</a>
-                        <a class="dropdown-item" href="/donnees">Paquets des transactions</a>
-                        <a class="dropdown-item" href="/daystate">Statut d'aujourd'hui</a>
-                        <a class="dropdown-item" href="/daystats">Statistiques quotidiennes</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Enregistrement
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/ajoutercontribuable">Contribuable</a>
-                        <a class="dropdown-item" href="/ajoutermachine">Machines</a>
-                        <a class="dropdown-item" href="/ajouterinstallation">Point de Vente</a>
-                        <a class="dropdown-item" href="/ajouteremplacement">Emplacement des machines</a>
+                        <a class="dropdown-item" href="/facttoday">Machine</a>
+                        <a class="dropdown-item" href="/machinessignales">Point de Vente</a>
+                        <a class="dropdown-item" href="/machinesnonsignales">Emplacement</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,20 +26,10 @@
                         Données
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/ajoutercontribuable">Factures</a>
-                        <a class="dropdown-item" href="/ajoutermachine">Totaux quotidiennes</a>
-                        <a class="dropdown-item" href="/ajouterdépartement">Statuts</a>
-                        <a class="dropdown-item" href="/ajoutercommune">Rapport quotidiennes</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Audits
-                    </a>
-                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/ajoutercontribuable">Journal d'audits</a>
-                        <a class="dropdown-item" href="/ajoutermachine">Totaux des audits quotidiennes</a>
-                        <a class="dropdown-item" href="/ajouterdépartement">Dates des rapports des machines</a>
+                        <a class="dropdown-item" href="/contribuables">Contribuables</a>
+                        <a class="dropdown-item" href="/machines">Machines</a>
+                        <a class="dropdown-item" href="/installations">Points de Vente</a>
+                        <a class="dropdown-item" href="/factures">Factures</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -89,7 +64,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
+                        <img src="${contextPath}/assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Déconnexion</a>

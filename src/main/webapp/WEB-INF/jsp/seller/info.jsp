@@ -7,30 +7,30 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="${contextPath}/assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/new_style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="${contextPath}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/animate.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/new_style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
+        <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
-        <script src = "assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+        <script src = "${contextPath}/assets/js/angular.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/aos.js"></script>
+        <script src="${contextPath}/assets/js/slick.min.js"></script>
+        <script src="${contextPath}/assets/js/Chart.min.js"></script>
         <script>
             $(document).ready(function () {
 
@@ -60,7 +60,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="container-fluid position-relative">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs d-none">
                                 <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
                             </ul>
                         </div>
@@ -90,7 +90,7 @@
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
                                 <li class="breadcrumb-item text-info">Accueil</li>
-                                <li class="breadcrumb-item text-danger">Informations</li>
+                                <li class="breadcrumb-item text-danger">Informations sur un point de vente</li>
                             </ol>
                         </nav>
                     </div>
@@ -107,7 +107,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center text-center">
-                                                <img src="../assets/img/profilMan.jpg" alt="Admin" class="rounded-circle" width="150">
+                                                <img src="${contextPath}/assets/img/facture_print.png" alt="Admin" class="rounded-circle" width="150">
                                                 <div class="mt-3">
                                                     <h4>John Doe</h4>
                                                     <p class="text-secondary mb-1">Full Stack Developer</p>
@@ -121,55 +121,41 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Contribuable</h6>
+                                        <div class="row card-body">
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                                        <div class="card-body">
+                                                            <span class="display font-weight-bold border-bottom text-success">068746968517161</span>
+                                                            <h5 class="card-title mt-3">Factures</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    Kenneth Valdez
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">IFU</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    0215479250130
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">NIM</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ED0214058
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                                        <div class="card-body">
+                                                            <span class="display font-weight-bold border-bottom text-success">0876187686871</span>
+                                                            <h5 class="card-title mt-3">Rapports</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Contact</h6>
+                                            <div class="row col-sm-12">
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                                        <div class="card-body">
+                                                            <span class="display font-weight-bold border-bottom text-success">015446874446</span>
+                                                            <h5 class="card-title mt-3">Montant TTC</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    (229) 66 15 33 47
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Addresse</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    Cotonou, Jéricho, C/524
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-
+                                                <div class="col-sm-6 form-group">
+                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
+                                                        <div class="card-body">
+                                                            <span class="display font-weight-bold border-bottom text-success">06846874681</span>
+                                                            <h5 class="card-title mt-3">Montant HT</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,13 +240,13 @@
                 </div>
             </div>
         </main>
-        <script src="assets/js/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/jquery.counterup.js" type="application/javascript"></script>
-        <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>
-        <script src="assets/js/jquery.counterup.min.js" type="application/javascript"></script>
-        <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
-        <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
-        <script src="assets/js/reglo.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script src="${contextPath}/assets/js/jquery.counterup.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/counter/waypoints.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/jquery.counterup.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/d3.v3.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/cal-heatmap.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/reglo.js" type="application/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>

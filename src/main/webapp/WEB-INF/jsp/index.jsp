@@ -613,7 +613,7 @@
                             icon: 'success',
                             title: 'Trouvé. Redirection en cours . . .'
                         })
-                        window.location.href = "/InfoContribuable/" + result.value;
+                        window.location.href = "/contribuable/" + result.value;
                     } else {
                         Swal.fire({
                             icon: 'error',

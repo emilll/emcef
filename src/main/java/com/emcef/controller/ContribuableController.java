@@ -52,9 +52,14 @@ public class ContribuableController {
         return "/informations/ContribuableInfo";
     }
 
-    @GetMapping("/contibuable")
+    @GetMapping("/contribuables")
     public String all() {
         return "/contribuable/afficher";
+    }
+    
+    @GetMapping("/contribuable/{id}")
+    public String one(@PathVariable(value = "id") String id) {
+        return "/contribuable/info";
     }
 
     @GetMapping("/showdayinfo/{date}")

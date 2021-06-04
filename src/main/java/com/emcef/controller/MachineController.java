@@ -37,6 +37,16 @@ public class MachineController {
     return "machine/afficher";
     }
     
+    @GetMapping("/machines")
+    public String all() {
+        return "/machine/afficher";
+    }
+    
+    @GetMapping("/machine/{id}")
+    public String one(@PathVariable(value = "id") String id) {
+        return "/machine/info";
+    }
+    
     @PostMapping("/savemachine")
     public String SaveContribuable(@ModelAttribute("machine") Machinesenregistrees machine) {
         machineService.saveMachinesenregistrees(machine);
@@ -58,6 +68,6 @@ public class MachineController {
     
     @GetMapping("/InfoMachine/{id}")
     public String info(@PathVariable(value = "id") String id){
-    return "/informations/MachineInfo";
+    return "/machine/info";
     }
 }

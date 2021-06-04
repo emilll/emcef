@@ -25,4 +25,14 @@ public class InstallationsController {
     public String info(@PathVariable(value = "id") String id){
     return "/informations/PointDeVenteInfo";
     }
+    
+    @GetMapping("/installations")
+    public String all() {
+        return "/seller/afficher";
+    }
+    
+    @GetMapping("/installation/{id}")
+    public String one(@PathVariable(value = "id") String id) {
+        return "/seller/info";
+    }
 }

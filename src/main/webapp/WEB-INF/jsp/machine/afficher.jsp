@@ -1,372 +1,446 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="${contextPath}/assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="${contextPath}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/animate.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/new_style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
+        <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+
+        <script src = "${contextPath}/assets/js/angular.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/aos.js"></script>
+        <script src="${contextPath}/assets/js/slick.min.js"></script>
+        <script src="${contextPath}/assets/js/Chart.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                setTimeout(function () {
+                    $('body').addClass('loaded');
+                    $('h1').css('color', '#222222')
+                }, 3000);
+
+            });
+        </script>
     </head>
 
     <body>
-        <div class="d-flex bg-light" id="wrapper">
-            <!-- Sidebar -->
-            <div class="border-right resto" id="sidebar-wrapper">
-                <div class="sidebar-wrapper-bloc">
-                    <nav>
-                        <div class="sidebar-heading py-4 position-relative">
-                            <div class="media style_sousmenu_toggle pl-4 py-3">
-                                <div class="mr-3">
-                                    <a class="" href="#">
-                                        <img src="assets/img/profilMan.jpg" width="50" height="50" class="img-fluid rounded-lg border" alt="...">
-                                    </a>
-                                </div>
-                                <div class="media-body my-0">
-                                    <p class="my-0 text-white">Nom de la société</p>
-                                    <small class="">Profil</small>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="pl-0">
-                            <li class="">
-                                <a href="/" class="pl-4">Accueil</a>
-                            </li>
-                            <li class="style_dropdown style_toggled active">
-                                <a href="#" class="style_dropdown_toggle pl-4"><i class="fa fa-home fa-sm mr-2"></i>  Enregistrer<i class="fa fa-caret-down float-right px-2"></i></a>
-                                <ul class="pl-0">
-                                    <li class="active">
-                                        <a href="/showfabricants" class="pl-4">Fabricants</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="/showmachines" class="pl-4">Machines</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/showmodeles" class="pl-4">Modèles</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/showcertificat" class="pl-4">Certificat</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/showcontribuable" class="pl-4">Contribuables</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/showcentre" class="pl-4">Centres</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="/showemplacementmachines" class="pl-4">Emplacement des Machines</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a href="compte.html" class="pl-4"><i class="fa fa-chart-line fa-sm mr-2"></i> Statistiques</a>
-                            </li>
-                            <li>
-                                <a href="transactions.html" class="pl-4"><i class="fa fa-receipt fa-sm mr-2"></i> Mes Factures</a>
-                            </li>
-                            <li>
-                                <a href="reference.html" class="pl-4"><i class="fa fa-table fa-sm mr-2"></i> Enregistrements</a>
-                            </li>
-                        </ul>
-                        <hr>
-                        <ul class="pl-0">
-                            <li>
-                                <a href="reference.html" class="pl-4"><i class="fa fa-user fa-sm mr-2"></i> Autres actions</a>
-                            </li>
-                        </ul>
-                    </nav>
+        <header id="header_top">
+            <!-- <div id="loader-wrapper">
+                 <div id="loader"></div>
+                 <div class="loader-section section-left"></div>
+                 <div class="loader-section section-right"></div>
+             </div>!-->
+            <%@include  file="../views/menu.jsp" %>
+            <div class="mt-5 bg-white py-1 border-bottom">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h5 class="flex-fill"><a href="#">Tableau</a> de <span class="text-success">Bord</span></h5>
+                    </div>
                 </div>
-            </div>
-            <!-- /#sidebar-wrapper -->
-
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light py-1 border-bottom style_navbar_sticky">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="container-fluid position-relative">
-                        <div class="d-flex align-items-center">
-                            <button class="text-success bg-light border-0 mr-sm-3" type="button" id="menu-toggle">
-                                <i class="fa fa-align-justify"></i>
-                            </button>
-                            <a class="" href="index.html">
-                                <img src="assets/img/logo.png" width="100" class="img-fluid" alt="logo">
-                            </a>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <ul class="nav nav-tabs d-none">
+                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
+                            </ul>
                         </div>
+                        <div class="collapse navbar-collapse">
 
-                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto align-items-sm-center p-2 p-sm-0">
-                                <li class="nav-item style_sousmenu">
-                                    <a class="nav-link style_sousmenu_toggle" href="#">
-                                        <i class="fa fa-bell"></i>
-                                        <small class="px-1 rounded-lg style_notif_badge">01</small>
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
                                     </a>
-                                    <div class="style_sousmenu_bloc bg-white border">
-                                        <div class="p-3 bg-light">
-                                            <a href="#">
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
-                                            </a>
-                                            <small class="text-muted">15h45</small>
-                                        </div>
+                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">NIM</a>
+                                        <a class="dropdown-item" href="#">Date d'Activation</a>
+                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
+                                        <a class="dropdown-item" href="#">Facture (Croissant)</a>
+                                        <a class="dropdown-item" href="#">Facture (Décroissant)</a>
                                     </div>
-                                </li>
-                                <li class="nav-item style_sousmenu">
-                                    <a class="nav-link style_sousmenu_toggle" href="#">
-                                        <i class="fa fa-envelope"></i>
-                                        <small class="px-1 rounded-lg style_notif_badge">02</small>
-                                    </a>
-                                    <div class="style_sousmenu_bloc bg-white border">
-                                        <div class="p-3">
-                                            <a href="#">
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
-                                            </a>
-                                            <small class="text-muted">15h45</small>
-                                        </div>
-                                        <div class="p-3 bg-light">
-                                            <a href="#">
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>
-                                            </a>
-                                            <small class="text-muted">15h45</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link position-relative" href="#">
-                                        <i class="fa fa-power-off"></i>
-                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </nav>
-
+            </div>
+            <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
-                    <div class=" py-3">
-                        <div class="row mt">
-                            <div class="col-md-12">
-                                <div class="content-panel">
-                                    <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i>Machines</h4>
-                                        <hr>
-                                        <a class="btn btn-primary btn-xs" style="margin-left: 20px" href="/savemachine">Ajouter une machine</a><hr>
-                                        <thead>
-                                            <tr>
-                                                <th class="hidden-phone"><i class="fa fa-bullhorn"></i> Date</th>
-                                                <th><i class="fa fa-bookmark"></i> Version </th>
-                                                <th><i class=" fa fa-edit"></i>Commentaire</th>
-                                                <th><i class=" fa fa-edit"></i> Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="machine" items="${machine}">
+                    <div class="d-flex justify-content-between align-items-center mb-1 flex-wrap">
+                        <nav aria-label="breadcrumb m-0 flex-fill">
+                            <ol class="breadcrumb m-0 py-1">
+                                <li class="breadcrumb-item text-info">Accueil</li>
+                                <li class="breadcrumb-item text-danger">Toutes les machines</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="bg-light">
+            <div class="py-3">
+                <div class="container-fluid">
+                    <div class="bg-white p-2 tab-content">
+                        <div>
+                            <div class="row gutters-sm">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between align-items-center mb-1 float-right">
+                                            <form class="flex-fill">
+                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters-sm">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <thead class="border-bottom">
                                                 <tr>
-                                                    <td><c:out value="${machine.date_heure}"/></td>
-                                                    <td><c:out value="${fabricant.derniere_version}"/></td>
-                                                    <td><c:out value="${fabricant.commentaire}"/></td>
+                                                    <th scope="col">N°</th>
+                                                    <th scope="col">NIM</th>
+                                                    <th scope="col">Date d'Activation</th>
+                                                    <th scope="col">Date d'enregistrement</th>
+                                                    <th scope="col">Nombre de Factures</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
                                                     <td>
-                                                        <a class="btn btn-primary btn-xs" href="/modifiermachine/<c:out value='${machine.id}'/>"><i class="fa fa-pencil"></i>Modifier</a>
-                                                        <br><code>  </code><br>
-                                                        <a class="btn btn-danger btn-xs" href="/deletemachine/<c:out value='${machine.id}'/>"><i class="fa fa-trash-o "></i>Supprimer</a>
+                                                        <span class="text-dark">11/05/20</span>
+                                                        <small class="text-muted">15:58</small>
+                                                    </td>
+                                                    <td>
+                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge style_bg text-white">Badge</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">90.000</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                        </div>
                                                     </td>
                                                 </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>
+                                                        <span class="text-dark">11/05/20</span>
+                                                        <small class="text-muted">15:58</small>
+                                                    </td>
+                                                    <td>
+                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge style_bg text-white">Badge</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">90.000</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <!-- /content-panel -->
                             </div>
-                            <!-- /col-md-12 -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script src="${contextPath}/assets/js/jquery.counterup.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/counter/waypoints.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/jquery.counterup.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/d3.v3.min.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/cal-heatmap.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/reglo.js" type="application/javascript"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
         <script>
 
-            $("#menu-toggle").click(function (e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
+            function countUp() {
+                jQuery(document).ready(function ($)
+                {
+                    $('.counter').counterUp({
+                        delay: 10,
+                        time: 1000
+                    });
+                });
+            }
+            countUp();
 
-            $(".style_dropdown_toggle, .style_sousmenu_toggle").click(function (e) {
-                e.preventDefault();
-                $(this).parent().toggleClass("style_toggled");
-            });
+            function convertir(ladate) {
+                var currentTimeStamp = Date.parse(new Date(ladate));
+                return currentTimeStamp / 1000;
+            }
 
-            var ctx = document.getElementById('myChart');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+            yearcal1 = new CalHeatMap();
+            var dt = new Date();
+            yearcal1.init({
+                subDomain: "day",
+                start: new Date(dt.getFullYear(), 0),
+                domain: "month",
+                displayLegend: true,
+                cellRadius: 10,
+                cellSize: 16,
+                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
+                considerMissingDataAsZero: false,
+                itemSelector: "#pilier1",
+                subDomainTextFormat: "%d",
+                data: 'http://localhost:8082/api/countfacturebydate',
+                highlight: ["now", dt],
+                domainMargin: 5,
+                legendVerticalPosition: "center",
+                legendOrientation: "vertical",
+                legendMargin: [0, 10, 0, 0],
+                tooltip: true,
+                onClick: function (date, nb) {
+                    function convert(str) {
+                        var date = new Date(str),
+                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                day = ("0" + date.getDate()).slice(-2);
+                        return [date.getFullYear(), mnth, day].join("-");
                     }
+                    window.location.replace('/showdayinfo/' + convert(date));
                 }
             });
 
-            var horizontalBar = document.getElementById('horizontalBar');
-            var myChart = new Chart(horizontalBar, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                    }
-                }
-            });
+            async function recherche1() {
+                const man = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success col-sm-12 ',
+                        cancelButton: 'btn btn-danger col-sm-12'
+                    },
+                    buttonsStyling: false
+                })
+                man.fire({
+                    html:
+                            '<div class="col-sm-12 my-auto">' +
+                            '<div class="mb-2">' +
+                            '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
+                            '<div class="row">' +
+                            '<div class="col-sm-12 form-group">' +
+                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>',
+                    showCancelButton: true,
+                    cancelButtonText: 'Annuler',
+                    confirmButtonText: 'Rechercher',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (login) => {
+                        var variable;
+                        if (document.getElementById('val1').value !== "") {
+                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                        } else {
+                            Swal.showValidationMessage(
+                                    'Le champ IFU est vide!'
+                                    )
+                        }
+                        return fetch(variable)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+                                    return response.json()
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                            `La requête a échoué: ${error}`
+                                            )
+                                })
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.value !== 0) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
 
-            var radar = document.getElementById('radar');
-            var myChart = new Chart(radar, {
-                type: 'radar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Trouvé. Redirection en cours . . .'
+                        })
+                        window.location.href = "/InfoContribuable/" + result.value;
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur...',
+                            text: 'Ce contribuable n\'existe pas!'
+                        })
                     }
-                }
-            });
+                })
+            }
 
-            var polarArea = document.getElementById('polarArea');
-            var myChart = new Chart(polarArea, {
-                type: 'polarArea',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
+            async function recherche2() {
+                const man = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success col-sm-12 ',
+                        cancelButton: 'btn btn-danger col-sm-12'
+                    },
+                    buttonsStyling: false
+                })
+                man.fire({
+                    html:
+                            '<div class="col-sm-12 my-auto">' +
+                            '<div class="mb-2">' +
+                            '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
+                            '<div class="row">' +
+                            '<div class="col-sm-12 form-group">' +
+                            '<input type="text" class="form-control style_form_control" id="nim" name="" placeholder="NIM">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>',
+                    showCancelButton: true,
+                    cancelButtonText: 'Annuler',
+                    confirmButtonText: 'Rechercher',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (login) => {
+                        var variable;
+                        if (document.getElementById('nim').value !== "") {
+                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
+                        } else {
+                            Swal.showValidationMessage(
+                                    'Le champ NIM est vide!'
+                                    )
+                        }
+                        return fetch(variable)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+                                    return response.json()
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                            `La requête a échoué: ${error}`
+                                            )
+                                })
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.value !== 0) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Trouvé. Redirection en cours . . .'
+                        })
+                        window.location.href = "/InfoMachine/" + result.value
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur...',
+                            text: 'Cette machine n\'existe pas!'
+                        })
                     }
-                }
-            });
+                })
+            }
 
+            async function recherche3() {
+                const man = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success col-sm-12 ',
+                        cancelButton: 'btn btn-danger col-sm-12'
+                    },
+                    buttonsStyling: false
+                })
+                man.fire({
+                    html:
+                            '<div class="col-sm-12 my-auto">' +
+                            '<div class="mb-2">' +
+                            '<h2 class="text-dark mb-3">Recherche Point de Vente</h2>' +
+                            '<div class="row">' +
+                            '<div class="col-sm-12 form-group">' +
+                            '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
+                            '</div>' +
+                            '<div class="col-sm-6 form-group">' +
+                            '<input type="text" class="form-control style_form_control" name="" placeholder="----">' +
+                            '</div>' +
+                            '<div class="col-sm-6 form-group">' +
+                            '<input type="number" class="form-control style_form_control" name="" placeholder="----">' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>',
+                    showCancelButton: true,
+                    cancelButtonText: 'Annuler',
+                    confirmButtonText: 'Rechercher',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (login) => {
+                        return fetch(`http://localhost:8082/api/countfacturebydate`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+                                    return response.json()
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                            `La requête a échoué: ${error}`
+                                            )
+                                })
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //window.location.href = "/showinfo"
+                    }
+                })
+            }
         </script>
-    </script>
-</body>
+    </body>
 </html>
-

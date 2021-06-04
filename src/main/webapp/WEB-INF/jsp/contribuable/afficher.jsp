@@ -60,12 +60,11 @@
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="container-fluid position-relative">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs d-none">
                                 <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse">
-
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -90,7 +89,7 @@
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
                                 <li class="breadcrumb-item text-info">Accueil</li>
-                                <li class="breadcrumb-item text-danger">Informations</li>
+                                <li class="breadcrumb-item text-danger">Contribuables</li>
                             </ol>
                         </nav>
                     </div>
@@ -106,10 +105,10 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
+                                            <form class="flex-fill p-3">
                                                 <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="Nom">
                                             </form>
-                                            <form class="flex-fill">
+                                            <form class="flex-fill p-3">
                                                 <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="Prénom">
                                             </form>
                                         </div>
