@@ -5,7 +5,9 @@
  */
 package com.emcef.service;
 
+import com.emcef.model.Installations;
 import com.emcef.repository.InstallationsRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InstallationsService {
+
     @Autowired
     InstallationsRepository installationsrepository;
+
+    public List<Installations> getAll() {
+        return installationsrepository.all();
+    }
+
+    public Installations allInfo(String ifu_seller) {
+        return installationsrepository.findAllByIfu(ifu_seller);
+    }
 }

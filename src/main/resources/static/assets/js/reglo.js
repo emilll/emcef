@@ -1,76 +1,78 @@
-var app = angular.module('demo', []);
-app.controller('tableController', function ($scope, $http) {
-
-    $scope.question = 250000;
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var method = "GET";
-    var url1 = "/api/totauxglobaux/";
-    var url2 = "/api/totauxmonth/" + YYYY + "/" + MM;
-    var url3 = "/api/totauxday/" + YYYY + "/" + MM + "/" + DD;
-
-    $scope.verification = function (valeur) {
-        if (typeof valeur !== 'number') {
-            return 0;
-        } else {
-            return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(valeur);
-        }
-    }
-    ;
-
-//Totaux Globaux
-    $http({
-        method: method,
-        url: url1,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).success(function (data, status) {
-        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
-        $scope.global1 = $scope.verification(data.nbre);
-        $scope.global2 = $scope.verification(data.rapport);
-        $scope.global3 = $scope.verification(data.totalttc);
-        $scope.global4 = $scope.verification(data.totalht);
-    })
-            .error(function (data, status) {})
-
-    //Totaux Mensuel
-    $http({
-        method: method,
-        url: url2,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).success(function (data, status) {
-        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
-        $scope.month1 = $scope.verification(data.nbre);
-        $scope.month2 = $scope.verification(data.rapport);
-        $scope.month3 = $scope.verification(data.totalttc);
-        $scope.month4 = $scope.verification(data.totalht);
-    })
-            .error(function (data, status) {})
-
-    //Totaux Journaliers
-    $http({
-        method: method,
-        url: url3,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).success(function (data, status) {
-        //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
-        $scope.day1 = $scope.verification(data.nbre);
-        $scope.day2 = $scope.verification(data.rapport);
-        $scope.day3 = $scope.verification(data.totalttc);
-        $scope.day4 = $scope.verification(data.totalht);
-    })
-            .error(function (data, status) {})
-
-    console.log($scope);
-    //alert( $scope.valeur.total1);
-});
+/*var app = angular.module('demo', []);
+ app.controller('tableController', function ($scope, $http) {
+ 
+ var dt = new Date();
+ var DD = ("0" + dt.getDate()).slice(-2);
+ var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+ var YYYY = dt.getFullYear();
+ var method = "GET";
+ var url1 = "/api/totauxglobaux/";
+ var url2 = "/api/totauxmonth/" + YYYY + "/" + MM;
+ var url3 = "/api/totauxday/" + YYYY + "/" + MM + "/" + DD;
+ 
+ $scope.verification = function (valeur) {
+ if (typeof valeur !== 'number') {
+ return 0;
+ } else {
+ return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(valeur);
+ }
+ }
+ ;
+ 
+ //Totaux Globaux
+ $http({
+ method: method,
+ url: url1,
+ headers: {
+ 'Content-Type': 'application/json'
+ }
+ }).success(function (data, status) {
+ //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+ $scope.global1 = $scope.verification(data.nbre);
+ $scope.global2 = $scope.verification(data.rapport);
+ $scope.global3 = $scope.verification(data.totalttc);
+ $scope.global4 = $scope.verification(data.totalht);
+ })
+ .error(function (data, status) {})
+ 
+ //Totaux Mensuel
+ $http({
+ method: method,
+ url: url2,
+ headers: {
+ 'Content-Type': 'application/json'
+ }
+ }).success(function (data, status) {
+ //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+ $scope.month1 = $scope.verification(data.nbre);
+ $scope.month2 = $scope.verification(data.rapport);
+ $scope.month3 = $scope.verification(data.totalttc);
+ $scope.month4 = $scope.verification(data.totalht);
+ })
+ .error(function (data, status) {})
+ 
+ //Totaux Journaliers
+ $http({
+ method: method,
+ url: url3,
+ headers: {
+ 'Content-Type': 'application/json'
+ }
+ }).success(function (data, status) {
+ //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
+ $scope.day1 = $scope.verification(data.nbre);
+ $scope.day2 = $scope.verification(data.rapport);
+ $scope.day3 = $scope.verification(data.totalttc);
+ $scope.day4 = $scope.verification(data.totalht);
+ })
+ .error(function (data, status) {})
+ 
+ console.log($scope);
+ //alert( $scope.valeur.total1);
+ });
+ 
+ */
+// /contribuable-all
 
 
 async function GetRange() {
@@ -112,7 +114,6 @@ async function GetRange() {
 
     if (formValues) {
         var ttc, rapports, factures;
-
         const facture1 = await fetch('/api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
         ttc = await facture1.json();
         if (typeof ttc !== 'number') {
@@ -151,7 +152,6 @@ async function GetRange() {
 }
 
 let question;
-
 async function getTotauxGlobaux() {
     var liste = [];
     const facture = await fetch('/api/totauxglobaux/');
@@ -264,7 +264,7 @@ async function getLineData() {
     for (let pas = 1; pas <= 12; pas++) {
         valeur1(date, pas);
     }
-    //Janvier
+//Janvier
     var total1 = $("#1").text();
     //Fevrier
     var total2 = $("#2").text();
@@ -288,7 +288,6 @@ async function getLineData() {
     var total11 = $("#11").text();
     //Decembre
     var total12 = $("#12").text();
-
     var ctx = document.getElementById('myLine').getContext('2d');
     var myLine = new Chart(ctx, {
         type: 'line',
@@ -313,7 +312,6 @@ async function getLineData() {
             }
         }
     });
-
     var ctx1 = document.getElementById('myPie').getContext('2d');
     var myLine = new Chart(ctx1, {
         type: 'pie',
@@ -363,8 +361,6 @@ async function getLineData() {
             }
         }
     });
-
-
 //Diagramme 2
     async function valeur3(dr, n) {
         var tr = fetch('/api/json/' + dr + '/' + n)
@@ -380,7 +376,7 @@ async function getLineData() {
     for (let pas = 1; pas <= 12; pas++) {
         valeur3(date, pas);
     }
-    //Janvier
+//Janvier
     var try1 = $("#t1").text();
     //Fevrier
     var try2 = $("#t2").text();
@@ -404,7 +400,6 @@ async function getLineData() {
     var try11 = $("#t11").text();
     //Decembre
     var try12 = $("#t12").text();
-
     var ctx2 = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx2, {
         type: 'bar',
@@ -456,7 +451,6 @@ async function getLineData() {
             }
         }
     });
-
     var polarArea = document.getElementById('polarArea');
     var myChart = new Chart(polarArea, {
         type: 'polarArea',
@@ -506,7 +500,6 @@ async function getLineData() {
             }
         }
     });
-
     var radar = document.getElementById('radar');
     var myChart = new Chart(radar, {
         type: 'radar',

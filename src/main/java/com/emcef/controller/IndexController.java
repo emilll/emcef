@@ -44,6 +44,11 @@ public class IndexController {
         }
     }
 
+    @GetMapping("/process-logout")
+    public String logout() {
+        return "redirect:/";
+    }
+
     @GetMapping("/facttoday")
     public String facturesToday() {
         return "/today/today";

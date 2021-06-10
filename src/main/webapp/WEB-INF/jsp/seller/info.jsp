@@ -21,9 +21,7 @@
         <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
-        <script src = "${contextPath}/assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/vue.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
@@ -45,11 +43,11 @@
 
     <body>
         <header id="header_top">
-            <!-- <div id="loader-wrapper">
+            <div id="loader-wrapper">
                  <div id="loader"></div>
                  <div class="loader-section section-left"></div>
                  <div class="loader-section section-right"></div>
-             </div>!-->
+             </div>
             <%@include  file="../views/menu.jsp" %>
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -241,62 +239,14 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
-        <script src="${contextPath}/assets/js/jquery.counterup.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/counter/waypoints.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/jquery.counterup.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/d3.v3.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/cal-heatmap.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/reglo.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/specific/installationinfo.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
-
-            function countUp() {
-                jQuery(document).ready(function ($)
-                {
-                    $('.counter').counterUp({
-                        delay: 10,
-                        time: 1000
-                    });
-                });
-            }
-            countUp();
-
             function convertir(ladate) {
                 var currentTimeStamp = Date.parse(new Date(ladate));
                 return currentTimeStamp / 1000;
             }
-
-            yearcal1 = new CalHeatMap();
-            var dt = new Date();
-            yearcal1.init({
-                subDomain: "day",
-                start: new Date(dt.getFullYear(), 0),
-                domain: "month",
-                displayLegend: true,
-                cellRadius: 10,
-                cellSize: 16,
-                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
-                considerMissingDataAsZero: false,
-                itemSelector: "#pilier1",
-                subDomainTextFormat: "%d",
-                data: 'http://localhost:8082/api/countfacturebydate',
-                highlight: ["now", dt],
-                domainMargin: 5,
-                legendVerticalPosition: "center",
-                legendOrientation: "vertical",
-                legendMargin: [0, 10, 0, 0],
-                tooltip: true,
-                onClick: function (date, nb) {
-                    function convert(str) {
-                        var date = new Date(str),
-                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                day = ("0" + date.getDate()).slice(-2);
-                        return [date.getFullYear(), mnth, day].join("-");
-                    }
-                    window.location.replace('/showdayinfo/' + convert(date));
-                }
-            });
 
             async function recherche1() {
                 const man = Swal.mixin({

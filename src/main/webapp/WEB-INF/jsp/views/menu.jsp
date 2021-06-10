@@ -64,10 +64,10 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="${contextPath}/assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
+                        <img src="${contextPath}/assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Administrateur
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Déconnexion</a>
+                        <a class="dropdown-item" href="/logout">Déconnexion</a>
                     </div>
                 </li>
             </ul>

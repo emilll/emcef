@@ -48,7 +48,7 @@ public class MachinesInstallees implements Serializable {
 
     @Column(name = "date_acivation")
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date_acivation;
+    private Date date_activation;
 
     @Column(name = "operateur")
     private String operateur;
@@ -152,12 +152,12 @@ public class MachinesInstallees implements Serializable {
         this.date_enregistement = date_enregistement;
     }
 
-    public Date getDate_acivation() {
-        return date_acivation;
+    public Date getDate_activation() {
+        return date_activation;
     }
 
-    public void setDate_acivation(Date date_acivation) {
-        this.date_acivation = date_acivation;
+    public void setDate_activation(Date date_acivation) {
+        this.date_activation = date_acivation;
     }
 
     public String getOperateur() {

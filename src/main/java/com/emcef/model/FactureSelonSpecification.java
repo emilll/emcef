@@ -35,6 +35,9 @@ public class FactureSelonSpecification implements Serializable  {
     @Column(name = "uid")
     private String uid;
     
+    @Column(name="ifu_seller")
+    private String ifu_seller;
+    
     @Column(name = "en_attente")
     private boolean enAttente;
 
@@ -281,6 +284,14 @@ public class FactureSelonSpecification implements Serializable  {
 
     @Column(name = "tax_specifique_f")
     private double tax_specifique_f;
+
+    public String getIfu_seller() {
+        return ifu_seller;
+    }
+
+    public void setIfu_seller(String ifu_seller) {
+        this.ifu_seller = ifu_seller;
+    }
 
     public String getMethode() {
         return methode;

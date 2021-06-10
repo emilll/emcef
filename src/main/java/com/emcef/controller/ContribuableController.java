@@ -7,7 +7,12 @@ package com.emcef.controller;
 
 import com.emcef.model.Contribuable;
 import com.emcef.service.ContribuableService;
+import com.emcef.utility.JWTUtility;
 import java.util.Date;
+import java.util.List;
+import java.util.function.Consumer;
+import javax.servlet.http.HttpServletRequest;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -27,18 +32,6 @@ public class ContribuableController {
     @Autowired
     ContribuableService contribuableService;
 
-    /* @GetMapping("/amettre")
-    public String Accueil(Model model) {
-        model.addAttribute("contribuable", contribuableService.getAllContribuable());
-        return "index";
-    }*/
-
- /*@GetMapping("/savecontribuable")
-    public String Contribuable(Model model) {
-        Contribuable contribuable = new Contribuable();
-        model.addAttribute("contribuable", contribuable);
-        return "contribuable/ajouter";
-    }*/
     @GetMapping("/ajoutercontribuable")
     public String show(Model model) {
         Contribuable contribuable = new Contribuable();
@@ -47,18 +40,13 @@ public class ContribuableController {
         return "/contribuable/ajouter";
     }
 
-    @GetMapping("/InfoContribuable/{id}")
-    public String info(@PathVariable(value = "id") String id) {
-        return "/informations/ContribuableInfo";
-    }
-
     @GetMapping("/contribuables")
     public String all() {
         return "/contribuable/afficher";
     }
-    
-    @GetMapping("/contribuable/{id}")
-    public String one(@PathVariable(value = "id") String id) {
+
+    @GetMapping("/contribuable/{ifu}")
+    public String one(@PathVariable(value = "ifu") String ifu) {
         return "/contribuable/info";
     }
 
@@ -92,10 +80,4 @@ public class ContribuableController {
         model.addAttribute("contribuable", contribuable);
         return null;
     }
-
-    @GetMapping("/info")
-    public String info() {
-        return "contribuable/info";
-    }
-
 }

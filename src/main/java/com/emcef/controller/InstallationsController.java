@@ -8,7 +8,6 @@ package com.emcef.controller;
 import com.emcef.service.InstallationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -21,18 +20,13 @@ public class InstallationsController {
     @Autowired
     InstallationsService installationsservice;
     
-    @GetMapping("/InfoPointDeVente/{id}")
-    public String info(@PathVariable(value = "id") String id){
-    return "/informations/PointDeVenteInfo";
-    }
-    
     @GetMapping("/installations")
     public String all() {
         return "/seller/afficher";
     }
     
-    @GetMapping("/installation/{id}")
-    public String one(@PathVariable(value = "id") String id) {
+    @GetMapping("/installation/{ifu_seller}")
+    public String one(@PathVariable(value = "ifu_seller") String ifu_seller) {
         return "/seller/info";
     }
 }

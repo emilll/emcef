@@ -5,7 +5,11 @@
  */
 package com.emcef.RestController;
 
+import com.emcef.model.Contribuable;
 import com.emcef.service.ContribuableService;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,5 +57,50 @@ public class ContribuableResController {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    @GetMapping("/contribuableall")
+    public List<JSONObject> contribuables() {
+        List<JSONObject> good = new ArrayList();
+        for (Contribuable str : contribuableService.getAllContribuable()) {
+            JSONObject test = new JSONObject();
+            test.put("id", str.getId());
+            test.put("date_heure", str.getDate_heure());
+            test.put("ifu", str.getIfu());
+            test.put("rccm", str.getRccm());
+            test.put("nom", str.getNom());
+            test.put("adresse", str.getAdresse());
+            test.put("adresse2", str.getAdresse2());
+            test.put("adresse3", str.getAdresse3());
+            test.put("adresse4", str.getAdresse4());
+            test.put("ville", str.getVille());
+            test.put("zip", str.getZip());
+            test.put("description_location", str.getDescription_location());
+            test.put("telephone", str.getTelephone());
+            test.put("contact_personnel", str.getContact_personnel());
+            test.put("email", str.getEmail());
+            test.put("date_enregistrement", str.getDate_enregistrement());
+            test.put("id_activite", str.getId_activite());
+            test.put("commentaire", str.getCommentaire());
+            test.put("nbrMach", contribuableService.nrbMach(str.getIfu()));
+            test.put("nbrFact", contribuableService.nrbFact(str.getIfu()));
+            good.add(test);
+        }
+        return good;
+    }
+    
+    @GetMapping("/contribuableall/{ifu}")
+    public Contribuable findIfu(@PathVariable(value = "ifu") String ifu){
+        return contribuableService.findAllByIfu(ifu);
+    }
+    
+    @GetMapping("/machineall/{ifu}")
+    public List<JSONObject> find(@PathVariable(value = "ifu") String ifu){
+        List<JSONObject> resultat = new ArrayList();
+        for (JSONObject str : contribuableService.allMach(ifu)) {
+            str.put("nbrFact", contribuableService.nrbFactNim((String) str.get("nim")));
+            resultat.add(str);
+        }
+        return resultat;
     }
 }

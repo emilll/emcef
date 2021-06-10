@@ -7,37 +7,35 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="${contextPath}/assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/new_style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="${contextPath}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/animate.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/new_style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
+        <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
-        <script src = "assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/vue.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/aos.js"></script>
+        <script src="${contextPath}/assets/js/slick.min.js"></script>
+        <script src="${contextPath}/assets/js/Chart.min.js"></script>
         <script>
             $(document).ready(function () {
 
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 2000);
+                }, 1000);
 
             });
         </script>
@@ -45,11 +43,11 @@
 
     <body>
         <header id="header_top">
-            <!-- <div id="loader-wrapper">
-                 <div id="loader"></div>
-                 <div class="loader-section section-left"></div>
-                 <div class="loader-section section-right"></div>
-             </div>!-->
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
             <%@include  file="../views/menu.jsp" %>
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -59,27 +57,7 @@
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs d-none">
-                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">NIM</a>
-                                        <a class="dropdown-item" href="#">Date d'Activation</a>
-                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
-                                        <a class="dropdown-item" href="#">Facture (Croissant)</a>
-                                        <a class="dropdown-item" href="#">Facture (Décroissant)</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 </nav>
             </div>
@@ -96,7 +74,7 @@
                 </div>
             </div>
         </header>
-        <main class="bg-light">
+        <main class="bg-light" id="app">
             <div class="py-3">
                 <div class="container-fluid">
                     <div class="bg-white p-2 tab-content">
@@ -106,10 +84,7 @@
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
                                             <form class="flex-fill p-3">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="Nom">
-                                            </form>
-                                            <form class="flex-fill p-3">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="Prénom">
+                                                <input type="search" class="form-control form-control-sm style_form_control" v-model="filter" name="" placeholder="Nom et Prénoms">
                                             </form>
                                         </div>
                                     </div>
@@ -122,56 +97,62 @@
                                             <thead class="border-bottom">
                                                 <tr>
                                                     <th scope="col">N°</th>
-                                                    <th scope="col">Nom</th>
-                                                    <th scope="col">Prénoms</th>
+                                                    <th scope="col">Date Enregistrement</th>
+                                                    <th scope="col">IFU</th>
+                                                    <th scope="col">Nom et Prénom(s)</th>
+                                                    <th scope="col">Ville</th>
+                                                    <th scope="col">Contact Personnel</th>
+                                                    <th scope="col">E-Mail</th>
+                                                    <th scope="col">Adresse</th>
+                                                    <th scope="col">Commentaire</th>
                                                     <th scope="col">Nombres de machines</th>
                                                     <th scope="col">Nombre de Factures</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
+                                                <tr v-for="contribuable in contribuables">
+                                                    <td>{{ contribuable.id }}</td>
                                                     <td>
-                                                        <span class="text-dark">11/05/20</span>
-                                                        <small class="text-muted">15:58</small>
+                                                        <span class="text-dark">{{ contribuable.date_enregistrement }}</span>
+                                                        <small class="text-muted">{{ contribuable.date_heure }}</small>
                                                     </td>
                                                     <td>
-                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                        <span class="text-success">{{ contribuable.ifu }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="badge style_bg text-white">Badge</span>
+                                                        <span class="text-dark">{{ contribuable.nom }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-success">90.000</span>
+                                                        <span class="text-dark">{{ contribuable.ville }}</span>
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex">
-                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>
-                                                        <span class="text-dark">11/05/20</span>
-                                                        <small class="text-muted">15:58</small>
+                                                        <span>{{ contribuable.contact_personnel }}</span>
                                                     </td>
                                                     <td>
-                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                        <span class="text-dark">{{ contribuable.email }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="badge style_bg text-white">Badge</span>
+                                                        <span class="text-dark">{{ contribuable.adresse }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-success">90.000</span>
+                                                        <span class="text-dark">{{ contribuable.commentaire }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-dark">{{ contribuable.nbrMach }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-dark">{{ contribuable.nbrFact }}</span>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a :href="${contextPath}'/contribuable/' + contribuable.ifu" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                            <tr v-if="vide">
+                                                <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -182,63 +163,16 @@
                 </div>
             </div>
         </main>
-        <script src="assets/js/jquery-1.12.4.min.js"></script>
-        <script src="assets/js/jquery.counterup.js" type="application/javascript"></script>
-        <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>
-        <script src="assets/js/jquery.counterup.min.js" type="application/javascript"></script>
-        <script src="assets/js/d3.v3.min.js" type="application/javascript"></script>
-        <script src="assets/js/cal-heatmap.js" type="application/javascript"></script>
-        <script src="assets/js/reglo.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script src="${contextPath}/assets/js/specific/contribuable.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
-
-            function countUp() {
-                jQuery(document).ready(function ($)
-                {
-                    $('.counter').counterUp({
-                        delay: 10,
-                        time: 1000
-                    });
-                });
-            }
-            countUp();
 
             function convertir(ladate) {
                 var currentTimeStamp = Date.parse(new Date(ladate));
                 return currentTimeStamp / 1000;
             }
-
-            yearcal1 = new CalHeatMap();
-            var dt = new Date();
-            yearcal1.init({
-                subDomain: "day",
-                start: new Date(dt.getFullYear(), 0),
-                domain: "month",
-                displayLegend: true,
-                cellRadius: 10,
-                cellSize: 16,
-                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
-                considerMissingDataAsZero: false,
-                itemSelector: "#pilier1",
-                subDomainTextFormat: "%d",
-                data: 'http://localhost:8082/api/countfacturebydate',
-                highlight: ["now", dt],
-                domainMargin: 5,
-                legendVerticalPosition: "center",
-                legendOrientation: "vertical",
-                legendMargin: [0, 10, 0, 0],
-                tooltip: true,
-                onClick: function (date, nb) {
-                    function convert(str) {
-                        var date = new Date(str),
-                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                day = ("0" + date.getDate()).slice(-2);
-                        return [date.getFullYear(), mnth, day].join("-");
-                    }
-                    window.location.replace('/showdayinfo/' + convert(date));
-                }
-            });
 
             async function recherche1() {
                 const man = Swal.mixin({

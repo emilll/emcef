@@ -37,7 +37,7 @@
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 3000);
+                }, 1000);
 
             });
         </script>
@@ -82,371 +82,214 @@
             </div>
         </header>
         <main class="bg-light">
-            <div class="py-3">
-                <div class="container-fluid">
-                    <div class="bg-white p-2 tab-content">
-                        <div id="home" class="tab-pane fade in active show">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead class="border-bottom">
-                                        <tr>
-                                            <th scope="col">N°</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Libellé</th>
-                                            <th scope="col">Badge</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+            <div>
+                <div class="">
+                    <div class="tab-content">
+                        <div id="home" class=" active tab-pane fade in show">
+                            <div class="container-fluid py-3">
+                                <div class="p-2">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-lg-3">
+                                            <div class="media bg-white p-3 m-2">
+                                                <h1 class="pr-3">
+                                                    <a href="#"><i class="fa fa-file-invoice"></i></a>
+                                                </h1>
+                                                <div class="media-body">
+                                                    <h6 class="my-0">
+                                                        <a href="#">Facture Traités</a>
+                                                    </h6>
+                                                    <h4 class="font-weight-bolder">5200</h4>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-3">
+                                            <div class="media bg-white text-muted p-3 m-2">
+                                                <h1 class="pr-3">
+                                                    <a href="#"><i class="fa fa-file-invoice"></i></a>
+                                                </h1>
+                                                <div class="media-body">
+                                                    <h6 class="my-0">
+                                                        <a href="#">Facture en attente</a>
+                                                    </h6>
+                                                    <h4 class="font-weight-bolder">92050</h4>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-3">
+                                            <div class="media bg-white p-3 m-2">
+                                                <h1 class="pr-3">
+                                                    <a href=""><i class="fa fa-clock"></i></a>
+                                                </h1>
+                                                <div class="media-body">
+                                                    <h6 class="my-0">
+                                                        <a href="">Machines Connectés</a>
+                                                    </h6>
+                                                    <h4 class="font-weight-bolder">15</h4>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-3">
+                                            <div class="media bg-white text-muted p-3 m-2">
+                                                <h1 class="pr-3">
+                                                    <a href=""><i class="fa fa-file-alt"></i></a>
+                                                </h1>
+                                                <div class="media-body">
+                                                    <h6 class="my-0">
+                                                        <a href="">Rapports Traités</a>
+                                                    </h6>
+                                                    <h4 class="font-weight-bolder">114381</h4>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-dark">11/05/20</span>
-                                                <small class="text-muted">15:58</small>
-                                            </td>
-                                            <td>
-                                                <span>Lorem ipsum dolor sit amet...</span>
-                                            </td>
-                                            <td>
-                                                <span class="badge style_bg text-white">Badge</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-success">90.000</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" title="Modifier" class="text-secondary mr-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" title="Supprimer" class="text-danger mr-2"><i class="fa fa-trash-alt"></i></a>
-                                                    <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p>2 éléments sur 6</p>
-                                <nav class=''>
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div id="graphes" class="tab-pane fade">
-                            <div class="bg-white py-1 navbar navbar-expand-lg p-0">
+                            <div class="py-3">
                                 <div class="container-fluid">
-                                    <div class="d-flex justify-content-between align-items-center mb-1 float-right flex-fill">
-                                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
-                                            <i class="fa fa-ellipsis-h"></i>
-                                        </button>
-                                        <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContentDetail">
-                                            <ul class="ml-auto align-items-sm-center">
-                                                <div class="d-flex align-items-center flex-wrap nav nav-tabs">
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1 active" data-toggle="pill" href="#tab1"><i class="fa fa-chart-line"></i></button>
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab2"><i class="fa fa-circle"></i></button>
-                                                    <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab3"><i class="fa fa-chart-area"></i></button
-                                                </div>
-                                            </ul>
+                                    <div class="bg-white p-2">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered style_table">
+                                                <thead class="bg-success text-white">
+                                                    <tr>
+                                                        <th scope="col" class="border-0 bg-white"></th>
+                                                        <th scope="col">Facture</th>
+                                                        <th scope="col">Rapports</th>
+                                                        <th scope="col">Montant TTC</th>
+                                                        <th scope="col">Montant HT</th>
+                                                        <th scope="col">Montant de la TVA</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="">
+                                                    <tr>
+                                                        <th class="bg-success text-white">Totaux Globaux</th>
+                                                        <td><h5>0</h5></td>
+                                                        <td><h5>0</h5></td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-success text-white">Totaux Mensuel</th>
+                                                        <td><h5>0</h5></td>
+                                                        <td><h5>0</h5></td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="bg-success text-white">Totaux Journalier</th>
+                                                        <td><h5>0</h5></td>
+                                                        <td><h5>0</h5></td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5>0</h5>
+                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-content">
-                                <!--Sous-menu 1-->
-                                <div class="tab-pane fade in active show" id="tab1">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TTC</h4>
-                                                <div>
-                                                    <canvas id="myLine" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total HT</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="myChart" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Sous-menu 2-->
-                                <div class="tab-pane fade" id="tab2">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TTC</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="myPie" class="w-100" height="100"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total HT</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="polarArea" class="w-100" height="100"></canvas>
-                                                </div>
+                        </div>
+                        <div id="graphes"  class="container-fluid tab-pane fade">
+                            <div class="bg-white container-fluid">
+                                <div class="bg-white p-2 navbar navbar-expand-lg p-0">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between align-items-center mb-1 float-right flex-fill">
+                                            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <div class="collapse navbar-collapse justify-content-between align-items-center" id="navbarSupportedContentDetail">
+                                                <ul class="ml-auto align-items-sm-center">
+                                                    <div class="d-flex align-items-center flex-wrap nav nav-tabs">
+                                                        <button class="btn btn-sm btn-outline-secondary mr-1 active" data-toggle="pill" href="#tab1"><i class="fa fa-chart-line"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab2"><i class="fa fa-circle"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary mr-1" data-toggle="pill" href="#tab3"><i class="fa fa-chart-area"></i></button
+                                                    </div>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--Sous-menu 3-->
-                                <div class="tab-pane fade" id="tab3">
-                                    <div class="row">
-                                        <div class="col-md-12 mb-3">
-                                            <div class=" bg-white border p-3">
-                                                <h4 class="text-dark">Total TVA</h4>
-                                                <div class="table-responsive">
-                                                    <canvas id="radar" class="w-100" height="70"></canvas>
+                                <div class="container-fluid tab-content">
+                                    <!--Sous-menu 1-->
+                                    <div class="bg-white tab-pane fade in active show" id="tab1">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class=" bg-white border p-3">
+                                                    <h4 class="text-dark">Total TTC</h4>
+                                                    <div>
+                                                        <canvas id="myLine" class="w-100" height="100"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class=" bg-white border p-3">
+                                                    <h4 class="text-dark">Total HT</h4>
+                                                    <div class="table-responsive">
+                                                        <canvas id="myChart" class="w-100" height="100"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Sous-menu 2-->
+                                    <div class="tab-pane fade" id="tab2">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class=" bg-white border p-3">
+                                                    <h4 class="text-dark">Total TTC</h4>
+                                                    <div class="table-responsive">
+                                                        <canvas id="myPie" class="w-100" height="100"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class=" bg-white border p-3">
+                                                    <h4 class="text-dark">Total HT</h4>
+                                                    <div class="table-responsive">
+                                                        <canvas id="polarArea" class="w-100" height="100"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Sous-menu 3-->
+                                    <div class="tab-pane fade" id="tab3">
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <div class=" bg-white border p-3">
+                                                    <h4 class="text-dark">Total TVA</h4>
+                                                    <div class="table-responsive">
+                                                        <canvas id="radar" class="w-100" height="70"></canvas>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -454,10 +297,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="calendrier" class="tab-pane fade">
-                            <div class="row table-responsive">
-                                <div class="col-md-auto" style="margin-left: auto; margin-right:  auto; margin-top: 50px">
-                                    <div id="pilier1" class="chart" style="margin-top: 50px"></div>
+                        <div id="calendrier" class="container-fluid tab-pane fade">
+                            <div>
+                                <div class="table-responsive bg-white">
+                                    <div class="col-md-auto" style="margin-left: auto; margin-right:  auto; margin-top: 50px">
+                                        <div id="pilier1" class="chart" style="margin-top: 50px"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -465,31 +310,31 @@
                 </div>
             </div>
         </main>
-            <div id="1" class="d-none"></div>
-            <div id="2" class="d-none"></div>
-            <div id="3" class="d-none"></div>
-            <div id="4" class="d-none"></div>
-            <div id="5" class="d-none"></div>
-            <div id="6" class="d-none"></div>
-            <div id="7" class="d-none"></div>
-            <div id="8" class="d-none"></div>
-            <div id="9" class="d-none"></div>
-            <div id="10" class="d-none"></div>
-            <div id="11" class="d-none"></div>
-            <div id="12" class="d-none"></div>
-            
-            <div id="t1" class="d-none"></div>
-            <div id="t2" class="d-none"></div>
-            <div id="t3" class="d-none"></div>
-            <div id="t4" class="d-none"></div>
-            <div id="t5" class="d-none"></div>
-            <div id="t6" class="d-none"></div>
-            <div id="t7" class="d-none"></div>
-            <div id="t8" class="d-none"></div>
-            <div id="t9" class="d-none"></div>
-            <div id="t10" class="d-none"></div>
-            <div id="t11" class="d-none"></div>
-            <div id="t12" class="d-none"></div>
+        <div id="1" class="d-none"></div>
+        <div id="2" class="d-none"></div>
+        <div id="3" class="d-none"></div>
+        <div id="4" class="d-none"></div>
+        <div id="5" class="d-none"></div>
+        <div id="6" class="d-none"></div>
+        <div id="7" class="d-none"></div>
+        <div id="8" class="d-none"></div>
+        <div id="9" class="d-none"></div>
+        <div id="10" class="d-none"></div>
+        <div id="11" class="d-none"></div>
+        <div id="12" class="d-none"></div>
+
+        <div id="t1" class="d-none"></div>
+        <div id="t2" class="d-none"></div>
+        <div id="t3" class="d-none"></div>
+        <div id="t4" class="d-none"></div>
+        <div id="t5" class="d-none"></div>
+        <div id="t6" class="d-none"></div>
+        <div id="t7" class="d-none"></div>
+        <div id="t8" class="d-none"></div>
+        <div id="t9" class="d-none"></div>
+        <div id="t10" class="d-none"></div>
+        <div id="t11" class="d-none"></div>
+        <div id="t12" class="d-none"></div>
         <script src="assets/js/jquery-1.12.4.min.js"></script>
         <script src="assets/js/jquery.counterup.js" type="application/javascript"></script>
         <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>

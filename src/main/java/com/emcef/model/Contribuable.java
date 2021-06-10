@@ -21,7 +21,7 @@ public class Contribuable implements Serializable {
     private String date_heure;
 
     @Column(name = "ifu")
-    private int ifu;
+    private String ifu;
 
     @Column(name = "rccm")
     private String rccm;
@@ -84,11 +84,11 @@ public class Contribuable implements Serializable {
         this.date_heure = date_heure;
     }
 
-    public int getIfu() {
+    public String getIfu() {
         return ifu;
     }
 
-    public void setIfu(int ifu) {
+    public void setIfu(String ifu) {
         this.ifu = ifu;
     }
 

@@ -8,6 +8,7 @@ package com.emcef.service;
 import com.emcef.model.Contribuable;
 import com.emcef.repository.ContribuableRepository;
 import java.util.List;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,22 @@ public class ContribuableService {
     public void saveContribuable(Contribuable contribuable) {
         this.contribuableRepository.save(contribuable);
     }
+    
+    public int nrbMach(String ifu) {
+        return contribuableRepository.nbreMach(ifu);
+    }
+    
+    public Contribuable findAllByIfu(String ifu) {
+        return contribuableRepository.findAllByIfu(ifu);
+    }
+    
+    public int nrbFact(String ifu) {
+        return contribuableRepository.nbreFact(ifu);
+    }
+    
+    public int nrbFactNim(String nim) {
+        return contribuableRepository.nrbFactNim(nim);
+    }
 
     public void deleteContribuableById(int id) {
         this.contribuableRepository.deleteById(id);
@@ -42,6 +59,10 @@ public class ContribuableService {
 
     public Contribuable findContribuableByNom(String nom) {
         return contribuableRepository.findByNom(nom);
+    }
+    
+    public List<JSONObject> allMach(String ifu){
+        return contribuableRepository.allMach(ifu);
     }
 
     // **********************service des API DEBUT*********************

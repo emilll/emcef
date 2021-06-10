@@ -23,6 +23,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -65,8 +67,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error=true");
-        //http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .formLogin().loginPage("/login").failureUrl("/login?error=true")
+                .and().logout().invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/process-logout").permitAll();
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }

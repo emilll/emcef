@@ -21,9 +21,7 @@
         <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
-        <script src = "${contextPath}/assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="${contextPath}/assets/js/angular-countUp.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/vue.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
@@ -37,7 +35,7 @@
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 3000);
+                }, 1000);
 
             });
         </script>
@@ -45,11 +43,11 @@
 
     <body>
         <header id="header_top">
-            <!-- <div id="loader-wrapper">
-                 <div id="loader"></div>
-                 <div class="loader-section section-left"></div>
-                 <div class="loader-section section-right"></div>
-             </div>!-->
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
             <%@include  file="../views/menu.jsp" %>
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -62,23 +60,6 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <ul class="nav nav-tabs d-none">
                                 <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse">
-
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">NIM</a>
-                                        <a class="dropdown-item" href="#">Date d'Activation</a>
-                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
-                                        <a class="dropdown-item" href="#">Facture (Croissant)</a>
-                                        <a class="dropdown-item" href="#">Facture (Décroissant)</a>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -97,7 +78,7 @@
                 </div>
             </div>
         </header>
-        <main class="bg-light">
+        <main class="bg-light" id="app">
             <div class="py-3">
                 <div class="container-fluid">
                     <div class="bg-white p-2 tab-content">
@@ -124,51 +105,39 @@
                                                     <th scope="col">Date d'Activation</th>
                                                     <th scope="col">Date d'enregistrement</th>
                                                     <th scope="col">Nombre de Factures</th>
+                                                    <th scope="col">Statut</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
+                                                <tr v-if="vide">
+                                                    <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
+                                                </tr>
+                                                <tr  v-for="machine in machines" v-else>
+                                                    <td>{{ machine.id }}</td>
                                                     <td>
-                                                        <span class="text-dark">11/05/20</span>
-                                                        <small class="text-muted">15:58</small>
+                                                        <span class="text-dark">{{ machine.nim }}</span>
                                                     </td>
                                                     <td>
-                                                        <span>Lorem ipsum dolor sit amet...</span>
+                                                        <span>{{ machine.date_activation }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="badge style_bg text-white">Badge</span>
+                                                        <span class="badge style_bg text-white">{{ machine.date_enregistrement }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-success">90.000</span>
+                                                        <span class="text-success">{{ machine.nbrFact }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success">{{ machine.status }}</span>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a :href="${contextPath}'/machine/' + machine.nim" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>
-                                                        <span class="text-dark">11/05/20</span>
-                                                        <small class="text-muted">15:58</small>
-                                                    </td>
-                                                    <td>
-                                                        <span>Lorem ipsum dolor sit amet...</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge style_bg text-white">Badge</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-success">90.000</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <a href="#" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                        </div>
-                                                    </td>
+                                                <tr v-if="vide">
+                                                    <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -181,62 +150,14 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
-        <script src="${contextPath}/assets/js/jquery.counterup.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/counter/waypoints.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/jquery.counterup.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/d3.v3.min.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/cal-heatmap.js" type="application/javascript"></script>
-        <script src="${contextPath}/assets/js/reglo.js" type="application/javascript"></script>
+        <script src="${contextPath}/assets/js/specific/machine.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
-
-            function countUp() {
-                jQuery(document).ready(function ($)
-                {
-                    $('.counter').counterUp({
-                        delay: 10,
-                        time: 1000
-                    });
-                });
-            }
-            countUp();
-
             function convertir(ladate) {
                 var currentTimeStamp = Date.parse(new Date(ladate));
                 return currentTimeStamp / 1000;
             }
-
-            yearcal1 = new CalHeatMap();
-            var dt = new Date();
-            yearcal1.init({
-                subDomain: "day",
-                start: new Date(dt.getFullYear(), 0),
-                domain: "month",
-                displayLegend: true,
-                cellRadius: 10,
-                cellSize: 16,
-                legendColors: {"min": "#90EE90", "max": "#006400", "base": "#D3D3D3", "empty": "#FAEBD7"},
-                considerMissingDataAsZero: false,
-                itemSelector: "#pilier1",
-                subDomainTextFormat: "%d",
-                data: 'http://localhost:8082/api/countfacturebydate',
-                highlight: ["now", dt],
-                domainMargin: 5,
-                legendVerticalPosition: "center",
-                legendOrientation: "vertical",
-                legendMargin: [0, 10, 0, 0],
-                tooltip: true,
-                onClick: function (date, nb) {
-                    function convert(str) {
-                        var date = new Date(str),
-                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                day = ("0" + date.getDate()).slice(-2);
-                        return [date.getFullYear(), mnth, day].join("-");
-                    }
-                    window.location.replace('/showdayinfo/' + convert(date));
-                }
-            });
 
             async function recherche1() {
                 const man = Swal.mixin({
