@@ -20,4 +20,9 @@ public class EmplacementMachineController {
         //model.addAttribute("people", employeeService.getAllEmployees());
         return "machine";
     }
+    
+    @GetMapping("/saveplace")
+    public String place(){
+        return "emplacement/save";
+    }
 }

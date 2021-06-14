@@ -7,8 +7,6 @@ package com.emcef.service;
 
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.repository.FactureRepository;
-import com.emcef.request.ItemDto;
-import com.emcef.request.PaymentDto;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -181,17 +179,21 @@ public class FactureService {
     public JSONObject UidInfo(String uid) {
         return factureRepository.UidInfo(uid);
     }
-    
+
     public List<JSONObject> Payement(String uid) {
         return factureRepository.Payement(uid);
     }
-    
+
     public List<JSONObject> Item(int id) {
         return factureRepository.Item(id);
     }
-    
+
     public int uidId(String uid) {
         return factureRepository.uidId(uid);
     }
 //Fin API demande de détails sur une facture en attente
+
+    public List<FactureSelonSpecification> tout() {
+        return factureRepository.findAll();
+    }
 }

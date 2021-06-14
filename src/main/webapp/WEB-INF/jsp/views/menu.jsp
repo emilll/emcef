@@ -16,9 +16,9 @@
                         Enregistrement
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/facttoday">Machine</a>
-                        <a class="dropdown-item" href="/machinessignales">Point de Vente</a>
-                        <a class="dropdown-item" href="/machinesnonsignales">Emplacement</a>
+                        <a class="dropdown-item" href="/savemachine">Machine</a>
+                        <a class="dropdown-item" href="/saveseller">Point de Vente</a>
+                        <a class="dropdown-item" href="/saveplace">Emplacement</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -44,7 +44,7 @@
                     </a>
                     <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="javascript:void(0);" onclick="recherche1()">Contribuable</a>
-                        <a class="dropdown-item" href="javascript:void(0);" onclick="recherche2()">Machines</a>
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="recherche2()">Machine</a>
                         <a class="dropdown-item" href="javascript:void(0);" onclick="recherche3()">Point de Vente</a>
                     </div>
                 </li>

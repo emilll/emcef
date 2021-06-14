@@ -5,6 +5,7 @@
  */
 package com.emcef.RestController;
 
+import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.User;
 import com.emcef.request.ClientDto;
 import com.emcef.request.FactureRequest;
@@ -127,7 +128,7 @@ public class FactureResController {
 
         List<PaymentDto> payment = new ArrayList<>();
         List<ItemDto> items = new ArrayList<>();
-        
+
         factureService.Item(id).stream().map((plus) -> {
             ItemDto donnee = new ItemDto();
             donnee.setCode((String) plus.get("code"));
@@ -139,7 +140,7 @@ public class FactureResController {
         }).forEachOrdered((donnee) -> {
             items.add(donnee);
         });
-        
+
         factureService.Payement(uid).stream().map((plus) -> {
             PaymentDto donnee = new PaymentDto();
             donnee.setName((String) plus.get("name"));
@@ -276,13 +277,13 @@ public class FactureResController {
             }
             total = total + (str.getPrice() * str.getQuantity());
         }
-        
+
         String methode = "";
-        int montant=0;
-        
-        for(PaymentDto pay: factureRequest.getPayment()){
-        montant = pay.getAmount();
-        methode = pay.getName();
+        int montant = 0;
+
+        for (PaymentDto pay : factureRequest.getPayment()) {
+            montant = pay.getAmount();
+            methode = pay.getName();
         }
 
         factureService.setFacture(
@@ -552,4 +553,8 @@ public class FactureResController {
         }
     }
 
+    @GetMapping("/facturesall")
+    public List<FactureSelonSpecification> tout() {
+        return factureService.tout();
+    }
 }

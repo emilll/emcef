@@ -5,11 +5,7 @@
  */
 package com.emcef.controller;
 
-import com.emcef.model.Machinesenregistrees;
-import com.emcef.service.MachineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,6 +24,11 @@ public class MachineController {
     @GetMapping("/machine/{nim}")
     public String one(@PathVariable(value = "nim") String nim) {
         return "/machine/info";
+    }
+    
+    @GetMapping("/savemachine")
+    public String savemachine() {
+        return "/machine/save";
     }
    
 }

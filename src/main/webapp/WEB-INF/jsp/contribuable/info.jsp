@@ -44,10 +44,10 @@
     <body>
         <header id="header_top">
             <div id="loader-wrapper">
-                 <div id="loader"></div>
-                 <div class="loader-section section-left"></div>
-                 <div class="loader-section section-right"></div>
-             </div>
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
             <%@include  file="../views/menu.jsp" %>
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -55,30 +55,6 @@
                         <h5 class="flex-fill"><a href="#">Tableau</a> de <span class="text-success">Bord</span></h5>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs">
-                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse">
-
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">NIM</a>
-                                        <a class="dropdown-item" href="#">Date d'Activation</a>
-                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
             </div>
             <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -86,7 +62,8 @@
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
                                 <li class="breadcrumb-item text-info">Accueil</li>
-                                <li class="breadcrumb-item text-danger">Informations</li>
+                                <li class="breadcrumb-item text-info">Contribuables</li>
+                                <li class="breadcrumb-item text-danger">Informations sur un Contribuable</li>
                             </ol>
                         </nav>
                     </div>
@@ -100,10 +77,10 @@
                         <div>
                             <div class="row gutters-sm">
                                 <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
+                                    <div class="card h-55">
+                                        <div>
                                             <div class="d-flex flex-column align-items-center text-center">
-                                                <img src="${contextPath}/assets/img/profilMan.jpg" alt="Admin" class="rounded-circle" width="150">
+                                                <img src="${contextPath}/assets/img/profilMan.jpg" alt="Admin" class="rounded-circle" width="100">
                                                 <div class="mt-3">
                                                     <h4>{{ contribuables.nom }}</h4>
                                                     <p class="text-secondary mb-1">{{ contribuables.adresse }}</p>
@@ -114,14 +91,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card mb-3">
-                                        <div class="card-body">
+                                    <div class="card m-1">
+                                        <div class="h-55" style=" -ms-flex: 1 1 auto; flex: 1 1 auto; padding: 1.0rem;">
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <h6 class="mb-0">IFU</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                   {{ contribuables.ifu }}
+                                                    {{ contribuables.ifu }}
                                                 </div>
                                             </div>
                                             <hr>
@@ -131,15 +108,6 @@
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     {{ contribuables.telephone }}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Contact Personnel</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    {{ contribuables.contact_pesonnel }}
                                                 </div>
                                             </div>
                                             <hr>
@@ -158,12 +126,6 @@
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     {{ contribuables.email }}
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-
                                                 </div>
                                             </div>
                                         </div>
@@ -221,8 +183,8 @@
                                                     </td>
                                                 </tr>
                                                 <tr v-if="vide">
-                                                <td colspan="6"><span class="text-dark">Aucune donnée</span></td>
-                                            </tr>
+                                                    <td colspan="6"><span class="text-dark">Aucune donnée</span></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

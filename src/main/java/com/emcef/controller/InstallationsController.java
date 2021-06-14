@@ -5,7 +5,7 @@
  */
 package com.emcef.controller;
 
-import com.emcef.service.InstallationsService;
+import com.emcef.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class InstallationsController {
     @Autowired
-    InstallationsService installationsservice;
+    SellerService sellerService;
     
     @GetMapping("/installations")
     public String all() {

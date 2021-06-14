@@ -66,6 +66,7 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
 
     @Query(value = "SELECT sum(total) as totalTTC, sum(total_taxable) as totalHT FROM factureselonspecification f WHERE f.ifu =:ifu AND f.dateheure BETWEN :d1 AND :d2 ",nativeQuery = true)
     Double getFactTotauxContribuable3(@Param("ifu")String ifu,@Param("d1")Date d1, @Param("d2")Date d2);*/
+    
     @Query(value = "SELECT sum(total) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3", nativeQuery = true)
     double DayTTC(int year, int month, int day);
 
@@ -163,4 +164,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT id  FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)
     int uidId(@Param("uid") String uid);
     //Fin API demande de détails sur une facture en attente
+
+    public List<FactureSelonSpecification> findAllByIfuseller(String ifu_seller);
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +20,9 @@ public class FactureSelonSpecification implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @OneToOne
+    FactureNormalisee factureNormalisee;
 
     @Column(name = "dateheure")
     private Date dateTime;
@@ -35,11 +39,8 @@ public class FactureSelonSpecification implements Serializable  {
     @Column(name = "uid")
     private String uid;
     
-    @Column(name="ifu_seller")
-    private String ifu_seller;
-    
-    @Column(name = "en_attente")
-    private boolean enAttente;
+    @Column(name="ifuseller")
+    private String ifuseller;
 
     @Column(name = "type_document")
     private String type_document;
@@ -127,7 +128,7 @@ public class FactureSelonSpecification implements Serializable  {
     private String methode;
     
     @Column(name = "payed")
-    private int payed;
+    private Long payed;
 
     @Column(name = "controle_identifaction")
     private String controle_identifaction;
@@ -286,11 +287,11 @@ public class FactureSelonSpecification implements Serializable  {
     private double tax_specifique_f;
 
     public String getIfu_seller() {
-        return ifu_seller;
+        return ifuseller;
     }
 
     public void setIfu_seller(String ifu_seller) {
-        this.ifu_seller = ifu_seller;
+        this.ifuseller = ifu_seller;
     }
 
     public String getMethode() {
@@ -301,11 +302,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.methode = methode;
     }
 
-    public int getPayed() {
+    public Long getPayed() {
         return payed;
     }
 
-    public void setPayed(int payed) {
+    public void setPayed(Long payed) {
         this.payed = payed;
     }
 
@@ -363,14 +364,6 @@ public class FactureSelonSpecification implements Serializable  {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public boolean isEnAttente() {
-        return enAttente;
-    }
-
-    public void setEnAttente(boolean enAttente) {
-        this.enAttente = enAttente;
     }
 
     public String getType_document() {
@@ -995,5 +988,21 @@ public class FactureSelonSpecification implements Serializable  {
 
     public void setTax_specifique_f(double tax_specifique_f) {
         this.tax_specifique_f = tax_specifique_f;
+    }
+
+    public FactureNormalisee getFactureNormalisee() {
+        return factureNormalisee;
+    }
+
+    public void setFactureNormalisee(FactureNormalisee factureNormalisee) {
+        this.factureNormalisee = factureNormalisee;
+    }
+
+    public String getIfuseller() {
+        return ifuseller;
+    }
+
+    public void setIfuseller(String ifuseller) {
+        this.ifuseller = ifuseller;
     }
 }

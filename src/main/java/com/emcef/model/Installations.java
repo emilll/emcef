@@ -17,7 +17,7 @@ public class Installations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @OneToOne
     Contribuable contribuable;
@@ -31,8 +31,8 @@ public class Installations {
     @Column(name = "uid")
     private String uid;
 
-    @Column(name = "ifu_seller")
-    private String ifu_seller;
+    @Column(name = "ifuseller")
+    private String ifuseller;
 
     @Column(name = "nom_commercial")
     private String nom_commercial;
@@ -91,20 +91,124 @@ public class Installations {
     @Column(name = "longitude")
     private BigDecimal longitude;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getIfu_seller() {
-        return ifu_seller;
+    public Contribuable getContribuable() {
+        return contribuable;
     }
 
-    public void setIfu_seller(String ifu_seller) {
-        this.ifu_seller = ifu_seller;
+    public void setContribuable(Contribuable contribuable) {
+        this.contribuable = contribuable;
+    }
+
+    public Typesmachines getTypesmachines() {
+        return typesmachines;
+    }
+
+    public void setTypesmachines(Typesmachines typesmachines) {
+        this.typesmachines = typesmachines;
+    }
+
+    public Date getDate_heure() {
+        return date_heure;
+    }
+
+    public void setDate_heure(Date date_heure) {
+        this.date_heure = date_heure;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getIfuseller() {
+        return ifuseller;
+    }
+
+    public void setIfuseller(String ifuseller) {
+        this.ifuseller = ifuseller;
+    }
+
+    public String getNom_commercial() {
+        return nom_commercial;
+    }
+
+    public void setNom_commercial(String nom_commercial) {
+        this.nom_commercial = nom_commercial;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getAdresse1() {
+        return adresse1;
+    }
+
+    public void setAdresse1(String adresse1) {
+        this.adresse1 = adresse1;
+    }
+
+    public String getAdresse2() {
+        return adresse2;
+    }
+
+    public void setAdresse2(String adresse2) {
+        this.adresse2 = adresse2;
+    }
+
+    public String getAdresse3() {
+        return adresse3;
+    }
+
+    public void setAdresse3(String adresse3) {
+        this.adresse3 = adresse3;
+    }
+
+    public String getAdresse4() {
+        return adresse4;
+    }
+
+    public void setAdresse4(String adresse4) {
+        this.adresse4 = adresse4;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getDescription_location() {
+        return description_location;
+    }
+
+    public void setDescription_location(String description_location) {
+        this.description_location = description_location;
     }
 
     public String getContact_personnel() {
@@ -185,109 +289,5 @@ public class Installations {
 
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
-    }
-
-    public Contribuable getContribuable() {
-        return contribuable;
-    }
-
-    public void setContribuable(Contribuable contribuable) {
-        this.contribuable = contribuable;
-    }
-
-    public Typesmachines getTypesmachines() {
-        return typesmachines;
-    }
-
-    public void setTypesmachines(Typesmachines typesmachines) {
-        this.typesmachines = typesmachines;
-    }
-
-    public Date getDate_heure() {
-        return date_heure;
-    }
-
-    public void setDate_heure(Date date_heure) {
-        this.date_heure = date_heure;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getNom_commercial() {
-        return nom_commercial;
-    }
-
-    public void setNom_commercial(String nom_commercial) {
-        this.nom_commercial = nom_commercial;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getAdresse1() {
-        return adresse1;
-    }
-
-    public void setAdresse1(String adresse1) {
-        this.adresse1 = adresse1;
-    }
-
-    public String getAdresse2() {
-        return adresse2;
-    }
-
-    public void setAdresse2(String adresse2) {
-        this.adresse2 = adresse2;
-    }
-
-    public String getAdresse3() {
-        return adresse3;
-    }
-
-    public void setAdresse3(String adresse3) {
-        this.adresse3 = adresse3;
-    }
-
-    public String getAdresse4() {
-        return adresse4;
-    }
-
-    public void setAdresse4(String adresse4) {
-        this.adresse4 = adresse4;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getDescription_location() {
-        return description_location;
-    }
-
-    public void setDescription_location(String description_location) {
-        this.description_location = description_location;
     }
 }

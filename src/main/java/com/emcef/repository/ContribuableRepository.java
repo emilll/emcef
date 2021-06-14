@@ -22,9 +22,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContribuableRepository extends JpaRepository<Contribuable, Integer> {
 
-    @Query(value = "SELECT id FROM contribuable WHERE ifu=:ifu", nativeQuery = true)
-    int getIdByIfu(@Param("ifu") int ifu);
-
     Contribuable findByIfu(String ifu);
 
     @Query(value = "SELECT _id FROM contribuable WHERE rccm=:rccm", nativeQuery = true)

@@ -21,9 +21,7 @@
         <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
-        <script src = "assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/vue.js"></script>
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
@@ -37,7 +35,7 @@
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 1000);
+                }, 100);
 
             });
         </script>
@@ -69,19 +67,8 @@
                     </div>
                 </nav>
             </div>
-            <div class="bg-white py-1 border-bottom">
-                <div class="container-fluid">
-                    <div class="d-flex justify-content-between align-items-center mb-1 flex-wrap">
-                        <nav aria-label="breadcrumb m-0 flex-fill">
-                            <ol class="breadcrumb m-0 py-1">
-                                <li class="breadcrumb-item active text-danger">Accueil</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
         </header>
-        <main class="bg-light">
+            <main class="bg-light" id="app">
             <div>
                 <div class="">
                     <div class="tab-content">
@@ -96,9 +83,9 @@
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="#">Facture Traités</a>
+                                                        <a href="#">Factures Traitées</a>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder">5200</h4>
+                                                    <h4 class="font-weight-bolder">{{ banniere.traités }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,9 +96,9 @@
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="#">Facture en attente</a>
+                                                        <a href="#">Factures en attente</a>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder">92050</h4>
+                                                    <h4 class="font-weight-bolder">{{ banniere.attente }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,7 +109,7 @@
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="">Machines Connectés</a>
+                                                        <a href="">Machines Connectées</a>
                                                     </h6>
                                                     <h4 class="font-weight-bolder">15</h4>
                                                 </div>
@@ -137,7 +124,7 @@
                                                     <h6 class="my-0">
                                                         <a href="">Rapports Traités</a>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder">114381</h4>
+                                                    <h4 class="font-weight-bolder">{{ banniere.rapports }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -162,14 +149,14 @@
                                                 <tbody class="">
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Globaux</th>
-                                                        <td><h5>0</h5></td>
-                                                        <td><h5>0</h5></td>
+                                                        <td><h5>{{ verification(valeur1.nbre) }}</h5></td>
+                                                        <td><h5>{{ verification(valeur1.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur1.totalttc) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur1.totalht) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
@@ -179,14 +166,14 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Mensuel</th>
-                                                        <td><h5>0</h5></td>
-                                                        <td><h5>0</h5></td>
+                                                        <td><h5>{{ verification(valeur2.nbre) }}</h5></td>
+                                                        <td><h5>{{ verification(valeur2.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur2.totalttc) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur2.totalht) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
@@ -196,14 +183,14 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Journalier</th>
-                                                        <td><h5>0</h5></td>
-                                                        <td><h5>0</h5></td>
+                                                        <td><h5>{{ verification(valeur3.nbre) }}</h5></td>
+                                                        <td><h5>{{ verification(valeur3.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur3.totalttc) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur3.totalht) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
@@ -420,47 +407,32 @@
                     preConfirm: (login) => {
                         var variable;
                         if (document.getElementById('val1').value !== "") {
-                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ IFU est vide!'
-                                    )
-                        }
-                        return fetch(variable)
+                            variable = "http://localhost:8082/api/findcontribuablebyifu/" + document.getElementById('val1').value;
+                            return fetch(variable)
                                 .then(response => {
-                                    if (!response.ok) {
+                                    if(!response.ok){
                                         throw new Error(response.statusText)
                                     }
                                     return response.json()
                                 })
                                 .catch(error => {
                                     Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
+                                            'La requête a échoué: ${error}'
                                             )
                                 })
+                        } else {
+                            Swal.showValidationMessage(
+                                    'Le champ IFU est vide!'
+                                    )
+                        }
                     },
                     allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
-                    if (result.value !== 0) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Trouvé. Redirection en cours . . .'
-                        })
-                        window.location.href = "/contribuable/" + result.value;
-                    } else {
-                        Swal.fire({
+                    if (result.value.ifu !== null) {
+                        window.location.href = "/contribuable/" + result.value.ifu;
+                    }
+                    if(result.value.ifu===null){
+                    Swal.fire({
                             icon: 'error',
                             title: 'Erreur...',
                             text: 'Ce contribuable n\'existe pas!'
@@ -484,7 +456,7 @@
                             '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
                             '<div class="row">' +
                             '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="nim" name="" placeholder="NIM">' +
+                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="e-NIM">' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -495,52 +467,38 @@
                     showLoaderOnConfirm: true,
                     preConfirm: (login) => {
                         var variable;
-                        if (document.getElementById('nim').value !== "") {
-                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ NIM est vide!'
-                                    )
-                        }
-                        return fetch(variable)
+                        if (document.getElementById('val1').value !== "") {
+                            variable = "http://localhost:8082/api/findmachinebyenim/" + document.getElementById('val1').value;
+                            return fetch(variable)
                                 .then(response => {
-                                    if (!response.ok) {
+                                    if(!response.ok){
                                         throw new Error(response.statusText)
                                     }
                                     return response.json()
                                 })
                                 .catch(error => {
                                     Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
+                                            'La requête a échoué: ${error}'
                                             )
                                 })
+                        } else {
+                            Swal.showValidationMessage(
+                                    'Le champ e-NIM est vide!'
+                                    )
+                        }
                     },
                     allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
-                    if (result.value !== 0) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Trouvé. Redirection en cours . . .'
-                        })
-                        window.location.href = "/InfoMachine/" + result.value
-                    } else {
-                        Swal.fire({
+                console.log(result.value)
+                if(result.value.nim===null){
+                    Swal.fire({
                             icon: 'error',
                             title: 'Erreur...',
                             text: 'Cette machine n\'existe pas!'
                         })
+                    }
+                    if (result.value.nim !== null ) {
+                      window.location.href = "/machine/" + result.value.nim;
                     }
                 })
             }
@@ -557,16 +515,10 @@
                     html:
                             '<div class="col-sm-12 my-auto">' +
                             '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Point de Vente</h2>' +
+                            '<h2 class="text-dark mb-3">Recherche Point de vente</h2>' +
                             '<div class="row">' +
                             '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
-                            '</div>' +
-                            '<div class="col-sm-6 form-group">' +
-                            '<input type="text" class="form-control style_form_control" name="" placeholder="----">' +
-                            '</div>' +
-                            '<div class="col-sm-6 form-group">' +
-                            '<input type="number" class="form-control style_form_control" name="" placeholder="----">' +
+                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -576,23 +528,38 @@
                     confirmButtonText: 'Rechercher',
                     showLoaderOnConfirm: true,
                     preConfirm: (login) => {
-                        return fetch(`http://localhost:8082/api/countfacturebydate`)
+                        var variable;
+                        if (document.getElementById('val1').value !== "") {
+                            variable = "http://localhost:8082/api/findsellerbyifu/" + document.getElementById('val1').value;
+                            return fetch(variable)
                                 .then(response => {
-                                    if (!response.ok) {
+                                    if(!response.ok){
                                         throw new Error(response.statusText)
                                     }
                                     return response.json()
                                 })
                                 .catch(error => {
                                     Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
+                                            'La requête a échoué: ${error}'
                                             )
                                 })
+                        } else {
+                            Swal.showValidationMessage(
+                                    'Le champ IFU est vide!'
+                                    )
+                        }
                     },
                     allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        //window.location.href = "/showinfo"
+                    if (result.value.ifuseller !== null ) {
+                        window.location.href = "/seller/" + result.value.ifu;
+                    }
+                    if(result.value.ifuseller===null){
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur...',
+                            text: 'Ce Point de Vente n\'existe pas!'
+                        })
                     }
                 })
             }

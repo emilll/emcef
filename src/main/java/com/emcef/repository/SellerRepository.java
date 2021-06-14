@@ -1,9 +1,11 @@
+/*
+ * Projet : Emcef Virtuel
+ *  Auteurs: Emmanuel BOSSOU & Emile AHIATOR
+ * 2021
+ */
 package com.emcef.repository;
 
-import com.emcef.model.MachinesInstallees;
-import java.util.List;
-import org.json.simple.JSONObject;
-
+import com.emcef.model.Installations;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,22 +13,11 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Em
+ * @author Holy
  */
 @Repository
-public interface MachineRepository extends JpaRepository<MachinesInstallees, Long> {
-
-    @Query(value = "SELECT *  FROM  machineinstallees", nativeQuery = true)
-    List<MachinesInstallees> getAllMachines();
-    
-    @Query(value = "SELECT count(*)  FROM  factureselonspecification c WHERE c.nim = :nim", nativeQuery = true)
-    int nrbFactNim(@Param("nim") String nim);
-    
-    @Query(value = "SELECT * FROM  machineinstallees c WHERE c.nim = :nim", nativeQuery = true)
-    MachinesInstallees findAllByNim(@Param("nim") String nim);
-    
-    @Query(value = "SELECT *  FROM  factureselonspecification c WHERE c.nim = :nim", nativeQuery = true)
-    List<JSONObject> allFact(@Param("nim") String nim);
+public interface SellerRepository extends JpaRepository<Installations, Long> {
+    public Installations findAllByIfuseller(String ifuseller);
     
     @Query(value = "SELECT count(*) FROM  factureselonspecification c WHERE c.nim = :nim", nativeQuery = true)
     int totalFactures(@Param("nim") String nim);

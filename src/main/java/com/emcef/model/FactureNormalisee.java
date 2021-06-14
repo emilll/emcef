@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,10 +21,7 @@ import javax.persistence.Table;
 public class FactureNormalisee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    
-    @OneToOne
-    FactureSelonSpecification facture;
+    private int id;
     
     @Column(name = "dateTime")
     private String dateTime;
@@ -43,19 +39,11 @@ public class FactureNormalisee {
     private String nim;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int Id) {
-        this.Id = Id;
-    }
-
-    public FactureSelonSpecification getFacture() {
-        return facture;
-    }
-
-    public void setFacture(FactureSelonSpecification facture) {
-        this.facture = facture;
+        this.id = Id;
     }
 
     public String getDateTime() {

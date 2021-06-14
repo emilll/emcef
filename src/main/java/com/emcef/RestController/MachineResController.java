@@ -61,4 +61,18 @@ public class MachineResController {
         resultat.put("totalTTC", machineService.totalTTC(nim));
         return resultat;
     }
+    
+    @GetMapping("/findmachinebyenim/{enim}")
+    public MachinesInstallees getByIfu(@PathVariable(value = "enim") String enim) {
+        MachinesInstallees test = machineService.findAllByNim(enim);
+        try {
+            if(test != null){
+            return test;
+            }else{
+            return new MachinesInstallees();
+            }
+        } catch (Exception e) {
+            return new MachinesInstallees();
+        }
+    }
 }

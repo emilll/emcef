@@ -1,11 +1,11 @@
 new Vue({
     el: '#app',
     data: {
-        sellers: [],
+        factures: [],
         vide: true
     },
     mounted() {
-        fetch("/api/installationall", {
+        fetch("/api/facturesall", {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -14,11 +14,10 @@ new Vue({
                 return response.json()
             }
         }).then(response => {
-            this.sellers = response
+            this.factures = response
         }).catch(error => {
             console.log(error)
         })
     },
     methods: {}
 })
-

@@ -5,6 +5,7 @@
  */
 package com.emcef.service;
 
+import com.emcef.model.Rapportcr;
 import java.util.Date;
 import com.emcef.repository.RapportRepository;
 import java.util.List;
@@ -21,8 +22,11 @@ public class RapportService {
 
     @Autowired
     RapportRepository rapportRepository;
+    
+    public List<Rapportcr> all(){
+        return rapportRepository.findAll();
+    }
 
-    //Interface Générale
     public int rapport() {
         return rapportRepository.totalRapport();
     }

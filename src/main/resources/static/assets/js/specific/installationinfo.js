@@ -1,20 +1,18 @@
 new Vue({
     el: '#appinfo',
     data: {
-        test: 'bien',
         valeur: window.location.pathname.split("/", 3),
         factures: [],
-        machines: [],
+        montant: [],
         info: [],
         vide: true,
-        filter: ''
     },
     methods:{
         ifu: function(){
         },
     },
     mounted() {
-        fetch('/api/machines/' + this.valeur[2], {
+        fetch('/api/sellerfactures/' + this.valeur[2], {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -22,7 +20,6 @@ new Vue({
                 return response.json()
             }
         }).then(response => {
-            console.log(response)
             if(response.length!==0){
                 this.vide = false
                 this.factures = response
@@ -38,7 +35,19 @@ new Vue({
                 return response.json()
             }
         }).then(response => {
-            this.machines = response
+            this.info = response
+        }).catch(error => {
+            console.log(error)
+        }),
+        fetch('/api/installationmontant/' + this.valeur[2], {
+                    "method": "GET",
+                    "headers": {}
+                }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            this.montant = response
         }).catch(error => {
             console.log(error)
         })

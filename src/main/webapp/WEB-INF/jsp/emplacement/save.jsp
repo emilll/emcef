@@ -35,7 +35,7 @@
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 500);
+                }, 1000);
 
             });
         </script>
@@ -71,140 +71,77 @@
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
                                 <li class="breadcrumb-item text-info">Accueil</li>
-                                <li class="breadcrumb-item text-danger">Tous les points de vente</li>
-                                <li class="breadcrumb-item text-danger">Informations sur un point de vente</li>
+                                <li class="breadcrumb-item text-danger">Enregistrer Emplacement</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
         </header>
-        <main class="bg-light" id="appinfo">
+        <main class="bg-light" id="app">
             <div class="py-3">
                 <div class="container-fluid">
                     <div class="bg-white p-2 tab-content">
                         <div>
                             <div class="row gutters-sm">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card h-55">
-                                        <div>
-                                            <div class="d-flex flex-column align-items-center text-center">
-                                                <img src="${contextPath}/assets/img/facture_print.png" alt="Admin" class="rounded-circle" width="100">
-                                                <div class="mt-3">
-                                                    <h4>{{ info.nom_commercial }}</h4>
-                                                    <p class="text-muted font-size-sm">IFU:  {{ info.ifuseller }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card h-26 m-1">
-                                        <div>
-                                            <div class="row col-sm-12">
-                                                <div class="col-sm-6 form-group">
-                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                        <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.factures }}</span>
-                                                            <h5 class="card-title mt-3" style="font-size: 20px">Factures</h5>
-                                                        </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div class="table-responsive">
+                                        <div class="col-sm-12 my-auto">
+                                            <form class="mb-2">
+                                                <h2 class="text-dark mb-3">Pays</h2>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de Département">
+                                                    </div>
+                                                    <div class="offset-3 col-sm-6 offset-3 form-group">
+                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer Pays</button>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 form-group">
-                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                        <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.rapports }}</span>
-                                                            <h5 class="card-title mt-3" style="font-size: 20px">Rapports</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row col-sm-12">
-                                                <div class="col-sm-6 form-group">
-                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                        <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.totalTTC }}</span>
-                                                            <h5 class="card-title mt-3" style="font-size: 20px">Montant TTC</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
-                                                        <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.totalHT }}</span>
-                                                            <h5 class="card-title mt-3" style="font-size: 20px">Montant HT</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gutters-sm">
-                                <div class="col-sm-12 mb-3">
-                                    <div class="container-fluid">
-                                        <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row gutters-sm">
-                                <div class="col-sm-12 mb-3">
+                                <div class="col-sm-4 mb-3">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered">
-                                            <thead class="border-bottom">
-                                                <tr>
-                                                    <th scope="col">N°</th>
-                                                    <th scope="col">UID</th>
-                                                    <th scope="col">IFU Client</th>
-                                                    <th scope="col">Nom et Prénom(s) Client</th>
-                                                    <th scope="col">Date d'enregistrement</th>
-                                                    <th scope="col">Montant Total</th>
-                                                    <th scope="col">Montant remis</th>
-                                                    <th scope="col">Statut</th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-if="vide">
-                                                    <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
-                                                </tr>
-                                                <tr v-for="facture in factures" v-else>
-                                                    <td>{{ facture.id }}</td>
-                                                    <td>
-                                                        <span class="text-success">{{ facture.uid }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-dark">{{ facture.ifu_client }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span>{{ facture.nom_client }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-dark">{{ facture.dateheure }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-dark">{{ facture.total }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-dark">{{ facture.payed }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-success" v-if="facture.status">Validé</span>
-                                                        <span class="text-danger" v-else>Invalidée</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <a :href="${contextPath}'/facture/' + facture.uid" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="col-sm-12 my-auto">
+                                            <form class="mb-2">
+                                                <h2 class="text-dark mb-3">Département</h2>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de Communes">
+                                                    </div>
+                                                    <div class="offset-2 col-sm-8 offset-2form-group">
+                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer le Département</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <div class="table-responsive">
+                                        <div class="col-sm-12 my-auto">
+                                            <form class="mb-2">
+                                                <h2 class="text-dark mb-3">Commune</h2>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de quartier">
+                                                    </div>
+                                                    <div class="offset-2 col-sm-8 offset-2 form-group">
+                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer la commune</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +151,7 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
-        <script src="${contextPath}/assets/js/specific/installationinfo.js" type="text/javascript"></script>
+        <script src="${contextPath}/assets/js/specific/machine.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
@@ -429,4 +366,5 @@
         </script>
     </body>
 </html>
+
 

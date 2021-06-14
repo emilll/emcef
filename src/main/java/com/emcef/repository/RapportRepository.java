@@ -34,7 +34,7 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer> {
     @Query(value = "SELECT count(*) FROM  factureselonspecification u WHERE u.en_attente = false", nativeQuery = true)
     int getCountPending();
 
-    @Query(value = "SELECT dateheure date, uid FROM  factureselonspecification u WHERE u.en_attente = false", nativeQuery = true)
+    @Query(value = "SELECT dateheure date, uid FROM  factureselonspecification u WHERE u.status = false", nativeQuery = true)
     List<JSONObject> getAllPending();
     //Fin API Statut
 
@@ -77,4 +77,6 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer> {
     //Interface Machines
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1", nativeQuery = true)
     int nbrMachRapport(Date date);
+
+    public Iterable<Rapportcr> findAllByIfu(String ifuseller);
 }

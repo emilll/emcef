@@ -49,26 +49,6 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/facttoday")
-    public String facturesToday() {
-        return "/today/today";
-    }
-
-    @GetMapping("/machinessignales")
-    public String MachSignToday() {
-        return "/today/machinessignales";
-    }
-
-    @GetMapping("/machinesnonsignales")
-    public String MachNonSignToday() {
-        return "/today/machinesnonsignales";
-    }
-
-    @GetMapping("/journalaudit")
-    public String AuditToday() {
-        return "/today/audit";
-    }
-
     @GetMapping("/donnees")
     public String DataToday() {
         return "/today/donnees";

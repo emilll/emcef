@@ -6,6 +6,7 @@
 package com.emcef.service;
 
 import com.emcef.repository.StatutRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

@@ -55,15 +55,6 @@
                         <h5 class="flex-fill"><a href="#">Tableau</a> de <span class="text-success">Bord</span></h5>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs d-none">
-                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
             </div>
             <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -71,6 +62,7 @@
                         <nav aria-label="breadcrumb m-0 flex-fill">
                             <ol class="breadcrumb m-0 py-1">
                                 <li class="breadcrumb-item text-info">Accueil</li>
+                                <li class="breadcrumb-item text-info">Toutes les machines</li>
                                 <li class="breadcrumb-item text-danger">Informations sur une machine</li>
                             </ol>
                         </nav>

@@ -21,4 +21,9 @@ public class FactureController {
     public String entreprise(@PathVariable(value = "ifu") int ifu){
         return "index1";
     }
+    
+    @GetMapping("/factures")
+    public String factures(){
+        return "facture/afficher";
+    }
 }

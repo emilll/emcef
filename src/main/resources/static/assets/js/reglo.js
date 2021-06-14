@@ -1,78 +1,87 @@
-/*var app = angular.module('demo', []);
- app.controller('tableController', function ($scope, $http) {
- 
- var dt = new Date();
- var DD = ("0" + dt.getDate()).slice(-2);
- var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
- var YYYY = dt.getFullYear();
- var method = "GET";
- var url1 = "/api/totauxglobaux/";
- var url2 = "/api/totauxmonth/" + YYYY + "/" + MM;
- var url3 = "/api/totauxday/" + YYYY + "/" + MM + "/" + DD;
- 
- $scope.verification = function (valeur) {
- if (typeof valeur !== 'number') {
- return 0;
- } else {
- return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(valeur);
- }
- }
- ;
- 
- //Totaux Globaux
- $http({
- method: method,
- url: url1,
- headers: {
- 'Content-Type': 'application/json'
- }
- }).success(function (data, status) {
- //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
- $scope.global1 = $scope.verification(data.nbre);
- $scope.global2 = $scope.verification(data.rapport);
- $scope.global3 = $scope.verification(data.totalttc);
- $scope.global4 = $scope.verification(data.totalht);
- })
- .error(function (data, status) {})
- 
- //Totaux Mensuel
- $http({
- method: method,
- url: url2,
- headers: {
- 'Content-Type': 'application/json'
- }
- }).success(function (data, status) {
- //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
- $scope.month1 = $scope.verification(data.nbre);
- $scope.month2 = $scope.verification(data.rapport);
- $scope.month3 = $scope.verification(data.totalttc);
- $scope.month4 = $scope.verification(data.totalht);
- })
- .error(function (data, status) {})
- 
- //Totaux Journaliers
- $http({
- method: method,
- url: url3,
- headers: {
- 'Content-Type': 'application/json'
- }
- }).success(function (data, status) {
- //new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
- $scope.day1 = $scope.verification(data.nbre);
- $scope.day2 = $scope.verification(data.rapport);
- $scope.day3 = $scope.verification(data.totalttc);
- $scope.day4 = $scope.verification(data.totalht);
- })
- .error(function (data, status) {})
- 
- console.log($scope);
- //alert( $scope.valeur.total1);
- });
- 
- */
-// /contribuable-all
+var dt = new Date();
+var DD = ("0" + dt.getDate()).slice(-2);
+var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
+var YYYY = dt.getFullYear();
+new Vue({
+    el: '#app',
+    data: {
+        valeur1: [],
+        valeur2: [],
+        valeur3: [],
+        banniere: [],
+        url1: "/api/totauxglobaux",
+        url2: "/api/totauxmonth/" + YYYY + "/" + MM,
+        url3: "/api/totauxday/" + YYYY + "/" + MM + "/" + DD
+    },
+    mounted() {
+        fetch(this.url1, {
+            "method": "GET",
+            "headers": {}
+        }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            this.valeur1 = response
+        }).catch(error => {
+            console.log(error)
+        }),
+                fetch(this.url2, {
+                    "method": "GET",
+                    "headers": {}
+                }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            this.valeur2 = response
+        }).catch(error => {
+            console.log(error)
+        }),
+                fetch(this.url3, {
+                    "method": "GET",
+                    "headers": {}
+                }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            this.valeur3 = response
+        }).catch(error => {
+            console.log(error)
+        }),
+        fetch("/api/banniere", {
+                    "method": "GET",
+                    "headers": {}
+                }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            this.banniere = response
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+    methods: {
+        verification: function (valeur) {
+            if (typeof valeur !== 'number') {
+                return 0;
+            } else {
+                return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(valeur);
+            }
+        }
+    }
+})
+
+
+
+
+
+
+
+
+
 
 
 async function GetRange() {
@@ -148,101 +157,6 @@ async function GetRange() {
                 icon: 'swal2-icon-hide'
             }
         })
-    }
-}
-
-let question;
-async function getTotauxGlobaux() {
-    var liste = [];
-    const facture = await fetch('/api/totauxglobaux/');
-    liste = await facture.json();
-    const rapport = await fetch('/api/nbrrapport');
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("global2").innerHTML = 0;
-    } else {
-        document.getElementById("global2").innerHTML = total_rapport;
-    }
-    if (typeof liste[0][0] !== 'number') {
-        document.getElementById("global1").innerHTML = 0;
-    } else {
-        document.getElementById("global1").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
-    }
-    if (typeof liste[0][1] !== 'number') {
-        document.getElementById("global3").innerHTML = 0;
-    } else {
-        document.getElementById("global3").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][1]);
-    }
-    if (typeof liste[0][2] !== 'number') {
-        document.getElementById("global4").innerHTML = 0;
-    } else {
-        document.getElementById("global4").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][2]);
-    }
-
-}
-
-async function getTotauxMonth() {
-    var liste = [];
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    const facture = await fetch('/api/totauxmonth/' + YYYY + '/' + MM);
-    liste = await facture.json();
-    const rapport = await fetch('/api/rapports/' + YYYY + '/' + MM);
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("month2").innerHTML = 0;
-    } else {
-        document.getElementById("month2").innerHTML = total_rapport;
-    }
-    if (typeof liste[0][0] !== 'number') {
-        document.getElementById("month1").innerHTML = 0;
-    } else {
-        document.getElementById("month1").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][0]);
-    }
-    if (typeof liste[0][1] !== 'number') {
-        document.getElementById("month3").innerHTML = 0;
-    } else {
-        document.getElementById("month3").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][1]);
-    }
-    if (typeof liste[0][2] !== 'number') {
-        document.getElementById("month4").innerHTML = 0;
-    } else {
-        document.getElementById("month4").innerHTML = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(liste[0][2]);
-    }
-}
-
-async function getTotauxDay() {
-    var liste = [];
-    var dt = new Date();
-    var DD = ("0" + dt.getDate()).slice(-2);
-    var MM = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var YYYY = dt.getFullYear();
-    var rapport_date = YYYY + "-" + MM + "-" + DD;
-    const facture = await fetch('/api/totauxday/' + YYYY + '/' + MM + '/' + DD);
-    liste = await facture.json();
-    const rapport = await fetch('/api/nbrrapport/' + rapport_date);
-    var total_rapport = await rapport.json();
-    if (typeof total_rapport !== 'number') {
-        document.getElementById("day2").innerHTML = 0;
-    } else {
-        document.getElementById("day2").innerHTML = total_rapport;
-    }
-    if (typeof liste[0][0] !== 'number') {
-        document.getElementById("day1").innerHTML = 0;
-    } else {
-        document.getElementById("day1").innerHTML = liste[0][0];
-    }
-    if (typeof liste[0][1] !== 'number') {
-        document.getElementById("day3").innerHTML = 0;
-    } else {
-        document.getElementById("day3").innerHTML = liste[0][1];
-    }
-    if (typeof liste[0][2] !== 'number') {
-        document.getElementById("day4").innerHTML = 0;
-    } else {
-        document.getElementById("day4").innerHTML = liste[0][2];
     }
 }
 

@@ -104,7 +104,7 @@ public class Rapportcr {
     private String apn;
     
     @Column(name = "ifu")
-    private int ifu;
+    private String ifu;
 
     @Column(name = "utilisation_apn")
     private String utilisation_apn;
@@ -123,8 +123,4 @@ public class Rapportcr {
 
     @Column(name = "revision_hw")
     private String revision_hw;
-
-    public Rapportcr() {
-    }
-
 }

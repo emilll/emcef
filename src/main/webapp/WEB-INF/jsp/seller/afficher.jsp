@@ -55,32 +55,6 @@
                         <h5 class="flex-fill"><a href="#">Tableau</a> de <span class="text-success">Bord</span></h5>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs d-none">
-                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse">
-
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <small><i class="fa fa-filter mr-1"></i>Filtre</small>
-                                    </a>
-                                    <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">NIM</a>
-                                        <a class="dropdown-item" href="#">Date d'Activation</a>
-                                        <a class="dropdown-item" href="#">Date d'enregistrement</a>
-                                        <a class="dropdown-item" href="#">Facture (Croissant)</a>
-                                        <a class="dropdown-item" href="#">Facture (Décroissant)</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
             </div>
             <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -118,6 +92,7 @@
                                             <thead class="border-bottom">
                                                 <tr>
                                                     <th scope="col">N°</th>
+                                                    <th scope="col">IFU Point de Vente</th>
                                                     <th scope="col">Nom Commercial</th>
                                                     <th scope="col">Adresse</th>
                                                     <th scope="col">Ville</th>
@@ -133,6 +108,9 @@
                                                 </tr>
                                                 <tr  v-for="seller in sellers" v-else>
                                                     <td>{{ seller.id }}</td>
+                                                    <td>
+                                                        <span class="text-dark">{{ seller.ifuseller }}</span>
+                                                    </td>
                                                     <td>
                                                         <span class="text-dark">{{ seller.nom_commercial }}</span>
                                                     </td>
@@ -153,7 +131,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a  :href="${contextPath}'/installation/' + seller.ifu_seller" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a  :href="${contextPath}'/installation/' + seller.ifuseller" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
