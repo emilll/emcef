@@ -99,7 +99,7 @@ public class ContribuableResController {
         return contribuableService.findAllByIfu(ifu);
     }
     
-    @GetMapping("/machineall/{ifu}")
+    @GetMapping("/toutesmachines/{ifu}")
     public List<JSONObject> find(@PathVariable(value = "ifu") String ifu){
         List<JSONObject> resultat = new ArrayList();
         for (JSONObject str : contribuableService.allMach(ifu)) {

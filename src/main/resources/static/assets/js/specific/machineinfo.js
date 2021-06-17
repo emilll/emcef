@@ -22,7 +22,6 @@ new Vue({
                 return response.json()
             }
         }).then(response => {
-            console.log(response)
             if(response.length!==0){
                 this.vide = false
                 this.factures = response

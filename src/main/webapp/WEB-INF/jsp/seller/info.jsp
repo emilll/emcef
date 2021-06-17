@@ -159,12 +159,10 @@
                                             <thead class="border-bottom">
                                                 <tr>
                                                     <th scope="col">N°</th>
-                                                    <th scope="col">UID</th>
-                                                    <th scope="col">IFU Client</th>
-                                                    <th scope="col">Nom et Prénom(s) Client</th>
+                                                    <th scope="col">NIM</th>
+                                                    <th scope="col">Date d'Activation</th>
                                                     <th scope="col">Date d'enregistrement</th>
-                                                    <th scope="col">Montant Total</th>
-                                                    <th scope="col">Montant remis</th>
+                                                    <th scope="col">Nombre de Factures</th>
                                                     <th scope="col">Statut</th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -173,33 +171,26 @@
                                                 <tr v-if="vide">
                                                     <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
-                                                <tr v-for="facture in factures" v-else>
-                                                    <td>{{ facture.id }}</td>
+                                                <tr  v-for="machine in machines" v-else>
+                                                    <td>{{ machine.id }}</td>
                                                     <td>
-                                                        <span class="text-success">{{ facture.uid }}</span>
+                                                        <span class="text-dark">{{ machine.nim }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.ifu_client }}</span>
+                                                        <span>{{ machine.date_activation }}</span>
                                                     </td>
                                                     <td>
-                                                        <span>{{ facture.nom_client }}</span>
+                                                        <span class="badge style_bg text-white">{{ machine.date_enregistrement }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.dateheure }}</span>
+                                                        <span class="text-success">{{ machine.nbrFact }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.total }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-dark">{{ facture.payed }}</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="text-success" v-if="facture.status">Validé</span>
-                                                        <span class="text-danger" v-else>Invalidée</span>
+                                                        <span class="text-success">{{ machine.status }}</span>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a :href="${contextPath}'/facture/' + facture.uid" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a :href="${contextPath}'/machine/' + machine.nim" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -28,7 +28,7 @@ public class FactureSelonSpecification implements Serializable  {
     private Date dateTime;
 
     @Column(name = "id_document")
-    private Integer id_document;
+    private String id_document;
 
     @Column(name = "id_fichier")
     private Integer id_fichier;
@@ -286,14 +286,6 @@ public class FactureSelonSpecification implements Serializable  {
     @Column(name = "tax_specifique_f")
     private double tax_specifique_f;
 
-    public String getIfu_seller() {
-        return ifuseller;
-    }
-
-    public void setIfu_seller(String ifu_seller) {
-        this.ifuseller = ifu_seller;
-    }
-
     public String getMethode() {
         return methode;
     }
@@ -334,11 +326,11 @@ public class FactureSelonSpecification implements Serializable  {
         this.dateTime = dateTime;
     }
 
-    public Integer getId_document() {
+    public String getId_document() {
         return id_document;
     }
 
-    public void setId_document(Integer id_document) {
+    public void setId_document(String id_document) {
         this.id_document = id_document;
     }
 

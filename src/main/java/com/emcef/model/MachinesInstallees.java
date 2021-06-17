@@ -80,6 +80,14 @@ public class MachinesInstallees implements Serializable {
     @OneToOne
     Installations id_installation;
 
+    public Installations getId_installation() {
+        return id_installation;
+    }
+
+    public void setId_installation(Installations id_installation) {
+        this.id_installation = id_installation;
+    }
+
     public int getId() {
         return id;
     }

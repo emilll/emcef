@@ -136,9 +136,6 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr v-if="vide">
-                                                    <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

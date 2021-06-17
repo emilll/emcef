@@ -34,6 +34,10 @@ public class MachineService {
     public MachinesInstallees findAllByNim(String nim) {
         return machineRepository.findAllByNim(nim);
     }
+    
+    public MachinesInstallees findAllByIfu(String ifu) {
+        return machineRepository.findAllByIfu(ifu);
+    }
 
     public List<JSONObject> allFact(String nim) {
         return machineRepository.allFact(nim);

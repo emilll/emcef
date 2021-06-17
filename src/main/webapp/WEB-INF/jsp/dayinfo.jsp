@@ -22,75 +22,33 @@
         <script type="text/javascript" src="../assets/js/aos.js"></script>
         <script src="../assets/js/slick.min.js"></script>
         <script src="../assets/js/Chart.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                setTimeout(function () {
+                    $('body').addClass('loaded');
+                    $('h1').css('color', '#222222')
+                }, 1000);
+
+            });
+        </script>
     </head>
 
     <body>
         <header id="header_top">
-            <nav class="navbar navbar-expand-lg navbar-dark style_bg p-0 fixed-top">
-                <div class="container-fluid position-relative">
-                    <div class="navbar-brand">
-                        <h4><a href="home.html" class="mr-3"><i class="fa fa-th-large"></i></a>Réglo</h4>
-                    </div>
-                    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto align-items-sm-center">
-                            <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-bell"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fa fa-user-clock"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-cog"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-comments"></i></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../assets/img/profilMan.jpg" width="35" height="35" class="rounded-circle border" alt="..."> Nom prénom
-                                </a>
-                                <div class="dropdown-menu ropdown-menu-right py-0 shadow" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Profil</a>
-                                    <div class="dropdown-divider my-0"></div>
-                                    <a class="dropdown-item" href="#">Déconnexion</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
+            <%@include  file="views/menu.jsp" %>
             <div class="mt-5 bg-white py-1 border-bottom">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <h5 class="flex-fill text-success" id="date"></h5>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <a class="btn btn-sm btn-danger mr-1" href="../">Retour</a>
-                        </div>
-                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContentDetail">
-                            <ul class="navbar-nav mx-auto">
-                                
-                            </ul>
-                            <ul class="navbar-nav ml-auto align-items-sm-center">
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <button class="btn btn-sm btn-secondary mr-1"><i class="fa fa-list-ol"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary mr-1"><i class="fa fa-calendar-alt"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary mr-1"><i class="fa fa-chart-area"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary mr-1"><i class="fa fa-clock"></i></button>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                
             </div>
             <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -197,22 +155,22 @@
 <h3 id="11" hidden="hidden"></h3>
 <h3 id="12" hidden="hidden"></h3>
 <script>
-    function convert (vet){
+    function convert(vet) {
         var today = new Date(vet);
-                var options = {year: 'numeric', month: 'long', day: 'numeric'};
-                var opt_weekday = {weekday: 'long'};
-                function toTitleCase(str) {
-                    return str.replace(
-                            /\w\S*/g,
-                            function (txt) {
-                                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                            }
-                    );
-                }
+        var options = {year: 'numeric', month: 'long', day: 'numeric'};
+        var opt_weekday = {weekday: 'long'};
+        function toTitleCase(str) {
+            return str.replace(
+                    /\w\S*/g,
+                    function (txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    }
+            );
+        }
 
-                var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
-                var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
-                return the_date;
+        var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
+        var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
+        return the_date;
     }
     var chemin = window.location.pathname;
     var splits = chemin.split("/", 3);

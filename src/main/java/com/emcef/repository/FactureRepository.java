@@ -6,8 +6,7 @@
 package com.emcef.repository;
 
 import com.emcef.model.FactureSelonSpecification;
-import com.emcef.request.ItemDto;
-import com.emcef.request.PaymentDto;
+import com.emcef.model.LigneDeFacture;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -30,6 +29,9 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     //Interface Générale
     @Query(value = "SELECT count(*) FROM factureselonspecification n", nativeQuery = true)
     long nbrFact();
+    
+//    @Query(value = "SELECT * FROM lignedefacture n WHERE n.facture_id =:id", nativeQuery = true)
+//    List<LigneDeFacture> lesarticles(@Param("id") int id);
 
     @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification", nativeQuery = true)
     Double getTotalTTC();
@@ -82,44 +84,19 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT f.dateheure,COUNT(*) FROM factureselonspecification f GROUP BY f.dateheure", nativeQuery = true)
     public List<Object[]> getNbreFactureByDate();
 
-    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) as nbre, SUM(f.total) as totalTTC, SUM(f.total_taxable) as totalHT, SUM(f.total_tax) as totalTVA FROM factureselonspecification f", nativeQuery = true)
     public JSONObject getTotauxGlobaux();
 
-    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT, SUM(f.total_tax) as totalTVA FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month", nativeQuery = true)
     public JSONObject getTotauxMonth(@Param("year") int year, @Param("month") int month);
 
-    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT, SUM(f.total_tax) as totalTVA FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
     public JSONObject getTotauxDay(@Param("year") int year, @Param("month") int month, @Param("day") int day);
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day AND ifu =:ifu", nativeQuery = true)
     public Object[] getEntTotauxDay(@Param("year") int year, @Param("month") int month, @Param("day") int day, @Param("ifu") int ifu);
 
     //Début API Demande de facture
-    @Transactional
-    @Modifying
-    @Query(value = "insert into factureselonspecification (methode, payed, nim, dateheure, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total, status) values (:methode, :payed, :nim, :dateheure, :uid, :id, :ifu, :type, :contact1_client, :ifu_client, :nom_client, :adresse1_client, :operateur, :operateur_id, :taux_tax_a, :taux_tax_b, :taux_tax_c, :taux_tax_d, :total_a, :total_b, :total_c, :total_d, :total_e, :total_f, :taxable_b, :taxable_d, :total_tax_b, :total_tax_d, :total, false)", nativeQuery = true)
-    void setFacture(@Param("method") String method, @Param("payed") int payed, @Param("nim") String nim, @Param("dateheure") Date date, @Param("uid") String uid, @Param("id") long id, @Param("ifu") String ifu, @Param("type") String type, @Param("contact1_client") String contact1_client, @Param("ifu_client") String ifu_client, @Param("nom_client") String nom_client, @Param("adresse1_client") String adresse1_client, @Param("operateur") String operateur, @Param("operateur_id") String operateur_id, @Param("taux_tax_a") int taux_tax_a, @Param("taux_tax_b") int taux_tax_b, @Param("taux_tax_c") int taux_tax_c, @Param("taux_tax_d") int taux_tax_d, @Param("total_a") double total_a, @Param("total_b") double total_b, @Param("total_c") double total_c, @Param("total_d") double total_d, @Param("total_e") double total_e, @Param("total_f") double total_f, @Param("taxable_b") double taxable_b, @Param("taxable_d") double taxable_d, @Param("total_tax_b") double total_tax_b, @Param("total_tax_d") double total_tax_d, @Param("total") double total);
-
-    @Query(value = "SELECT a, b, c, d FROM taxesgroupes", nativeQuery = true)
-    JSONObject getTaxGroup();
-
-    @Query(value = "select id from factureselonspecification order by id DESC limit 1", nativeQuery = true)
-    int getLastId();
-
-    @Transactional
-    @Modifying
-    @Query(value = "insert into lignedefacture (code, amount, amounttaxable, name, price, pricetaxable, quantity, taxratelabel, tax, taxamount, facture_id) values (:code, :amount, :amounttaxable, :name, :price, :pricetaxable, :quantity, :taxratelabel, :tax, :taxamount, :facture_id)", nativeQuery = true)
-    void setLigneFacture(@Param("code") String code, @Param("amount") double amount, @Param("amounttaxable") double amounttaxable, @Param("name") String name, @Param("price") double price, @Param("pricetaxable") double pricetaxable, @Param("quantity") double quantity, @Param("taxratelabel") String taxratelabel, @Param("tax") int tax, @Param("taxamount") double taxamount, @Param("facture_id") int facture_id);
-
-    @Query(value = "select * from factureselonspecification WHERE id = :id", nativeQuery = true)
-    JSONObject getAllFacture(@Param("id") int id);
-
-    @Query(value = "SELECT nim FROM  machineinstallees u WHERE u.ifu =:ifu", nativeQuery = true)
-    String actualNim(@Param("ifu") String ifu);
-
-    @Query(value = "SELECT ifu FROM  utilisateurs u WHERE u.username =:user", nativeQuery = true)
-    String getIfu(@Param("user") String username);
-
     //Fin API Demande de facture
     
     
@@ -166,4 +143,8 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     //Fin API demande de détails sur une facture en attente
 
     public List<FactureSelonSpecification> findAllByIfuseller(String ifu_seller);
+
+    public FactureSelonSpecification findAllByUid(String uid);
+
+    public FactureSelonSpecification findById(int id);
 }

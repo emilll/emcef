@@ -12,7 +12,7 @@ package com.emcef.request;
  */
 public class PaymentDto {
     private String name;
-    private int amount;
+    private Long amount;
 
     public String getName() {
         return name;
@@ -22,11 +22,11 @@ public class PaymentDto {
         this.name = name;
     }
 
-    public int getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 }

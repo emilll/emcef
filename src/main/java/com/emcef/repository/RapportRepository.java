@@ -31,7 +31,7 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer> {
     @Query(value = "SELECT nim FROM  machineinstallees u WHERE u.ifu =:ifu", nativeQuery = true)
     String getNim(@Param("ifu") String ifu);
 
-    @Query(value = "SELECT count(*) FROM  factureselonspecification u WHERE u.en_attente = false", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM  factureselonspecification u WHERE u.status = false", nativeQuery = true)
     int getCountPending();
 
     @Query(value = "SELECT dateheure date, uid FROM  factureselonspecification u WHERE u.status = false", nativeQuery = true)

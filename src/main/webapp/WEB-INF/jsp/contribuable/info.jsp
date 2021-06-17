@@ -159,7 +159,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="machine in machines">
+                                                <tr v-if="vide">
+                                                    <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
+                                                </tr>
+                                                <tr v-for="machine in machines" v-else>
                                                     <td>{{ machine.id }}</td>
                                                     <td>
                                                         <span class="text-success">{{ machine.nim }}</span>
@@ -181,9 +184,6 @@
                                                             <a :href="${contextPath}'/machine/' + machine.nim" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr v-if="vide">
-                                                    <td colspan="6"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>

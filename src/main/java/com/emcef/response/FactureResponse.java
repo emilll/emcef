@@ -17,19 +17,127 @@ public class FactureResponse {
     private int tb;
     private int tc;
     private int td;
+    private int te;
+    private int tf;
     private double taa;
     private double tab;
     private double tac;
     private double tad;
     private double tae;
     private double taf;
+    private double haa;
     private double hab;
+    private double hac;
     private double had;
+    private double hae;
+    private double haf;
+    private double vaa;
     private double vab;
+    private double vac;
     private double vad;
+    private double vae;
+    private double vaf;
     private double aib;
     private double ts;
+    private double tva;
+    private double ht;
     private double total;
+
+    public int getTe() {
+        return te;
+    }
+
+    public void setTe(int te) {
+        this.te = te;
+    }
+
+    public int getTf() {
+        return tf;
+    }
+
+    public void setTf(int tf) {
+        this.tf = tf;
+    }
+
+    public double getHaa() {
+        return haa;
+    }
+
+    public void setHaa(double haa) {
+        this.haa = haa;
+    }
+
+    public double getHac() {
+        return hac;
+    }
+
+    public void setHac(double hac) {
+        this.hac = hac;
+    }
+
+    public double getHae() {
+        return hae;
+    }
+
+    public void setHae(double hae) {
+        this.hae = hae;
+    }
+
+    public double getHaf() {
+        return haf;
+    }
+
+    public void setHaf(double haf) {
+        this.haf = haf;
+    }
+
+    public double getVaa() {
+        return vaa;
+    }
+
+    public void setVaa(double vaa) {
+        this.vaa = vaa;
+    }
+
+    public double getVac() {
+        return vac;
+    }
+
+    public void setVac(double vac) {
+        this.vac = vac;
+    }
+
+    public double getVae() {
+        return vae;
+    }
+
+    public void setVae(double vae) {
+        this.vae = vae;
+    }
+
+    public double getVaf() {
+        return vaf;
+    }
+
+    public void setVaf(double vaf) {
+        this.vaf = vaf;
+    }
+
+    public double getTva() {
+        return tva;
+    }
+
+    public void setTva(double tva) {
+        this.tva = tva;
+    }
+
+    public double getHt() {
+        return ht;
+    }
+
+    public void setHt(double ht) {
+        this.ht = ht;
+    }
 
     public String getUid() {
         return uid;

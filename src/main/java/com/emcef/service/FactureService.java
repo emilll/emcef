@@ -6,6 +6,7 @@
 package com.emcef.service;
 
 import com.emcef.model.FactureSelonSpecification;
+import com.emcef.model.LigneDeFacture;
 import com.emcef.repository.FactureRepository;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,10 @@ public class FactureService {
 
     @Autowired
     FactureRepository factureRepository;
+
+    public FactureSelonSpecification findAllByUid(String uid) {
+        return factureRepository.findAllByUid(uid);
+    }
 
     public Double totalTTC() {
         return factureRepository.getTotalTTC();
@@ -116,32 +121,8 @@ public class FactureService {
     }
 
     //Début API Demande de facture
-    public JSONObject getTaxGroup() {
-        return factureRepository.getTaxGroup();
-    }
-
-    public void setFacture(String methode, int payed, String nim, Date date, String uid, long id, String ifu, String type, String contact1_client, String ifu_client, String nom_client, String adresse1_client, String operateur, String operateur_id, int taux_tax_a, int taux_tax_b, int taux_tax_c, int taux_tax_d, double total_a, double total_b, double total_c, double total_d, double total_e, double total_f, double taxable_b, double taxable_d, double total_tax_b, double total_tax_d, double total) {
-        factureRepository.setFacture(methode, payed, nim, date, uid, id, ifu, type, contact1_client, ifu_client, nom_client, adresse1_client, operateur, operateur_id, taux_tax_a, taux_tax_b, taux_tax_c, taux_tax_d, total_a, total_b, total_c, total_d, total_e, total_f, taxable_b, taxable_d, total_tax_b, total_tax_d, total);
-    }
-
-    public void setLigneFacture(String code, double amount, double amounttaxable, String name, double price, double pricetaxable, double quantity, String taxratelabel, int tax, double taxamount, int facture_id) {
-        factureRepository.setLigneFacture(code, amount, amounttaxable, name, price, pricetaxable, quantity, taxratelabel, tax, taxamount, facture_id);
-    }
-
-    public int getLastId() {
-        return factureRepository.getLastId();
-    }
-
-    public JSONObject getAllFacture(int id) {
-        return factureRepository.getAllFacture(id);
-    }
-
-    public String actualNim(String ifu) {
-        return factureRepository.actualNim(ifu);
-    }
-
-    public String getIfu(String username) {
-        return factureRepository.getIfu(username);
+    public void saveFacture(FactureSelonSpecification facture) {
+        factureRepository.save(facture);
     }
     //Fin API Demande de facture
 
@@ -195,5 +176,9 @@ public class FactureService {
 
     public List<FactureSelonSpecification> tout() {
         return factureRepository.findAll();
+    }
+
+    public FactureSelonSpecification findById(int position) {
+        return factureRepository.findById(position);
     }
 }

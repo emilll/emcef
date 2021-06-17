@@ -64,8 +64,9 @@ public class RapportResController {
             valid = jwtUtility.getExpirationDateFromToken(token);
             ifu = rapportService.ifu(userName);
         }
-        List<JSONObject> valeur = new ArrayList<JSONObject>();
+        List<JSONObject> valeur = new ArrayList<>();
         valeur = rapportService.pending();
+        statutResponse.setStatus(true);
         statutResponse.setIfu(ifu);
         statutResponse.setNim(rapportService.nim(ifu));
         statutResponse.setVersion(rapportService.version(ifu));

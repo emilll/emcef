@@ -2,35 +2,16 @@ new Vue({
     el: '#appinfo',
     data: {
         valeur: window.location.pathname.split("/", 3),
-        factures: [],
+        machines: [],
         montant: [],
         info: [],
         vide: true,
     },
-    methods:{
-        ifu: function(){
-        },
-    },
     mounted() {
-        fetch('/api/sellerfactures/' + this.valeur[2], {
+        fetch('/api/installationinfo/' + this.valeur[2], {
             "method": "GET",
             "headers": {}
         }).then(response => {
-            if (response.ok) {
-                return response.json()
-            }
-        }).then(response => {
-            if(response.length!==0){
-                this.vide = false
-                this.factures = response
-            }
-        }).catch(error => {
-            console.log(error)
-        }),
-        fetch('/api/installationinfo/' + this.valeur[2], {
-                    "method": "GET",
-                    "headers": {}
-                }).then(response => {
             if (response.ok) {
                 return response.json()
             }
@@ -39,7 +20,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-        fetch('/api/installationmontant/' + this.valeur[2], {
+                fetch('/api/installationmontant/' + this.valeur[2], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -48,6 +29,21 @@ new Vue({
             }
         }).then(response => {
             this.montant = response
+        }).catch(error => {
+            console.log(error)
+        }),
+                fetch('/api/onemachine/' + this.valeur[2], {
+                    "method": "GET",
+                    "headers": {}
+                }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            if (response.length !== 0) {
+                this.vide = false
+                this.machines = response
+            }
         }).catch(error => {
             console.log(error)
         })

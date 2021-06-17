@@ -33,13 +33,13 @@ public class User {
     private String email;
     
     @Column(name = "ifu", nullable = false, unique = true)
-    private int ifu;
+    private String ifu;
 
-    public int getIfu() {
+    public String getIfu() {
         return ifu;
     }
 
-    public void setIfu(int ifu) {
+    public void setIfu(String ifu) {
         this.ifu = ifu;
     }
 

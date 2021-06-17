@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class SellerRestController {
+public class SellerResController {
     @Autowired
     SellerService sellerService;
     
@@ -41,8 +41,8 @@ public class SellerRestController {
         return sellerService.montant(ifuseller);
     }
     
-    @GetMapping("/sellerfactures/{ifu_seller}")
-    public List<FactureSelonSpecification> allBills(@PathVariable(value = "ifu_seller") String ifu_seller){
-        return sellerService.allByIfuseller(ifu_seller);
+    @GetMapping("/findsellerbyifu/{ifuseller}")
+    public Installations find(@PathVariable(value = "ifuseller") String ifuseller){
+        return sellerService.allInfo(ifuseller);
     }
 }

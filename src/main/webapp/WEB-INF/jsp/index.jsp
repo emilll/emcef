@@ -79,11 +79,11 @@
                                         <div class="col-sm-6 col-lg-3">
                                             <div class="media bg-white p-3 m-2">
                                                 <h1 class="pr-3">
-                                                    <a href="#"><i class="fa fa-file-invoice"></i></a>
+                                                    <div href="#"><i class="fa fa-file-invoice"></i></div>
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="#">Factures Traitées</a>
+                                                        <div href="#">Factures Traitées</div>
                                                     </h6>
                                                     <h4 class="font-weight-bolder">{{ banniere.traités }}</h4>
                                                 </div>
@@ -92,11 +92,11 @@
                                         <div class="col-sm-6 col-lg-3">
                                             <div class="media bg-white text-muted p-3 m-2">
                                                 <h1 class="pr-3">
-                                                    <a href="#"><i class="fa fa-file-invoice"></i></a>
+                                                    <div href="#"><i class="fa fa-file-invoice"></i></div>
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="#">Factures en attente</a>
+                                                        <div href="#">Factures en attente</div>
                                                     </h6>
                                                     <h4 class="font-weight-bolder">{{ banniere.attente }}</h4>
                                                 </div>
@@ -105,24 +105,24 @@
                                         <div class="col-sm-6 col-lg-3">
                                             <div class="media bg-white p-3 m-2">
                                                 <h1 class="pr-3">
-                                                    <a href=""><i class="fa fa-clock"></i></a>
+                                                    <div href=""><i class="fa fa-clock"></i></div>
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="">Machines Connectées</a>
+                                                        <div href="">Machines Virtuelles Connectées</div>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder">15</h4>
+                                                    <h4 class="font-weight-bolder"><animated-number :number="banniere.attente"></animated-number></h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-lg-3">
                                             <div class="media bg-white text-muted p-3 m-2">
                                                 <h1 class="pr-3">
-                                                    <a href=""><i class="fa fa-file-alt"></i></a>
+                                                    <div href=""><i class="fa fa-file-alt"></i></div>
                                                 </h1>
                                                 <div class="media-body">
                                                     <h6 class="my-0">
-                                                        <a href="">Rapports Traités</a>
+                                                        <div href="">Rapports Traités</div>
                                                     </h6>
                                                     <h4 class="font-weight-bolder">{{ banniere.rapports }}</h4>
                                                 </div>
@@ -160,7 +160,7 @@
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur1.totaltva) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                     </tr>
@@ -177,7 +177,7 @@
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur2.totaltva) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                     </tr>
@@ -194,7 +194,7 @@
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>0</h5>
+                                                            <h5>{{ verification(valeur3.totaltva) }}</h5>
                                                             <h5 class="badge badge-dark">FCF A</h5>
                                                         </td>
                                                     </tr>
@@ -518,7 +518,7 @@
                             '<h2 class="text-dark mb-3">Recherche Point de vente</h2>' +
                             '<div class="row">' +
                             '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
+                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU Point de Vente">' +
                             '</div>' +
                             '</div>' +
                             '</div>' +
@@ -552,7 +552,7 @@
                     allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
                     if (result.value.ifuseller !== null ) {
-                        window.location.href = "/seller/" + result.value.ifu;
+                        window.location.href = "/installation/" + result.value.ifuseller;
                     }
                     if(result.value.ifuseller===null){
                     Swal.fire({

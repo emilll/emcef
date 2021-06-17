@@ -6,6 +6,9 @@
 package com.emcef.RestController;
 
 import com.emcef.model.FactureSelonSpecification;
+import com.emcef.model.LigneDeFacture;
+import com.emcef.model.MachinesInstallees;
+import com.emcef.model.TaxeGroupes;
 import com.emcef.model.User;
 import com.emcef.request.ClientDto;
 import com.emcef.request.FactureRequest;
@@ -15,8 +18,11 @@ import com.emcef.request.PaymentDto;
 import com.emcef.response.FactureResponse;
 import com.emcef.response.FinalFactureResponse;
 import com.emcef.service.FactureService;
+import com.emcef.service.LigneDeFactureService;
+import com.emcef.service.MachineService;
 import com.emcef.service.UserService;
 import com.emcef.service.RapportService;
+import com.emcef.service.TaxesService;
 import com.emcef.utility.JWTUtility;
 import com.emcef.utility.JwtRequest;
 import com.emcef.utility.JwtResponse;
@@ -54,10 +60,19 @@ public class FactureResController {
     FactureService factureService;
 
     @Autowired
+    TaxesService taxesService;
+
+    @Autowired
     UserService userService;
 
     @Autowired
     RapportService rapportService;
+
+    @Autowired
+    MachineService machineService;
+    
+    @Autowired
+    LigneDeFactureService ligneDeFactureService;
 
     @Autowired
     private JWTUtility jwtUtility;
@@ -83,6 +98,33 @@ public class FactureResController {
                     .charAt(index));
         }
         return sb.toString();
+    }
+
+    String numero(int valeur) {
+        String val = Integer.toString(valeur);
+        String padded = "";
+        if (val.length() == 0) {
+            padded = String.format("%05d", 1);
+        }
+        if (val.length() == 1) {
+            padded = String.format("%05d", valeur);
+        }
+        if (val.length() == 2) {
+            padded = String.format("%04d", valeur);
+        }
+        if (val.length() == 3) {
+            padded = String.format("%03d", valeur);
+        }
+        if (val.length() == 4) {
+            padded = String.format("%02d", valeur);
+        }
+        if (val.length() == 5) {
+            padded = String.format("%01d", valeur);
+        }
+        if (val.length() == 6) {
+            padded = val;
+        }
+        return padded;
     }
 
     public String transform(int valeur) {
@@ -144,7 +186,7 @@ public class FactureResController {
         factureService.Payement(uid).stream().map((plus) -> {
             PaymentDto donnee = new PaymentDto();
             donnee.setName((String) plus.get("name"));
-            donnee.setAmount((int) plus.get("amount"));
+            donnee.setAmount((Long) plus.get("amount"));
             return donnee;
         }).forEachOrdered((donnee) -> {
             payment.add(donnee);
@@ -192,7 +234,7 @@ public class FactureResController {
             code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
             datetime = transform(date.getDate()) + "/" + transform(date.getMonth() + 1) + "/" + transform(date.getYear() + 1900) + " " + transform(date.getHours()) + ":" + transform(date.getMinutes()) + ":" + transform(date.getSeconds());
             nim = factureService.getNim(uid);
-            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + factureService.getIfu(userName) + ";" + transform(date.getYear() + 1900) + transform(date.getMonth() + 1) + transform(date.getDate()) + transform(date.getHours()) + transform(date.getMinutes()) + transform(date.getSeconds());
+            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(date.getYear() + 1900) + transform(date.getMonth() + 1) + transform(date.getDate()) + transform(date.getHours()) + transform(date.getMinutes()) + transform(date.getSeconds());
             factureService.setFactureNormalisee(code, counters, datetime, nim, qrcode, id);
             finalFactureResponse.setCodeMECeFDGI(code);
             finalFactureResponse.setCounters(counters);
@@ -249,128 +291,219 @@ public class FactureResController {
         }
 
         double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
-        JSONObject tax = factureService.getTaxGroup();
-        int tax_a = (int) tax.get("a"), tax_b = (int) tax.get("b"), tax_c = (int) tax.get("c"), tax_d = (int) tax.get("d");
+        FactureSelonSpecification facture = new FactureSelonSpecification();
+        //FactureNormalisee normale = null;
+        User user = userService.getUser(userName);
+        MachinesInstallees machine = machineService.findAllByIfu(user.getIfu());
+        TaxeGroupes tax = taxesService.findAllById(1L);
+        int tax_a = tax.getA(), tax_b = tax.getB(), tax_c = tax.getC(), tax_d = tax.getD(), tax_e = tax.getE(), tax_f = tax.getF();
         Date maintenant = new Date();
         String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
-        int position = factureService.getLastId() + 1;
+        int position = factureService.tout().size() + 1;
         int taxe = 0;
 
         for (ItemDto str : factureRequest.getItems()) {
-            if ("A".equals(str.getTaxGroup())) {
+            if ("A".equalsIgnoreCase(str.getTaxGroup())) {
                 taa = taa + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            if ("B".equals(str.getTaxGroup())) {
+            if ("B".equalsIgnoreCase(str.getTaxGroup())) {
                 tab = tab + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            if ("C".equals(str.getTaxGroup())) {
+            if ("C".equalsIgnoreCase(str.getTaxGroup())) {
                 tac = tac + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            if ("D".equals(str.getTaxGroup())) {
+            if ("D".equalsIgnoreCase(str.getTaxGroup())) {
                 tad = tad + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            if ("E".equals(str.getTaxGroup())) {
+            if ("E".equalsIgnoreCase(str.getTaxGroup())) {
                 tae = tae + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            if ("F".equals(str.getTaxGroup())) {
+            if ("F".equalsIgnoreCase(str.getTaxGroup())) {
                 taf = taf + str.getPrice() * str.getQuantity();
+                total = total + str.getPrice() * str.getQuantity();
             }
-            total = total + (str.getPrice() * str.getQuantity());
         }
 
         String methode = "";
-        int montant = 0;
+        Long montant = 0L;
 
         for (PaymentDto pay : factureRequest.getPayment()) {
             montant = pay.getAmount();
             methode = pay.getName();
         }
 
-        factureService.setFacture(
-                methode,
-                montant,
-                factureService.actualNim(factureService.getIfu(userName)),
-                maintenant,
-                uid,
-                position,
-                factureRequest.getIfu(),
-                factureRequest.getType(),
-                factureRequest.getClient().getContact(),
-                factureRequest.getClient().getIfu(),
-                factureRequest.getClient().getName(),
-                factureRequest.getClient().getAddress(),
-                factureRequest.getOperator().getName(),
-                factureRequest.getOperator().getId(),
-                tax_a,
-                tax_b,
-                tax_c,
-                tax_d,
-                taa,
-                tab,
-                tac,
-                tad,
-                tae,
-                taf,
-                tab - (tab * (tax_b * 0.01)),
-                tad - (tad * (tax_d * 0.01)),
-                tab * (tax_b * 0.01),
-                tad * (tax_d * 0.01),
-                total
-        );
+        facture.setAdresse1(machine.getId_installation().getAdresse());
+        facture.setAdresse1_client(factureRequest.getClient().getAddress());
+        facture.setAdresse2(machine.getId_installation().getAdresse1());
+        facture.setAdresse2_client(userName);
+        facture.setAdresse3(machine.getId_installation().getEmail());
+        facture.setAib(0);
+        facture.setCalcul(true);
+        facture.setCompteur_schema_controleur(0);
+        facture.setCompteur_total_controuleur(0);
+        facture.setContact1(machine.getId_installation().getTelephone());
+        facture.setContact1_client(factureRequest.getClient().getContact());
+        facture.setContact2(machine.getId_installation().getContact_personnel());
+        facture.setContact2_client("");
+        facture.setControle_identifaction("");
+        facture.setDateTime(maintenant);
+        facture.setDate_controleur(maintenant);
+        facture.setDate_heure_controleur(maintenant);
+        facture.setDate_requette(maintenant);
+        facture.setDonneecontrole_controleur("");
+        //facture.setFactureNormalisee(normale);
+       // facture.setId(position);
+        facture.setId_document(numero(factureService.getAllFactureSelonSpecification().size()));
+        facture.setId_fichier(0);
+        facture.setIfu_client(factureRequest.getClient().getIfu());
+        facture.setIfuseller(factureRequest.getIfu());
+        facture.setInfo_date(maintenant);
+        facture.setMethode(methode);
+        facture.setMontant_aib(0);
+        facture.setMontant_payement(0);
+        facture.setNim(machineService.findAllByIfu(user.getIfu()).getNim());
+        facture.setNom_client(factureRequest.getClient().getName());
+        facture.setNom_commercial(methode);
+        facture.setNumero_execution(0);
+        facture.setOperateur(factureRequest.getOperator().getName());
+        facture.setOperateur_id(factureRequest.getOperator().getId());
+        facture.setPayed(montant);
+        facture.setPayement("");
+        facture.setStatus(Boolean.FALSE);
+        facture.setTaux_tax_a(tax_a);
+        facture.setTaux_tax_b(tax_b);
+        facture.setTaux_tax_c(tax_c);
+        facture.setTaux_tax_d(tax_d);
+        facture.setTauxtax_e(tax_e);
+        facture.setTauxtax_f(tax_f);
+        facture.setTax_specifique_a(0);
+        facture.setTax_specifique_b(0);
+        facture.setTax_specifique_c(0);
+        facture.setTax_specifique_d(0);
+        facture.setTax_specifique_e(0);
+        facture.setTax_specifique_f(0);
+        facture.setTaxable_a(taa - (taa * (tax_a * 0.01)));
+        facture.setTaxable_b(tab - (tab * (tax_b * 0.01)));
+        facture.setTaxable_c(tac - (tac * (tax_c * 0.01)));
+        facture.setTaxable_d(tad - (tad * (tax_d * 0.01)));
+        facture.setTaxable_e(tae - (tae * (tax_e * 0.01)));
+        facture.setTaxable_f(taf - (taf * (tax_f * 0.01)));
+        facture.setTotal(total);
+        facture.setTotal_a(taa);
+        facture.setTotal_b(tab);
+        facture.setTotal_c(tac);
+        facture.setTotal_d(tad);
+        facture.setTotal_e(tae);
+        facture.setTotal_f(taf);
+        facture.setTotal_tax(0);
+        facture.setTotal_tax_a(taa * (tax_a * 0.01));
+        facture.setTotal_tax_b(tab * (tax_b * 0.01));
+        facture.setTotal_tax_c(tac * (tax_c * 0.01));
+        facture.setTotal_tax_d(tad * (tax_d * 0.01));
+        facture.setTotal_tax_e(tae * (tax_e * 0.01));
+        facture.setTotal_tax_f(taf * (tax_f * 0.01));
+        facture.setTotal_tax_specifique(0);
+        facture.setTotal_taxable(0);
+        facture.setType(factureRequest.getType());
+        facture.setType_machine(methode);
+        facture.setUid(uid);
+
+        factureService.saveFacture(facture);
 
         String group = "";
         for (ItemDto str : factureRequest.getItems()) {
 
-            if ("A".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("a");
+            if ("A".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getA();
                 group = "A";
             }
-            if ("B".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("a");
+            if ("B".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getB();
                 group = "B";
             }
-            if ("C".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("c");
+            if ("C".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getC();
                 group = "C";
             }
-            if ("D".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("d");
+            if ("D".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getD();
                 group = "D";
             }
-            if ("E".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("e");
+            if ("E".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getE();
                 group = "E";
             }
-            if ("F".equals(str.getTaxGroup())) {
-                taxe = (int) tax.get("f");
+            if ("F".equalsIgnoreCase(str.getTaxGroup())) {
+                taxe = tax.getF();
                 group = "F";
             }
             double mont = str.getPrice() * str.getQuantity();
             double ht = mont - (mont * (taxe / 100));
-            factureService.setLigneFacture(str.getCode(), str.getPrice() * str.getQuantity(), ht, str.getName(), str.getPrice(), str.getPrice() * (taxe / 100), str.getQuantity(), group, taxe, mont * (taxe / 100), position);
+            LigneDeFacture article = new LigneDeFacture();
+            article.setAmount(mont);
+            article.setAmounttaxable(ht);
+            article.setCode(str.getCode());
+            article.setFacture(facture);
+            article.setId(position);
+            article.setIslabel(true);
+            article.setIsts(false);
+            article.setModifiername(userName);
+            article.setModifiervalue(userName);
+            article.setName(str.getName());
+            article.setOrdinalnumber(taxe);
+            article.setOriginalprice(str.getPrice());
+            article.setPrice(str.getPrice());
+            article.setPricetaxable(str.getPrice() * (taxe / 100));
+            article.setQuantity(str.getQuantity());
+            article.setTax(taxe);
+            article.setTaxamount(mont * (taxe / 100));
+            article.setTaxrate(0);
+            article.setTaxratelabel(group);
+            article.setTsamount(0);
+            article.setTsamounttaxable(0);
+            article.setTsprice(0);
+            article.setTspricetaxable(0);
+            article.setTstax(0);
+            article.setTstaxamount(0);
+            ligneDeFactureService.saveArticle(article);
         }
 
-        JSONObject reponse = factureService.getAllFacture(position);
         FactureResponse last = new FactureResponse();
-
         last.setUid(uid);
-        last.setTa((int) reponse.get("taux_tax_a"));
-        last.setTb((int) reponse.get("taux_tax_b"));
-        last.setTc((int) reponse.get("taux_tax_c"));
-        last.setTd((int) reponse.get("taux_tax_d"));
-        last.setTaa((double) reponse.get("total_a"));
-        last.setTab((double) reponse.get("total_b"));
-        last.setTac((double) reponse.get("total_c"));
-        last.setTad((double) reponse.get("total_d"));
-        last.setTae((double) reponse.get("total_e"));
-        last.setTaf((double) reponse.get("total_f"));
-        last.setHab((double) reponse.get("taxable_b"));
-        last.setHad((double) reponse.get("taxable_d"));
-        last.setVab((double) reponse.get("total_tax_b"));
-        last.setVad((double) reponse.get("total_tax_d"));
+        last.setTa(facture.getTaux_tax_a());
+        last.setTb(facture.getTaux_tax_b());
+        last.setTc(facture.getTaux_tax_c());
+        last.setTd(facture.getTaux_tax_d());
+        last.setTc(facture.getTauxtax_e());
+        last.setTd(facture.getTauxtax_f());
+        last.setTaa(facture.getTotal_a());
+        last.setTab(facture.getTotal_b());
+        last.setTac(facture.getTotal_c());
+        last.setTad(facture.getTotal_d());
+        last.setTae(facture.getTotal_e());
+        last.setTaf(facture.getTotal_f());
+        last.setHaa(facture.getTaxable_a());
+        last.setHab(facture.getTaxable_b());
+        last.setHac(facture.getTaxable_c());
+        last.setHad(facture.getTaxable_d());
+        last.setHae(facture.getTaxable_e());
+        last.setHaf(facture.getTaxable_f());
+        last.setVaa(facture.getTotal_tax_a());
+        last.setVab(facture.getTotal_tax_b());
+        last.setVac(facture.getTotal_tax_c());
+        last.setVad(facture.getTotal_tax_d());
+        last.setVae(facture.getTotal_tax_e());
+        last.setVaf(facture.getTotal_tax_f());
+        last.setHt(facture.getTotal_taxable());
+        last.setTva(facture.getTotal_tax());
         last.setAib(0);
         last.setTs(0);
-        last.setTotal((double) reponse.get("total"));
+        last.setTotal(facture.getTotal());
 
         /* try {
         } catch (BadCredentialsException e) {
