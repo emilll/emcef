@@ -14,6 +14,7 @@ import com.emcef.service.LigneDeFactureService;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -54,22 +55,22 @@ public class IndexController {
 
     @Autowired
     ContribuableService contribuableService;
-    
+
     @Autowired
     FactureService factureService;
-    
+
     @Autowired
     LigneDeFactureService ligneDeFactureService;
-    
+
     @GetMapping("/export")
-    public String export() throws JRException, FileNotFoundException {
+    public String export() throws JRException, FileNotFoundException, IOException {
         FactureSelonSpecification facture = factureService.findAllByUid("LYpZzSLX-hC7h-Uyzh-TQxR-vfkDkuMaZAlz");
         createPdfReport(ligneDeFactureService.articles(facture), facture);
         return "redirect:/";
     }
-    
+
     // Method to create the pdf file using the employee list datasource.
-    private void createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture) throws JRException, FileNotFoundException {
+    private void createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture) throws JRException, FileNotFoundException, IOException {
         DateTime time = new DateTime();
         File file = ResourceUtils.getFile("classpath:facture.jrxml");
         JasperReport liste = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -90,7 +91,7 @@ public class IndexController {
         parameters.put("ttc", "0");
         parameters.put("tva", "0");
         parameters.put("ht", "0");
-        parameters.put("qr", facture.getFactureNormalisee().getQrCode()+"emmanuel");
+        parameters.put("qr", facture.getFactureNormalisee().getQrCode() + "emmanuel");
         parameters.put("code", facture.getFactureNormalisee().getCodeMECeFDGI());
         parameters.put("finaldate", facture.getFactureNormalisee().getDateTime());
         parameters.put("remise", "0");
@@ -102,8 +103,10 @@ public class IndexController {
         parameters.put("shorttva", "0");
         parameters.put("nim", facture.getNim());
         parameters.put("parts", ds);
-        String path = "E:/Facture"+time.toYearMonthDay()+"-"+time.getHourOfDay()+"H"+time.getMinuteOfHour()+"M"+time.getSecondOfMinute()+".pdf";
+        String path = "E:/Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
         JasperPrint impression = JasperFillManager.fillReport(liste, parameters, new JREmptyDataSource());
+        File pdf = File.createTempFile("Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute(), ".pdf");
+        JasperExportManager.exportReportToPdfStream(impression, new FileOutputStream(pdf));
         JasperExportManager.exportReportToPdfFile(impression, path);
     }
 

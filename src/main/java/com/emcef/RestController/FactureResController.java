@@ -5,6 +5,7 @@
  */
 package com.emcef.RestController;
 
+import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.LigneDeFacture;
 import com.emcef.model.MachinesInstallees;
@@ -17,6 +18,7 @@ import com.emcef.request.OperatorDto;
 import com.emcef.request.PaymentDto;
 import com.emcef.response.FactureResponse;
 import com.emcef.response.FinalFactureResponse;
+import com.emcef.service.FactureNormaliseeService;
 import com.emcef.service.FactureService;
 import com.emcef.service.LigneDeFactureService;
 import com.emcef.service.MachineService;
@@ -31,6 +33,7 @@ import org.json.simple.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -70,9 +73,12 @@ public class FactureResController {
 
     @Autowired
     MachineService machineService;
-    
+
     @Autowired
     LigneDeFactureService ligneDeFactureService;
+
+    @Autowired
+    FactureNormaliseeService factureNormaliseeService;
 
     @Autowired
     private JWTUtility jwtUtility;
@@ -213,18 +219,29 @@ public class FactureResController {
             userName = jwtUtility.getUsernameFromToken(token);
         }
 
+        FactureNormalisee normale = new FactureNormalisee();
         FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
+        FactureSelonSpecification facture = factureService.findAllByUid(uid);
+        List<FactureSelonSpecification> all = factureService.tout();
 
-        if ("confirm".equals(action)) {
+        if ("confirm".equalsIgnoreCase(action)) {
             int id = 0;
-            Date date = factureService.getDate(uid);
+            Date date = facture.getDateTime();
             String code = "", qrcode = "", datetime = "", counters = "", nim = "";
             String code1 = "", code2 = "", code3 = "", code4 = "", code5 = "", code6 = "";
-            int pending = factureService.pendingFacture();
-            factureService.confirmFacture(uid);
-            int validated = factureService.validatedFacture();
+            int pending = 0, validated = 0;
+            for (FactureSelonSpecification str : all) {
+                if (str.getStatus() == false) {
+                    pending = pending + 1;
+                }
+                if (str.getStatus() == true) {
+                    validated = validated + 1;
+                }
+            }
+            id = facture.getId();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
             counters = validated + "/" + pending + "FV";
-            id = factureService.getId(uid);
             code1 = getParticularString(4);
             code2 = getParticularString(4);
             code3 = getParticularString(4);
@@ -232,10 +249,18 @@ public class FactureResController {
             code5 = getParticularString(4);
             code6 = getParticularString(4);
             code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
-            datetime = transform(date.getDate()) + "/" + transform(date.getMonth() + 1) + "/" + transform(date.getYear() + 1900) + " " + transform(date.getHours()) + ":" + transform(date.getMinutes()) + ":" + transform(date.getSeconds());
-            nim = factureService.getNim(uid);
-            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(date.getYear() + 1900) + transform(date.getMonth() + 1) + transform(date.getDate()) + transform(date.getHours()) + transform(date.getMinutes()) + transform(date.getSeconds());
-            factureService.setFactureNormalisee(code, counters, datetime, nim, qrcode, id);
+            datetime = transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + transform(calendar.get(Calendar.MONTH) + 1) + "/" + transform(calendar.get(Calendar.YEAR)) + " " + transform(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + transform(calendar.get(Calendar.MINUTE)) + ":" + transform(calendar.get(Calendar.SECOND));
+            nim = facture.getNim();
+            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(calendar.get(Calendar.YEAR)) + transform(calendar.get(Calendar.MONTH) + 1) + transform(calendar.get(Calendar.DAY_OF_MONTH)) + transform(calendar.get(Calendar.HOUR_OF_DAY)) + transform(calendar.get(Calendar.MINUTE)) + transform(calendar.get(Calendar.SECOND));
+            normale.setCodeMECeFDGI(code);
+            normale.setCounters(counters);
+            normale.setDateTime(datetime);
+            normale.setNim(nim);
+            normale.setQrCode(qrcode);
+            factureNormaliseeService.save(normale);
+            facture.setFactureNormalisee(normale);
+            facture.setStatus(Boolean.TRUE);
+            factureService.saveFacture(facture);
             finalFactureResponse.setCodeMECeFDGI(code);
             finalFactureResponse.setCounters(counters);
             finalFactureResponse.setDateTime(datetime);
@@ -243,8 +268,8 @@ public class FactureResController {
             finalFactureResponse.setQrCode(qrcode);
         }
 
-        if ("cancel".equals(action)) {
-            Date date = factureService.getDate(uid);
+        if ("cancel".equalsIgnoreCase(action)) {
+            Date date = facture.getDateTime();
             String datetime = date.getDay() + "/" + date.getMonth() + "/" + date.getYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
             finalFactureResponse.setDateTime(datetime);
         }
@@ -357,7 +382,7 @@ public class FactureResController {
         facture.setDate_requette(maintenant);
         facture.setDonneecontrole_controleur("");
         //facture.setFactureNormalisee(normale);
-       // facture.setId(position);
+        // facture.setId(position);
         facture.setId_document(numero(factureService.getAllFactureSelonSpecification().size()));
         facture.setId_fichier(0);
         facture.setIfu_client(factureRequest.getClient().getIfu());

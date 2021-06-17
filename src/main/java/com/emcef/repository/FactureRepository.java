@@ -98,34 +98,8 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
 
     //Début API Demande de facture
     //Fin API Demande de facture
-    
-    
+       
     //Début API Finalisation de facture
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE factureselonspecification  SET status = true WHERE uid = :uid", nativeQuery = true)
-    void confirmFacture(@Param("uid") String uid);
-
-    @Transactional
-    @Modifying
-    @Query(value = "insert into facturenormalisee (codemecefdgi, counters, date_time, nim, qr_code, facture_id) values (:codemecefdgi, :counters, :date_time, :nim, :qr_code, :facture_id)", nativeQuery = true)
-    void setFactureNormalisee(@Param("codemecefdgi") String codemecefdgi, @Param("counters") String counters, @Param("date_time") String date_time, @Param("nim") String nim, @Param("qr_code") String qr_code, @Param("facture_id") int facture_id);
-
-    @Query(value = "SELECT id  FROM factureselonspecification WHERE uid = :uid", nativeQuery = true)
-    int getId(@Param("uid") String uid);
-
-    @Query(value = "SELECT dateheure  FROM factureselonspecification WHERE uid = :uid", nativeQuery = true)
-    Date getDate(@Param("uid") String uid);
-
-    @Query(value = "SELECT COUNT(*)  FROM factureselonspecification WHERE status = false", nativeQuery = true)
-    int pendingFacture();
-
-    @Query(value = "SELECT COUNT(*)  FROM factureselonspecification WHERE status = true", nativeQuery = true)
-    int validatedFacture();
-    
-    @Query(value = "SELECT nim FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)
-    String getNim(@Param("uid") String uid);
-
     //Fin API Finalisation de facture
     
     //Début API demande de détails sur une facture en attente

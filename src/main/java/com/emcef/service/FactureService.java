@@ -127,33 +127,6 @@ public class FactureService {
     //Fin API Demande de facture
 
     //Début API Finalisation de facture
-    public void confirmFacture(String uid) {
-        factureRepository.confirmFacture(uid);
-    }
-
-    public int getId(String uid) {
-        return factureRepository.getId(uid);
-    }
-
-    public void setFactureNormalisee(String codemecefdgi, String counters, String date_time, String nim, String qr_code, int facture_id) {
-        factureRepository.setFactureNormalisee(codemecefdgi, counters, date_time, nim, qr_code, facture_id);
-    }
-
-    public int pendingFacture() {
-        return factureRepository.pendingFacture();
-    }
-
-    public int validatedFacture() {
-        return factureRepository.validatedFacture();
-    }
-
-    public Date getDate(String uid) {
-        return factureRepository.getDate(uid);
-    }
-
-    public String getNim(String uid) {
-        return factureRepository.getNim(uid);
-    }
     //Fin API Finalisation de facture
 
     //Début API demande de détails sur une facture en attente

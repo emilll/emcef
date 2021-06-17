@@ -48,7 +48,6 @@ public class FactureSelonSpecification implements Serializable  {
     @Column(name = "type_machine")
     private String type_machine;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "date_requette")
     private Date date_requette;
 
@@ -140,9 +139,11 @@ public class FactureSelonSpecification implements Serializable  {
     private Integer compteur_total_controuleur;
 
     @Column(name = "date_heure_controleur")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date date_heure_controleur;
 
     @Column(name = "date_controleur")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date date_controleur;
 
     @Column(name = "harchage_document")

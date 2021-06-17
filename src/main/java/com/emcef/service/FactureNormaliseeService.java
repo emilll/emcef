@@ -16,11 +16,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FactureNormaliseeService {
-    
+
     @Autowired
     FactureNormaliseeRepository factureNormaliseeRepository;
-    
-    public FactureNormalisee byId(int id){
-    return factureNormaliseeRepository.findAllById(id);
+
+    public FactureNormalisee byId(int id) {
+        return factureNormaliseeRepository.findAllById(id);
+    }
+
+    public void save(FactureNormalisee normale) {
+        factureNormaliseeRepository.save(normale);
     }
 }
