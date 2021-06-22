@@ -27,10 +27,6 @@ public class RapportService {
         return rapportRepository.findAll();
     }
 
-    public int rapport() {
-        return rapportRepository.totalRapport();
-    }
-
     //Début API Statut
     public String ifu(String username) {
         return rapportRepository.getIfu(username);
@@ -83,10 +79,6 @@ public class RapportService {
 
     public double getBetweenRapports(Date day1, Date day2) {
         return rapportRepository.getBetweenRapports(day1, day2);
-    }
-
-    public int MonthRapports(int year, int month) {
-        return rapportRepository.MonthRapports(year, month);
     }
 
     //Interface Entreprise

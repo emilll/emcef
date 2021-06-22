@@ -68,7 +68,7 @@
                 </nav>
             </div>
         </header>
-            <main class="bg-light" id="app">
+        <main class="bg-light" id="app">
             <div>
                 <div class="">
                     <div class="tab-content">
@@ -111,7 +111,7 @@
                                                     <h6 class="my-0">
                                                         <div href="">Machines Virtuelles Connectées</div>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder"><animated-number :number="banniere.attente"></animated-number></h4>
+                                                    <h4 class="font-weight-bolder">1</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,16 +152,16 @@
                                                         <td><h5>{{ verification(valeur1.nbre) }}</h5></td>
                                                         <td><h5>{{ verification(valeur1.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totalttc) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur1.totalTTC) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totalht) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur1.totalHT) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totaltva) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur1.totalTVA) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -169,16 +169,16 @@
                                                         <td><h5>{{ verification(valeur2.nbre) }}</h5></td>
                                                         <td><h5>{{ verification(valeur2.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totalttc) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur2.totalTTC) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totalht) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur2.totalHT) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totaltva) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur2.totalTVA) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -186,16 +186,16 @@
                                                         <td><h5>{{ verification(valeur3.nbre) }}</h5></td>
                                                         <td><h5>{{ verification(valeur3.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totalttc) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur3.totalTTC) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totalht) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur3.totalHT) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totaltva) }}</h5>
-                                                            <h5 class="badge badge-dark">FCF A</h5>
+                                                            <h5>{{ verification(valeur3.totalTVA) }}</h5>
+                                                            <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -297,31 +297,6 @@
                 </div>
             </div>
         </main>
-        <div id="1" class="d-none"></div>
-        <div id="2" class="d-none"></div>
-        <div id="3" class="d-none"></div>
-        <div id="4" class="d-none"></div>
-        <div id="5" class="d-none"></div>
-        <div id="6" class="d-none"></div>
-        <div id="7" class="d-none"></div>
-        <div id="8" class="d-none"></div>
-        <div id="9" class="d-none"></div>
-        <div id="10" class="d-none"></div>
-        <div id="11" class="d-none"></div>
-        <div id="12" class="d-none"></div>
-
-        <div id="t1" class="d-none"></div>
-        <div id="t2" class="d-none"></div>
-        <div id="t3" class="d-none"></div>
-        <div id="t4" class="d-none"></div>
-        <div id="t5" class="d-none"></div>
-        <div id="t6" class="d-none"></div>
-        <div id="t7" class="d-none"></div>
-        <div id="t8" class="d-none"></div>
-        <div id="t9" class="d-none"></div>
-        <div id="t10" class="d-none"></div>
-        <div id="t11" class="d-none"></div>
-        <div id="t12" class="d-none"></div>
         <script src="assets/js/jquery-1.12.4.min.js"></script>
         <script src="assets/js/jquery.counterup.js" type="application/javascript"></script>
         <script src="assets/js/counter/waypoints.min.js" type="application/javascript"></script>
@@ -332,23 +307,6 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
-
-            function countUp() {
-                jQuery(document).ready(function ($)
-                {
-                    $('.counter').counterUp({
-                        delay: 10,
-                        time: 1000
-                    });
-                });
-            }
-            countUp();
-
-            function convertir(ladate) {
-                var currentTimeStamp = Date.parse(new Date(ladate));
-                return currentTimeStamp / 1000;
-            }
-
             yearcal1 = new CalHeatMap();
             var dt = new Date();
             yearcal1.init({
@@ -379,190 +337,7 @@
                     window.location.replace('/showdayinfo/' + convert(date));
                 }
             });
-
-            async function recherche1() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        var variable;
-                        if (document.getElementById('val1').value !== "") {
-                            variable = "http://localhost:8082/api/findcontribuablebyifu/" + document.getElementById('val1').value;
-                            return fetch(variable)
-                                .then(response => {
-                                    if(!response.ok){
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            'La requête a échoué: ${error}'
-                                            )
-                                })
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ IFU est vide!'
-                                    )
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.value.ifu !== null) {
-                        window.location.href = "/contribuable/" + result.value.ifu;
-                    }
-                    if(result.value.ifu===null){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur...',
-                            text: 'Ce contribuable n\'existe pas!'
-                        })
-                    }
-                })
-            }
-
-            async function recherche2() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="e-NIM">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        var variable;
-                        if (document.getElementById('val1').value !== "") {
-                            variable = "http://localhost:8082/api/findmachinebyenim/" + document.getElementById('val1').value;
-                            return fetch(variable)
-                                .then(response => {
-                                    if(!response.ok){
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            'La requête a échoué: ${error}'
-                                            )
-                                })
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ e-NIM est vide!'
-                                    )
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                console.log(result.value)
-                if(result.value.nim===null){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur...',
-                            text: 'Cette machine n\'existe pas!'
-                        })
-                    }
-                    if (result.value.nim !== null ) {
-                      window.location.href = "/machine/" + result.value.nim;
-                    }
-                })
-            }
-
-            async function recherche3() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Point de vente</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU Point de Vente">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        var variable;
-                        if (document.getElementById('val1').value !== "") {
-                            variable = "http://localhost:8082/api/findsellerbyifu/" + document.getElementById('val1').value;
-                            return fetch(variable)
-                                .then(response => {
-                                    if(!response.ok){
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            'La requête a échoué: ${error}'
-                                            )
-                                })
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ IFU est vide!'
-                                    )
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.value.ifuseller !== null ) {
-                        window.location.href = "/installation/" + result.value.ifuseller;
-                    }
-                    if(result.value.ifuseller===null){
-                    Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur...',
-                            text: 'Ce Point de Vente n\'existe pas!'
-                        })
-                    }
-                })
-            }
         </script>
+        <%@include  file="views/footer.jsp" %>
     </body>
 </html>

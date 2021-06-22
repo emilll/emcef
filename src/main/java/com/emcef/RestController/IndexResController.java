@@ -6,8 +6,6 @@
 package com.emcef.RestController;
 
 import com.emcef.model.FactureSelonSpecification;
-import com.emcef.model.MachinesInstallees;
-import com.emcef.model.Rapportcr;
 import com.emcef.service.FactureService;
 import com.emcef.service.RapportService;
 import org.json.simple.JSONObject;

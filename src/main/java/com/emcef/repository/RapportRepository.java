@@ -58,14 +58,8 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer> {
     List<JSONObject> getFact();
     //Fin API Types de factures
 
-    @Query(value = "SELECT count(*) FROM  rapportcr", nativeQuery = true)
-    int totalRapport();
-
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
     int nbrRapport(@Param("year") int year, @Param("month") int month, @Param("day") int day);
-
-    @Query(value = "SELECT count(*) FROM rapportcr WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2", nativeQuery = true)
-    int MonthRapports(int year, int month);
 
     @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ", nativeQuery = true)
     double getBetweenRapports(@Param("d1") Date d1, @Param("d2") Date d2);

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark style_bg p-0 fixed-top">
     <div class="container-fluid position-relative">
         <div class="navbar-brand">
-            <h4><a href="home.html" class="mr-3"><i class="fa fa-th-large"></i></a>Réglo</h4>
+            <h4><a href="/" class="mr-3"><i class="fa fa-th-large"></i></a>Réglo</h4>
         </div>
         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

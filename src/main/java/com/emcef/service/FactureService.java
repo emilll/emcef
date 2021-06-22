@@ -38,10 +38,6 @@ public class FactureService {
         return factureRepository.getTotalTVA();
     }
 
-    public Long countfacture() {
-        return factureRepository.nbrFact();
-    }
-
     public void deleteFactureSelonSpecificationById(int id) {
         this.factureRepository.deleteById(id);
     }
@@ -67,20 +63,12 @@ public class FactureService {
         return factureRepository.getTotalTVA(date);
     }
 
-    public Double total(int year, int month) {
-        return factureRepository.getTotal(year, month);
-    }
-
     public Double totalMoisTTC(int year, int day) {
         return factureRepository.TotalMonthTTC(year, day);
     }
 
     public Double totalMoisHT(int year, int day) {
         return factureRepository.TotalMonthHT(year, day);
-    }
-
-    public double DayTTC(int year, int month, int day) {
-        return factureRepository.DayTTC(year, month, day);
     }
 
     public int DayFactures(int year, int month, int day) {
@@ -97,19 +85,6 @@ public class FactureService {
 
     public int factureMonth(int year, int month) {
         return factureRepository.factureMonth(year, month);
-    }
-
-    public List<Object[]> getNbreFactureByDate() {
-
-        return factureRepository.getNbreFactureByDate();
-    }
-
-    public JSONObject getTotauxGlobaux() {
-        return factureRepository.getTotauxGlobaux();
-    }
-
-    public JSONObject getTotauxMonth(int year, int month) {
-        return factureRepository.getTotauxMonth(year, month);
     }
 
     public JSONObject getTotauxDay(int year, int month, int day) {

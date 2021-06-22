@@ -42,6 +42,233 @@
     </head>
 
     <body>
+        <div class="modal fade animated bounceInDown" id="ModalExemple" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalExempleTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content px-3 col-md-12">
+                    <div class="modal-body">
+                        <header id="header_top modal-header">
+                            <nav class="navbar navbar-expand-lg navbar-dark style_bg py-1 fixed-top">
+                                <div class="container position-relative" id="ModalExempleTitle">
+                                    <button class="btn btn-success btn-sm mr-2" ><a href="/export">Imprimer</a></button>
+                                    <form>
+                                        <select type="select" class="form-control form-control-sm" name="">
+                                            <option>A4</option>
+                                        </select>
+                                    </form>
+                                    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav ml-auto align-items-sm-center">
+                                            <li class="nav-item dropdown">
+                                                <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" aria-label="Close"><i class="fa fa-times mr-2" aria-hidden="true"> Fermer</i></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                            <div class="mt-5 bg-white py-1 border-bottom">
+                                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                                    <div class="container position-relative">
+                                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarSupportedContentDetail">
+                                            <ul class="navbar-nav mx-auto">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </header>
+                        <main class="bg-light">
+                            <div class="py-5">
+                                <div class="container">
+                                    <div class="col-sm-12 mx-auto">
+                                        <div class="bg-white border p-5">
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <div class="text-left">
+                                                    <h5 class="mb-1">TOPSHOP</h5>
+                                                    <h6 class="mb-1">TOPSHOP / AEROPORT</h6>
+                                                    <h6 class="mb-1">IFU : 123398983940092</h6>
+                                                </div>
+                                                <div class="text-right">
+                                                    <h5 class="mb-1 text-uppercase font-weight-bold">Facture de vente</h5>
+                                                    <h6 class="mb-1">Facture # 06</h6>
+                                                    <h6 class="mb-1">Date : 11/03/2020</h6>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <div class="text-left border px-3 align-self-start">
+                                                    <div class="media mb-2">
+                                                        <h6 class="mr-3">
+                                                            <i class="fa fa-home"></i>
+                                                            <small>Adresse</small>
+                                                        </h6>
+                                                        <div class="media-body">
+                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media mb-2">
+                                                        <h6 class="mr-3">
+                                                            <i class="fa fa-phone"></i>
+                                                            <small>Contact</small>
+                                                        </h6>
+                                                        <div class="media-body">
+                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media mb-2">
+                                                        <h6 class="mr-3">
+                                                            <i class="fa fa-envelope"></i>
+                                                            <small>VMCF</small>
+                                                        </h6>
+                                                        <div class="media-body">
+                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-left border flex-fill align-self-start ml-5">
+                                                    <div class="bg-dark p-1 text-white">
+                                                        <h6 class="text-center m-0">CLIENT</h6>
+                                                    </div>
+                                                    <div class="px-3">
+                                                        <div class="">
+                                                            <small class="mr-3">NOM:</small>
+                                                            <small class="font-weight-bold">Client X</small>
+                                                        </div>
+                                                        <div class="">
+                                                            <small class="mr-3">IFU:</small>
+                                                            <small class="font-weight-bold">12383E88883U28</small>
+                                                        </div>
+                                                        <div class="">
+                                                            <small class="mr-3">Addresse:</small>
+                                                            <small class="font-weight-bold"></small>
+                                                        </div>
+                                                        <div class="">
+                                                            <small class="mr-3">Contact:</small>
+                                                            <small class="font-weight-bold"></small>
+                                                        </div>
+                                                        <div class="">
+                                                            <small class="mr-3">Client:</small>
+                                                            <small class="font-weight-bold"></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <table class="table table-sm table-bordered">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="py-0">#</th>
+                                                            <th class="py-0">Nom</th>
+                                                            <th class="py-0">Prix Unitaire</th>
+                                                            <th class="py-0">Quantité</th>
+                                                            <th class="py-0">Montant TTC</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="py-0">1</th>
+                                                            <td class="py-0">Coca Cola</td>
+                                                            <td class="py-0">12.223 F CFA</td>
+                                                            <td class="py-0">1</td>
+                                                            <td class="py-0">12.223 F CFA</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="mb-4">
+                                                    <h6 class="text-uppercase">... Ventilation des impôts ...</h6>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-9">
+                                                        <table class="table table-sm table-bordered">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th class="py-0">Groupe</th>
+                                                                    <th class="py-0">Total</th>
+                                                                    <th class="py-0">Impossible</th>
+                                                                    <th class="py-0">Impot</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th class="py-0">1</th>
+                                                                    <td class="py-0">Coca Cola</td>
+                                                                    <td class="py-0">12.223 F CFA</td>
+                                                                    <td class="py-0">12.223 F CFA</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <h6 class="text-uppercase py-2 border-top border-bottom font-weight-bold">Total: 12.223 F</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="mb-4">
+                                                    <h6 class="text-uppercase">... Réparation des paiements ...</h6>
+                                                </div>
+                                                <table class="table table-sm table-bordered">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="py-0">Groupe</th>
+                                                            <th class="py-0">Total</th>
+                                                            <th class="py-0">Impossible</th>
+                                                            <th class="py-0">Impot</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="py-0">1</th>
+                                                            <td class="py-0">Coca Cola</td>
+                                                            <td class="py-0">12.223 F CFA</td>
+                                                            <td class="py-0">12.223 F CFA</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="mb-4">
+                                                <div class="mb-4">
+                                                    <h6 class="text-uppercase">... élément de sécurité de la facture normalisée ...</h6>
+                                                </div>
+                                                <div class="border px-4 py-1">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <img src="assets/img/téléchargement.png" width="150">
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <h6 class="text-center mb-0">Code MECeF/DGI</h6>
+                                                            <h6 class="text-center font-weight-bold">009-8738-8362-8368</h6>
+                                                            <div class="d-flex justify-content-between">
+                                                                <span class="mb-0">MECeF NIM: </span>
+                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <span class="mb-0">MECeF NIM: </span>
+                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <span class="mb-0">MECeF NIM: </span>
+                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
         <header id="header_top">
             <div id="loader-wrapper">
                 <div id="loader"></div>
@@ -190,7 +417,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a :href="${contextPath}'/facture/' + facture.uid" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -208,216 +435,7 @@
         <script src="${contextPath}/assets/js/specific/machineinfo.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-        <script>
-            function convertir(ladate) {
-                var currentTimeStamp = Date.parse(new Date(ladate));
-                return currentTimeStamp / 1000;
-            }
-
-            async function recherche1() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Contribuable</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="val1" name="" placeholder="IFU">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        var variable;
-                        if (document.getElementById('val1').value !== "") {
-                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ IFU est vide!'
-                                    )
-                        }
-                        return fetch(variable)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
-                                            )
-                                })
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.value !== 0) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Trouvé. Redirection en cours . . .'
-                        })
-                        window.location.href = "/InfoContribuable/" + result.value;
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur...',
-                            text: 'Ce contribuable n\'existe pas!'
-                        })
-                    }
-                })
-            }
-
-            async function recherche2() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Machine</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" id="nim" name="" placeholder="NIM">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        var variable;
-                        if (document.getElementById('nim').value !== "") {
-                            variable = "http://localhost:8082/api/ent/findcontribuablebyifu/" + document.getElementById('val1').value;
-                        } else {
-                            Swal.showValidationMessage(
-                                    'Le champ NIM est vide!'
-                                    )
-                        }
-                        return fetch(variable)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
-                                            )
-                                })
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.value !== 0) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Trouvé. Redirection en cours . . .'
-                        })
-                        window.location.href = "/InfoMachine/" + result.value
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur...',
-                            text: 'Cette machine n\'existe pas!'
-                        })
-                    }
-                })
-            }
-
-            async function recherche3() {
-                const man = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success col-sm-12 ',
-                        cancelButton: 'btn btn-danger col-sm-12'
-                    },
-                    buttonsStyling: false
-                })
-                man.fire({
-                    html:
-                            '<div class="col-sm-12 my-auto">' +
-                            '<div class="mb-2">' +
-                            '<h2 class="text-dark mb-3">Recherche Point de Vente</h2>' +
-                            '<div class="row">' +
-                            '<div class="col-sm-12 form-group">' +
-                            '<input type="text" class="form-control style_form_control" name="" placeholder="Nom">' +
-                            '</div>' +
-                            '<div class="col-sm-6 form-group">' +
-                            '<input type="text" class="form-control style_form_control" name="" placeholder="----">' +
-                            '</div>' +
-                            '<div class="col-sm-6 form-group">' +
-                            '<input type="number" class="form-control style_form_control" name="" placeholder="----">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>',
-                    showCancelButton: true,
-                    cancelButtonText: 'Annuler',
-                    confirmButtonText: 'Rechercher',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (login) => {
-                        return fetch(`http://localhost:8082/api/countfacturebydate`)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                            `La requête a échoué: ${error}`
-                                            )
-                                })
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        //window.location.href = "/showinfo"
-                    }
-                })
-            }
-        </script>
+        <%@include  file="../views/footer.jsp" %>
     </body>
 </html>
 

@@ -9,6 +9,7 @@ import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.LigneDeFacture;
 import com.emcef.model.MachinesInstallees;
+import com.emcef.model.Rapportcr;
 import com.emcef.model.TaxeGroupes;
 import com.emcef.model.User;
 import com.emcef.request.ClientDto;
@@ -141,6 +142,24 @@ public class FactureResController {
         return val;
     }
 
+    public int deuxChiffres(int valeur) {
+        int k = valeur;
+        if (valeur < 10) {
+            k = Integer.valueOf("0" + String.valueOf(valeur));
+        }
+        return k;
+    }
+    
+     int count(Date date, List<FactureSelonSpecification> facture) {
+        int resultat = 0;
+        for (FactureSelonSpecification fct : facture) {
+            if (fct.getDateTime() == date) {
+                resultat = resultat + 1;
+            }
+        }
+        return resultat;
+    }
+
     String getParticularString(int n) {
         // chose a Character random from this String
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -241,7 +260,7 @@ public class FactureResController {
             id = facture.getId();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            counters = validated + "/" + pending + "FV";
+            counters = validated + "/" + pending + " FV";
             code1 = getParticularString(4);
             code2 = getParticularString(4);
             code3 = getParticularString(4);
@@ -249,9 +268,9 @@ public class FactureResController {
             code5 = getParticularString(4);
             code6 = getParticularString(4);
             code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
-            datetime = transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + transform(calendar.get(Calendar.MONTH) + 1) + "/" + transform(calendar.get(Calendar.YEAR)) + " " + transform(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + transform(calendar.get(Calendar.MINUTE)) + ":" + transform(calendar.get(Calendar.SECOND));
+            datetime = transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + transform(calendar.get(Calendar.MONTH) + 1) + "/" + transform(calendar.get(Calendar.YEAR)) + " " + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + ":" + transform(calendar.get(Calendar.MINUTE)) + ":" + transform(calendar.get(Calendar.SECOND));
             nim = facture.getNim();
-            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(calendar.get(Calendar.YEAR)) + transform(calendar.get(Calendar.MONTH) + 1) + transform(calendar.get(Calendar.DAY_OF_MONTH)) + transform(calendar.get(Calendar.HOUR_OF_DAY)) + transform(calendar.get(Calendar.MINUTE)) + transform(calendar.get(Calendar.SECOND));
+            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(calendar.get(Calendar.YEAR)) + transform(calendar.get(Calendar.MONTH) + 1) + transform(calendar.get(Calendar.DAY_OF_MONTH)) + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + transform(calendar.get(Calendar.MINUTE)) + transform(calendar.get(Calendar.SECOND));
             normale.setCodeMECeFDGI(code);
             normale.setCounters(counters);
             normale.setDateTime(datetime);
@@ -317,10 +336,10 @@ public class FactureResController {
 
         double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
         FactureSelonSpecification facture = new FactureSelonSpecification();
-        //FactureNormalisee normale = null;
         User user = userService.getUser(userName);
         MachinesInstallees machine = machineService.findAllByIfu(user.getIfu());
         TaxeGroupes tax = taxesService.findAllById(1L);
+        double ht = 0, tva = 0;
         int tax_a = tax.getA(), tax_b = tax.getB(), tax_c = tax.getC(), tax_d = tax.getD(), tax_e = tax.getE(), tax_f = tax.getF();
         Date maintenant = new Date();
         String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
@@ -331,26 +350,38 @@ public class FactureResController {
             if ("A".equalsIgnoreCase(str.getTaxGroup())) {
                 taa = taa + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((taa * 100)/(100 + tax_a)));
+                tva = tva + Math.round(((taa * tax_a)/(100 + taa)));
             }
             if ("B".equalsIgnoreCase(str.getTaxGroup())) {
                 tab = tab + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((tab * 100)/(100 + tax_b)));
+                tva = tva + Math.round(((tab * tax_b)/(100 + tab)));
             }
             if ("C".equalsIgnoreCase(str.getTaxGroup())) {
                 tac = tac + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((tac * 100)/(100 + tax_c)));
+                tva = tva + Math.round(((tac * tax_c)/(100 + tac)));
             }
             if ("D".equalsIgnoreCase(str.getTaxGroup())) {
                 tad = tad + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((tad * 100)/(100 + tax_d)));
+                tva = tva + Math.round(((tad * tax_d)/(100 + tad)));
             }
             if ("E".equalsIgnoreCase(str.getTaxGroup())) {
                 tae = tae + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((tae * 100)/(100 + tax_e)));
+                tva = tva + Math.round(((tae * tax_e)/(100 + tae)));
             }
             if ("F".equalsIgnoreCase(str.getTaxGroup())) {
                 taf = taf + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
+                ht = ht + Math.round(((taf * 100)/(100 + tax_f)));
+                tva = tva + Math.round(((taf * tax_f)/(100 + taf)));
             }
         }
 
@@ -381,8 +412,6 @@ public class FactureResController {
         facture.setDate_heure_controleur(maintenant);
         facture.setDate_requette(maintenant);
         facture.setDonneecontrole_controleur("");
-        //facture.setFactureNormalisee(normale);
-        // facture.setId(position);
         facture.setId_document(numero(factureService.getAllFactureSelonSpecification().size()));
         facture.setId_fichier(0);
         facture.setIfu_client(factureRequest.getClient().getIfu());
@@ -412,12 +441,12 @@ public class FactureResController {
         facture.setTax_specifique_d(0);
         facture.setTax_specifique_e(0);
         facture.setTax_specifique_f(0);
-        facture.setTaxable_a(taa - (taa * (tax_a * 0.01)));
-        facture.setTaxable_b(tab - (tab * (tax_b * 0.01)));
-        facture.setTaxable_c(tac - (tac * (tax_c * 0.01)));
-        facture.setTaxable_d(tad - (tad * (tax_d * 0.01)));
-        facture.setTaxable_e(tae - (tae * (tax_e * 0.01)));
-        facture.setTaxable_f(taf - (taf * (tax_f * 0.01)));
+        facture.setTaxable_a(Math.round((taa * 100)/(100 + tax_a)));
+        facture.setTaxable_b(Math.round((tab * 100)/(100 + tax_b)));
+        facture.setTaxable_c(Math.round((tac * 100)/(100 + tax_c)));
+        facture.setTaxable_d(Math.round((tad * 100)/(100 + tax_d)));
+        facture.setTaxable_e(Math.round((tae * 100)/(100 + tax_e)));
+        facture.setTaxable_f(Math.round((taf * 100)/(100 + tax_f)));
         facture.setTotal(total);
         facture.setTotal_a(taa);
         facture.setTotal_b(tab);
@@ -425,15 +454,15 @@ public class FactureResController {
         facture.setTotal_d(tad);
         facture.setTotal_e(tae);
         facture.setTotal_f(taf);
-        facture.setTotal_tax(0);
-        facture.setTotal_tax_a(taa * (tax_a * 0.01));
-        facture.setTotal_tax_b(tab * (tax_b * 0.01));
-        facture.setTotal_tax_c(tac * (tax_c * 0.01));
-        facture.setTotal_tax_d(tad * (tax_d * 0.01));
-        facture.setTotal_tax_e(tae * (tax_e * 0.01));
-        facture.setTotal_tax_f(taf * (tax_f * 0.01));
+        facture.setTotal_tax(tva);
+        facture.setTotal_tax_a(Math.round((taa * tax_a)/(100 + tax_a)));
+        facture.setTotal_tax_b(Math.round((tab * tax_b)/(100 + tax_b)));
+        facture.setTotal_tax_c(Math.round((tac * tax_c)/(100 + tax_c)));
+        facture.setTotal_tax_d(Math.round((tad * tax_d)/(100 + tax_d)));
+        facture.setTotal_tax_e(Math.round((tae * tax_e)/(100 + tax_e)));
+        facture.setTotal_tax_f(Math.round((taf * tax_f)/(100 + tax_f)));
         facture.setTotal_tax_specifique(0);
-        facture.setTotal_taxable(0);
+        facture.setTotal_taxable(ht);
         facture.setType(factureRequest.getType());
         facture.setType_machine(methode);
         facture.setUid(uid);
@@ -468,10 +497,10 @@ public class FactureResController {
                 group = "F";
             }
             double mont = str.getPrice() * str.getQuantity();
-            double ht = mont - (mont * (taxe / 100));
+            double het = mont - (mont * (taxe / 100));
             LigneDeFacture article = new LigneDeFacture();
             article.setAmount(mont);
-            article.setAmounttaxable(ht);
+            article.setAmounttaxable(het);
             article.setCode(str.getCode());
             article.setFacture(facture);
             article.setId(position);
@@ -585,31 +614,198 @@ public class FactureResController {
         }
     }
 
-    @GetMapping("/total/{year}/{month}")
-    public Double total(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+    @GetMapping("/ttc")
+    public List<Double> ttc() {
         try {
-            return factureService.total(year, month);
+            int year = new Date().getYear() + 1900;
+            List<FactureSelonSpecification> facture = factureService.getAllFactureSelonSpecification();
+            double t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0, t9 = 0, t10 = 0, t11 = 0, t12 = 0;
+            for (FactureSelonSpecification ftr : facture) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(ftr.getDateTime());
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 0) {
+                    t1 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 1) {
+                    t2 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 2) {
+                    t3 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 3) {
+                    t4 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 4) {
+                    t5 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 5) {
+                    t6 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 6) {
+                    t7 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 7) {
+                    t8 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 8) {
+                    t9 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 9) {
+                    t10 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 10) {
+                    t11 += ftr.getTotal();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 11) {
+                    t12 += ftr.getTotal();
+                }
+            }
+            List<Double> liste = new ArrayList();
+            liste.add(t1);
+            liste.add(t2);
+            liste.add(t3);
+            liste.add(t4);
+            liste.add(t5);
+            liste.add(t6);
+            liste.add(t7);
+            liste.add(t8);
+            liste.add(t9);
+            liste.add(t10);
+            liste.add(t11);
+            liste.add(t12);
+            return liste;
         } catch (Exception e) {
-            return 0.;
+            return null;
         }
     }
 
-    @GetMapping("/json/{year}/{month}")
-    public Double totalMonthHT(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
+    @GetMapping("/ht")
+    public List<Double> ht() {
         try {
-            return factureService.totalMoisHT(year, month);
+            int year = new Date().getYear() + 1900;
+            List<FactureSelonSpecification> facture = factureService.getAllFactureSelonSpecification();
+            double t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0, t9 = 0, t10 = 0, t11 = 0, t12 = 0;
+            for (FactureSelonSpecification ftr : facture) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(ftr.getDateTime());
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 0) {
+                    t1 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 1) {
+                    t2 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 2) {
+                    t3 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 3) {
+                    t4 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 4) {
+                    t5 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 5) {
+                    t6 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 6) {
+                    t7 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 7) {
+                    t8 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 8) {
+                    t9 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 9) {
+                    t10 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 10) {
+                    t11 += ftr.getTotal_taxable();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 11) {
+                    t12 += ftr.getTotal_taxable();
+                }
+            }
+            List<Double> liste = new ArrayList();
+            liste.add(t1);
+            liste.add(t2);
+            liste.add(t3);
+            liste.add(t4);
+            liste.add(t5);
+            liste.add(t6);
+            liste.add(t7);
+            liste.add(t8);
+            liste.add(t9);
+            liste.add(t10);
+            liste.add(t11);
+            liste.add(t12);
+            return liste;
         } catch (Exception e) {
-            return 0.;
+            return null;
         }
     }
-
-    @GetMapping("/ttc/{year}/{month}/{day}")
-    public double DayTTC(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
-            @PathVariable(value = "day") int day) {
+    
+    @GetMapping("/tva")
+    public List<Double> tva() {
         try {
-            return factureService.DayTTC(year, month, day);
+            int year = new Date().getYear() + 1900;
+            List<FactureSelonSpecification> facture = factureService.getAllFactureSelonSpecification();
+            double t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0, t9 = 0, t10 = 0, t11 = 0, t12 = 0;
+            for (FactureSelonSpecification ftr : facture) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(ftr.getDateTime());
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 0) {
+                    t1 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 1) {
+                    t2 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 2) {
+                    t3 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 3) {
+                    t4 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 4) {
+                    t5 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 5) {
+                    t6 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 6) {
+                    t7 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 7) {
+                    t8 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 8) {
+                    t9 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 9) {
+                    t10 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 10) {
+                    t11 += ftr.getTotal_tax();
+                }
+                if (calendar.get(Calendar.YEAR) == year && calendar.get(Calendar.MONTH) == 11) {
+                    t12 += ftr.getTotal_tax();
+                }
+            }
+            List<Double> liste = new ArrayList();
+            liste.add(t1);
+            liste.add(t2);
+            liste.add(t3);
+            liste.add(t4);
+            liste.add(t5);
+            liste.add(t6);
+            liste.add(t7);
+            liste.add(t8);
+            liste.add(t9);
+            liste.add(t10);
+            liste.add(t11);
+            liste.add(t12);
+            return liste;
         } catch (Exception e) {
-            return 0;
+            return null;
         }
     }
 
@@ -650,26 +846,24 @@ public class FactureResController {
     @GetMapping("/countfacture")
     public long countfacture() {
         try {
-            return factureService.countfacture();
+            return factureService.getAllFactureSelonSpecification().size();
         } catch (Exception e) {
             return 0;
         }
-
     }
 
     // tableau de bord Général
     // Nombre de fature par date
     @GetMapping("/countfacturebydate")
     public JSONObject getNbreFactureByDate() throws ParseException {
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         JSONObject obj = new JSONObject();
-
-        for (Object[] ob : factureService.getNbreFactureByDate()) {
-            String dt = sdf.format(ob[0]);
+        List<FactureSelonSpecification> facture = factureService.getAllFactureSelonSpecification();
+        for (FactureSelonSpecification ob : facture) {
+            String dt = sdf.format(ob.getDateTime());
             Date date = sdf.parse(dt);
             long millis = date.getTime() / 1000;
-            obj.put(millis, ob[1]);
+            obj.put(millis, count(ob.getDateTime(), facture));
         }
         return obj;
     }
@@ -678,8 +872,21 @@ public class FactureResController {
     @GetMapping("/totauxglobaux")
     public JSONObject totauxglobaux() {
         try {
-            JSONObject obj = factureService.getTotauxGlobaux();
-            obj.put("rapport", rapportService.rapport());
+            List<FactureSelonSpecification> facture = factureService.getAllFactureSelonSpecification();
+            int nbre = 0;
+            double totalTTC = 0, totalHT = 0, totalTVA = 0;
+            nbre = facture.size();
+            for (FactureSelonSpecification str : facture) {
+                totalTTC = totalTTC + str.getTotal();
+                totalHT = totalHT + str.getTotal_taxable();
+                totalTVA = totalTVA + str.getTotal_tax();
+            }
+            JSONObject obj = new JSONObject();
+            obj.put("nbre", nbre);
+            obj.put("totalTTC", totalTTC);
+            obj.put("totalHT", totalHT);
+            obj.put("totalTVA", totalTVA);
+            obj.put("rapport", rapportService.all().size());
             return obj;
         } catch (Exception e) {
             return null;
@@ -690,21 +897,65 @@ public class FactureResController {
     @GetMapping("/totauxmonth/{year}/{month}")
     public JSONObject getTotauxMonth(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month) {
         try {
-            JSONObject obj = factureService.getTotauxMonth(year, month);
-            obj.put("rapport", rapportService.MonthRapports(year, month));
+            Calendar calendar = Calendar.getInstance();
+            int nbre = 0, rapports = 0;
+            double totalTTC = 0, totalHT = 0, totalTVA = 0;
+            for (FactureSelonSpecification str : factureService.getAllFactureSelonSpecification()) {
+                calendar.setTime(str.getDateTime());
+                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
+                    nbre = nbre + 1;
+                    totalTTC = totalTTC + str.getTotal();
+                    totalHT = totalHT + str.getTotal_taxable();
+                    totalTVA = totalTVA + str.getTotal_tax();
+                }
+            }
+            for (Rapportcr str : rapportService.all()) {
+                calendar.setTime(str.getDate_heure());
+                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
+                    rapports = rapports + 1;
+                }
+            }
+            JSONObject obj = new JSONObject();
+            obj.put("nbre", nbre);
+            obj.put("totalTTC", totalTTC);
+            obj.put("totalHT", totalHT);
+            obj.put("totalTVA", totalTVA);
+            obj.put("rapport", rapports);
             return obj;
         } catch (Exception e) {
-            return null;
+            return new JSONObject();
         }
     }
 
     // Nombre de fature , total TTC,rapport et totalTVA par année par mois et par jour
     @GetMapping("/totauxday/{year}/{month}/{day}")
-    public JSONObject getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month,
-            @PathVariable(value = "day") int day) {
+    public JSONObject getTotauxDay(@PathVariable(value = "year") int year, @PathVariable(value = "month") int month, @PathVariable(value = "day") int day) {
         try {
-            JSONObject obj = factureService.getTotauxDay(year, month, day);
-            obj.put("rapport", rapportService.rapportTotal(year, month, day));
+            int nbre = 0, rapports = 0;
+            double totalTTC = 0, totalHT = 0, totalTVA = 0;
+            for (FactureSelonSpecification str : factureService.getAllFactureSelonSpecification()) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(str.getDateTime());
+                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
+                    nbre = nbre + 1;
+                    totalTTC = totalTTC + str.getTotal();
+                    totalHT = totalHT + str.getTotal_taxable();
+                    totalTVA = totalTVA + str.getTotal_tax();
+                }
+            }
+            for (Rapportcr str : rapportService.all()) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(str.getDate_heure());
+                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
+                    rapports = rapports + 1;
+                }
+            }
+            JSONObject obj = new JSONObject();
+            obj.put("nbre", nbre);
+            obj.put("totalTTC", totalTTC);
+            obj.put("totalHT", totalHT);
+            obj.put("totalTVA", totalTVA);
+            obj.put("rapport", rapports);
             return obj;
         } catch (Exception e) {
             return null;

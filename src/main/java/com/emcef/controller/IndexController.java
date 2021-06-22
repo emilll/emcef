@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -34,17 +37,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.joda.time.DateTime;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -63,19 +62,18 @@ public class IndexController {
     LigneDeFactureService ligneDeFactureService;
 
     @GetMapping("/export")
-    public String export() throws JRException, FileNotFoundException, IOException {
-        FactureSelonSpecification facture = factureService.findAllByUid("LYpZzSLX-hC7h-Uyzh-TQxR-vfkDkuMaZAlz");
-        createPdfReport(ligneDeFactureService.articles(facture), facture);
-        return "redirect:/";
+    @ResponseBody
+    public void export(HttpServletResponse response) throws JRException, FileNotFoundException, IOException {
+        FactureSelonSpecification facture = factureService.findAllByUid("soOsis36-608b-WRtG-lXxX-Kh2QZV6U5pKd");
+        createPdfReport(ligneDeFactureService.articles(facture), facture, response);
     }
 
     // Method to create the pdf file using the employee list datasource.
-    private void createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture) throws JRException, FileNotFoundException, IOException {
+    private void createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture, HttpServletResponse response) throws JRException, FileNotFoundException, IOException {
         DateTime time = new DateTime();
         File file = ResourceUtils.getFile("classpath:facture.jrxml");
         JasperReport liste = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(article);
-        JRBeanCollectionDataSource test = null;
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", facture.getNom_commercial());
         parameters.put("date", facture.getDateTime());
@@ -88,10 +86,10 @@ public class IndexController {
         parameters.put("ifuclient", facture.getIfu_client());
         parameters.put("adressclient", facture.getAdresse1_client());
         parameters.put("contactclient", facture.getContact1_client());
-        parameters.put("ttc", "0");
-        parameters.put("tva", "0");
-        parameters.put("ht", "0");
-        parameters.put("qr", facture.getFactureNormalisee().getQrCode() + "emmanuel");
+        parameters.put("ttc", facture.getTotal());
+        parameters.put("tva", facture.getTotal_tax());
+        parameters.put("ht", facture.getTotal_taxable());
+        parameters.put("qr", facture.getFactureNormalisee().getQrCode());
         parameters.put("code", facture.getFactureNormalisee().getCodeMECeFDGI());
         parameters.put("finaldate", facture.getFactureNormalisee().getDateTime());
         parameters.put("remise", "0");
@@ -103,11 +101,12 @@ public class IndexController {
         parameters.put("shorttva", "0");
         parameters.put("nim", facture.getNim());
         parameters.put("parts", ds);
-        String path = "E:/Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
+        String path = "Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
         JasperPrint impression = JasperFillManager.fillReport(liste, parameters, new JREmptyDataSource());
-        File pdf = File.createTempFile("Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute(), ".pdf");
-        JasperExportManager.exportReportToPdfStream(impression, new FileOutputStream(pdf));
-        JasperExportManager.exportReportToPdfFile(impression, path);
+        response.setContentType("application/x-download");
+        response.addHeader("Content-disposition", "attachment; filename="+path);
+        OutputStream out = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(impression, out);
     }
 
     @RequestMapping("/login")
@@ -124,204 +123,8 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/donnees")
-    public String DataToday() {
-        return "/today/donnees";
-    }
-
-    @GetMapping("/daystate")
-    public String StateToday() {
-        return "/today/daystate";
-    }
-
-    @GetMapping("/daystats")
-    public String StatsToday() {
-        return "/today/daystats";
-    }
-
-    public void montantGlobal(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void montantMensuel(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void montantQuotidienne(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void fac_rapGlobal(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void fac_rapMonth(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void fac_rapDay(String url, double[] tableau) {
-        JSONParser parser = new JSONParser();
-
-        try {
-            URL oracle = new URL(url);
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                JSONArray jsonArray = (JSONArray) a.get(0);
-                tableau[0] = (double) jsonArray.get(1);
-                tableau[1] = (double) jsonArray.get(2);
-            }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
     @GetMapping("/")
-    public String show(Model model) {
-        JSONObject obj = new JSONObject();
-        Date d = new Date();
-        int year = d.getYear();
-        int month = d.getMonth();
-        int day = d.getDay();
-        double[] table = new double[5];
-        /*montantGlobal("http://localhost:8080/api/totauxglobaux", table);
-        obj.put("g3", table[1]);
-        obj.put("g4", table[2]);
-        montantMensuel("http://localhost:8080/api/totauxmonth/"+year+"/"+month, table);
-        obj.put("m3", table[1]);
-        obj.put("m4", table[2]);
-        montantQuotidienne("http://localhost:8080/api/totauxday"+year+"/"+month+"/"+day, table);
-        obj.put("d3", table[1]);
-        obj.put("d4", table[2]);
-        fac_rapGlobal("http://localhost:8080/api/totauxglobaux", table);
-        obj.put("g1", table[1]);
-        obj.put("g2", table[2]);
-        fac_rapMonth("http://localhost:8080/api/totauxglobaux", table);
-        obj.put("m1", table[1]);
-        obj.put("m2", table[2]);
-        fac_rapDay("http://localhost:8080/api/totauxglobaux", table);
-        obj.put("d1", table[1]);
-        obj.put("d2", table[2]);
-        for (int i = 0; i < 3; i++) {
-            System.out.println(table[i]);
-        }*/
-
-        Contribuable contribuable = new Contribuable();
-        model.addAttribute("contribuable", contribuable);
-        //model.addAttribute("afficher", contribuableService.getAllContribuable());
+    public String show() {
         return "/index";
     }
 }
