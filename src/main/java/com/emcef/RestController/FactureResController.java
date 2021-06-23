@@ -320,7 +320,6 @@ public class FactureResController {
             reponse.setStatus("YES");
             return reponse;
         }
-
     }
 
     @PostMapping("/invoice")
@@ -335,6 +334,8 @@ public class FactureResController {
         }
 
         double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
+        double hta = 0, htb = 0, htc = 0, htd = 0, hte = 0, htf = 0;
+        double tvaa = 0, tvab = 0, tvac = 0, tvad = 0, tvae = 0, tvaf = 0;
         FactureSelonSpecification facture = new FactureSelonSpecification();
         User user = userService.getUser(userName);
         MachinesInstallees machine = machineService.findAllByIfu(user.getIfu());
@@ -342,6 +343,7 @@ public class FactureResController {
         double ht = 0, tva = 0;
         int tax_a = tax.getA(), tax_b = tax.getB(), tax_c = tax.getC(), tax_d = tax.getD(), tax_e = tax.getE(), tax_f = tax.getF();
         Date maintenant = new Date();
+        
         String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
         int position = factureService.tout().size() + 1;
         int taxe = 0;
@@ -350,40 +352,46 @@ public class FactureResController {
             if ("A".equalsIgnoreCase(str.getTaxGroup())) {
                 taa = taa + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((taa * 100)/(100 + tax_a)));
-                tva = tva + Math.round(((taa * tax_a)/(100 + taa)));
             }
             if ("B".equalsIgnoreCase(str.getTaxGroup())) {
                 tab = tab + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((tab * 100)/(100 + tax_b)));
-                tva = tva + Math.round(((tab * tax_b)/(100 + tab)));
             }
             if ("C".equalsIgnoreCase(str.getTaxGroup())) {
                 tac = tac + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((tac * 100)/(100 + tax_c)));
-                tva = tva + Math.round(((tac * tax_c)/(100 + tac)));
             }
             if ("D".equalsIgnoreCase(str.getTaxGroup())) {
                 tad = tad + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((tad * 100)/(100 + tax_d)));
-                tva = tva + Math.round(((tad * tax_d)/(100 + tad)));
             }
             if ("E".equalsIgnoreCase(str.getTaxGroup())) {
                 tae = tae + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((tae * 100)/(100 + tax_e)));
-                tva = tva + Math.round(((tae * tax_e)/(100 + tae)));
             }
             if ("F".equalsIgnoreCase(str.getTaxGroup())) {
                 taf = taf + str.getPrice() * str.getQuantity();
                 total = total + str.getPrice() * str.getQuantity();
-                ht = ht + Math.round(((taf * 100)/(100 + tax_f)));
-                tva = tva + Math.round(((taf * tax_f)/(100 + taf)));
             }
         }
+        //Hors Taxe de chaque groupe de taxation
+        hta = Math.round(((taa * 100)/(100 + tax_a)));
+        htb = Math.round(((tab * 100)/(100 + tax_b)));
+        htc = Math.round(((tac * 100)/(100 + tax_c)));
+        htd = Math.round(((tad * 100)/(100 + tax_d)));
+        hte = Math.round(((tae * 100)/(100 + tax_e)));
+        htf = Math.round(((taf * 100)/(100 + tax_f)));
+        
+        //TVA de chaque groupe de taxation
+        tvaa = Math.round(((taa * tax_a)/(100 + tax_a)));
+        tvab = Math.round(((tab * tax_b)/(100 + tax_b)));
+        tvac = Math.round(((tac * tax_c)/(100 + tax_c)));
+        tvad = Math.round(((tad * tax_d)/(100 + tax_d)));
+        tvae = Math.round(((tae * tax_e)/(100 + tax_e)));
+        tvaf = Math.round(((taf * tax_f)/(100 + tax_f)));
+        
+        ht = hta + htb + htc + htd + hte + htf;
+        tva = tvaa + tvab + tvac + tvad + tvae + tvad;
 
         String methode = "";
         Long montant = 0L;
@@ -441,12 +449,12 @@ public class FactureResController {
         facture.setTax_specifique_d(0);
         facture.setTax_specifique_e(0);
         facture.setTax_specifique_f(0);
-        facture.setTaxable_a(Math.round((taa * 100)/(100 + tax_a)));
-        facture.setTaxable_b(Math.round((tab * 100)/(100 + tax_b)));
-        facture.setTaxable_c(Math.round((tac * 100)/(100 + tax_c)));
-        facture.setTaxable_d(Math.round((tad * 100)/(100 + tax_d)));
-        facture.setTaxable_e(Math.round((tae * 100)/(100 + tax_e)));
-        facture.setTaxable_f(Math.round((taf * 100)/(100 + tax_f)));
+        facture.setTaxable_a(hta);
+        facture.setTaxable_b(htb);
+        facture.setTaxable_c(htc);
+        facture.setTaxable_d(htd);
+        facture.setTaxable_e(hte);
+        facture.setTaxable_f(htf);
         facture.setTotal(total);
         facture.setTotal_a(taa);
         facture.setTotal_b(tab);
@@ -455,12 +463,12 @@ public class FactureResController {
         facture.setTotal_e(tae);
         facture.setTotal_f(taf);
         facture.setTotal_tax(tva);
-        facture.setTotal_tax_a(Math.round((taa * tax_a)/(100 + tax_a)));
-        facture.setTotal_tax_b(Math.round((tab * tax_b)/(100 + tax_b)));
-        facture.setTotal_tax_c(Math.round((tac * tax_c)/(100 + tax_c)));
-        facture.setTotal_tax_d(Math.round((tad * tax_d)/(100 + tax_d)));
-        facture.setTotal_tax_e(Math.round((tae * tax_e)/(100 + tax_e)));
-        facture.setTotal_tax_f(Math.round((taf * tax_f)/(100 + tax_f)));
+        facture.setTotal_tax_a(tvaa);
+        facture.setTotal_tax_b(tvab);
+        facture.setTotal_tax_c(tvac);
+        facture.setTotal_tax_d(tvad);
+        facture.setTotal_tax_e(tvae);
+        facture.setTotal_tax_f(tvaf);
         facture.setTotal_tax_specifique(0);
         facture.setTotal_taxable(ht);
         facture.setType(factureRequest.getType());
@@ -497,10 +505,11 @@ public class FactureResController {
                 group = "F";
             }
             double mont = str.getPrice() * str.getQuantity();
-            double het = mont - (mont * (taxe / 100));
+            double ht_art = Math.round(((mont * 100)/(100 + taxe)));
+            double tva_art = Math.round(((mont * taxe)/(100 + taxe)));
             LigneDeFacture article = new LigneDeFacture();
             article.setAmount(mont);
-            article.setAmounttaxable(het);
+            article.setAmounttaxable(ht_art);
             article.setCode(str.getCode());
             article.setFacture(facture);
             article.setId(position);
@@ -512,10 +521,10 @@ public class FactureResController {
             article.setOrdinalnumber(taxe);
             article.setOriginalprice(str.getPrice());
             article.setPrice(str.getPrice());
-            article.setPricetaxable(str.getPrice() * (taxe / 100));
+            article.setPricetaxable(str.getPrice());
             article.setQuantity(str.getQuantity());
             article.setTax(taxe);
-            article.setTaxamount(mont * (taxe / 100));
+            article.setTaxamount(tva_art);
             article.setTaxrate(0);
             article.setTaxratelabel(group);
             article.setTsamount(0);
@@ -558,11 +567,6 @@ public class FactureResController {
         last.setAib(0);
         last.setTs(0);
         last.setTotal(facture.getTotal());
-
-        /* try {
-        } catch (BadCredentialsException e) {
-            throw new Exception("Le nom d'utilisateur et le mot de passe sont invalides.");
-        }*/
         return last;
     }
 
