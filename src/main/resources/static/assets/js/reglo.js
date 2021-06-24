@@ -8,6 +8,7 @@ new Vue({
     data: {
         timer1: '',
         timer2: '',
+        timer3: '',
         valeur1: [],
         valeur2: [],
         valeur3: [],

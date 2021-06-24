@@ -149,8 +149,8 @@ public class FactureResController {
         }
         return k;
     }
-    
-     int count(Date date, List<FactureSelonSpecification> facture) {
+
+    int count(Date date, List<FactureSelonSpecification> facture) {
         int resultat = 0;
         for (FactureSelonSpecification fct : facture) {
             if (fct.getDateTime() == date) {
@@ -244,23 +244,22 @@ public class FactureResController {
         List<FactureSelonSpecification> all = factureService.tout();
 
         if ("confirm".equalsIgnoreCase(action)) {
-            int id = 0;
+            int id = facture.getId();
             Date date = facture.getDateTime();
-            String code = "", qrcode = "", datetime = "", counters = "", nim = "";
+            String code = "", qrcode = "", datetime = "", counters = "", nim = facture.getNim();
             String code1 = "", code2 = "", code3 = "", code4 = "", code5 = "", code6 = "";
-            int pending = 0, validated = 0;
+            int total = 0, actuel = 0;
             for (FactureSelonSpecification str : all) {
-                if (str.getStatus() == false) {
-                    pending = pending + 1;
-                }
-                if (str.getStatus() == true) {
-                    validated = validated + 1;
+                if (str.getNim() == nim) {
+                    total += total;
+                    if (str.getType().equalsIgnoreCase(facture.getType())) {
+                        actuel += actuel;
+                    }
                 }
             }
-            id = facture.getId();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            counters = validated + "/" + pending + " FV";
+            counters = total + " / " + actuel+ " " + facture.getType();
             code1 = getParticularString(4);
             code2 = getParticularString(4);
             code3 = getParticularString(4);
@@ -269,7 +268,6 @@ public class FactureResController {
             code6 = getParticularString(4);
             code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
             datetime = transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + transform(calendar.get(Calendar.MONTH) + 1) + "/" + transform(calendar.get(Calendar.YEAR)) + " " + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + ":" + transform(calendar.get(Calendar.MINUTE)) + ":" + transform(calendar.get(Calendar.SECOND));
-            nim = facture.getNim();
             qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(calendar.get(Calendar.YEAR)) + transform(calendar.get(Calendar.MONTH) + 1) + transform(calendar.get(Calendar.DAY_OF_MONTH)) + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + transform(calendar.get(Calendar.MINUTE)) + transform(calendar.get(Calendar.SECOND));
             normale.setCodeMECeFDGI(code);
             normale.setCounters(counters);
@@ -343,7 +341,7 @@ public class FactureResController {
         double ht = 0, tva = 0;
         int tax_a = tax.getA(), tax_b = tax.getB(), tax_c = tax.getC(), tax_d = tax.getD(), tax_e = tax.getE(), tax_f = tax.getF();
         Date maintenant = new Date();
-        
+
         String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
         int position = factureService.tout().size() + 1;
         int taxe = 0;
@@ -375,21 +373,21 @@ public class FactureResController {
             }
         }
         //Hors Taxe de chaque groupe de taxation
-        hta = Math.round(((taa * 100)/(100 + tax_a)));
-        htb = Math.round(((tab * 100)/(100 + tax_b)));
-        htc = Math.round(((tac * 100)/(100 + tax_c)));
-        htd = Math.round(((tad * 100)/(100 + tax_d)));
-        hte = Math.round(((tae * 100)/(100 + tax_e)));
-        htf = Math.round(((taf * 100)/(100 + tax_f)));
-        
+        hta = Math.round(((taa * 100) / (100 + tax_a)));
+        htb = Math.round(((tab * 100) / (100 + tax_b)));
+        htc = Math.round(((tac * 100) / (100 + tax_c)));
+        htd = Math.round(((tad * 100) / (100 + tax_d)));
+        hte = Math.round(((tae * 100) / (100 + tax_e)));
+        htf = Math.round(((taf * 100) / (100 + tax_f)));
+
         //TVA de chaque groupe de taxation
-        tvaa = Math.round(((taa * tax_a)/(100 + tax_a)));
-        tvab = Math.round(((tab * tax_b)/(100 + tax_b)));
-        tvac = Math.round(((tac * tax_c)/(100 + tax_c)));
-        tvad = Math.round(((tad * tax_d)/(100 + tax_d)));
-        tvae = Math.round(((tae * tax_e)/(100 + tax_e)));
-        tvaf = Math.round(((taf * tax_f)/(100 + tax_f)));
-        
+        tvaa = Math.round(((taa * tax_a) / (100 + tax_a)));
+        tvab = Math.round(((tab * tax_b) / (100 + tax_b)));
+        tvac = Math.round(((tac * tax_c) / (100 + tax_c)));
+        tvad = Math.round(((tad * tax_d) / (100 + tax_d)));
+        tvae = Math.round(((tae * tax_e) / (100 + tax_e)));
+        tvaf = Math.round(((taf * tax_f) / (100 + tax_f)));
+
         ht = hta + htb + htc + htd + hte + htf;
         tva = tvaa + tvab + tvac + tvad + tvae + tvad;
 
@@ -505,8 +503,8 @@ public class FactureResController {
                 group = "F";
             }
             double mont = str.getPrice() * str.getQuantity();
-            double ht_art = Math.round(((mont * 100)/(100 + taxe)));
-            double tva_art = Math.round(((mont * taxe)/(100 + taxe)));
+            double ht_art = Math.round(((mont * 100) / (100 + taxe)));
+            double tva_art = Math.round(((mont * taxe) / (100 + taxe)));
             LigneDeFacture article = new LigneDeFacture();
             article.setAmount(mont);
             article.setAmounttaxable(ht_art);
@@ -747,7 +745,7 @@ public class FactureResController {
             return null;
         }
     }
-    
+
     @GetMapping("/tva")
     public List<Double> tva() {
         try {

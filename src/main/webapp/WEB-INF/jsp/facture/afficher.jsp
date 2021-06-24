@@ -364,7 +364,7 @@
                                                         <span class="text-dark">{{ facture.total }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-success" v-if="facture.status">Validé</span>
+                                                        <span class="text-success" v-if="facture.status">Validée</span>
                                                         <span class="text-danger" v-else>Invalidée</span>
                                                     </td>
                                                     <td>

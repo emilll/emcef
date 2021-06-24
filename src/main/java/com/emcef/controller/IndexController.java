@@ -64,7 +64,7 @@ public class IndexController {
     @GetMapping("/export")
     @ResponseBody
     public void export(HttpServletResponse response) throws JRException, FileNotFoundException, IOException {
-        FactureSelonSpecification facture = factureService.findAllByUid("soOsis36-608b-WRtG-lXxX-Kh2QZV6U5pKd");
+        FactureSelonSpecification facture = factureService.findAllByUid("MmWj1yts-7MXF-CEDR-Hh0o-axr0h4BMaWQO");
         createPdfReport(ligneDeFactureService.articles(facture), facture, response);
     }
 

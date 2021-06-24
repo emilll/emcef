@@ -13,35 +13,33 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "certificatsenregistres")
 public class Certificatsenregistres {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 
-	@OneToOne
-	Modelsmachines modelsmachines;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@OneToOne
-	Contribuable contribuables;
+    @OneToOne
+    Modelsmachines modelsmachines;
 
-	@Column(name = "version_logiciel")
-	private String version_logiciel;
+    @OneToOne
+    Contribuable contribuables;
 
-	@Column(name = "materiel_maj")
-	private String materiel_maj;
+    @Column(name = "version_logiciel")
+    private String version_logiciel;
 
-	@Column(name = "date_emission")
-	private Date date_emission;
+    @Column(name = "materiel_maj")
+    private String materiel_maj;
 
-	@Column(name = "description_emission")
-	private String description_emission;
+    @Column(name = "date_emission")
+    private Date date_emission;
 
-	@Column(name = "description_revocation")
-	private String description_revocation;
+    @Column(name = "description_emission")
+    private String description_emission;
 
-	@Column(name = "date_revocation")
-	private Date date_revocation;
+    @Column(name = "description_revocation")
+    private String description_revocation;
 
-	public Certificatsenregistres() {
-	}
-	
+    @Column(name = "date_revocation")
+    private Date date_revocation;
+
 }

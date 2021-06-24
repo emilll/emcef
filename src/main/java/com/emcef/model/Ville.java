@@ -9,10 +9,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
-
 @Entity
-@Table(name = "commune")
-public class Commune {
+@Table(name = "ville")
+public class Ville {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,16 +19,8 @@ public class Commune {
     @Column(name = "nom")
     private String nom;
 
-    @OneToOne
-    Departement departement;
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
+    @OneToOne 
+    Commune commune;
 
     public int getId() {
         return id;
@@ -45,5 +36,13 @@ public class Commune {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Commune getCommune() {
+        return commune;
+    }
+
+    public void setCommune(Commune commune) {
+        this.commune = commune;
     }
 }

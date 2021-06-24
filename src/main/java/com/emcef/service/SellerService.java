@@ -39,10 +39,6 @@ public class SellerService {
         return sellerRepository.findAllByIfuseller(ifuseller);
     }
     
-    public List<FactureSelonSpecification> allByIfuseller(String ifuseller){
-    return factureRepository.findAllByIfuseller(ifuseller);
-    }
-    
     public JSONObject montant(String ifuseller){
     JSONObject resultat = new JSONObject();
     double ht = 0, ttc = 0;

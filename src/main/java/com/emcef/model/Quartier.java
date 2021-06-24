@@ -1,3 +1,8 @@
+/*
+ * Projet : Emcef Virtuel
+ *  Auteurs: Emmanuel BOSSOU & Emile AHIATOR
+ * 2021
+ */
 package com.emcef.model;
 
 import javax.persistence.Column;
@@ -5,27 +10,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Holy
+ */
 @Entity
-@Table(name = "")
-public class Secteurs {
-
+@Table(name = "quartier")
+public class Quartier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    
     @Column(name = "nom")
     private String nom;
 
-    @ManyToOne
-    District district;
-
-    @Override
-    public String toString() {
-        return "Secteurs [id=" + id + ", nom=" + nom + "]";
-    }
+    @OneToOne 
+    Ville ville;
 
     public int getId() {
         return id;
@@ -43,8 +46,11 @@ public class Secteurs {
         this.nom = nom;
     }
 
-    public Secteurs() {
+    public Ville getVille() {
+        return ville;
     }
 
-    // public District id_district;
+    public void setVille(Ville ville) {
+        this.ville = ville;
+    }
 }

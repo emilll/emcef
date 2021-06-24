@@ -6,17 +6,14 @@
 package com.emcef.repository;
 
 import com.emcef.model.FactureSelonSpecification;
-import com.emcef.model.LigneDeFacture;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *

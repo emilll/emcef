@@ -17,7 +17,6 @@
         <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
         <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
         <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
         <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
@@ -87,17 +86,14 @@
                                 <div class="col-sm-4 mb-3">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
-                                            <form class="mb-2">
+                                            <form class="mb-2" @submit.prevent="savePays">
                                                 <h2 class="text-dark mb-3">Pays</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
-                                                    </div>
-                                                    <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de Département">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="pays.nom">
                                                     </div>
                                                     <div class="offset-3 col-sm-6 offset-3 form-group">
-                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer Pays</button>
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer Pays</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -107,17 +103,20 @@
                                 <div class="col-sm-4 mb-3">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
-                                            <form class="mb-2">
+                                            <form class="mb-2" @submit.prevent="saveDepartement">
                                                 <h2 class="text-dark mb-3">Département</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="departement.nom">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de Communes">
+                                                        <label>Pays</label>
+                                                        <select v-model="departement.idpays" class="form-control style_form_control">
+                                                            <option v-for="p in dataPays" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="offset-2 col-sm-8 offset-2form-group">
-                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer le Département</button>
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer le Département</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -127,17 +126,68 @@
                                 <div class="col-sm-4 mb-3">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
-                                            <form class="mb-2">
+                                            <form class="mb-2" @submit.prevent="saveCommune">
                                                 <h2 class="text-dark mb-3">Commune</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="commune.nom">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Nombre de quartier">
+                                                        <label>Départements</label>
+                                                        <select v-model="commune.iddepartement" class="form-control style_form_control">
+                                                            <option v-for="p in dataDepartements" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="offset-2 col-sm-8 offset-2 form-group">
-                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer la commune</button>
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer la commune</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters-sm">
+                                <div class="col-sm-6 mb-3">
+                                    <div class="table-responsive">
+                                        <div class="col-sm-12 my-auto">
+                                            <form class="mb-2" @submit.prevent="saveVille">
+                                                <h2 class="text-dark mb-3">Ville</h2>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="ville.nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <label>Communes</label>
+                                                        <select v-model="ville.idcommune" class="form-control style_form_control">
+                                                            <option v-for="p in dataCommunes" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="offset-3 col-sm-6 offset-3 form-group">
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer la Ville</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="table-responsive">
+                                        <div class="col-sm-12 my-auto">
+                                            <form class="mb-2" @submit.prevent="saveQuartier">
+                                                <h2 class="text-dark mb-3">Quartier</h2>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="quartier.nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <label>Pays</label>
+                                                        <select v-model="quartier.idville" class="form-control style_form_control">
+                                                            <option v-for="p in dataVilles" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="offset-2 col-sm-8 offset-2form-group">
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer le Quartier</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -151,7 +201,7 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
-        <script src="${contextPath}/assets/js/specific/machine.js" type="text/javascript"></script>
+        <script src="${contextPath}/assets/js/specific/emplacement.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>

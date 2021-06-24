@@ -1,42 +1,35 @@
 package com.emcef.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 
-
 @Entity
-@Table(name = "commune")
-public class Commune {
+@Table(name = "departement")
+public class Departement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "nom")
     private String nom;
-
+    
     @OneToOne
-    Departement departement;
+    Pays pays;
 
-    public Departement getDepartement() {
-        return departement;
+    public Pays getPays() {
+        return pays;
     }
 
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setPays(Pays pays) {
+        this.pays = pays;
     }
 
     public String getNom() {
@@ -45,5 +38,13 @@ public class Commune {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

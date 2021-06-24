@@ -5,31 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name = "commune")
-public class Commune {
+@Table(name = "pays")
+public class Pays {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "nom")
     private String nom;
-
-    @OneToOne
-    Departement departement;
-
-    public Departement getDepartement() {
-        return departement;
-    }
-
-    public void setDepartement(Departement departement) {
-        this.departement = departement;
-    }
 
     public int getId() {
         return id;
