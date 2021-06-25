@@ -51,7 +51,7 @@ new Vue({
         },
         savePays: function () {
             if (this.pays.nom === '') {
-                this.showMessage("false", "Le champ Nom est vide!")
+                this.showMessage("false", "Le Nom du Pays est vide!")
             } else {
                 fetch("/save/pays/" + this.pays.nom, {
                     "method": "GET",
@@ -61,7 +61,7 @@ new Vue({
                         return response.json()
                     }
                 }).then(response => {
-                    this.response=response
+                    this.response = response
                     this.showMessage(this.response.status, this.response.message)
                     this.pays.nom = ""
                 }).catch(error => {
@@ -71,82 +71,98 @@ new Vue({
         },
         saveDepartement: function () {
             if (this.departement.nom === '') {
-                this.showMessage("false", "Le champ Nom est vide!")
+                this.showMessage("false", "Le Nom du Département est vide!")
             } else {
-                fetch("/save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
-                    "method": "GET",
-                    "headers": {}
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then(response => {
-                    this.response=response
-                    this.showMessage(this.response.status, this.response.message)
-                    this.departement.nom = ""
-                }).catch(error => {
-                    console.log(error)
-                })
+                if (isNaN(this.departement.idpays)) {
+                    this.showMessage("false", "Le Nom du Pays est vide!")
+                } else {
+                    fetch("/save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        this.response = response
+                        this.showMessage(this.response.status, this.response.message)
+                        this.departement.nom = ""
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
             }
         },
         saveCommune: function () {
             if (this.commune.nom === '') {
-                this.showMessage("false", "Le champ Nom est vide!")
+                this.showMessage("false", "Le Nom de la Commune est vide!")
             } else {
-                fetch("/save/commune/" + this.commune.nom + "/" + this.commune.iddepartement, {
-                    "method": "GET",
-                    "headers": {}
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then(response => {
-                    this.response=response
-                    this.showMessage(this.response.status, this.response.message)
-                    this.commune.nom = ""
-                }).catch(error => {
-                    console.log(error)
-                })
+                if (isNaN(this.commune.iddepartement)) {
+                    this.showMessage("false", "Le Nom du Département est vide!")
+                } else {
+                    fetch("/save/commune/" + this.commune.nom + "/" + this.commune.iddepartement, {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        this.response = response
+                        this.showMessage(this.response.status, this.response.message)
+                        this.commune.nom = ""
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
             }
         },
         saveVille: function () {
             if (this.ville.nom === '') {
-                this.showMessage("false", "Le champ Nom est vide!")
+                this.showMessage("false", "Le Nom de la ville est vide!")
             } else {
-                fetch("/save/ville/" + this.ville.nom + "/" + this.ville.idcommune, {
-                    "method": "GET",
-                    "headers": {}
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then(response => {
-                    this.response=response
-                    this.showMessage(this.response.status, this.response.message)
-                    this.ville.nom = ""
-                }).catch(error => {
-                    console.log(error)
-                })
+                if (isNaN(this.ville.idcommune)) {
+                    this.showMessage("false", "Le Nom de la commune est vide!")
+                } else {
+                    fetch("/save/ville/" + this.ville.nom + "/" + this.ville.idcommune, {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        this.response = response
+                        this.showMessage(this.response.status, this.response.message)
+                        this.ville.nom = ""
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
             }
         },
         saveQuartier: function () {
             if (this.quartier.nom === '') {
-                this.showMessage("false", "Le champ Nom est vide!")
+                this.showMessage("false", "Le Nom du quartier est vide!")
             } else {
-                fetch("/save/quartier/" + this.quartier.nom + "/" + this.quartier.idville, {
-                    "method": "GET",
-                    "headers": {}
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-                }).then(response => {
-                    this.response=response
-                    this.showMessage(this.response.status, this.response.message)
-                    this.quartier.nom = ""
-                }).catch(error => {
-                    console.log(error)
-                })
+                if (isNaN(this.quartier.idville)) {
+                    this.showMessage("false", "Le Nom du quartier est vide!")
+                } else {
+                    fetch("/save/quartier/" + this.quartier.nom + "/" + this.quartier.idville, {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        this.response = response
+                        this.showMessage(this.response.status, this.response.message)
+                        this.quartier.nom = ""
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
             }
         },
         fetchData: function () {

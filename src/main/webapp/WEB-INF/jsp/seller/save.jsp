@@ -17,7 +17,6 @@
         <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
         <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
         <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
         <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
@@ -35,7 +34,7 @@
                 setTimeout(function () {
                     $('body').addClass('loaded');
                     $('h1').css('color', '#222222')
-                }, 1000);
+                }, 5000);
 
             });
         </script>
@@ -87,11 +86,17 @@
                                 <div class="col-sm-6 mb-3">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
-                                            <form class="mb-2">
+                                            <form class="mb-2" @submit.prevent="saveSeller">
                                                 <h2 class="text-dark mb-3">Enregistrement</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="UID">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="UID" v-model="departement.nom">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <label>Pays</label>
+                                                        <select v-model="departement.idpays" class="form-control style_form_control">
+                                                            <option v-for="p in dataPays" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Nom Commercial">
@@ -100,19 +105,10 @@
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Ville">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Adresse">
-                                                    </div>
-                                                    <div class="col-sm-12 form-group">
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Adresse1">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Adresse2">
-                                                    </div>
-                                                    <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Adresse3">
-                                                    </div>
-                                                    <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Adresse4">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <input type="number" class="form-control style_form_control" name="" placeholder="Zip">
@@ -136,7 +132,7 @@
                                                         <input type="number" class="form-control style_form_control" name="" placeholder="Longitude">
                                                     </div>
                                                     <div class="offset-3 col-sm-6 offset-3 form-group">
-                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer le Point de Vente</button>
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer le Point de Vente</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -144,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 mb-3">
-                                    <canvas></canvas>
+                                    <iframe class="mx-auto px-2 mt-0 w-100 p-3 h-50" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15860.764275316606!2d2.4139587959381097!3d6.369314406844872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sbj!4v1624617765007!5m2!1sfr!2sbj" width="500" height="" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +149,7 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/specific/seller.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <%@include  file="../views/footer.jsp" %>

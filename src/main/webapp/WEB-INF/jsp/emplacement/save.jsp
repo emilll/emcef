@@ -54,15 +54,6 @@
                         <h5 class="flex-fill"><a href="#">Tableau</a> de <span class="text-success">Bord</span></h5>
                     </div>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <div class="container-fluid position-relative">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <ul class="nav nav-tabs d-none">
-                                <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#home">Données</button></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
             </div>
             <div class="bg-white py-1 border-bottom">
                 <div class="container-fluid">
@@ -81,9 +72,22 @@
             <div class="py-3">
                 <div class="container-fluid">
                     <div class="bg-white p-2 tab-content">
+                        <nav class="navbar navbar-expand-lg navbar-light p-0">
+                            <div class="container-fluid position-relative">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                    <ul class="nav nav-tabs">
+                                        <li><button class="btn btn-sm btn-outline-success mr-1 active" data-toggle="pill" href="#pays">Pays</button></li>
+                                        <li><button class="btn btn-sm btn-outline-success mr-1"data-toggle="pill" href="#departement">Département</button></li>
+                                        <li><button class="btn btn-sm btn-outline-success mr-1" data-toggle="pill" href="#commune">Commune</button></li>
+                                        <li><button class="btn btn-sm btn-outline-success mr-1"data-toggle="pill" href="#ville">Ville</button></li>
+                                        <li><button class="btn btn-sm btn-outline-success mr-1" data-toggle="pill" href="#quartier">Quartier</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
                         <div>
-                            <div class="row gutters-sm">
-                                <div class="col-sm-4 mb-3">
+                            <div class="gutters-sm tab-content">
+                                <div class="col-sm-12 mb-3 active tab-pane fade in show" id="pays">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
                                             <form class="mb-2" @submit.prevent="savePays">
@@ -100,7 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-12 mb-3 tab-pane fade" id="departement">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
                                             <form class="mb-2" @submit.prevent="saveDepartement">
@@ -123,7 +127,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-sm-12 mb-3 tab-pane fade" id="commune">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
                                             <form class="mb-2" @submit.prevent="saveCommune">
@@ -133,7 +137,7 @@
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="commune.nom">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <label>Départements</label>
+                                                        <label>Département</label>
                                                         <select v-model="commune.iddepartement" class="form-control style_form_control">
                                                             <option v-for="p in dataDepartements" v-bind:value="p.id">{{ p.nom }}</option>
                                                         </select>
@@ -146,9 +150,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row gutters-sm">
-                                <div class="col-sm-6 mb-3">
+                                <div class="col-sm-12 mb-3 tab-pane fade" id="ville">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
                                             <form class="mb-2" @submit.prevent="saveVille">
@@ -158,7 +160,7 @@
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="ville.nom">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <label>Communes</label>
+                                                        <label>Commune</label>
                                                         <select v-model="ville.idcommune" class="form-control style_form_control">
                                                             <option v-for="p in dataCommunes" v-bind:value="p.id">{{ p.nom }}</option>
                                                         </select>
@@ -171,7 +173,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 mb-3">
+                                <div class="col-sm-12 mb-3 tab-pane fade" id="quartier">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
                                             <form class="mb-2" @submit.prevent="saveQuartier">
@@ -181,7 +183,7 @@
                                                         <input type="text" class="form-control style_form_control" name="" placeholder="Nom" v-model="quartier.nom">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <label>Pays</label>
+                                                        <label>Ville</label>
                                                         <select v-model="quartier.idville" class="form-control style_form_control">
                                                             <option v-for="p in dataVilles" v-bind:value="p.id">{{ p.nom }}</option>
                                                         </select>
