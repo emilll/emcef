@@ -149,52 +149,52 @@
                                                 <tbody class="">
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Globaux</th>
-                                                        <td><h5>{{ verification(valeur1.nbre) }}</h5></td>
-                                                        <td><h5>{{ verification(valeur1.rapport) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur1.nbre) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur1.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totalTTC) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur1.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totalHT) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur1.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur1.totalTVA) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur1.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Mensuel</th>
-                                                        <td><h5>{{ verification(valeur2.nbre) }}</h5></td>
-                                                        <td><h5>{{ verification(valeur2.rapport) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur2.nbre) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur2.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totalTTC) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur2.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totalHT) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur2.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur2.totalTVA) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur2.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th class="bg-success text-white">Totaux Journalier</th>
-                                                        <td><h5>{{ verification(valeur3.nbre) }}</h5></td>
-                                                        <td><h5>{{ verification(valeur3.rapport) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur3.nbre) }}</h5></td>
+                                                        <td><h5 class="counter">{{ verification(valeur3.rapport) }}</h5></td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totalTTC) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur3.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totalHT) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur3.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                         <td>
-                                                            <h5>{{ verification(valeur3.totalTVA) }}</h5>
+                                                            <h5 class="counter">{{ verification(valeur3.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
                                                     </tr>
@@ -307,6 +307,16 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
+            var tester = function () {
+                jQuery(document).ready(function ($) {
+                    $('.counter').counterUp({
+                        delay: 10,
+                        time: 3000
+                    });
+                });
+            }
+            setTimeout(tester, 1500);
+
             yearcal1 = new CalHeatMap();
             var dt = new Date();
             yearcal1.init({

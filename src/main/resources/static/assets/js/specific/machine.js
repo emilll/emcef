@@ -5,7 +5,14 @@ new Vue({
         machines: [],
         vide: true,
         filter: '',
-        more: []
+        search:''
+    },
+    computed: {
+        filtre: function () {
+            return this.machines.filter((machine) => {
+                return machine.nim.match(this.search)
+            })
+        }
     },
     mounted() {
         fetch("/api/machineall", {

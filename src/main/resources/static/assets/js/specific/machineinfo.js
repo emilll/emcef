@@ -1,17 +1,23 @@
 new Vue({
     el: '#appinfo',
     data: {
-        test: 'bien',
         valeur: window.location.pathname.split("/", 3),
         factures: [],
         machines: [],
         info: [],
         vide: true,
-        filter: ''
+        search: ''
     },
     methods:{
         ifu: function(){
         },
+    },
+    computed: {
+        filtre: function () {
+            return this.factures.filter((facture) => {
+                return facture.uid.match(this.search)
+            })
+        }
     },
     mounted() {
         fetch('/api/factures/' + this.valeur[2], {

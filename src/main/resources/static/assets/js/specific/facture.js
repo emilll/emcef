@@ -2,7 +2,8 @@ new Vue({
     el: '#app',
     data: {
         factures: [],
-        vide: true
+        vide: true,
+        search: ''
     },
     mounted() {
         fetch("/api/facturesall", {
@@ -19,5 +20,11 @@ new Vue({
             console.log(error)
         })
     },
-    methods: {}
+    computed: {
+        filtre: function () {
+            return this.factures.filter((facture) => {
+                return facture.uid.match(this.search)
+            })
+        }
+    }
 })

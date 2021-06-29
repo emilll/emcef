@@ -341,7 +341,7 @@
                                                 <div class="col-sm-6 form-group">
                                                     <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                         <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ info.totalTTC }}</span>
+                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(info.totalTTC) }}</span>
                                                             <h5 class="card-title mt-3" style="font-size: 20px">Montant TTC</h5>
                                                         </div>
                                                     </div>
@@ -349,7 +349,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                         <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ info.totalHT }}</span>
+                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(info.totalHT) }}</span>
                                                             <h5 class="card-title mt-3" style="font-size: 20px">Montant HT</h5>
                                                         </div>
                                                     </div>
@@ -363,9 +363,9 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
-                                            </form>
+                                            <div class="flex-fill">
+                                                <input type="search" v-model="search" class="form-control form-control-sm style_form_control" placeholder="UID">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -388,11 +388,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-if="vide">
+                                                <tr v-if="vide, filtre.length == 0">
                                                     <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
-                                                <tr v-for="facture in factures" v-else>
-                                                    <td>{{ facture.id }}</td>
+                                                <tr v-for="(facture, index) in filtre" v-else>
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="text-success">{{ facture.uid }}</span>
                                                     </td>
@@ -406,10 +406,10 @@
                                                         <span class="text-dark">{{ facture.dateheure }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.total }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total) }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.payed }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.payed) }}</span>
                                                     </td>
                                                     <td>
                                                         <span class="text-success" v-if="facture.status">Validé</span>
@@ -417,7 +417,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a v-if="facture.status" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <div v-else><i class="fa fa-eye badge-danger"></i></div>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -6,6 +6,14 @@ new Vue({
         montant: [],
         info: [],
         vide: true,
+        search:''
+    },
+    computed: {
+        filtre: function () {
+            return this.machines.filter((machine) => {
+                return machine.nim.match(this.search)
+            })
+        }
     },
     mounted() {
         fetch('/api/installationinfo/' + this.valeur[2], {

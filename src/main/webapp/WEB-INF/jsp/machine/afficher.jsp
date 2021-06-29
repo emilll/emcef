@@ -87,9 +87,9 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
-                                            </form>
+                                            <div class="flex-fill">
+                                                <input type="search" v-model="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,11 +110,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-if="vide">
+                                                <tr v-if="vide, filtre.length == 0">
                                                     <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
-                                                <tr  v-for="machine in machines" v-else>
-                                                    <td>{{ machine.id }}</td>
+                                                <tr  v-for="(machine, index) in filtre" v-else>
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="text-dark">{{ machine.nim }}</span>
                                                     </td>

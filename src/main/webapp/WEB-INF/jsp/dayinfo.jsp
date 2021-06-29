@@ -154,6 +154,8 @@
 <h3 id="10" hidden="hidden"></h3>
 <h3 id="11" hidden="hidden"></h3>
 <h3 id="12" hidden="hidden"></h3>
+
+<%@include  file="views/footer.jsp" %>
 <script>
     function convert(vet) {
         var today = new Date(vet);

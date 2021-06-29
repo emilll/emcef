@@ -5,9 +5,16 @@ new Vue({
         valeur: window.location.pathname.split("/", 3),
         contribuables: [],
         machines: [],
-        vide: true
+        vide: true,
+        search:''
     },
-    methods:{},
+    computed: {
+        filtre: function () {
+            return this.machines.filter((machine) => {
+                return machine.nim.match(this.search)
+            })
+        }
+    },
     mounted() {
         fetch('/api/contribuableall/' + this.valeur[2], {
             "method": "GET",

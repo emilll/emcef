@@ -305,9 +305,9 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="UID">
-                                            </form>
+                                            <div class="flex-fill">
+                                                <input type="search" v-model="search" class="form-control form-control-sm style_form_control" placeholder="UID">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -334,11 +334,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-if="vide">
+                                                <tr v-if="vide, filtre.length == 0">
                                                     <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
-                                                <tr  v-for="facture in factures" v-else>
-                                                    <td>{{ facture.id }}</td>
+                                                <tr  v-for="(facture, index) in filtre" v-else>
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="text-dark">{{ facture.uid }}</span>
                                                     </td>
@@ -352,16 +352,16 @@
                                                         <span class="text-dark">{{ facture.dateTime }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.payed }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.payed) }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.total_tax }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total_tax) }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.total_taxable }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total_taxable) }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="text-dark">{{ facture.total }}</span>
+                                                        <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total) }}</span>
                                                     </td>
                                                     <td>
                                                         <span class="text-success" v-if="facture.status">Validée</span>
@@ -376,7 +376,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a  data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a v-if="facture.status" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <div v-else><i class="fa fa-eye badge-danger"></i></div>
                                                         </div>
                                                     </td>
                                                 </tr>

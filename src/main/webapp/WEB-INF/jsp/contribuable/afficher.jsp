@@ -83,9 +83,9 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill p-3">
-                                                <input type="search" class="form-control form-control-sm style_form_control" v-model="filter" name="" placeholder="Nom et Prénoms">
-                                            </form>
+                                            <div class="flex-fill p-3">
+                                                <input type="search" class="form-control form-control-sm style_form_control" v-model="search" placeholder="Nom et Prénoms">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +111,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="contribuable in contribuables">
-                                                    <td>{{ contribuable.id }}</td>
+                                            <tr v-if="vide, filtre.length == 0">
+                                                <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
+                                            </tr>
+                                                <tr v-for="(contribuable, index) in filtre" v-else>
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="text-dark">{{ contribuable.date_enregistrement }}</span>
                                                         <small class="text-muted">{{ contribuable.date_heure }}</small>
@@ -150,9 +153,6 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            <tr v-if="vide">
-                                                <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>

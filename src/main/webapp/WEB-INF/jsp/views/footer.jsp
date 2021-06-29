@@ -47,15 +47,17 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.value.ifu !== null) {
-                window.location.href = "/contribuable/" + result.value.ifu;
-            }
-            if (result.value.ifu === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur...',
-                    text: 'Ce contribuable n\'existe pas!'
-                })
+            if (result.isDismissed === false) {
+                if (result.value.ifu !== null) {
+                    window.location.href = "/contribuable/" + result.value.ifu;
+                }
+                if (result.value.ifu === null) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur...',
+                        text: 'Ce contribuable n\'existe pas!'
+                    })
+                }
             }
         })
     }
@@ -108,16 +110,17 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            console.log(result.value)
-            if (result.value.nim === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur...',
-                    text: 'Cette machine n\'existe pas!'
-                })
-            }
-            if (result.value.nim !== null) {
-                window.location.href = "/machine/" + result.value.nim;
+            if (result.isDismissed === false) {
+                if (result.value.nim === null) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur...',
+                        text: 'Cette machine n\'existe pas!'
+                    })
+                }
+                if (result.value.nim !== null) {
+                    window.location.href = "/machine/" + result.value.nim;
+                }
             }
         })
     }
@@ -170,15 +173,17 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.value.ifuseller !== null) {
-                window.location.href = "/installation/" + result.value.ifuseller;
-            }
-            if (result.value.ifuseller === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur...',
-                    text: 'Ce Point de Vente n\'existe pas!'
-                })
+            if (result.isDismissed === false) {
+                if (result.value.ifuseller !== null) {
+                    window.location.href = "/installation/" + result.value.ifuseller;
+                }
+                if (result.value.ifuseller === null) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur...',
+                        text: 'Ce Point de Vente n\'existe pas!'
+                    })
+                }
             }
         })
     }

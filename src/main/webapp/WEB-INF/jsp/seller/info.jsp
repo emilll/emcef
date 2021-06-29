@@ -123,7 +123,7 @@
                                                 <div class="col-sm-6 form-group">
                                                     <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                         <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.totalTTC }}</span>
+                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(montant.totalTTC) }}</span>
                                                             <h5 class="card-title mt-3" style="font-size: 20px">Montant TTC</h5>
                                                         </div>
                                                     </div>
@@ -131,7 +131,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="card style_shadow border-0 rounded-lg" data-aos="zoom-out" data-aos-easing="linear" data-aos-easing="linear" data-aos-duration="2000">
                                                         <div class="">
-                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ montant.totalHT }}</span>
+                                                            <span class="display font-weight-bold border-bottom text-success" style="font-size: 18px">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(montant.totalHT) }}</span>
                                                             <h5 class="card-title mt-3" style="font-size: 20px">Montant HT</h5>
                                                         </div>
                                                     </div>
@@ -145,9 +145,9 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center mb-1 float-right">
-                                            <form class="flex-fill">
-                                                <input type="search" class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
-                                            </form>
+                                            <div class="flex-fill">
+                                                <input type="search" v-model="search"  class="form-control form-control-sm style_form_control" name="" placeholder="NIM">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -168,11 +168,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-if="vide">
+                                                <tr v-if="vide, filtre.length == 0">
                                                     <td colspan="12"><span class="text-dark">Aucune donnée</span></td>
                                                 </tr>
-                                                <tr  v-for="machine in machines" v-else>
-                                                    <td>{{ machine.id }}</td>
+                                                <tr  v-for="(machine, index) in filtre" v-else>
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
                                                         <span class="text-dark">{{ machine.nim }}</span>
                                                     </td>

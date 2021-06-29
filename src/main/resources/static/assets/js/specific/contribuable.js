@@ -6,13 +6,14 @@ new Vue({
         contribuables: [],
         vide: true,
         filter: '',
-        more: []
+        more: [],
+        search:''
     },
     computed: {
-        filteredRows() {
-            const name = contribuables.nom.toLowerCase();
-            const searchTerm = this.filter.toLowerCase();
-            return (name.includes(searchTerm));
+        filtre: function () {
+            return this.contribuables.filter((contribuable) => {
+                return contribuable.nom.match(this.search)
+            })
         }
     },
     mounted() {
