@@ -20,11 +20,11 @@ public class Erreur {
     @Id
     private Long id;
     
-    @Column(name = "errorCode")
-    private String errorCode;
+    @Column(name = "code")
+    private String code;
     
-    @Column(name = "errorDesc")
-    private String errorDesc;
+    @Column(name = "description")
+    private String description;
 
     public Long getId() {
         return id;
@@ -35,18 +35,18 @@ public class Erreur {
     }
 
     public String getErrorCode() {
-        return errorCode;
+        return code;
     }
 
     public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+        this.code = errorCode;
     }
 
     public String getErrorDesc() {
-        return errorDesc;
+        return description;
     }
 
     public void setErrorDesc(String errorDesc) {
-        this.errorDesc = errorDesc;
+        this.description = errorDesc;
     }
 }

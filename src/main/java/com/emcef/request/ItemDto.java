@@ -17,7 +17,16 @@ public class ItemDto {
     private String taxGroup;
     private int taxSpecific;
     private int originalPrice;
+    private int remise;
     private String priceModification;
+
+    public int getRemise() {
+        return remise;
+    }
+
+    public void setRemise(int remise) {
+        this.remise = remise;
+    }
 
     public String getCode() {
         return code;

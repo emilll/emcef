@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "typespaiment")
-public class TypesPaiment {
+public class TypesPaiement {
 
     @Id
     private Long id;

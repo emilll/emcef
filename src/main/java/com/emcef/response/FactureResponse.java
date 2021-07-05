@@ -42,7 +42,26 @@ public class FactureResponse {
     private double tva;
     private double ht;
     private double total;
+    private String errorCode;
+    private String errorDesc;
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorDesc() {
+        return errorDesc;
+    }
+
+    public void setErrorDesc(String errorDesc) {
+        this.errorDesc = errorDesc;
+    }
+
+  
     public int getTe() {
         return te;
     }

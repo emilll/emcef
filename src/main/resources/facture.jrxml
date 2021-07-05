@@ -49,9 +49,9 @@
     <parameter name="ifuclient" class="java.lang.String"/>
     <parameter name="adressclient" class="java.lang.String"/>
     <parameter name="contactclient" class="java.lang.String"/>
-    <parameter name="ttc" class="java.lang.String"/>
-    <parameter name="tva" class="java.lang.String"/>
-    <parameter name="ht" class="java.lang.String"/>
+    <parameter name="ttc" class="java.lang.Double"/>
+    <parameter name="tva" class="java.lang.Double"/>
+    <parameter name="ht" class="java.lang.Double"/>
     <parameter name="remise" class="java.lang.String"/>
     <parameter name="ts" class="java.lang.String"/>
     <parameter name="aib" class="java.lang.String"/>
@@ -130,9 +130,12 @@
         </band>
     </title>
     <columnHeader>
-        <band height="172" splitType="Stretch">
+        <band height="20" splitType="Stretch"/>
+    </columnHeader>
+    <detail>
+        <band height="179">
             <frame>
-                <reportElement x="4" y="9" width="260" height="121" uuid="81805544-9435-4174-8069-db88bb2cb970"/>
+                <reportElement x="1" y="23" width="260" height="121" uuid="81805544-9435-4174-8069-db88bb2cb970"/>
                 <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
                     <pen lineWidth="4.0" lineStyle="Solid" lineColor="#D7DCDE"/>
                     <topPen lineWidth="4.0" lineStyle="Solid" lineColor="#D7DCDE"/>
@@ -196,7 +199,7 @@
                 </textField>
             </frame>
             <frame>
-                <reportElement x="295" y="5" width="250" height="160" uuid="f620b153-111a-4feb-b502-a3d224db5244"/>
+                <reportElement x="291" y="4" width="250" height="160" uuid="f620b153-111a-4feb-b502-a3d224db5244"/>
                 <box>
                     <pen lineWidth="4.0" lineColor="#D7DCDE"/>
                     <topPen lineWidth="4.0" lineStyle="Solid" lineColor="#D7DCDE"/>
@@ -269,8 +272,6 @@
                 </textField>
             </frame>
         </band>
-    </columnHeader>
-    <detail>
         <band height="114" splitType="Stretch">
             <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
             <componentElement>
@@ -598,11 +599,9 @@
                 <textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
             </textField>
         </band>
-    </detail>
-    <pageFooter>
-        <band height="229" splitType="Stretch">
+        <band height="222">
             <staticText>
-                <reportElement x="-7" y="22" width="560" height="30" uuid="9ecaf071-6dd8-448d-856a-e3bb89f2e269"/>
+                <reportElement x="-8" y="10" width="560" height="30" uuid="9ecaf071-6dd8-448d-856a-e3bb89f2e269"/>
                 <box>
                     <pen lineColor="#343A40"/>
                     <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#343A40"/>
@@ -616,7 +615,7 @@
                 <text><![CDATA[Informations Normalisation]]></text>
             </staticText>
             <frame>
-                <reportElement x="-7" y="67" width="560" height="155" uuid="574d522f-4946-4cff-951a-81609b0ef181"/>
+                <reportElement x="-8" y="55" width="560" height="155" uuid="574d522f-4946-4cff-951a-81609b0ef181"/>
                 <box>
                     <pen lineWidth="3.0" lineColor="#CCCCCC"/>
                     <topPen lineWidth="3.0" lineStyle="Solid" lineColor="#CCCCCC"/>
@@ -676,23 +675,26 @@
                 </textField>
             </frame>
         </band>
-    </pageFooter>
-    <summary>
-        <band height="41" splitType="Stretch">
-            <textField pattern="MMMMM dd, yyyy">
-                <reportElement x="423" y="5" width="142" height="30" uuid="9a69ba15-c26c-4415-bec4-a153977fe4e8"/>
+    </detail>
+    <pageFooter>
+        <band height="42" splitType="Stretch">
+            <textField pattern="HH:mm">
+                <reportElement x="-11" y="4" width="121" height="30" uuid="510f1a9b-394e-48ec-a4b4-7c41b60313d5"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="Arial" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
             </textField>
-            <textField pattern="HH:mm">
-                <reportElement x="-10" y="5" width="121" height="30" uuid="510f1a9b-394e-48ec-a4b4-7c41b60313d5"/>
+            <textField pattern="MMMMM dd, yyyy">
+                <reportElement x="426" y="5" width="142" height="30" uuid="9a69ba15-c26c-4415-bec4-a153977fe4e8"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
                     <font fontName="Arial" size="12"/>
                 </textElement>
                 <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
             </textField>
         </band>
+    </pageFooter>
+    <summary>
+        <band height="20" splitType="Stretch"/>
     </summary>
 </jasperReport>
