@@ -57,12 +57,20 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.joda.time.DateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -212,23 +220,31 @@ public class FactureResController {
         return sb.toString();
     }
 
-    @GetMapping("/export")
-    public JSONObject export(HttpServletResponse response) throws JRException, FileNotFoundException, IOException {
-        JSONObject retour = new JSONObject();
-        FactureSelonSpecification facture = factureService.findAllByUid("MmWj1yts-7MXF-CEDR-Hh0o-axr0h4BMaWQO");
-        createPdfReport(ligneDeFactureService.articles(facture), facture, response);
-        if ("success".equals(response.getHeader("Status"))) {
-            retour.put("status", "success");
-        } else {
-            retour.put("status", "error");
+    @PostMapping("/export")
+    public ResponseEntity<byte[]> export(@RequestBody String uid) throws JRException, FileNotFoundException, IOException, Exception {
+        try {
+            DateTime time = new DateTime();
+            String path = "Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
+            FactureSelonSpecification facture = factureService.findAllByUid(uid);
+            byte[] data = createPdfReport(ligneDeFactureService.articles(facture), facture);
+            //return new ResponseEntity<>(data, headers, HttpStatus.OK);
+            return ResponseEntity.ok()
+                    // Content-Disposition
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path)
+                    // Content-Type
+                    .contentType(MediaType.parseMediaType("application/x-download")) //
+                    // Content-Lengh
+                    .contentLength(data.length) //
+                    .header("name", path)
+                    .body(data);
+        } catch (Exception e) {
+            throw new Exception("Erreur: " + e);
         }
-        return retour;
     }
 
     // Method to create the pdf file using the employee list datasource.
-    private void createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture, HttpServletResponse response) throws JRException, FileNotFoundException, IOException {
+    private static byte[] createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture/*, HttpServletResponse response*/) throws JRException, FileNotFoundException, IOException, Exception {
         try {
-            DateTime time = new DateTime();
             File file = ResourceUtils.getFile("classpath:facture.jrxml");
             JasperReport liste = JasperCompileManager.compileReport(file.getAbsolutePath());
             JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(article);
@@ -259,18 +275,20 @@ public class FactureResController {
             parameters.put("shorttva", "0");
             parameters.put("nim", facture.getNim());
             parameters.put("parts", ds);
-            String path = "Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
             JasperPrint impression = JasperFillManager.fillReport(liste, parameters, new JREmptyDataSource());
-            response.setContentType("application/x-download");
-            response.addHeader("Content-disposition", "attachment; filename=" + path);
-            response.addHeader("Status", "succes");
-            OutputStream out = response.getOutputStream();
-            response.getOutputStream().print("true");
-            JasperExportManager.exportReportToPdfStream(impression, out);
+            //response.setContentType("application/x-download");
+            //response.addHeader("Content-disposition", "attachment; filename=" + path);
+            //response.addHeader("Status", "succes");
+            //OutputStream out = response.getOutputStream();
+            //JasperExportManager.exportReportToPdfStream(impression, out);
+
+            /*JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setExporterInput(new SimpleExporterInput(impression));
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
+            exporter.exportReport();*/
+            return JasperExportManager.exportReportToPdf(impression);
         } catch (Exception e) {
-            System.out.println(e);
-            response.addHeader("Status", "error");
-            response.getOutputStream().print("false");
+            throw new Exception("Erreur: " + e);
         }
     }
 
@@ -494,7 +512,7 @@ public class FactureResController {
         Date maintenant = new Date();
         Date actuel = maintenant;
         actuel.setHours(maintenant.getHours() + 1);
-        
+
         String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
         int position = factureService.tout().size() + 1;
         int taxe = 0;
@@ -554,10 +572,8 @@ public class FactureResController {
             montant = pay.getAmount();
             methode = pay.getName();
         }
-        
-        
-        switch(factureRequest.getAib())
-        {
+
+        switch (factureRequest.getAib()) {
             case "A":
                 aib = 1;
                 montantAib = Math.round((ht * aib) / 100);

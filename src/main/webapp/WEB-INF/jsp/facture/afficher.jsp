@@ -377,7 +377,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a v-if="facture.status" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                                <a v-if="facture.status" @click="sendUid(facture.uid)" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                                 <div v-else><i class="fa fa-eye badge-danger"></i></div>
                                                             </div>
                                                         </td>
@@ -394,6 +394,7 @@
             </main>
         </div>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="${contextPath}/assets/js/specific/facture.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

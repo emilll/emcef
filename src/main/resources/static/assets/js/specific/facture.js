@@ -3,7 +3,9 @@ new Vue({
     data: {
         factures: [],
         vide: true,
-        search: ''
+        search: '',
+        name: '',
+        uid: ''
     },
     mounted() {
         fetch("/api/facturesall", {
@@ -36,30 +38,38 @@ new Vue({
                     text: var2
                 })
             }
+            if (var1 === "info") {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Information',
+                    text: var2
+                })
+            }
+        },
+        sendUid: function (uid) {
+            this.uid = uid
         },
         imprimer: function () {
-            const xhttp=new XMLHttpRequest();
-xhttp.onload = function() {
-  var letter = this.getResponseHeader("Status");
-  console.log(letter);
-}
-xhttp.open("GET", "/api/export");
-xhttp.send();
-           /*fetch("/api/export", {
-                "method": "GET"
-            }).then(response => {
+            const config = {responseType: 'blob', method: 'post', headers: {
+                    'Content-Type': 'text/plain'
+                }};
+            axios.post("/api/export/", this.uid, config).then(response => {
+                this.showMessage('info', "En cours de téléchargement . . . ")
+                this.name = response.headers.name;
                 console.log(response)
-                if(response.headers.Status==="success"){
-                this.showMessage(response.headers.Status, "Fichier généré!")
-            }
-            if(response.headers.Status==="error"){
-                this.showMessage(response.headers.Status, "Une erreur est survenue lors de l'impression!")
-            }
+                return response;
             }).then(response => {
-                console.log(response)
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', this.name); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+                this.uid = ''
+                this.showMessage('success', "Fichier téléchargé!")
             }).catch(error => {
-                console.log(error)
-            })*/
+                this.showMessage('info', "Une application a capturé le téléchargement ou une erreur est survenue lors de la génération du fichier!")
+            });
         }
     },
     computed: {

@@ -22,8 +22,6 @@
 
 
         <script src = "assets/js/angular.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.js"></script>
-        <script type="text/javascript" src="assets/js/angular-countUp.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
