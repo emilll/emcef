@@ -34,6 +34,17 @@ public class User {
     
     @Column(name = "ifu", nullable = false, unique = true)
     private String ifu;
+    
+    @Column(name = "apikey", unique = true)
+    private String apiKey;
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 
     public String getIfu() {
         return ifu;

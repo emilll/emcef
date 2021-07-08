@@ -343,18 +343,25 @@ public class FactureResController {
     @PostMapping("/invoice/{uid}/{action}")
     public FinalFactureResponse finaliser(@PathVariable(value = "uid") String uid, @PathVariable(value = "action") String action, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
-        String token = null;
+        String key = null;
         String userName = null;
-
-        if (null != authorization && authorization.startsWith("Bearer ")) {
-            token = authorization.substring(7);
-            userName = jwtUtility.getUsernameFromToken(token);
-        }
 
         FactureNormalisee normale = new FactureNormalisee();
         FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
         FactureSelonSpecification facture = factureService.findAllByUid(uid);
         List<FactureSelonSpecification> all = factureService.tout();
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            key = authorization.substring(7);
+            User user = userService.getUserByKey(key);
+            if (user.getUsername().isEmpty()) {
+                throw new Exception("CLE API INVALIDE");
+            } else {
+                userName = userService.getUserByKey(key).getUsername();
+            }
+        } else {
+            throw new Exception("CLE API NULLE");
+        }
 
         if ("confirm".equalsIgnoreCase(action)) {
             int id = facture.getId();
@@ -436,13 +443,10 @@ public class FactureResController {
     @PostMapping("/invoice")
     public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
-        String token = null;
+        String key = null;
         String userName = null;
-
-        if (null != authorization && authorization.startsWith("Bearer ")) {
-            token = authorization.substring(7);
-            userName = jwtUtility.getUsernameFromToken(token);
-        }
+        String keyName = null;
+        String dataName = null;
 
         FactureResponse last = new FactureResponse();
         List<String> messages = Arrays.asList("A", "B", "");
@@ -453,47 +457,74 @@ public class FactureResController {
             last.setErrorCode("600");
             last.setErrorDesc("Demande de Facture - L'ifu doit avoir 13 caractères.");
             return last;
+        }
+
+        if (null != authorization && authorization.startsWith("Bearer ")) {
+            key = authorization.substring(7);
+        }
+
+        try {
+            keyName = userService.getUserByKey(key).getUsername();
+            dataName = userService.getUserByIfu(factureRequest.getIfu()).getUsername();
+        } catch (Exception e) {
+            last.setErrorCode("66");
+            last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
+            return last;
+        }
+
+        if (keyName.isEmpty() || dataName.isEmpty()) {
+            last.setErrorCode("66");
+            last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
+            return last;
         } else {
-            boolean test = false;
-            for (TypesFactures str : typesFacturesService.getAll()) {
-                if (str.getType().equalsIgnoreCase(factureRequest.getType())) {
-                    test = true;
-                    break;
-                }
-            }
-            if (!test) {
-                last.setErrorCode("3");
-                last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("3").getErrorDesc());
+            if (!keyName.equals(dataName)) {
+                last.setErrorCode("55");
+                last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
                 return last;
             } else {
-                if (!messages.contains(factureRequest.getAib())) {
-                    last.setErrorCode("6");
-                    last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("6").getErrorDesc());
+                userName = userService.getUserByIfu(factureRequest.getIfu()).getUsername();
+            }
+        }
+
+        boolean test = false;
+        for (TypesFactures str : typesFacturesService.getAll()) {
+            if (str.getType().equalsIgnoreCase(factureRequest.getType())) {
+                test = true;
+                break;
+            }
+        }
+        if (!test) {
+            last.setErrorCode("3");
+            last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("3").getErrorDesc());
+            return last;
+        } else {
+            if (!messages.contains(factureRequest.getAib())) {
+                last.setErrorCode("6");
+                last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("6").getErrorDesc());
+                return last;
+            } else {
+                if (factureRequest.getItems().isEmpty()) {
+                    last.setErrorCode("8");
+                    last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("8").getErrorDesc());
                     return last;
                 } else {
-                    if (factureRequest.getItems().isEmpty()) {
-                        last.setErrorCode("8");
-                        last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("8").getErrorDesc());
-                        return last;
-                    } else {
-                        for (ItemDto str : factureRequest.getItems()) {
-                            if (!taxeGroup.contains(str.getTaxGroup())) {
-                                last.setErrorCode("9");
-                                last.setErrorDesc("Demande de Facture -  " + erreurService.findByErrorCode("9").getErrorDesc());
-                                return last;
-                            }
+                    for (ItemDto str : factureRequest.getItems()) {
+                        if (!taxeGroup.contains(str.getTaxGroup())) {
+                            last.setErrorCode("9");
+                            last.setErrorDesc("Demande de Facture -  " + erreurService.findByErrorCode("9").getErrorDesc());
+                            return last;
                         }
+                    }
 
-                        for (TypesPaiement str : typesPaiementService.getAll()) {
-                            tabPay.add(str.getType());
-                        }
+                    for (TypesPaiement str : typesPaiementService.getAll()) {
+                        tabPay.add(str.getType());
+                    }
 
-                        for (PaymentDto str : factureRequest.getPayment()) {
-                            if (!tabPay.contains(str.getName())) {
-                                last.setErrorCode("7");
-                                last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("7").getErrorDesc());
-                                return last;
-                            }
+                    for (PaymentDto str : factureRequest.getPayment()) {
+                        if (!tabPay.contains(str.getName())) {
+                            last.setErrorCode("7");
+                            last.setErrorDesc("Demande de Facture - " + erreurService.findByErrorCode("7").getErrorDesc());
+                            return last;
                         }
                     }
                 }

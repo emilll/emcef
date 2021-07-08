@@ -40,4 +40,12 @@ public class UserService implements UserDetailsService {
     public User getUser(String username) {
         return userRepository.findByUsername(username);
     }
+    
+    public User getUserByIfu(String ifu) {
+        return userRepository.findByIfu(ifu);
+    }
+    
+    public User getUserByKey(String key) {
+        return userRepository.findByApiKey(key);
+    }
 }
