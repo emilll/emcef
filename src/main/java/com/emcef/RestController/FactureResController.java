@@ -19,6 +19,7 @@ import com.emcef.request.FactureRequest;
 import com.emcef.request.ItemDto;
 import com.emcef.request.OperatorDto;
 import com.emcef.request.PaymentDto;
+import com.emcef.response.FactureData;
 import com.emcef.response.FactureResponse;
 import com.emcef.response.FinalFactureResponse;
 import com.emcef.service.ErreurService;
@@ -339,6 +340,100 @@ public class FactureResController {
 
         return response;
     }
+    
+    @GetMapping("/information/{uid}")
+    public FactureData allInformation(@PathVariable(value="uid") String uid){
+    FactureSelonSpecification facture = factureService.findAllByUid(uid);
+        FactureData response = new FactureData();
+        OperatorDto operator = new OperatorDto();
+        ClientDto client = new ClientDto();
+
+        operator.setId(facture.getOperateur_id());
+        operator.setName(facture.getOperateur());
+        client.setAddress(facture.getAdresse1_client());
+        client.setContact(facture.getContact1_client());
+        client.setIfu(facture.getIfu_client());
+        client.setName(facture.getNom_client());
+
+        List<PaymentDto> payment = new ArrayList<>();
+        List<ItemDto> items = new ArrayList<>();
+        List<LigneDeFacture> factureArticles = ligneDeFactureService.articles(facture);
+
+        factureArticles.stream().map((plus) -> {
+            ItemDto donnee = new ItemDto();
+            donnee.setCode(plus.getCode());
+            donnee.setName(plus.getName());
+            donnee.setPrice(plus.getPrice());
+            donnee.setQuantity(plus.getQuantity());
+            donnee.setTaxGroup(plus.getTaxratelabel());
+            donnee.setOriginalPrice((int)plus.getOriginalprice());
+            donnee.setRemise((int) (donnee.getOriginalPrice() - plus.getPrice()));
+            return donnee;
+        }).forEachOrdered((donnee) -> {
+            items.add(donnee);
+        });
+
+        PaymentDto donnee = new PaymentDto();
+        donnee.setAmount(facture.getPayed());
+        donnee.setName(facture.getPayement());
+        payment.add(donnee);
+
+        response.setIfu(facture.getIfuseller());
+        response.setClient(client);
+        response.setItems(items);
+        response.setOperator(operator);
+        response.setPayment(payment);
+        response.setType(facture.getType());
+        response.setAib(facture.getAib());
+        response.setCodeMECeFDGI(facture.getFactureNormalisee().getCodeMECeFDGI());
+        response.setCounters(facture.getFactureNormalisee().getCounters());
+        response.setDateTime(facture.getFactureNormalisee().getDateTime());
+        response.setHaa(facture.getTaxable_a());
+        response.setHab(facture.getTaxable_b());
+        response.setHac(facture.getTaxable_c());
+        response.setHad(facture.getTaxable_d());
+        response.setHae(facture.getTaxable_e());
+        response.setHaf(facture.getTaxable_f());
+        response.setHt(facture.getTotal_taxable());
+        response.setNim(facture.getFactureNormalisee().getNim());
+        response.setQrCode(facture.getFactureNormalisee().getQrCode());
+        response.setReference("");
+        response.setTa(facture.getTaux_tax_a());
+        response.setTaa(facture.getTotal_a());
+        response.setTab(facture.getTotal_b());
+        response.setTac(facture.getTotal_c());
+        response.setTad(facture.getTotal_d());
+        response.setTae(facture.getTotal_e());
+        response.setTaf(facture.getTotal_f());
+        response.setTb(facture.getTaux_tax_b());
+        response.setTc(facture.getTaux_tax_c());
+        response.setTd(facture.getTaux_tax_d());
+        response.setTe(facture.getTauxtax_e());
+        response.setTf(facture.getTauxtax_f());
+        response.setTotal(facture.getTotal());
+        response.setTsa(facture.getTax_specifique_a());
+        response.setTsb(facture.getTax_specifique_b());
+        response.setTsc(facture.getTax_specifique_c());
+        response.setTsd(facture.getTax_specifique_d());
+        response.setTse(facture.getTax_specifique_e());
+        response.setTsf(facture.getTax_specifique_f());
+        response.setTva(facture.getTotal_tax());
+        response.setVaa(facture.getTotal_tax_a());
+        response.setVab(facture.getTotal_tax_b());
+        response.setVac(facture.getTotal_tax_c());
+        response.setVad(facture.getTotal_tax_d());
+        response.setVae(facture.getTotal_tax_e());
+        response.setVaf(facture.getTotal_tax_f());
+        response.setMontantAib(facture.getMontant_aib());
+        response.setNumero(facture.getId_document());
+        response.setAdresse(facture.getAdresse1());
+        response.setContact(facture.getContact1());
+        response.setDate(facture.getDate_requette());
+        response.setMail(facture.getContact2());
+        response.setNom(facture.getNom_commercial());
+
+        return response;
+    }
 
     @PostMapping("/invoice/{uid}/{action}")
     public FinalFactureResponse finaliser(@PathVariable(value = "uid") String uid, @PathVariable(value = "action") String action, HttpServletRequest httpServletRequest) throws Exception {
@@ -549,7 +644,7 @@ public class FactureResController {
         int taxe = 0;
 
         for (ItemDto str : factureRequest.getItems()) {
-            int remise = factureRequest.getRemise();
+            int remise = str.getRemise();
             double remiseMontant = (remise * str.getPrice()) / 100;
             double modified = str.getPrice() - remiseMontant;
             if ("A".equalsIgnoreCase(str.getTaxGroup())) {
@@ -724,7 +819,7 @@ public class FactureResController {
                 taxe = tax.getF();
                 group = "F";
             }
-            int remise = factureRequest.getRemise();
+            int remise = str.getRemise();
             double remiseMontant = (remise * str.getPrice()) / 100;
             double modified = str.getPrice() - remiseMontant;
             double mont = modified * str.getQuantity();

@@ -55,9 +55,6 @@ public class FactureSelonSpecification implements Serializable  {
 
     @Column(name = "Infodate")
     private Date info_date;
-
-    @Column(name = "ifu")
-    private String ifu;
     
     @Column(name = "nim")
     private String nim;
@@ -396,14 +393,6 @@ public class FactureSelonSpecification implements Serializable  {
 
     public void setInfo_date(Date info_date) {
         this.info_date = info_date;
-    }
-
-    public String getIfu() {
-        return ifu;
-    }
-
-    public void setIfu(String ifu) {
-        this.ifu = ifu;
     }
 
     public int getTaux_tax_a() {

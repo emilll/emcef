@@ -26,4 +26,14 @@ public class FactureController {
     public String factures(){
         return "facture/afficher";
     }
+    
+    @GetMapping("/check")
+    public String check(){
+        return "verifier/check";
+    }
+    
+    @GetMapping("/rapports")
+    public String rapports(){
+        return "rapport/resume";
+    }
 }

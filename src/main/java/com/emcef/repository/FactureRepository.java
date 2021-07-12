@@ -22,9 +22,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface FactureRepository extends JpaRepository<FactureSelonSpecification, Integer> {
-    
-//    @Query(value = "SELECT * FROM lignedefacture n WHERE n.facture_id =:id", nativeQuery = true)
-//    List<LigneDeFacture> lesarticles(@Param("id") int id);
 
     @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification", nativeQuery = true)
     Double getTotalTTC();
@@ -73,12 +70,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
 
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day AND ifu =:ifu", nativeQuery = true)
     public Object[] getEntTotauxDay(@Param("year") int year, @Param("month") int month, @Param("day") int day, @Param("ifu") int ifu);
-
-    //Début API Demande de facture
-    //Fin API Demande de facture
-       
-    //Début API Finalisation de facture
-    //Fin API Finalisation de facture
     
     //Début API demande de détails sur une facture en attente
     @Query(value = "SELECT ifu, type, operateur_id, operateur, contact1_client, ifu_client, nom_client, adresse1_client FROM  factureselonspecification u WHERE u.uid =:uid", nativeQuery = true)

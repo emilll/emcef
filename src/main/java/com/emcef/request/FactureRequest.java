@@ -14,21 +14,12 @@ import java.util.List;
 public class FactureRequest {
     private String ifu;
     private String aib;
-    private int remise;
     private String type;
     private List<ItemDto> items;
     private ClientDto client;
     private OperatorDto operator;
     private List<PaymentDto> payment;
     private String reference;
-
-    public int getRemise() {
-        return remise;
-    }
-
-    public void setRemise(int remise) {
-        this.remise = remise;
-    }
 
     public String getIfu() {
         return ifu;
