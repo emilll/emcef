@@ -3,10 +3,23 @@ new Vue({
     data: {
         infos: [],
         dataPays: [],
+        dataContribuables: [],
+        dataMachines: [],
         dataDepartements: [],
         dataCommunes: [],
         dataVilles: [],
         vide: false,
+        ifuseller: '',
+        nom_commercial: '',
+        Pays: '',
+        adresse1: '',
+        adresse2: '',
+        Ville: '',
+        contact_personnel: '',
+        telephone: '',
+        email: '',
+        contribuable: '',
+        typesmachines: '1',
         response: [],
         departement: {
             nom: "",
@@ -15,6 +28,7 @@ new Vue({
         pays: {
             nom: ""
         },
+        place: {},
         commune: {
             nom: "",
             iddepartement: ""
@@ -48,6 +62,41 @@ new Vue({
                 })
             }
 
+        },
+        savePlace: function () {
+            this.place = {
+                date_heure: new Date(),
+                ifuseller: this.ifuseller,
+                nom_commercial: this.nom_commercial,
+                ville: this.Ville,
+                adresse: this.Pays,
+                adresse1: this.adresse1,
+                adresse2: this.adresse2,
+                contact_personnel: this.contact_personnel,
+                telephone: this.telephone,
+                email: this.email,
+                contribuable: this.contribuable,
+            },
+            fetch('/save/place', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.place)
+            }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        if(response === "true"){
+                        this.showMessage("true", "Point de Vente enregistré!!!")
+                    }else{
+                        this.showMessage("false", "Erreur lors de l'enregistrement!!!")
+                    }
+                    }).catch(error => {
+                        console.log(error)
+                    })
         },
         savePays: function () {
             if (this.pays.nom === '') {
@@ -109,11 +158,39 @@ new Vue({
             }).catch(error => {
                 console.log(error)
             })
+            
+            fetch('/save/allVilles/', {
+                "method": "GET",
+                "headers": {}
+            }).then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+            }).then(response => {
+                if (response.length !== 0) {
+                    this.dataVilles = response
+                }
+            }).catch(error => {
+                console.log(error)
+            })
         }
     },
     mounted() {
         this.fetchData();
+        fetch('/api/contribuableall/', {
+                "method": "GET",
+                "headers": {}
+            }).then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+            }).then(response => {
+                if (response.length !== 0) {
+                    this.dataContribuables = response
+                }
+            }).catch(error => {
+                console.log(error)
+            })
     }
 }
 )
-

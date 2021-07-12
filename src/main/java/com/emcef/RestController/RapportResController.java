@@ -146,33 +146,4 @@ public class RapportResController {
         }
     }
     //Fin API Types de factures
-
-    //Interface Entreprise
-    @GetMapping("/ent/nbrrapport/{date}/{ifu}")
-    public int EntCountRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @PathVariable(value = "ifu") int ifu) {
-        try {
-            return rapportService.EntRapportTotal(date, ifu);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    //Interface Machines
-    @GetMapping("/mach/nbrrapport/{date}")
-    public int MachCountRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        try {
-            return rapportService.MachRapportTotal(date);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-    
-    /*@GetMapping("/mach/nbrrapport/{date}")
-    public int CountRapport(@PathVariable(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
-        try {
-            return rapportService.MachRapportTotal(date);
-        } catch (Exception e) {
-            return 0;
-        }
-    }*/
 }

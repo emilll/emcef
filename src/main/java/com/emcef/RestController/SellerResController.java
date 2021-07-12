@@ -5,12 +5,7 @@
  */
 package com.emcef.RestController;
 
-import com.emcef.model.Commune;
-import com.emcef.model.Departement;
 import com.emcef.model.Installations;
-import com.emcef.model.Pays;
-import com.emcef.model.Quartier;
-import com.emcef.model.Ville;
 import com.emcef.service.SellerService;
 import java.util.List;
 import org.json.simple.JSONObject;

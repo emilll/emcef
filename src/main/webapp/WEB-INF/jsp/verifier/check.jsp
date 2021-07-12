@@ -100,10 +100,9 @@
                                             </div>
                                             <div class="offset-2 col-sm-8 offset-2 my-auto">
                                                 <div class="mb-2">
-                                                    <h2 class="text-dark mb-3">Code MECeF</h2>
                                                     <div class="row">
                                                         <div class="col-sm-12 form-group">
-                                                            <input type="text" class="form-control style_form_control" name="" placeholder="Code . . ." v-model="uid">
+                                                            <input type="text" class="form-control style_form_control" name="" placeholder="Code MECeF . . ." v-model="uid">
                                                         </div>
                                                         <div class="offset-3 col-sm-6 offset-3 form-group">
                                                             <button class="btn btn-block btn-outline-success mt-3" type="submit" @click="chercher(uid)">Vérifier</button>

@@ -43,277 +43,6 @@
 
     <body>
         <div id="app">
-            <div class="modal fade animated bounceInDown" id="ModalExemple" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalExempleTitle" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content px-3 col-md-12">
-                        <div class="modal-body">
-                            <header id="header_top modal-header">
-                                <nav class="navbar navbar-expand-lg navbar-dark style_bg py-1 fixed-top">
-                                    <div class="container position-relative" id="ModalExempleTitle">
-                                        <button class="btn btn-success btn-sm mr-2"><div @click="imprimer">Imprimer</div></button>
-                                        <form>
-                                            <select type="select" class="form-control form-control-sm" name="">
-                                                <option>A4</option>
-                                            </select>
-                                        </form>
-                                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                            <span class="navbar-toggler-icon"></span>
-                                        </button>
-                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                            <ul class="navbar-nav ml-auto align-items-sm-center">
-                                                <li class="nav-item dropdown">
-                                                    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal" aria-label="Close"><i class="fa fa-times mr-2" aria-hidden="true"> Fermer</i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </nav>
-                                <div class="mt-5 bg-white py-1 border-bottom">
-                                    <nav class="navbar navbar-expand-lg navbar-light p-0">
-                                        <div class="container position-relative">
-                                            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContentDetail" aria-controls="navbarSupportedContentDetail" aria-expanded="false" aria-label="Toggle navigation">
-                                                <i class="fa fa-ellipsis-h"></i>
-                                            </button>
-                                            <div class="collapse navbar-collapse" id="navbarSupportedContentDetail">
-                                                <ul class="navbar-nav mx-auto">
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </header>
-                            <main class="bg-light">
-                                <div class="py-5">
-                                    <div class="container">
-                                        <div class="col-sm-12 mx-auto">
-                                            <div class="bg-white border p-5">
-                                                <div class="d-flex justify-content-between mb-4">
-                                                    <div class="text-left">
-                                                        <h5 class="mb-1">{{ facturesInfo.nom }}</h5>
-                                                        <h6 class="mb-1"></h6>
-                                                        <h6 class="mb-1">IFU : {{ facturesInfo.ifu }}</h6>
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <h5 v-if="facturesInfo.type == 'FV'" class="mb-1 text-uppercase font-weight-bold">Facture de vente</h5>
-                                                        <h5 v-if="facturesInfo.type == 'FA'" class="mb-1 text-uppercase font-weight-bold">Facture d'avoir</h5>
-                                                        <h6 class="mb-1">Facture # {{ facturesInfo.numero }}</h6>
-                                                        <h6 class="mb-1">Date : {{ facturesInfo.dateTime }}</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between mb-4">
-                                                    <div class="text-left border px-3 align-self-start">
-                                                        <div class="media mb-2">
-                                                            <h6 class="mr-3">
-                                                                <i class="fa fa-home"></i>
-                                                                <small>Adresse</small>
-                                                            </h6>
-                                                            <div class="media-body">
-                                                                <small>{{ facturesInfo.adresse }}</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="media mb-2">
-                                                            <h6 class="mr-3">
-                                                                <i class="fa fa-phone"></i>
-                                                                <small>Contact</small>
-                                                            </h6>
-                                                            <div class="media-body">
-                                                                <small>{{ facturesInfo.contact }}</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="media mb-2">
-                                                            <h6 class="mr-3">
-                                                                <i class="fa fa-envelope"></i>
-                                                                <small>Mail</small>
-                                                            </h6>
-                                                            <div class="media-body">
-                                                                <small>{{ facturesInfo.mail }}</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-left border flex-fill align-self-start ml-5">
-                                                        <div class="bg-dark p-1 text-white">
-                                                            <h6 class="text-center m-0">CLIENT</h6>
-                                                        </div>
-                                                        <div class="px-3">
-                                                            <div class="">
-                                                                <small class="mr-3">NOM:</small>
-                                                                <small class="font-weight-bold">{{ client.name }}</small>
-                                                            </div>
-                                                            <div class="">
-                                                                <small class="mr-3">IFU:</small>
-                                                                <small class="font-weight-bold">{{ client.ifu }}</small>
-                                                            </div>
-                                                            <div class="">
-                                                                <small class="mr-3">Addresse:</small>
-                                                                <small class="font-weight-bold">{{ client.address }}</small>
-                                                            </div>
-                                                            <div class="">
-                                                                <small class="mr-3">Contact:</small>
-                                                                <small class="font-weight-bold">{{ client.contact }}</small>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <table class="table table-sm table-bordered">
-                                                        <thead class="thead-dark">
-                                                            <tr>
-                                                                <th class="py-0">#</th>
-                                                                <th class="py-0">Nom</th>
-                                                                <th class="py-0">Prix Unitaire</th>
-                                                                <th class="py-0">Quantité</th>
-                                                                <th class="py-0">%Remise</th>
-                                                                <th class="py-0">%TVA</th>
-                                                                <th class="py-0">T. S.</th>
-                                                                <th class="py-0">Montant TTC</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr v-for="(a, index) in facturesInfo.items">
-                                                                <th class="py-0">{{ index + 1 }}</th>
-                                                                <td class="py-0">{{ a.name }}</td>
-                                                                <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(a.originalPrice) }}</td>
-                                                                <td class="py-0">{{ a.quantity }}</td>
-                                                                <td class="py-0">{{ a.remise }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'A'">{{ facturesInfo.ta }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'B'">{{ facturesInfo.tb }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'C'">{{ facturesInfo.tc }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'D'">{{ facturesInfo.td }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'E'">{{ facturesInfo.te }}</td>
-                                                                <td class="py-0" v-if="a.taxGroup == 'F'">{{ facturesInfo.tf }}</td>
-                                                                <td class="py-0">{{ a.taxSpecific }}</td>
-                                                                <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(a.price * a.quantity) }}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <div class="mb-4">
-                                                        <h6 class="text-uppercase">... Ventilation des impôts ...</h6>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-9">
-                                                            <table class="table table-sm table-bordered">
-                                                                <thead class="thead-dark">
-                                                                    <tr>
-                                                                        <th class="py-0">Groupe</th>
-                                                                        <th class="py-0">Montant HT</th>
-                                                                        <th class="py-0">Mntant TVA</th>
-                                                                        <th class="py-0">Montant TTC</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr v-if="facturesInfo.taa != 0">
-                                                                        <th class="py-0">A</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.haa) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vaa) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.taa) }}</td>
-                                                                    </tr>
-                                                                    <tr v-if="facturesInfo.tab != 0">
-                                                                        <th class="py-0">B</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hab) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vab) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tab) }}</td>
-                                                                    </tr>
-                                                                    <tr v-if="facturesInfo.tac != 0">
-                                                                        <th class="py-0">C</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hac) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vac) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tac) }}</td>
-                                                                    </tr>
-                                                                    <tr v-if="facturesInfo.tad != 0">
-                                                                        <th class="py-0">D</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.had) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vad) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tad) }}</td>
-                                                                    </tr>
-                                                                    <tr v-if="facturesInfo.tae != 0">
-                                                                        <th class="py-0">E</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hae) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vae) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tae) }}</td>
-                                                                    </tr>
-                                                                    <tr v-if="facturesInfo.taf != 0">
-                                                                        <th class="py-0">F</th>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.haf) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vaf) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.taf) }}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <h6 class="text-uppercase py-2 border-top border-bottom font-weight-bold">Total: {{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.total) }}</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <div class="mb-4">
-                                                        <h6 class="text-uppercase">.............................................................</h6>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-9">
-                                                            <table class="table table-sm table-bordered">
-                                                                <thead class="thead-dark">
-                                                                    <tr>
-                                                                        <th class="py-0">Total HT</th>
-                                                                        <th class="py-0">Total TVA</th>
-                                                                        <th class="py-0">Remise</th>
-                                                                        <th class="py-0">TS</th>
-                                                                        <th class="py-0">AIB</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.ht) }}</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tva) }}</td>
-                                                                        <td class="py-0">0</td>
-                                                                        <td class="py-0">0</td>
-                                                                        <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.montantAib) }}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <div class="mb-4">
-                                                        <h6 class="text-uppercase">... élément de sécurité de la facture normalisée ...</h6>
-                                                    </div>
-                                                    <div class="border px-4 py-1">
-                                                        <div class="row">
-                                                            <div class="col-sm-4">
-                                                                <img src="assets/img/téléchargement.png" width="150">
-                                                            </div>
-                                                            <div class="col-sm-8">
-                                                                <h6 class="text-center mb-0">Code MECeF/DGI</h6>
-                                                                <h6 class="text-center font-weight-bold">{{ facturesInfo.codeMECeFDGI }}</h6>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span class="mb-0">MECeF NIM: </span>
-                                                                    <span class="font-weight-bold">{{ facturesInfo.nim }}</span>
-                                                                </div>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span class="mb-0">MECeF Compteurs </span>
-                                                                    <span class="font-weight-bold">{{ facturesInfo.counters }}</span>
-                                                                </div>
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span class="mb-0">MECeF Heure </span>
-                                                                    <span class="font-weight-bold">{{ facturesInfo.dateTime }}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </main>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <header id="header_top">
                 <div id="loader-wrapper">
                     <div id="loader"></div>
@@ -334,7 +63,7 @@
                             <nav aria-label="breadcrumb m-0 flex-fill">
                                 <ol class="breadcrumb m-0 py-1">
                                     <li class="breadcrumb-item text-info">Accueil</li>
-                                    <li class="breadcrumb-item text-danger">Toutes les factures</li>
+                                    <li class="breadcrumb-item text-danger">Rapport des factures</li>
                                 </ol>
                             </nav>
                         </div>
@@ -351,7 +80,7 @@
                                         <div class="container-fluid">
                                             <div class="d-flex justify-content-between align-items-center mb-1 float-right">
                                                 <div class="flex-fill">
-                                                    <input type="search" v-model="search" class="form-control form-control-sm style_form_control" placeholder="UID">
+                                                    <input type="date" v-model="search" class="form-control form-control-sm style_form_control" placeholder="Date">
                                                 </div>
                                             </div>
                                         </div>
@@ -364,17 +93,13 @@
                                                 <thead class="border-bottom">
                                                     <tr>
                                                         <th scope="col">N°</th>
-                                                        <th scope="col">UID</th>
-                                                        <th scope="col">IFU Point de Vente</th>
-                                                        <th scope="col">IFU Client</th>
                                                         <th scope="col">Date</th>
-                                                        <th scope="col">Payé</th>
-                                                        <th scope="col">Total TVA</th>
-                                                        <th scope="col">Total HT</th>
-                                                        <th scope="col">Total TTC</th>
-                                                        <th scope="col">Statut</th>
-                                                        <th scope="col">Type</th>
-                                                        <th scope="col">Code MECef</th>
+                                                        <th scope="col">Factures Traitées</th>
+                                                        <th scope="col">Factures en attente</th>
+                                                        <th scope="col">Machines Connectées</th>
+                                                        <th scope="col">Montant TVA</th>
+                                                        <th scope="col">Montant HT</th>
+                                                        <th scope="col">Montant TTC</th>
                                                         <th scope="col"></th>
                                                     </tr>
                                                 </thead>
@@ -406,23 +131,8 @@
                                                             <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total_taxable) }}</span>
                                                         </td>
                                                         <td>
-                                                            <span class="text-dark">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facture.total) }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-success" v-if="facture.status">Validée</span>
-                                                            <span class="text-danger" v-else>Invalidée</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-dark">{{ facture.type }}</span>
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-dark" v-if="facture.factureNormalisee==null">Vide</span>
-                                                            <span class="text-dark" v-else>{{ facture.factureNormalisee.codeMECeFDGI }}</span>
-                                                        </td>
-                                                        <td>
                                                             <div class="d-flex">
-                                                                <a v-if="facture.status" @click="sendUid(facture.uid); show(facture.uid)" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
-                                                                <div v-else><i class="fa fa-eye badge-danger"></i></div>
+                                                                <a @click="sendUid(facture.uid); show(facture.uid)" title="Imprimer" class="text-info mr-2"><i class="fa fa-file-invoice"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>

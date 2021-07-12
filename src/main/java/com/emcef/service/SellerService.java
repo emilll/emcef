@@ -22,12 +22,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SellerService {
+
     @Autowired
     SellerRepository sellerRepository;
-    
+
     @Autowired
     FactureRepository factureRepository;
-    
+
     @Autowired
     RapportRepository rapportRepository;
 
@@ -38,23 +39,33 @@ public class SellerService {
     public Installations allInfo(String ifuseller) {
         return sellerRepository.findAllByIfuseller(ifuseller);
     }
-    
-    public JSONObject montant(String ifuseller){
-    JSONObject resultat = new JSONObject();
-    double ht = 0, ttc = 0;
-    int factures = 0, rapports = 0;
-    for (FactureSelonSpecification str : factureRepository.findAllByIfuseller(ifuseller)) {
+
+    public boolean savePlace(Installations installations) {
+        sellerRepository.save(installations);
+        for (Installations str : sellerRepository.findAll()) {
+            if (str.getNom_commercial().equals(installations.getNom_commercial())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public JSONObject montant(String ifuseller) {
+        JSONObject resultat = new JSONObject();
+        double ht = 0, ttc = 0;
+        int factures = 0, rapports = 0;
+        for (FactureSelonSpecification str : factureRepository.findAllByIfuseller(ifuseller)) {
             ht = ht + str.getTotal_taxable();
             ttc = ttc + str.getTotal();
             factures = factures + 1;
         }
-    for (Rapportcr str : rapportRepository.findAllByIfu(ifuseller)) {
-            rapports = rapports +1;
+        for (Rapportcr str : rapportRepository.findAllByIfu(ifuseller)) {
+            rapports = rapports + 1;
         }
-    resultat.put("factures", factures);
-    resultat.put("rapports", rapports);
-    resultat.put("totalHT", ht);
-    resultat.put("totalTTC", ttc);
-    return resultat;
+        resultat.put("factures", factures);
+        resultat.put("rapports", rapports);
+        resultat.put("totalHT", ht);
+        resultat.put("totalTTC", ttc);
+        return resultat;
     }
 }

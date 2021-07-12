@@ -7,15 +7,19 @@ package com.emcef.RestController;
 
 import com.emcef.model.Commune;
 import com.emcef.model.Departement;
+import com.emcef.model.Installations;
 import com.emcef.model.Pays;
 import com.emcef.model.Quartier;
 import com.emcef.model.Ville;
 import com.emcef.service.EmplacementService;
+import com.emcef.service.SellerService;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +33,14 @@ public class EmplacementResController {
 
     @Autowired
     EmplacementService emplacementService;
+    
+    @Autowired
+    SellerService sellerService;
+    
+    @PostMapping("/place")
+    public boolean savePlace(@RequestBody Installations installations) {
+        return sellerService.savePlace(installations);
+    }
 
     @GetMapping("/allPays")
     public List<Pays> allPays() {

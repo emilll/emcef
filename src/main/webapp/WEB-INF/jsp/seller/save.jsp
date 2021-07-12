@@ -86,44 +86,53 @@
                                 <div class="col-sm-6 mb-3">
                                     <div class="table-responsive">
                                         <div class="col-sm-12 my-auto">
-                                            <form class="mb-2" @submit.prevent="saveSeller">
+                                            <form class="mb-2" @submit.prevent="savePlace">
                                                 <h2 class="text-dark mb-3">Enregistrement</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="UID" v-model="departement.nom">
+                                                        <input type="number" v-model="ifuseller" class="form-control style_form_control" name="" placeholder="IFU">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <label>Pays</label>
-                                                        <select v-model="departement.idpays" class="form-control style_form_control">
-                                                            <option v-for="p in dataPays" v-bind:value="p.id">{{ p.nom }}</option>
+                                                        <select v-model="Pays" class="form-control style_form_control">
+                                                            <option v-for="p in dataPays" v-bind:value="p.nom">{{ p.nom }}</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Nom Commercial">
+                                                        <input type="text" v-model="nom_commercial" class="form-control style_form_control" name="" placeholder="Nom Commercial">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Ville">
+                                                        <label>Ville</label>
+                                                        <select v-model="Ville" class="form-control style_form_control">
+                                                            <option v-for="p in dataVilles" v-bind:value="p.nom">{{ p.nom }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Adresse1">
+                                                        <input type="text" v-model="adresse1" class="form-control style_form_control" name="" placeholder="Adresse1">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Adresse2">
+                                                        <input type="text" v-model="adresse2" class="form-control style_form_control" name="" placeholder="Adresse2">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <input type="number" class="form-control style_form_control" name="" placeholder="Zip">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Description">
+                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Description">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Contact Personnel">
+                                                        <label>Contribuable</label>
+                                                        <select v-model="contribuable" class="form-control style_form_control">
+                                                            <option v-for="p in dataContribuables" v-bind:value="p">{{ p.nom }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Téléphone">
+                                                        <input type="number" v-model="contact_personnel" class="form-control style_form_control" name="" placeholder="Contact Personnel">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="E-mail">
+                                                        <input type="number" v-model="telephone" class="form-control style_form_control" name="" placeholder="Téléphone">
+                                                    </div>
+                                                    <div class="col-sm-12 form-group">
+                                                        <input type="text" v-model="email" class="form-control style_form_control" name="" placeholder="E-mail">
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <input type="number" class="form-control style_form_control" name="" placeholder="Latitude">
