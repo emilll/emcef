@@ -6,6 +6,8 @@
 package com.emcef.RestController;
 
 import com.emcef.model.MachinesInstallees;
+import com.emcef.model.Machinesenregistrees;
+import com.emcef.service.MachineEnregistreService;
 import com.emcef.service.MachineService;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +30,51 @@ public class MachineResController {
 
     @Autowired
     MachineService machineService;
+    
+    @Autowired
+    MachineEnregistreService machineEnregistreService;
+
+    @PostMapping("/saveMachine")
+    public JSONObject saveMachine(@RequestBody MachinesInstallees machinesInstallees) {
+        JSONObject reponse = new JSONObject();
+        boolean test = false;
+        int id = 0;
+        machineService.saveMachine(machinesInstallees);
+        for (MachinesInstallees str : machineService.getAllMachines()) {
+            if (str == machinesInstallees) {
+                test = true;
+                id = str.getId();
+            }
+        }
+        if (test) {
+            reponse.put("status", true);
+            reponse.put("id", id);
+            return reponse;
+        } else {
+            reponse.put("status", false);
+            reponse.put("id", id);
+            return reponse;
+        }
+    }
+    
+    @PostMapping("/saveMachineEnregistre")
+    public JSONObject saveMachineEnregistre(@RequestBody Machinesenregistrees machinesenregistrees) {
+        JSONObject reponse = new JSONObject();
+        boolean test = false;
+        machineEnregistreService.saveMachine(machinesenregistrees);
+        for (Machinesenregistrees str : machineEnregistreService.getAllMachines()) {
+            if (str == machinesenregistrees) {
+                test = true;
+            }
+        }
+        if (test) {
+            reponse.put("status", true);
+            return reponse;
+        } else {
+            reponse.put("status", false);
+            return reponse;
+        }
+    }
 
     @GetMapping("/machineall")
     public List<JSONObject> machines() {

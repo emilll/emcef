@@ -74,4 +74,8 @@ public class MachineService {
             return 0;
         }
     }
+
+    public void saveMachine(MachinesInstallees machinesInstallees) {
+        machineRepository.save(machinesInstallees);
+    }
 }

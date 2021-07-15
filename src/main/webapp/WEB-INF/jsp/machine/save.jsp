@@ -87,31 +87,45 @@
                                 <div class="col-sm-12 mb-3">
                                     <div class="table-responsive">
                                         <div class="offset-2 col-sm-8 offset-2 my-auto">
-                                            <form class="mb-2">
+                                            <form class="mb-2" @submit.prevent="saveMachine">
                                                 <h2 class="text-dark mb-3">Enregistrement</h2>
                                                 <div class="row">
                                                     <div class="col-sm-6 form-group">
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="Identification">
+                                                        <label class="text-muted"><small>eNIM</small></label>
+                                                        <input type="text" class="form-control style_form_control" v-model="nim" name="" disabled="disabled">
                                                     </div>
                                                     <div class="col-sm-6 form-group">
-                                                        <input type="number" class="form-control style_form_control" name="" placeholder="Version">
+                                                        <label class="text-muted"><small>Nom Propriétaire</small></label>
+                                                        <input type="text" class="form-control style_form_control" v-model="nom_proprietaire" name="" disabled="disabled">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6 form-group">
-                                                        <label class="text-muted"><small>Numéro SIM</small></label>
-                                                        <input type="text" class="form-control style_form_control" name="" placeholder="">
+                                                        <input type="number" class="form-control style_form_control" name="" v-model="numero_sim" placeholder="Numéro SIM">
                                                     </div>
                                                     <div class="col-sm-6 form-group">
-                                                        <label class="text-muted"><small>Nom Propriétaire</small></label>
-                                                        <select class="form-control style_form_control">
-                                                            <option>Jean</option>
-                                                            <option>René</option>
-                                                            <option>Marron</option>
+                                                        <input type="text" class="form-control style_form_control" name="" v-model="operateur" placeholder="Opérateur">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 form-group">
+                                                        <label class="text-muted"><small>IFU</small></label>
+                                                        <input type="text" class="form-control style_form_control" name="" v-model="ifu" disabled="disabled">
+                                                    </div>
+                                                    <div class="col-sm-6 form-group">
+                                                        <label class="text-muted"><small>Version</small></label>
+                                                        <input type="text" class="form-control style_form_control" name="" v-model="derniere_version">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 form-group">
+                                                        <label class="text-muted"><small>Point de Vente</small></label>
+                                                        <select class="form-control style_form_control" v-model="vente" @change="modify">
+                                                            <option v-for="p in installations" v-bind:value="p">{{ p.nom_commercial }}</option>
                                                         </select>
                                                     </div>
                                                     <div class="offset-3 col-sm-6 offset-3 form-group">
-                                                        <button class="btn btn-block btn-outline-success mt-3">Enregistrer la machine</button>
+                                                        <button class="btn btn-block btn-outline-success mt-3" type="submit">Enregistrer la machine</button>
                                                     </div>
                                                 </div>
                                             </form>

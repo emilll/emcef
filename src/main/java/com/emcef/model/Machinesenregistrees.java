@@ -1,6 +1,7 @@
 package com.emcef.model;
 
 import java.sql.Date;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Machinesenregistrees {
     @OneToOne
     Etatmachine etatmachine;
     
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     MachinesInstallees machinesinstalles;
 
     @Column(name = "date_heure")
@@ -50,6 +51,22 @@ public class Machinesenregistrees {
 
     @Column(name = "analyseur")
     private String analyseur;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public MachinesInstallees getMachinesinstalles() {
+        return machinesinstalles;
+    }
+
+    public void setMachinesinstalles(MachinesInstallees machinesinstalles) {
+        this.machinesinstalles = machinesinstalles;
+    }
 
     public String getStatus() {
         return status;
