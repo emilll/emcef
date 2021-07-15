@@ -33,29 +33,6 @@ public class MachineResController {
     
     @Autowired
     MachineEnregistreService machineEnregistreService;
-
-    @PostMapping("/saveMachine")
-    public JSONObject saveMachine(@RequestBody MachinesInstallees machinesInstallees) {
-        JSONObject reponse = new JSONObject();
-        boolean test = false;
-        int id = 0;
-        machineService.saveMachine(machinesInstallees);
-        for (MachinesInstallees str : machineService.getAllMachines()) {
-            if (str == machinesInstallees) {
-                test = true;
-                id = str.getId();
-            }
-        }
-        if (test) {
-            reponse.put("status", true);
-            reponse.put("id", id);
-            return reponse;
-        } else {
-            reponse.put("status", false);
-            reponse.put("id", id);
-            return reponse;
-        }
-    }
     
     @PostMapping("/saveMachineEnregistre")
     public JSONObject saveMachineEnregistre(@RequestBody Machinesenregistrees machinesenregistrees) {

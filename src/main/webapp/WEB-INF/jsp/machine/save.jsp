@@ -110,7 +110,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-6 form-group">
                                                         <label class="text-muted"><small>IFU</small></label>
-                                                        <input type="text" class="form-control style_form_control" name="" v-model="ifu" disabled="disabled">
+                                                        <input type="text" class="form-control style_form_control" name="" v-model="ifu">
                                                     </div>
                                                     <div class="col-sm-6 form-group">
                                                         <label class="text-muted"><small>Version</small></label>

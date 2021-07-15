@@ -35,6 +35,7 @@ import com.emcef.service.TypesPaiementService;
 import com.emcef.utility.JWTUtility;
 import com.emcef.utility.JwtRequest;
 import com.emcef.utility.JwtResponse;
+import com.emcef.utility.QRCodeGenerator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -63,6 +64,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -285,6 +287,11 @@ public class FactureResController {
         }
     }
 
+    @PostMapping(value = "/generateQRCode")
+    public ResponseEntity<String> generateQRCode(@RequestBody String codeText) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(QRCodeGenerator.getQRCodeImageBase64(codeText, 300, 300));
+    }
+
     @GetMapping("/invoice/{uid}")
     public FactureRequest detailsFacture(@PathVariable(value = "uid") String uid) {
         int id = factureService.uidId(uid);
@@ -332,10 +339,10 @@ public class FactureResController {
 
         return response;
     }
-    
+
     @GetMapping("/information/{uid}")
-    public FactureData allInformation(@PathVariable(value="uid") String uid){
-    FactureSelonSpecification facture = factureService.findAllByUid(uid);
+    public FactureData allInformation(@PathVariable(value = "uid") String uid) {
+        FactureSelonSpecification facture = factureService.findAllByUid(uid);
         FactureData response = new FactureData();
         OperatorDto operator = new OperatorDto();
         ClientDto client = new ClientDto();
@@ -358,7 +365,7 @@ public class FactureResController {
             donnee.setPrice(plus.getPrice());
             donnee.setQuantity(plus.getQuantity());
             donnee.setTaxGroup(plus.getTaxratelabel());
-            donnee.setOriginalPrice((int)plus.getOriginalprice());
+            donnee.setOriginalPrice((int) plus.getOriginalprice());
             donnee.setRemise((int) (donnee.getOriginalPrice() - plus.getPrice()));
             return donnee;
         }).forEachOrdered((donnee) -> {

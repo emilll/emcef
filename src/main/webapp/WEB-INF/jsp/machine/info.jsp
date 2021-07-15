@@ -49,7 +49,7 @@
                         <header id="header_top modal-header">
                             <nav class="navbar navbar-expand-lg navbar-dark style_bg py-1 fixed-top">
                                 <div class="container position-relative" id="ModalExempleTitle">
-                                    <button class="btn btn-success btn-sm mr-2" ><a href="/export">Imprimer</a></button>
+                                    <button class="btn btn-success btn-sm mr-2"><div @click="imprimer">Imprimer</div></button>
                                     <form>
                                         <select type="select" class="form-control form-control-sm" name="">
                                             <option>A4</option>
@@ -89,14 +89,15 @@
                                         <div class="bg-white border p-5">
                                             <div class="d-flex justify-content-between mb-4">
                                                 <div class="text-left">
-                                                    <h5 class="mb-1">TOPSHOP</h5>
-                                                    <h6 class="mb-1">TOPSHOP / AEROPORT</h6>
-                                                    <h6 class="mb-1">IFU : 123398983940092</h6>
+                                                    <h5 class="mb-1">{{ facturesInfo.nom }}</h5>
+                                                    <h6 class="mb-1"></h6>
+                                                    <h6 class="mb-1">IFU : {{ facturesInfo.ifu }}</h6>
                                                 </div>
                                                 <div class="text-right">
-                                                    <h5 class="mb-1 text-uppercase font-weight-bold">Facture de vente</h5>
-                                                    <h6 class="mb-1">Facture # 06</h6>
-                                                    <h6 class="mb-1">Date : 11/03/2020</h6>
+                                                    <h5 v-if="facturesInfo.type == 'FV'" class="mb-1 text-uppercase font-weight-bold">Facture de vente</h5>
+                                                    <h5 v-if="facturesInfo.type == 'FA'" class="mb-1 text-uppercase font-weight-bold">Facture d'avoir</h5>
+                                                    <h6 class="mb-1">Facture # {{ facturesInfo.numero }}</h6>
+                                                    <h6 class="mb-1">Date : {{ facturesInfo.dateTime }}</h6>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-between mb-4">
@@ -107,7 +108,7 @@
                                                             <small>Adresse</small>
                                                         </h6>
                                                         <div class="media-body">
-                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                            <small>{{ facturesInfo.adresse }}</small>
                                                         </div>
                                                     </div>
                                                     <div class="media mb-2">
@@ -116,16 +117,16 @@
                                                             <small>Contact</small>
                                                         </h6>
                                                         <div class="media-body">
-                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                            <small>{{ facturesInfo.contact }}</small>
                                                         </div>
                                                     </div>
                                                     <div class="media mb-2">
                                                         <h6 class="mr-3">
                                                             <i class="fa fa-envelope"></i>
-                                                            <small>VMCF</small>
+                                                            <small>Mail</small>
                                                         </h6>
                                                         <div class="media-body">
-                                                            <small>01 BP 123 COTONOU COTONOU / PLAGE</small>
+                                                            <small>{{ facturesInfo.mail }}</small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,23 +137,19 @@
                                                     <div class="px-3">
                                                         <div class="">
                                                             <small class="mr-3">NOM:</small>
-                                                            <small class="font-weight-bold">Client X</small>
+                                                            <small class="font-weight-bold">{{ client.name }}</small>
                                                         </div>
                                                         <div class="">
                                                             <small class="mr-3">IFU:</small>
-                                                            <small class="font-weight-bold">12383E88883U28</small>
+                                                            <small class="font-weight-bold">{{ client.ifu }}</small>
                                                         </div>
                                                         <div class="">
                                                             <small class="mr-3">Addresse:</small>
-                                                            <small class="font-weight-bold"></small>
+                                                            <small class="font-weight-bold">{{ client.address }}</small>
                                                         </div>
                                                         <div class="">
                                                             <small class="mr-3">Contact:</small>
-                                                            <small class="font-weight-bold"></small>
-                                                        </div>
-                                                        <div class="">
-                                                            <small class="mr-3">Client:</small>
-                                                            <small class="font-weight-bold"></small>
+                                                            <small class="font-weight-bold">{{ client.contact }}</small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,16 +162,27 @@
                                                             <th class="py-0">Nom</th>
                                                             <th class="py-0">Prix Unitaire</th>
                                                             <th class="py-0">Quantité</th>
+                                                            <th class="py-0">%Remise</th>
+                                                            <th class="py-0">%TVA</th>
+                                                            <th class="py-0">T. S.</th>
                                                             <th class="py-0">Montant TTC</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th class="py-0">1</th>
-                                                            <td class="py-0">Coca Cola</td>
-                                                            <td class="py-0">12.223 F CFA</td>
-                                                            <td class="py-0">1</td>
-                                                            <td class="py-0">12.223 F CFA</td>
+                                                        <tr v-for="(a, index) in facturesInfo.items">
+                                                            <th class="py-0">{{ index + 1 }}</th>
+                                                            <td class="py-0">{{ a.name }}</td>
+                                                            <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(a.originalPrice) }}</td>
+                                                            <td class="py-0">{{ a.quantity }}</td>
+                                                            <td class="py-0">{{ a.remise }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'A'">{{ facturesInfo.ta }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'B'">{{ facturesInfo.tb }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'C'">{{ facturesInfo.tc }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'D'">{{ facturesInfo.td }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'E'">{{ facturesInfo.te }}</td>
+                                                            <td class="py-0" v-if="a.taxGroup == 'F'">{{ facturesInfo.tf }}</td>
+                                                            <td class="py-0">{{ a.taxSpecific }}</td>
+                                                            <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(a.price * a.quantity) }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -189,48 +197,84 @@
                                                             <thead class="thead-dark">
                                                                 <tr>
                                                                     <th class="py-0">Groupe</th>
-                                                                    <th class="py-0">Total</th>
-                                                                    <th class="py-0">Impossible</th>
-                                                                    <th class="py-0">Impot</th>
+                                                                    <th class="py-0">Montant HT</th>
+                                                                    <th class="py-0">Mntant TVA</th>
+                                                                    <th class="py-0">Montant TTC</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <th class="py-0">1</th>
-                                                                    <td class="py-0">Coca Cola</td>
-                                                                    <td class="py-0">12.223 F CFA</td>
-                                                                    <td class="py-0">12.223 F CFA</td>
+                                                                <tr v-if="facturesInfo.taa != 0">
+                                                                    <th class="py-0">A</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.haa) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vaa) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.taa) }}</td>
+                                                                </tr>
+                                                                <tr v-if="facturesInfo.tab != 0">
+                                                                    <th class="py-0">B</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hab) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vab) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tab) }}</td>
+                                                                </tr>
+                                                                <tr v-if="facturesInfo.tac != 0">
+                                                                    <th class="py-0">C</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hac) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vac) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tac) }}</td>
+                                                                </tr>
+                                                                <tr v-if="facturesInfo.tad != 0">
+                                                                    <th class="py-0">D</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.had) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vad) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tad) }}</td>
+                                                                </tr>
+                                                                <tr v-if="facturesInfo.tae != 0">
+                                                                    <th class="py-0">E</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.hae) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vae) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tae) }}</td>
+                                                                </tr>
+                                                                <tr v-if="facturesInfo.taf != 0">
+                                                                    <th class="py-0">F</th>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.haf) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.vaf) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.taf) }}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <h6 class="text-uppercase py-2 border-top border-bottom font-weight-bold">Total: 12.223 F</h6>
+                                                        <h6 class="text-uppercase py-2 border-top border-bottom font-weight-bold">Total: {{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.total) }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mb-4">
                                                 <div class="mb-4">
-                                                    <h6 class="text-uppercase">... Réparation des paiements ...</h6>
+                                                    <h6 class="text-uppercase">.............................................................</h6>
                                                 </div>
-                                                <table class="table table-sm table-bordered">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th class="py-0">Groupe</th>
-                                                            <th class="py-0">Total</th>
-                                                            <th class="py-0">Impossible</th>
-                                                            <th class="py-0">Impot</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th class="py-0">1</th>
-                                                            <td class="py-0">Coca Cola</td>
-                                                            <td class="py-0">12.223 F CFA</td>
-                                                            <td class="py-0">12.223 F CFA</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                <div class="row">
+                                                    <div class="col-sm-9">
+                                                        <table class="table table-sm table-bordered">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th class="py-0">Total HT</th>
+                                                                    <th class="py-0">Total TVA</th>
+                                                                    <th class="py-0">Remise</th>
+                                                                    <th class="py-0">TS</th>
+                                                                    <th class="py-0">AIB</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.ht) }}</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.tva) }}</td>
+                                                                    <td class="py-0">0</td>
+                                                                    <td class="py-0">0</td>
+                                                                    <td class="py-0">{{ new Intl.NumberFormat('en-US', {style: 'decimal'}).format(facturesInfo.montantAib) }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="mb-4">
                                                 <div class="mb-4">
@@ -239,22 +283,22 @@
                                                 <div class="border px-4 py-1">
                                                     <div class="row">
                                                         <div class="col-sm-4">
-                                                            <img src="assets/img/téléchargement.png" width="150">
+                                                            <img src="" id="code" width="150">
                                                         </div>
                                                         <div class="col-sm-8">
                                                             <h6 class="text-center mb-0">Code MECeF/DGI</h6>
-                                                            <h6 class="text-center font-weight-bold">009-8738-8362-8368</h6>
+                                                            <h6 class="text-center font-weight-bold">{{ facturesInfo.codeMECeFDGI }}</h6>
                                                             <div class="d-flex justify-content-between">
                                                                 <span class="mb-0">MECeF NIM: </span>
-                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                                <span class="font-weight-bold">{{ facturesInfo.nim }}</span>
                                                             </div>
                                                             <div class="d-flex justify-content-between">
-                                                                <span class="mb-0">MECeF NIM: </span>
-                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                                <span class="mb-0">MECeF Compteurs </span>
+                                                                <span class="font-weight-bold">{{ facturesInfo.counters }}</span>
                                                             </div>
                                                             <div class="d-flex justify-content-between">
-                                                                <span class="mb-0">MECeF NIM: </span>
-                                                                <span class="font-weight-bold">009-8738-8362-8368</span>
+                                                                <span class="mb-0">MECeF Heure </span>
+                                                                <span class="font-weight-bold">{{ facturesInfo.dateTime }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -417,7 +461,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a v-if="facture.status" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a v-if="facture.status" @click="show(facture.uid)" data-toggle="modal" data-target="#ModalExemple" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                             <div v-else><i class="fa fa-eye badge-danger"></i></div>
                                                         </div>
                                                     </td>
@@ -433,6 +477,7 @@
             </div>
         </main>
         <script src="${contextPath}/assets/js/jquery-1.12.4.min.js"></script>
+        <script src="${contextPath}/assets/js/axios.min.js"></script>
         <script src="${contextPath}/assets/js/specific/machineinfo.js" type="text/javascript"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

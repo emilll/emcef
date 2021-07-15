@@ -14,13 +14,6 @@ new Vue({
         vente: '',
         date_heure: '',
         derniere_version: '',
-        machinesinstalles: {
-            id: "",
-            nim: "",
-            nom_proprietaire: "",
-            numero_sim: "",
-            ifu: "",
-        },
         machine: {},
         machineEnregistre: {},
         vide: true,
@@ -72,22 +65,22 @@ new Vue({
         },
         nimAleatoire: function () {
             var calc = this.test
-            if (this.test < 10) {
+            if (calc < 10) {
                 this.nim = 'VD-000000' + (calc + 1)
             }
-            if (this.test < 100 && this.test > 10) {
+            if (calc < 100 && calc > 10) {
                 this.nim = 'VD-00000' + (calc + 1)
             }
-            if (this.test < 1000 && this.test > 100) {
+            if (calc < 1000 && calc > 100) {
                 this.nim = 'VD-0000' + (calc + 1)
             }
-            if (this.test < 10000 && this.test > 1000) {
+            if (calc < 10000 && calc > 1000) {
                 this.nim = 'VD-000' + (calc + 1)
             }
-            if (this.test < 100000 && this.test > 10000) {
+            if (calc < 100000 && calc > 10000) {
                 this.nim = 'VD-00' + (calc + 1)
             }
-            if (this.test < 1000000 && this.test > 100000) {
+            if (calc < 1000000 && calc > 100000) {
                 this.nim = 'VD-0' + (calc + 1)
             }
         },
@@ -110,11 +103,6 @@ new Vue({
         },
         modify: function () {
             if (this.vente) {
-                if (this.vente.ifuseller !== null) {
-                    this.ifu = this.vente.ifuseller
-                } else {
-                    this.ifu = ''
-                }
                 if (this.vente.contribuable) {
                     if (this.vente.contribuable.nom !== null) {
                         this.nom_proprietaire = this.vente.contribuable.nom
@@ -134,55 +122,31 @@ new Vue({
                     if (this.ifu === '') {
                         this.showMessage("false", "L'IFU ne doit pas être nul.")
                     } else {
-                        if (this.vente.id === '') {
-                            this.showMessage("false", "Aucun point de vente choisi.")
+                        if (this.ifu.length !== 13) {
+                            this.showMessage("false", "L'IFU ne doit pas être moins ou plus de 13 chiffres.")
                         } else {
-                            if (this.status === '') {
-                                this.showMessage("false", "Erreur de manipulation. Veuillez recharger la page!!!")
+                            if (this.vente.id === '') {
+                                this.showMessage("false", "Aucun point de vente choisi.")
                             } else {
+                                if (this.status === '') {
+                                    this.showMessage("false", "Erreur de manipulation. Veuillez recharger la page!!!")
+                                } else {
+                                    this.machine = {
+                                        date_enregistement: new Date(),
+                                        nim: this.nim,
+                                        nom_proprietaire: this.nom_proprietaire,
+                                        numero_sim: this.numero_sim,
+                                        operateur: this.operateur,
+                                        ifu: this.ifu,
+                                        status: this.status,
+                                        id_installation: this.vente,
+                                    }
 
-                                this.machinesinstalles.nim = this.nim
-                                this.machinesinstalles.nom_proprietaire = this.nom_proprietaire
-                                this.machinesinstalles.numero_sim = this.numero_sim
-                                this.machinesinstalles.ifu = this.ifu
-                                this.machine = {
-                                    date_enregistement: new Date(),
-                                    nim: this.nim,
-                                    nom_proprietaire: this.nom_proprietaire,
-                                    numero_sim: this.numero_sim,
-                                    operateur: this.operateur,
-                                    ifu: this.ifu,
-                                    status: this.status,
-                                    id_installation: this.vente,
-                                }
-                                fetch('/api/saveMachine', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify(this.machine)
-                                }).then(response => {
-                                    if (response.ok) {
-                                        return response.json()
-                                    }
-                                }).then(response => {
-                                    if (response.status) {
-                                        this.showMessage("true", "Point de Vente enregistré!!!")
-                                        this.machinesinstalles.id = response.id
-                                    } else {
-                                        this.showMessage("false", "Erreur lors de l'enregistrement!!!")
-                                        this.machinesinstalles.id = response.id
-                                    }
-                                }).catch(error => {
-                                    console.log(error)
-                                })
-                                if (this.machinesinstalles.id !== 0) {
                                     this.machineEnregistre = {
                                         date_heure: new Date(),
                                         derniere_version: this.derniere_version,
                                         identification: this.ifu,
-                                        machinesinstalles: this.machinesinstalles,
+                                        machinesinstalles: this.machine,
                                         status: this.status,
                                     }
 
@@ -195,28 +159,27 @@ new Vue({
                                         body: JSON.stringify(this.machineEnregistre)
                                     }).then(response => {
                                         if (response.ok) {
-                                            if (response.status) {
-                                                this.showMessage("true", "En attente d'activation!!!")
-                                            } else {
-                                                this.showMessage("false", "Données non enregistrées!!!")
-                                            }
                                             return response.json()
                                         }
                                     }).then(response => {
-
+                                        if (response.status) {
+                                            this.showMessage("true", "En attente d'activation!!!")
+                                            this.nim = ''
+                                            this.sync()
+                                            this.vente = ''
+                                            this.nom_proprietaire = ''
+                                            this.numero_sim = ''
+                                            this.operateur = ''
+                                            this.ifu = ''
+                                            this.derniere_version = ''
+                                        } else {
+                                            this.showMessage("false", "Données non enregistrées!!!")
+                                        }
                                     }).catch(error => {
                                         console.log(error)
                                     })
-                                } else {
-                                    this.showMessage("false", "Erreur dans la répartition des données!!!")
+
                                 }
-                                this.sync()
-                                this.vente = ''
-                                this.nom_proprietaire = ''
-                                this.numero_sim = ''
-                                this.operateur = ''
-                                this.ifu = ''
-                                this.derniere_version = ''
                             }
                         }
                     }

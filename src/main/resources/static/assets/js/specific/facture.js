@@ -72,10 +72,17 @@ new Vue({
                 this.showMessage('info', "Une application a capturé le téléchargement ou une erreur est survenue lors de la génération du fichier!")
             });
         },
-        show: function(uid){
-            axios.get("/api/information/"+uid).then(response => {
+        show: function (uid) {
+            axios.get("/api/information/" + uid).then(response => {
                 return response;
             }).then(response => {
+                axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                    return response;
+                }).then(response => {
+                    document.getElementById("code").src = "data:image/png;base64," + response.data;
+                }).catch(error => {
+                    this.showMessage('info', "Erreur de lecture!!!")
+                })
                 this.facturesInfo = response.data
                 this.client = response.data.client
             }).catch(error => {

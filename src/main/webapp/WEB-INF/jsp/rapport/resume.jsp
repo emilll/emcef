@@ -93,7 +93,8 @@
                                                 <thead class="border-bottom">
                                                     <tr>
                                                         <th scope="col">N°</th>
-                                                        <th scope="col">Date</th>
+                                                        <th scope="col">IFU</th>
+                                                        <th scope="col">Nom et Prénoms</th>
                                                         <th scope="col">Factures Traitées</th>
                                                         <th scope="col">Factures en attente</th>
                                                         <th scope="col">Machines Connectées</th>
@@ -109,6 +110,9 @@
                                                     </tr>
                                                     <tr  v-for="(facture, index) in filtre" v-else>
                                                         <td>{{ index + 1 }}</td>
+                                                        <td>
+                                                            <span class="text-dark">{{ facture.uid }}</span>
+                                                        </td>
                                                         <td>
                                                             <span class="text-dark">{{ facture.uid }}</span>
                                                         </td>

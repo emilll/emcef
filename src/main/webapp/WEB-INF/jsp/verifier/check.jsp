@@ -311,7 +311,7 @@
                                                                     <div class="border px-4 py-1">
                                                                         <div class="row">
                                                                             <div class="col-sm-4">
-                                                                                <img src="assets/img/téléchargement.png" width="150">
+                                                                                <img src="" id="code" width="150">
                                                                             </div>
                                                                             <div class="col-sm-8">
                                                                                 <h6 class="text-center mb-0">Code MECeF/DGI</h6>

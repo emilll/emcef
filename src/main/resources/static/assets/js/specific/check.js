@@ -38,6 +38,13 @@ new Vue({
                 axios.get("/api/information/" + uid).then(response => {
                     return response;
                 }).then(response => {
+                    axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                        return response;
+                    }).then(response => {
+                        document.getElementById("code").src = "data:image/png;base64," + response.data;
+                    }).catch(error => {
+                        this.showMessage('info', "Erreur de lecture!!!")
+                    })
                     this.facturesInfo = response.data
                     this.client = response.data.client
                     this.show = '1'
