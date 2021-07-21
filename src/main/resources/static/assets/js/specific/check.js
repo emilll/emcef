@@ -5,7 +5,8 @@ new Vue({
         client: {},
         vide: false,
         show: '',
-        uid: ''
+        uid: '',
+        hide: ''
     },
     methods: {
         showMessage: function (var1, var2) {
@@ -38,17 +39,29 @@ new Vue({
                 axios.get("/api/information/" + uid).then(response => {
                     return response;
                 }).then(response => {
-                    axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
-                        return response;
-                    }).then(response => {
-                        document.getElementById("code").src = "data:image/png;base64," + response.data;
-                    }).catch(error => {
-                        this.showMessage('info', "Erreur de lecture!!!")
-                    })
-                    this.facturesInfo = response.data
-                    this.client = response.data.client
-                    this.show = '1'
-                    this.vide = true
+                    if (response.data.statut) {
+                        axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                            return response;
+                        }).then(response => {
+                            document.getElementById("code").src = "data:image/png;base64," + response.data;
+                            
+                        }).catch(error => {
+                            this.showMessage('info', "Erreur de lecture!!!")
+                        })
+                        this.facturesInfo = response.data
+                            this.client = response.data.client
+                            this.show = '1'
+                            this.vide = true
+                            this.hide = false
+
+                    } else {
+                        this.facturesInfo = response.data
+                        this.client = response.data.client
+                        this.show = '1'
+                        this.vide = true
+                        this.hide = true
+                    }
+
                 }).catch(error => {
                     this.show = '2'
                     this.vide = false

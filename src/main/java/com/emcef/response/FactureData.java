@@ -17,6 +17,7 @@ import java.util.List;
  * @author Holy
  */
 public class FactureData {
+    private boolean statut;
     private String numero;
     private String nom;
     private Date date;
@@ -70,6 +71,14 @@ public class FactureData {
     private double tva; //TVA
     private double ht; //HT
     private double total; //TTC
+
+    public boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(boolean statut) {
+        this.statut = statut;
+    }
 
     public String getNom() {
         return nom;

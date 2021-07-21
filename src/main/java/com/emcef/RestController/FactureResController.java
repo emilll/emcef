@@ -384,9 +384,18 @@ public class FactureResController {
         response.setPayment(payment);
         response.setType(facture.getType());
         response.setAib(facture.getAib());
-        response.setCodeMECeFDGI(facture.getFactureNormalisee().getCodeMECeFDGI());
-        response.setCounters(facture.getFactureNormalisee().getCounters());
-        response.setDateTime(facture.getFactureNormalisee().getDateTime());
+        try {
+            facture.getFactureNormalisee();
+            response.setCodeMECeFDGI(facture.getFactureNormalisee().getCodeMECeFDGI());
+            response.setCounters(facture.getFactureNormalisee().getCounters());
+            response.setDateTime(facture.getFactureNormalisee().getDateTime());
+            response.setNim(facture.getFactureNormalisee().getNim());
+            response.setQrCode(facture.getFactureNormalisee().getQrCode());
+            response.setStatut(true);
+        } catch (Exception e) {
+            response.setDateTime(facture.getDateTime().toString());
+            response.setStatut(false);
+        }
         response.setHaa(facture.getTaxable_a());
         response.setHab(facture.getTaxable_b());
         response.setHac(facture.getTaxable_c());
@@ -394,8 +403,6 @@ public class FactureResController {
         response.setHae(facture.getTaxable_e());
         response.setHaf(facture.getTaxable_f());
         response.setHt(facture.getTotal_taxable());
-        response.setNim(facture.getFactureNormalisee().getNim());
-        response.setQrCode(facture.getFactureNormalisee().getQrCode());
         response.setReference("");
         response.setTa(facture.getTaux_tax_a());
         response.setTaa(facture.getTotal_a());

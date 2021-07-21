@@ -308,7 +308,7 @@
                                                                     <div class="mb-4">
                                                                         <h6 class="text-uppercase">... élément de sécurité de la facture normalisée ...</h6>
                                                                     </div>
-                                                                    <div class="border px-4 py-1">
+                                                                    <div class="border px-4 py-1" v-if="!hide">
                                                                         <div class="row">
                                                                             <div class="col-sm-4">
                                                                                 <img src="" id="code" width="150">
@@ -330,6 +330,12 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="alert alert-danger" role="alert" v-else>
+                                                                        
+                                                                        <span class="container">
+                                                                            La Facture n'est pas normalisée
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
