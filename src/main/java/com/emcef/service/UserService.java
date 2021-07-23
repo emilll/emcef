@@ -44,8 +44,4 @@ public class UserService implements UserDetailsService {
     public User getUserByIfu(String ifu) {
         return userRepository.findByIfu(ifu);
     }
-    
-    public User getUserByKey(String key) {
-        return userRepository.findByApiKey(key);
-    }
 }

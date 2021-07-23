@@ -40,14 +40,8 @@ public class SellerService {
         return sellerRepository.findAllByIfuseller(ifuseller);
     }
 
-    public boolean savePlace(Installations installations) {
+    public void savePlace(Installations installations) {
         sellerRepository.save(installations);
-        for (Installations str : sellerRepository.findAll()) {
-            if (str.getNom_commercial().equals(installations.getNom_commercial())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public JSONObject montant(String ifuseller) {

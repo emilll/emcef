@@ -79,6 +79,17 @@ public class MachinesInstallees implements Serializable {
 
     @OneToOne
     Installations id_installation;
+    
+    @Column(name = "apikey")
+    private String apikey;
+
+    public String getApikey() {
+        return apikey;
+    }
+
+    public void setApikey(String apikey) {
+        this.apikey = apikey;
+    }
 
     public Installations getId_installation() {
         return id_installation;

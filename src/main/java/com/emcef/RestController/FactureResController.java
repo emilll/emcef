@@ -446,6 +446,7 @@ public class FactureResController {
         String authorization = httpServletRequest.getHeader("Authorization");
         String key = null;
         String userName = null;
+        MachinesInstallees machine = new MachinesInstallees();
 
         FactureNormalisee normale = new FactureNormalisee();
         FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
@@ -453,12 +454,17 @@ public class FactureResController {
         List<FactureSelonSpecification> all = factureService.tout();
 
         if (null != authorization && authorization.startsWith("Bearer ")) {
-            key = authorization.substring(7);
-            User user = userService.getUserByKey(key);
-            if (user.getUsername().isEmpty()) {
-                throw new Exception("CLE API INVALIDE");
-            } else {
-                userName = userService.getUserByKey(key).getUsername();
+            try {
+                key = authorization.substring(7);
+                machine = machineService.findByApikey(key);
+                User user = userService.getUserByIfu(machine.getIfu());
+                if (user.getUsername().isEmpty()) {
+                    throw new Exception("CLE INVALIDE");
+                } else {
+                    userName = userService.getUserByIfu(machine.getIfu()).getUsername();
+                }
+            } catch (Exception e) {
+                throw new Exception("CLE INVALIDE");
             }
         } else {
             throw new Exception("CLE API NULLE");
@@ -548,6 +554,7 @@ public class FactureResController {
         String userName = null;
         String keyName = null;
         String dataName = null;
+        MachinesInstallees machine = new MachinesInstallees();
 
         FactureResponse last = new FactureResponse();
         List<String> messages = Arrays.asList("A", "B", "");
@@ -565,26 +572,19 @@ public class FactureResController {
         }
 
         try {
-            keyName = userService.getUserByKey(key).getUsername();
-            dataName = userService.getUserByIfu(factureRequest.getIfu()).getUsername();
+            machine = machineService.findByApikey(key);
         } catch (Exception e) {
-            last.setErrorCode("66");
-            last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
+            last.setErrorCode("50");
+            last.setErrorDesc("Demande de Facture - La machine n'existe pas.");
             return last;
         }
 
-        if (keyName.isEmpty() || dataName.isEmpty()) {
+        if (!machine.getIfu().equals(factureRequest.getIfu())) {
             last.setErrorCode("66");
             last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
             return last;
         } else {
-            if (!keyName.equals(dataName)) {
-                last.setErrorCode("55");
-                last.setErrorDesc("Demande de Facture - L'ifu ne correspond pas à la clé fournie.");
-                return last;
-            } else {
-                userName = userService.getUserByIfu(factureRequest.getIfu()).getUsername();
-            }
+            userName = userService.getUserByIfu(factureRequest.getIfu()).getUsername();
         }
 
         boolean test = false;
@@ -637,7 +637,6 @@ public class FactureResController {
         double tvaa = 0, tvab = 0, tvac = 0, tvad = 0, tvae = 0, tvaf = 0;
         FactureSelonSpecification facture = new FactureSelonSpecification();
         User user = userService.getUser(userName);
-        MachinesInstallees machine = machineService.findAllByIfu(user.getIfu());
         TaxeGroupes tax = taxesService.findAllById(1L);
         double ht = 0, tva = 0, montantAib = 0;
         int tax_a = tax.getA(), tax_b = tax.getB(), tax_c = tax.getC(), tax_d = tax.getD(), tax_e = tax.getE(), tax_f = tax.getF(), aib = 0;
@@ -750,9 +749,9 @@ public class FactureResController {
         facture.setMethode(methode);
         facture.setMontant_aib(montantAib);
         facture.setMontant_payement(0);
-        facture.setNim(machineService.findAllByIfu(user.getIfu()).getNim());
+        facture.setNim(machine.getNim());
         facture.setNom_client(factureRequest.getClient().getName());
-        facture.setNom_commercial(methode);
+        facture.setNom_commercial(machine.getId_installation().getNom_commercial());
         facture.setNumero_execution(0);
         facture.setOperateur(factureRequest.getOperator().getName());
         facture.setOperateur_id(factureRequest.getOperator().getId());
@@ -859,6 +858,9 @@ public class FactureResController {
             article.setTstaxamount(0);
             ligneDeFactureService.saveArticle(article);
         }
+
+        machine.setDate_heure(actuel);
+        machineService.saveMachine(machine);
 
         last.setUid(uid);
         last.setTa(facture.getTaux_tax_a());
@@ -1136,28 +1138,39 @@ public class FactureResController {
         }
     }
 
-    @GetMapping("/betweenTtc/{day1}/{day2}")
-    public double getBetweenTTC(@PathVariable(value = "day1")
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
-            @PathVariable(value = "day2")
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
-        try {
-            return factureService.getBetweenTTC(day1, day2);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
+    @GetMapping("/day/{day}")
+    public JSONObject getDayInformation(@PathVariable(value = "day")
+            @DateTimeFormat(pattern = "yyyy-MM-dd") Date day) {
+        JSONObject retour = new JSONObject();
+        int ttc = 0, tva = 0, ht = 0, nbrFactures = 0, nbrRapports = 0;
+        for (FactureSelonSpecification str : factureService.getAllFactureSelonSpecification()) {
+            try {
+                if (str.getDateTime().getDate() == day.getDate() && str.getDateTime().getMonth() == day.getMonth() && str.getDateTime().getYear() == day.getYear()) {
+                    nbrFactures++;
+                    ttc += str.getTotal();
+                    ht += str.getTotal_taxable();
+                    tva += str.getTotal_tax();
+                }
+            } catch (Exception e) {
+            }
 
-    @GetMapping("/betweenFactures/{day1}/{day2}")
-    public double getBetweenFactures(@PathVariable(value = "day1")
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1,
-            @PathVariable(value = "day2")
-            @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
-        try {
-            return factureService.getBetweenFactures(day1, day2);
-        } catch (Exception e) {
-            return 0;
         }
+        for (Rapportcr str : rapportService.all()) {
+            try{
+            if(str.getDate_heure() == day){
+                nbrRapports++;
+            }
+            }catch(Exception e){}
+        }
+        
+        retour.put("tva", tva);
+        retour.put("ttc", ttc);
+        retour.put("ht", ht);
+        retour.put("factures", nbrFactures);
+        retour.put("rapports", nbrRapports);
+        
+        return retour;
+
     }
 
     @GetMapping("/factures/{year}/{month}/{day}")

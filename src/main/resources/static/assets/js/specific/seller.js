@@ -9,7 +9,8 @@ new Vue({
         dataCommunes: [],
         dataVilles: [],
         vide: false,
-        ifuseller: '',
+        ifuseller: "",
+        taille: 0,
         nom_commercial: '',
         Pays: '',
         adresse1: '',
@@ -46,6 +47,11 @@ new Vue({
         this.timer1 = setInterval(this.fetchData, 2000);
     },
     methods: {
+        updateValue(event) {
+            const value = event.target.value
+            this.taille = String(value).length
+            this.$forceUpdate()
+        },
         showMessage: function (var1, var2) {
             if (var1 === "false" || var1 === "exist") {
                 Swal.fire({
@@ -64,40 +70,74 @@ new Vue({
 
         },
         savePlace: function () {
-            this.place = {
-                date_heure: new Date(),
-                ifuseller: this.ifuseller,
-                nom_commercial: this.nom_commercial,
-                ville: this.Ville,
-                adresse: this.Pays,
-                adresse1: this.adresse1,
-                adresse2: this.adresse2,
-                contact_personnel: this.contact_personnel,
-                telephone: this.telephone,
-                email: this.email,
-                contribuable: this.contribuable,
-            },
-            fetch('/save/place', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.place)
-            }).then(response => {
-                        if (response.ok) {
-                            return response.json()
+            if (this.ifuseller === '') {
+                this.showMessage("false", "L'IFU ne peut être nul.")
+            } else {
+                console.log(this.ifuseller.length)
+                if (this.taille !== 13) {
+                    this.showMessage("false", "L'IFU ne peut être moins ou plus de 13 chiffres.")
+                } else {
+                    if (this.Ville === '') {
+                        this.showMessage("false", "Aucune ville choisi.")
+                    } else {
+                        if (this.nom_commercial === '') {
+                            this.showMessage("false", "Le nom commercial du point de vente n'a pas été fourni.")
+                        } else {
+                            if (this.Pays === '') {
+                                this.showMessage("false", "Aucun Pays choisi.")
+                            } else {
+                                if (this.contact_personnel === '') {
+                                    this.showMessage("false", "Fournissez un contact personnel!!!")
+                                } else {
+                                    if (this.email === '') {
+                                        this.showMessage("false", "Fournissez une adresse email!!!")
+                                    } else {
+                                        if (this.contribuable === '') {
+                                            this.showMessage("false", "Aucun contribuable choisi!!!")
+                                        } else {
+                                            this.place = {
+                                                date_heure: new Date(),
+                                                ifuseller: this.ifuseller,
+                                                nom_commercial: this.nom_commercial,
+                                                ville: this.Ville,
+                                                adresse: this.Pays,
+                                                adresse1: this.adresse1,
+                                                adresse2: this.adresse2,
+                                                contact_personnel: this.contact_personnel,
+                                                telephone: this.telephone,
+                                                email: this.email,
+                                                contribuable: this.contribuable,
+                                            },
+                                                    fetch('/save/place', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Accept': 'application/json',
+                                                            'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify(this.place)
+                                                    }).then(response => {
+                                                if (response.ok) {
+                                                    return response.json()
+                                                }
+                                            }).then(response => {
+                                                if (response.status) {
+                                                    this.showMessage("true", "Point de Vente enregistré!!!")
+                                                } else {
+                                                    this.showMessage("false", "Erreur lors de l'enregistrement!!!")
+                                                }
+                                            }).catch(error => {
+                                                this.showMessage("false", "Erreur. Veuillez recharger la page!!!")
+                                            })
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }).then(response => {
-                        if(response === "true"){
-                        this.showMessage("true", "Point de Vente enregistré!!!")
-                    }else{
-                        this.showMessage("false", "Erreur lors de l'enregistrement!!!")
                     }
-                    }).catch(error => {
-                        console.log(error)
-                    })
-        },
+                }
+            }
+        }
+        ,
         savePays: function () {
             if (this.pays.nom === '') {
                 this.showMessage("false", "Le Nom du Pays est vide!")
@@ -114,7 +154,7 @@ new Vue({
                     this.showMessage(this.response.status, this.response.message)
                     this.pays.nom = ""
                 }).catch(error => {
-                    console.log(error)
+
                 })
             }
         },
@@ -137,7 +177,7 @@ new Vue({
                         this.showMessage(this.response.status, this.response.message)
                         this.departement.nom = ""
                     }).catch(error => {
-                        console.log(error)
+
                     })
                 }
             }
@@ -156,9 +196,9 @@ new Vue({
                     this.dataPays = response
                 }
             }).catch(error => {
-                console.log(error)
+
             })
-            
+
             fetch('/save/allVilles/', {
                 "method": "GET",
                 "headers": {}
@@ -171,26 +211,26 @@ new Vue({
                     this.dataVilles = response
                 }
             }).catch(error => {
-                console.log(error)
+
             })
         }
     },
     mounted() {
         this.fetchData();
         fetch('/api/contribuableall/', {
-                "method": "GET",
-                "headers": {}
-            }).then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-            }).then(response => {
-                if (response.length !== 0) {
-                    this.dataContribuables = response
-                }
-            }).catch(error => {
-                console.log(error)
-            })
+            "method": "GET",
+            "headers": {}
+        }).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then(response => {
+            if (response.length !== 0) {
+                this.dataContribuables = response
+            }
+        }).catch(error => {
+
+        })
     }
 }
 )

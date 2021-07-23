@@ -111,7 +111,7 @@
                                                     <h6 class="my-0">
                                                         <div href="">Machines Virtuelles Connectées</div>
                                                     </h6>
-                                                    <h4 class="font-weight-bolder">1</h4>
+                                                    <h4 class="font-weight-bolder">{{ banniere.connected }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,15 +151,15 @@
                                                         <th class="bg-success text-white">Totaux Globaux</th>
                                                         <td><h5 class="counter">{{ verification(valeur1.nbre) }}</h5></td>
                                                         <td><h5 class="counter">{{ verification(valeur1.rapport) }}</h5></td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur1.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur1.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur1.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
@@ -168,15 +168,15 @@
                                                         <th class="bg-success text-white">Totaux Mensuel</th>
                                                         <td><h5 class="counter">{{ verification(valeur2.nbre) }}</h5></td>
                                                         <td><h5 class="counter">{{ verification(valeur2.rapport) }}</h5></td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur2.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur2.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur2.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
@@ -185,15 +185,15 @@
                                                         <th class="bg-success text-white">Totaux Journalier</th>
                                                         <td><h5 class="counter">{{ verification(valeur3.nbre) }}</h5></td>
                                                         <td><h5 class="counter">{{ verification(valeur3.rapport) }}</h5></td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur3.totalTTC) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur3.totalHT) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
-                                                        <td>
+                                                        <td style="min-width:210px">
                                                             <h5 class="counter">{{ verification(valeur3.totalTVA) }}</h5>
                                                             <h5 class="badge badge-dark">FCFA</h5>
                                                         </td>
@@ -338,13 +338,63 @@
                 legendMargin: [0, 10, 0, 0],
                 tooltip: true,
                 onClick: function (date, nb) {
+                    function convertirFrench(vet) {
+                        var today = new Date(vet);
+                        var options = {year: 'numeric', month: 'long', day: 'numeric'};
+                        var opt_weekday = {weekday: 'long'};
+                        function toTitleCase(str) {
+                            return str.replace(
+                                    /\w\S*/g,
+                                    function (txt) {
+                                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                                    }
+                            );
+                        }
+
+                        var weekday = toTitleCase(today.toLocaleDateString("fr-FR", opt_weekday));
+                        var the_date = weekday + ", " + today.toLocaleDateString("fr-FR", options);
+                        return the_date;
+                    }
                     function convert(str) {
                         var date = new Date(str),
                                 mnth = ("0" + (date.getMonth() + 1)).slice(-2),
                                 day = ("0" + date.getDate()).slice(-2);
                         return [date.getFullYear(), mnth, day].join("-");
                     }
-                    window.location.replace('/showdayinfo/' + convert(date));
+                    console.log(convert(date))
+                    console.log(convertirFrench(date))
+
+                    fetch("/api/day/" + convert(date), {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        console.log(response)
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Pour le ' + convertir(convert(date)) + ' on a:',
+                            html:
+                                    '<b>' + response.rapports + '</b> Rapports<br> ' +
+                                    '<b>' + response.factures + '</b> Factures<br> ' +
+                                    '<b>' + response.ttc + '</b> FCFA TTC<br>' +
+                                    '<b>' + response.tva + '</b> FCFA TVA<br>' +
+                                    '<b>' + response.ht + '</b> FCFA HT<br>',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                            hideClass: {
+                                popup: 'swal2-hide',
+                                backdrop: 'swal2-backdrop-hide',
+                                icon: 'swal2-icon-hide'
+                            }
+                        });
+                    }).catch(error => {
+                        console.log("ERREUR. PAS DE RETOUR!!!")
+                    });
+
                 }
             });
         </script>

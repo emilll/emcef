@@ -61,9 +61,6 @@ public interface RapportRepository extends JpaRepository<Rapportcr, Integer> {
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
     int nbrRapport(@Param("year") int year, @Param("month") int month, @Param("day") int day);
 
-    @Query(value = "SELECT count(*) as totalTTC FROM rapportcr f WHERE f.dateheure BETWEEN :d1 AND :d2 ", nativeQuery = true)
-    double getBetweenRapports(@Param("d1") Date d1, @Param("d2") Date d2);
-
     //Interface Entreprise
     @Query(value = "SELECT count(*) FROM  rapportcr WHERE dateheure = ?1 AND ifu = ?2", nativeQuery = true)
     int nbrEntRapport(Date date, int ifu);

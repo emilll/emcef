@@ -18,7 +18,8 @@ new Vue({
         machineEnregistre: {},
         vide: true,
         filter: '',
-        search: ''
+        search: '',
+        apikey: ''
     },
     computed: {
         filtre: function () {
@@ -28,7 +29,8 @@ new Vue({
         }
     },
     mounted() {
-        this.sync()
+        this.sync(),
+        this.randomString(),
         fetch('/api/installationall/', {
             "method": "GET",
             "headers": {}
@@ -45,6 +47,15 @@ new Vue({
         })
     },
     methods: {
+        randomString: function () {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < 30; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            this.apikey = result;
+        },
         sync: function () {
             fetch("/api/machineall", {
                 "method": "GET",
@@ -100,12 +111,21 @@ new Vue({
                 })
             }
 
+            if (var1 === "info") {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Clé API de la machine',
+                    text: var2
+                })
+            }
+
         },
         modify: function () {
             if (this.vente) {
                 if (this.vente.contribuable) {
                     if (this.vente.contribuable.nom !== null) {
                         this.nom_proprietaire = this.vente.contribuable.nom
+                        this.ifu = this.vente.contribuable.ifu
                     } else {
                         this.nom_proprietaire = ''
                     }
@@ -140,6 +160,7 @@ new Vue({
                                         ifu: this.ifu,
                                         status: this.status,
                                         id_installation: this.vente,
+                                        apikey: this.apikey,
                                     }
 
                                     this.machineEnregistre = {
@@ -172,6 +193,7 @@ new Vue({
                                             this.operateur = ''
                                             this.ifu = ''
                                             this.derniere_version = ''
+                                            this.showMessage("info", "Clé: " + this.apikey)
                                         } else {
                                             this.showMessage("false", "Données non enregistrées!!!")
                                         }

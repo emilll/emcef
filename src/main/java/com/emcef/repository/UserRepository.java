@@ -17,7 +17,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUsername(String username);
 
-    public User findByApiKey(String username);
-
-    public User findByIfu(String username);
+    public User findByIfu(String ifu);
 }

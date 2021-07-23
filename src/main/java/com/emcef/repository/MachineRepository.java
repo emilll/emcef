@@ -40,5 +40,9 @@ public interface MachineRepository extends JpaRepository<MachinesInstallees, Lon
     @Query(value = "SELECT count(*) FROM rapportcr r,machinesenregistrees m, machineinstallees i WHERE r.machinesenregistrees_id = m.id AND m.machinesinstalles_id = i.id AND i.nim = :nim", nativeQuery = true)
     int totalRapport(@Param("nim") String nim);
 
-    public MachinesInstallees findAllByIfu(String ifu);
+    public MachinesInstallees findByIfu(String ifu);
+
+    public List<MachinesInstallees> findAllByIfu(String ifu);
+
+    public MachinesInstallees findByApikey(String Apikey);
 }

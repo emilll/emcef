@@ -34,15 +34,6 @@ public class RapportResController {
     @Autowired
     RapportService rapportService;
 
-    @GetMapping("/betweenRapports/{day1}/{day2}")
-    public double getBetweenRapports(@PathVariable(value = "day1") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day1, @PathVariable(value = "day2") @DateTimeFormat(pattern = "yyyy-MM-dd") Date day2) {
-        try {
-            return rapportService.getBetweenRapports(day1, day2);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     //Début API Statut
     @Autowired
     private JWTUtility jwtUtility;

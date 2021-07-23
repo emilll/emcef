@@ -90,7 +90,13 @@
                                                 <h2 class="text-dark mb-3">Enregistrement</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 form-group">
-                                                        <input type="number" v-model="ifuseller" class="form-control style_form_control" name="" placeholder="IFU">
+                                                        <input type="number" v-model="ifuseller" @input="updateValue" class="form-control style_form_control" :class="taille!=13? 'is-invalid': 'is-valid'" name="" placeholder="IFU">
+                                                        <div class="valid-feedback" v-if="taille==13">
+                                                            Correct.
+                                                        </div>
+                                                        <div class="invalid-feedback" v-else>
+                                                            {{ 13 - taille }} chiffres restants.
+                                                        </div>
                                                     </div>
                                                     <div class="col-sm-12 form-group">
                                                         <label>Pays</label>

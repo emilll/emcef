@@ -77,10 +77,6 @@ public class RapportService {
         return rapportRepository.nbrRapport(year, month, day);
     }
 
-    public double getBetweenRapports(Date day1, Date day2) {
-        return rapportRepository.getBetweenRapports(day1, day2);
-    }
-
     //Interface Entreprise
     public int EntRapportTotal(Date date, int ifu) {
         return rapportRepository.nbrEntRapport(date, ifu);

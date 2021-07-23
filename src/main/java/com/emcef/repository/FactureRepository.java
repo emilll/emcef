@@ -59,12 +59,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     @Query(value = "SELECT count(*) FROM factureselonspecification WHERE EXTRACT( YEAR FROM dateheure) = ?1 AND EXTRACT( MONTH FROM dateheure) = ?2  AND EXTRACT( DAY FROM dateheure) = ?3", nativeQuery = true)
     int DayFactures(int year, int month, int day);
 
-    @Query(value = "SELECT sum(total) as totalTTC FROM factureselonspecification f WHERE f.dateheure BETWEEN :d1 AND :d2 ", nativeQuery = true)
-    double getBetweenTTC(@Param("d1") Date d1, @Param("d2") Date d2);
-
-    @Query(value = "SELECT count(*) as totalTTC FROM factureselonspecification f WHERE f.dateheure BETWEEN :d1 AND :d2 ", nativeQuery = true)
-    double getBetweenFactures(@Param("d1") Date d1, @Param("d2") Date d2);
-
     @Query(value = "SELECT COUNT(*) as nbre,SUM(f.total) as totalTTC,SUM(f.total_taxable) as totalHT, SUM(f.total_tax) as totalTVA FROM factureselonspecification f WHERE EXTRACT( YEAR FROM dateheure) =:year AND EXTRACT( MONTH FROM dateheure) =:month AND EXTRACT( DAY FROM dateheure) =:day", nativeQuery = true)
     public JSONObject getTotauxDay(@Param("year") int year, @Param("month") int month, @Param("day") int day);
 

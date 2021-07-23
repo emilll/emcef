@@ -49,7 +49,7 @@ new Vue({
             }).then(response => {
                 this.valeur1 = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             }),
                     fetch(this.url2, {
                         "method": "GET",
@@ -61,7 +61,7 @@ new Vue({
             }).then(response => {
                 this.valeur2 = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             }),
                     fetch(this.url3, {
                         "method": "GET",
@@ -73,7 +73,7 @@ new Vue({
             }).then(response => {
                 this.valeur3 = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             }),
                     fetch("/api/banniere", {
                         "method": "GET",
@@ -85,7 +85,7 @@ new Vue({
             }).then(response => {
                 this.banniere = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             })
         },
         dash() {
@@ -99,7 +99,7 @@ new Vue({
             }).then(response => {
                 this.ttc = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             }),
                     fetch("/api/ht", {
                         "method": "GET",
@@ -111,7 +111,7 @@ new Vue({
             }).then(response => {
                 this.ht = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             }),
                     fetch("/api/tva", {
                         "method": "GET",
@@ -123,7 +123,7 @@ new Vue({
             }).then(response => {
                 this.tva = response
             }).catch(error => {
-                console.log(error)
+                console.log("Erreur API")
             })
         },
         chart() {

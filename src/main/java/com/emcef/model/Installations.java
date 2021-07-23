@@ -90,6 +90,7 @@ public class Installations {
 
     @Column(name = "longitude")
     private BigDecimal longitude;
+    
 
     public Long getId() {
         return id;

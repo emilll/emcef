@@ -33,30 +33,45 @@ public class EmplacementResController {
 
     @Autowired
     EmplacementService emplacementService;
-    
+
     @Autowired
     SellerService sellerService;
-    
+
     @PostMapping("/place")
-    public boolean savePlace(@RequestBody Installations installations) {
-        return sellerService.savePlace(installations);
+    public JSONObject savePlace(@RequestBody Installations installations) {
+        JSONObject reponse = new JSONObject();
+        boolean test = false;
+        sellerService.savePlace(installations);
+        for (Installations str : sellerService.getAll()) {
+            if (str == installations) {
+                test = true;
+            }
+        }
+
+        if (test) {
+            reponse.put("status", true);
+        } else {
+            reponse.put("status", false);
+        }
+
+        return reponse;
     }
 
     @GetMapping("/allPays")
     public List<Pays> allPays() {
         return emplacementService.allPays();
     }
-    
+
     @GetMapping("/allDepartements")
     public List<Departement> allDepartements() {
         return emplacementService.allDepartements();
     }
-    
+
     @GetMapping("/allCommunes")
     public List<Commune> allCommunes() {
         return emplacementService.allCommunes();
     }
-    
+
     @GetMapping("/allVilles")
     public List<Ville> allVilles() {
         return emplacementService.allVilles();

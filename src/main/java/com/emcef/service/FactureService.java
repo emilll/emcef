@@ -75,14 +75,6 @@ public class FactureService {
         return factureRepository.DayFactures(year, month, day);
     }
 
-    public double getBetweenTTC(Date day1, Date day2) {
-        return factureRepository.getBetweenTTC(day1, day2);
-    }
-
-    public double getBetweenFactures(Date day1, Date day2) {
-        return factureRepository.getBetweenFactures(day1, day2);
-    }
-
     public int factureMonth(int year, int month) {
         return factureRepository.factureMonth(year, month);
     }
@@ -100,9 +92,6 @@ public class FactureService {
         factureRepository.save(facture);
     }
     //Fin API Demande de facture
-
-    //Début API Finalisation de facture
-    //Fin API Finalisation de facture
 
     //Début API demande de détails sur une facture en attente
     public JSONObject UidInfo(String uid) {
