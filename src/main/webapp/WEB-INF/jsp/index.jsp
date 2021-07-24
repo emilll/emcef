@@ -330,7 +330,7 @@
                 considerMissingDataAsZero: false,
                 itemSelector: "#pilier1",
                 subDomainTextFormat: "%d",
-                data: 'http://localhost:8082/api/countfacturebydate',
+                data: '/api/countfacturebydate',
                 highlight: ["now", dt],
                 domainMargin: 5,
                 legendVerticalPosition: "center",
@@ -361,27 +361,18 @@
                                 day = ("0" + date.getDate()).slice(-2);
                         return [date.getFullYear(), mnth, day].join("-");
                     }
-                    console.log(convert(date))
-                    console.log(convertirFrench(date))
 
-                    fetch("/api/day/" + convert(date), {
-                        "method": "GET",
-                        "headers": {}
-                    }).then(response => {
-                        console.log(response)
-                        if (response.ok) {
-                            return response.json()
-                        }
-                    }).then(response => {
+
+                    async function afficher(a, b, c, d, e) {
                         Swal.fire({
                             icon: 'info',
-                            title: 'Pour le ' + convertir(convert(date)) + ' on a:',
+                            title: 'Pour le ' + convertirFrench(convert(date)) + ' on a:',
                             html:
-                                    '<b>' + response.rapports + '</b> Rapports<br> ' +
-                                    '<b>' + response.factures + '</b> Factures<br> ' +
-                                    '<b>' + response.ttc + '</b> FCFA TTC<br>' +
-                                    '<b>' + response.tva + '</b> FCFA TVA<br>' +
-                                    '<b>' + response.ht + '</b> FCFA HT<br>',
+                                    '<b>' + e + '</b> Rapports<br> ' +
+                                    '<b>' + d + '</b> Factures<br> ' +
+                                    '<b>' + b + '</b> FCFA TTC<br>' +
+                                    '<b>' + a + '</b> FCFA TVA<br>' +
+                                    '<b>' + c + '</b> FCFA HT<br>',
                             allowOutsideClick: false,
                             showConfirmButton: false,
                             showCloseButton: true,
@@ -390,7 +381,25 @@
                                 backdrop: 'swal2-backdrop-hide',
                                 icon: 'swal2-icon-hide'
                             }
-                        });
+                        })
+                    }
+
+
+                    fetch("/api/day/" + convert(date), {
+                        "method": "GET",
+                        "headers": {}
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        }
+                    }).then(response => {
+                        afficher(
+                                new Intl.NumberFormat('en-US', {style: 'decimal'}).format(response.tva),
+                                new Intl.NumberFormat('en-US', {style: 'decimal'}).format(response.ttc),
+                                new Intl.NumberFormat('en-US', {style: 'decimal'}).format(response.ht),
+                                new Intl.NumberFormat('en-US', {style: 'decimal'}).format(response.factures),
+                                new Intl.NumberFormat('en-US', {style: 'decimal'}).format(response.rapports)
+                                )
                     }).catch(error => {
                         console.log("ERREUR. PAS DE RETOUR!!!")
                     });
