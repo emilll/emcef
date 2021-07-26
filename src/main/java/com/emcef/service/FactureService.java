@@ -5,6 +5,7 @@
  */
 package com.emcef.service;
 
+import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.LigneDeFacture;
 import com.emcef.repository.FactureRepository;
@@ -117,5 +118,9 @@ public class FactureService {
 
     public FactureSelonSpecification findById(int position) {
         return factureRepository.findById(position);
+    }
+
+    public FactureSelonSpecification findByNormalisee(FactureNormalisee facture) {
+        return factureRepository.findByFacturenormalisee(facture);
     }
 }

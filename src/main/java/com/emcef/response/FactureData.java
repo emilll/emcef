@@ -17,6 +17,7 @@ import java.util.List;
  * @author Holy
  */
 public class FactureData {
+    private boolean found;
     private boolean statut;
     private String numero;
     private String nom;
@@ -71,6 +72,14 @@ public class FactureData {
     private double tva; //TVA
     private double ht; //HT
     private double total; //TTC
+
+    public boolean isFound() {
+        return found;
+    }
+
+    public void setFound(boolean found) {
+        this.found = found;
+    }
 
     public boolean getStatut() {
         return statut;

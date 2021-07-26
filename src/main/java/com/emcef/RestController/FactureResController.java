@@ -221,7 +221,82 @@ public class FactureResController {
             DateTime time = new DateTime();
             String path = "Facture" + time.toYearMonthDay() + "-" + time.getHourOfDay() + "H" + time.getMinuteOfHour() + "M" + time.getSecondOfMinute() + ".pdf";
             FactureSelonSpecification facture = factureService.findAllByUid(uid);
-            byte[] data = createPdfReport(ligneDeFactureService.articles(facture), facture);
+            List<JSONObject> taxation = new ArrayList();
+            List<String> taxeGroup = new ArrayList();
+            double taa = 0, tab = 0, tac = 0, tad = 0, tae = 0, taf = 0, total = 0;
+            double hta = 0, htb = 0, htc = 0, htd = 0, hte = 0, htf = 0;
+            double tvaa = 0, tvab = 0, tvac = 0, tvad = 0, tvae = 0, tvaf = 0;
+            for (LigneDeFacture str : ligneDeFactureService.articles(facture)) {
+                if (!taxeGroup.contains(str.getTaxratelabel())) {
+                    taxeGroup.add(str.getTaxratelabel());
+                }
+                if (str.getTaxratelabel().equals("A")) {
+                    taa += str.getAmount();
+                    hta += str.getAmounttaxable();
+                    tvaa += str.getTaxamount();
+                }
+                if (str.getTaxratelabel().equals("B")) {
+                    tab += str.getAmount();
+                    htb += str.getAmounttaxable();
+                    tvab += str.getTaxamount();
+                }
+                if (str.getTaxratelabel().equals("C")) {
+                    tac += str.getAmount();
+                    htc += str.getAmounttaxable();
+                    tvac += str.getTaxamount();
+                }
+                if (str.getTaxratelabel().equals("D")) {
+                    tad += str.getAmount();
+                    htd += str.getAmounttaxable();
+                    tvad += str.getTaxamount();
+                }
+                if (str.getTaxratelabel().equals("E")) {
+                    tae += str.getAmount();
+                    hte += str.getAmounttaxable();
+                    tvae += str.getTaxamount();
+                }
+                if (str.getTaxratelabel().equals("F")) {
+                    taf += str.getAmount();
+                    htf += str.getAmounttaxable();
+                    tvaf += str.getTaxamount();
+                }
+            }
+            for (String texte : taxeGroup) {
+                JSONObject retour = new JSONObject();
+                retour.put("groupe", texte);
+                if (texte.equals("A")) {
+                    retour.put("mht", hta);
+                    retour.put("mtva", tvaa);
+                    retour.put("mttc", taa);
+                }
+                if (texte.equals("B")) {
+                    retour.put("mht", htb);
+                    retour.put("mtva", tvab);
+                    retour.put("mttc", tab);
+                }
+                if (texte.equals("C")) {
+                    retour.put("mht", htc);
+                    retour.put("mtva", tvac);
+                    retour.put("mttc", tac);
+                }
+                if (texte.equals("D")) {
+                    retour.put("mht", htd);
+                    retour.put("mtva", tvad);
+                    retour.put("mttc", tad);
+                }
+                if (texte.equals("E")) {
+                    retour.put("mht", hte);
+                    retour.put("mtva", tvae);
+                    retour.put("mttc", tae);
+                }
+                if (texte.equals("F")) {
+                    retour.put("mht", htf);
+                    retour.put("mtva", tvaf);
+                    retour.put("mttc", taf);
+                }
+                taxation.add(retour);
+            }
+            byte[] data = createPdfReport(ligneDeFactureService.articles(facture), facture, taxation);
             //return new ResponseEntity<>(data, headers, HttpStatus.OK);
             return ResponseEntity.ok()
                     // Content-Disposition
@@ -238,24 +313,29 @@ public class FactureResController {
     }
 
     // Method to create the pdf file using the employee list datasource.
-    private static byte[] createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture/*, HttpServletResponse response*/) throws JRException, FileNotFoundException, IOException, Exception {
+    private static byte[] createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture, List<JSONObject> taxation/*, HttpServletResponse response*/) throws JRException, FileNotFoundException, IOException, Exception {
         try {
             File file = ResourceUtils.getFile("classpath:facture.jrxml");
             JasperReport liste = JasperCompileManager.compileReport(file.getAbsolutePath());
             JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(article);
+            JRBeanCollectionDataSource groupe = new JRBeanCollectionDataSource(taxation);
             Map<String, Object> parameters = new HashMap<String, Object>();
+            double ttc = facture.getTotal_a() + facture.getTotal_b() + facture.getTotal_c() + facture.getTotal_d() + facture.getTotal_e() + facture.getTotal_f();
             parameters.put("name", facture.getNom_commercial());
-            parameters.put("date", facture.getDateTime());
+            parameters.put("date", facture.getDateTime().toString());
+            parameters.put("daten", facture.getFactureNormalisee().getDateTime());
+            parameters.put("factureNum", facture.getId_document());
             parameters.put("numero", "00001");
             parameters.put("ifuseller", facture.getIfuseller());
             parameters.put("adressseller", facture.getAdresse1());
             parameters.put("contactseller", facture.getContact1());
             parameters.put("mailseller", facture.getContact2());
             parameters.put("nameclient", facture.getNom_client());
+            parameters.put("compteurs", facture.getFactureNormalisee().getCounters());
             parameters.put("ifuclient", facture.getIfu_client());
             parameters.put("adressclient", facture.getAdresse1_client());
             parameters.put("contactclient", facture.getContact1_client());
-            parameters.put("ttc", facture.getTotal());
+            parameters.put("ttc", ttc);
             parameters.put("tva", facture.getTotal_tax());
             parameters.put("ht", facture.getTotal_taxable());
             parameters.put("qr", facture.getFactureNormalisee().getQrCode());
@@ -263,13 +343,11 @@ public class FactureResController {
             parameters.put("finaldate", facture.getFactureNormalisee().getDateTime());
             parameters.put("remise", "0");
             parameters.put("ts", "0");
-            parameters.put("aib", "0");
-            parameters.put("total", "0");
-            parameters.put("taxe", "B");
-            parameters.put("shortht", "");
-            parameters.put("shorttva", "0");
+            parameters.put("aib", facture.getMontant_aib());
+            parameters.put("total", facture.getTotal());
             parameters.put("nim", facture.getNim());
             parameters.put("parts", ds);
+            parameters.put("taxations", groupe);
             JasperPrint impression = JasperFillManager.fillReport(liste, parameters, new JREmptyDataSource());
             //response.setContentType("application/x-download");
             //response.addHeader("Content-disposition", "attachment; filename=" + path);
@@ -338,6 +416,114 @@ public class FactureResController {
         response.setType((String) factureService.UidInfo(uid).get("type"));
 
         return response;
+    }
+
+    @GetMapping("/show/{code}")
+    public FactureData factureData(@PathVariable(value = "code") String code) {
+        FactureData response = new FactureData();
+        FactureNormalisee normale = factureNormaliseeService.findByCode(code);
+        if (normale == null) {
+            response.setFound(false);
+            return response;
+        } else {
+            FactureSelonSpecification facture = factureService.findByNormalisee(normale);
+            OperatorDto operator = new OperatorDto();
+            ClientDto client = new ClientDto();
+
+            operator.setId(facture.getOperateur_id());
+            operator.setName(facture.getOperateur());
+            client.setAddress(facture.getAdresse1_client());
+            client.setContact(facture.getContact1_client());
+            client.setIfu(facture.getIfu_client());
+            client.setName(facture.getNom_client());
+
+            List<PaymentDto> payment = new ArrayList<>();
+            List<ItemDto> items = new ArrayList<>();
+            List<LigneDeFacture> factureArticles = ligneDeFactureService.articles(facture);
+
+            factureArticles.stream().map((plus) -> {
+                ItemDto donnee = new ItemDto();
+                donnee.setCode(plus.getCode());
+                donnee.setName(plus.getName());
+                donnee.setPrice(plus.getPrice());
+                donnee.setQuantity(plus.getQuantity());
+                donnee.setTaxGroup(plus.getTaxratelabel());
+                donnee.setOriginalPrice((int) plus.getOriginalprice());
+                donnee.setRemise((int) (donnee.getOriginalPrice() - plus.getPrice()));
+                return donnee;
+            }).forEachOrdered((donnee) -> {
+                items.add(donnee);
+            });
+
+            PaymentDto donnee = new PaymentDto();
+            donnee.setAmount(facture.getPayed());
+            donnee.setName(facture.getPayement());
+            payment.add(donnee);
+
+            response.setIfu(facture.getIfuseller());
+            response.setClient(client);
+            response.setItems(items);
+            response.setOperator(operator);
+            response.setPayment(payment);
+            response.setType(facture.getType());
+            response.setAib(facture.getAib());
+            response.setFound(true);
+            try {
+                facture.getFactureNormalisee();
+                response.setCodeMECeFDGI(facture.getFactureNormalisee().getCodeMECeFDGI());
+                response.setCounters(facture.getFactureNormalisee().getCounters());
+                response.setDateTime(facture.getFactureNormalisee().getDateTime());
+                response.setNim(facture.getFactureNormalisee().getNim());
+                response.setQrCode(facture.getFactureNormalisee().getQrCode());
+                response.setStatut(true);
+            } catch (Exception e) {
+                response.setDateTime(facture.getDateTime().toString());
+                response.setStatut(false);
+            }
+            response.setHaa(facture.getTaxable_a());
+            response.setHab(facture.getTaxable_b());
+            response.setHac(facture.getTaxable_c());
+            response.setHad(facture.getTaxable_d());
+            response.setHae(facture.getTaxable_e());
+            response.setHaf(facture.getTaxable_f());
+            response.setHt(facture.getTotal_taxable());
+            response.setReference("");
+            response.setTa(facture.getTaux_tax_a());
+            response.setTaa(facture.getTotal_a());
+            response.setTab(facture.getTotal_b());
+            response.setTac(facture.getTotal_c());
+            response.setTad(facture.getTotal_d());
+            response.setTae(facture.getTotal_e());
+            response.setTaf(facture.getTotal_f());
+            response.setTb(facture.getTaux_tax_b());
+            response.setTc(facture.getTaux_tax_c());
+            response.setTd(facture.getTaux_tax_d());
+            response.setTe(facture.getTauxtax_e());
+            response.setTf(facture.getTauxtax_f());
+            response.setTotal(facture.getTotal());
+            response.setTsa(facture.getTax_specifique_a());
+            response.setTsb(facture.getTax_specifique_b());
+            response.setTsc(facture.getTax_specifique_c());
+            response.setTsd(facture.getTax_specifique_d());
+            response.setTse(facture.getTax_specifique_e());
+            response.setTsf(facture.getTax_specifique_f());
+            response.setTva(facture.getTotal_tax());
+            response.setVaa(facture.getTotal_tax_a());
+            response.setVab(facture.getTotal_tax_b());
+            response.setVac(facture.getTotal_tax_c());
+            response.setVad(facture.getTotal_tax_d());
+            response.setVae(facture.getTotal_tax_e());
+            response.setVaf(facture.getTotal_tax_f());
+            response.setMontantAib(facture.getMontant_aib());
+            response.setNumero(facture.getId_document());
+            response.setAdresse(facture.getAdresse1());
+            response.setContact(facture.getContact1());
+            response.setDate(facture.getDate_requette());
+            response.setMail(facture.getContact2());
+            response.setNom(facture.getNom_commercial());
+
+            return response;
+        }
     }
 
     @GetMapping("/information/{uid}")
@@ -1156,19 +1342,20 @@ public class FactureResController {
 
         }
         for (Rapportcr str : rapportService.all()) {
-            try{
-            if(str.getDate_heure() == day){
-                nbrRapports++;
+            try {
+                if (str.getDate_heure() == day) {
+                    nbrRapports++;
+                }
+            } catch (Exception e) {
             }
-            }catch(Exception e){}
         }
-        
+
         retour.put("tva", tva);
         retour.put("ttc", ttc);
         retour.put("ht", ht);
         retour.put("factures", nbrFactures);
         retour.put("rapports", nbrRapports);
-        
+
         return retour;
 
     }

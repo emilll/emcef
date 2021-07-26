@@ -30,7 +30,7 @@ public class FactureNormalisee {
     private String qrCode;
     
     @Column(name = "codeMECeFDGI")
-    private String codeMECeFDGI;
+    private String codemecefdgi;
     
     @Column(name = "counters")
     private String counters;
@@ -63,11 +63,11 @@ public class FactureNormalisee {
     }
 
     public String getCodeMECeFDGI() {
-        return codeMECeFDGI;
+        return codemecefdgi;
     }
 
     public void setCodeMECeFDGI(String codeMECeFDGI) {
-        this.codeMECeFDGI = codeMECeFDGI;
+        this.codemecefdgi = codeMECeFDGI;
     }
 
     public String getCounters() {

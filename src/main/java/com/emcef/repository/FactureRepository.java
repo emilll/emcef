@@ -5,6 +5,7 @@
  */
 package com.emcef.repository;
 
+import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
 import java.util.Date;
 import java.util.List;
@@ -84,4 +85,6 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     public FactureSelonSpecification findAllByUid(String uid);
 
     public FactureSelonSpecification findById(int id);
+
+    public FactureSelonSpecification findByFacturenormalisee(FactureNormalisee facture);
 }

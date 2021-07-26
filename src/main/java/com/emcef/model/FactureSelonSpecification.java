@@ -21,7 +21,7 @@ public class FactureSelonSpecification implements Serializable  {
     private int id;
     
     @OneToOne
-    FactureNormalisee factureNormalisee;
+    FactureNormalisee facturenormalisee;
 
     @Column(name = "dateheure")
     private Date dateTime;
@@ -972,11 +972,11 @@ public class FactureSelonSpecification implements Serializable  {
     }
 
     public FactureNormalisee getFactureNormalisee() {
-        return factureNormalisee;
+        return facturenormalisee;
     }
 
     public void setFactureNormalisee(FactureNormalisee factureNormalisee) {
-        this.factureNormalisee = factureNormalisee;
+        this.facturenormalisee = factureNormalisee;
     }
 
     public String getIfuseller() {

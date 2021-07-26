@@ -16,5 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FactureNormaliseeRepository extends JpaRepository<FactureNormalisee, Integer> {
     public FactureNormalisee findAllById(int id);
+
+    public FactureNormalisee findByCodemecefdgi(String code);
     
 }

@@ -27,4 +27,8 @@ public class FactureNormaliseeService {
     public void save(FactureNormalisee normale) {
         factureNormaliseeRepository.save(normale);
     }
+
+    public FactureNormalisee findByCode(String code) {
+        return factureNormaliseeRepository.findByCodemecefdgi(code);
+    }
 }

@@ -5,7 +5,7 @@ new Vue({
         client: {},
         vide: false,
         show: '',
-        uid: '',
+        code: '',
         hide: ''
     },
     methods: {
@@ -32,34 +32,39 @@ new Vue({
                 })
             }
         },
-        chercher: function (uid) {
-            if (uid == '') {
+        chercher: function (code) {
+            if (code == '') {
                 this.showMessage('info', "Le Code MECeF, ne peut être nul.")
             } else {
-                axios.get("/api/information/" + uid).then(response => {
+                axios.get("/api/show/" + code).then(response => {
                     return response;
                 }).then(response => {
-                    if (response.data.statut) {
-                        axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
-                            return response;
-                        }).then(response => {
-                            document.getElementById("code").src = "data:image/png;base64," + response.data;
-                            
-                        }).catch(error => {
-                            this.showMessage('info', "Erreur de lecture!!!")
-                        })
-                        this.facturesInfo = response.data
+                    if (response.data.found) {
+                        if (response.data.statut) {
+                            axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                                return response;
+                            }).then(response => {
+                                document.getElementById("code").src = "data:image/png;base64," + response.data;
+
+                            }).catch(error => {
+                                this.showMessage('info', "Erreur de lecture!!!")
+                            })
+                            this.facturesInfo = response.data
                             this.client = response.data.client
                             this.show = '1'
                             this.vide = true
                             this.hide = false
 
+                        } else {
+                            this.facturesInfo = response.data
+                            this.client = response.data.client
+                            this.show = '1'
+                            this.vide = true
+                            this.hide = true
+                        }
                     } else {
-                        this.facturesInfo = response.data
-                        this.client = response.data.client
-                        this.show = '1'
-                        this.vide = true
-                        this.hide = true
+                        this.show = '2'
+                        this.vide = false
                     }
 
                 }).catch(error => {
