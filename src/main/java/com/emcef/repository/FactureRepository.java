@@ -83,6 +83,10 @@ public interface FactureRepository extends JpaRepository<FactureSelonSpecificati
     public List<FactureSelonSpecification> findAllByIfuseller(String ifu_seller);
 
     public FactureSelonSpecification findAllByUid(String uid);
+    
+    public List<FactureSelonSpecification> findAllByType(String Type);
+    
+    public List<FactureSelonSpecification> findAllByNim(String nim);
 
     public FactureSelonSpecification findById(int id);
 

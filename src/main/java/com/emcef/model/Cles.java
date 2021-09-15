@@ -19,14 +19,14 @@ public class Cles {
     @OneToOne
     Machinesenregistrees machinesenregistrees;
 
-    @Column(name = "cle_chiffrement")
-    private String cle_chiffrement;
+    @Column(name = "clechiffrement")
+    private String clechiffrement;
 
-    @Column(name = "cle_signature")
-    private String cle_signature;
+    @Column(name = "clesignature")
+    private String clesignature;
 
-    @Column(name = "cle_interne")
-    private String cle_interne;
+    @Column(name = "cleinterne")
+    private String cleinterne;
 
     @Column(name = "ec384pub")
     private String ec384pub;
@@ -62,28 +62,28 @@ public class Cles {
         this.machinesenregistrees = machinesenregistrees;
     }
 
-    public String getCle_chiffrement() {
-        return cle_chiffrement;
+    public String getCleChiffrement() {
+        return clechiffrement;
     }
 
-    public void setCle_chiffrement(String cle_chiffrement) {
-        this.cle_chiffrement = cle_chiffrement;
+    public void setCleChiffrement(String clechiffrement) {
+        this.clechiffrement = clechiffrement;
     }
 
-    public String getCle_signature() {
-        return cle_signature;
+    public String getCleSignature() {
+        return clesignature;
     }
 
-    public void setCle_signature(String cle_signature) {
-        this.cle_signature = cle_signature;
+    public void setCleSignature(String clesignature) {
+        this.clesignature = clesignature;
     }
 
-    public String getCle_interne() {
-        return cle_interne;
+    public String getCleInterne() {
+        return cleinterne;
     }
 
-    public void setCle_interne(String cle_interne) {
-        this.cle_interne = cle_interne;
+    public void setCleInterne(String cleinterne) {
+        this.cleinterne = cleinterne;
     }
 
     public String getEc384pub() {

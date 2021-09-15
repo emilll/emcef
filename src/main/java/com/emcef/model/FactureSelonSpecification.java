@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 @Table(name = "factureselonspecification")
 public class FactureSelonSpecification implements Serializable  {
 
+    @Column(nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

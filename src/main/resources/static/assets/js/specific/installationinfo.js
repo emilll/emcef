@@ -1,7 +1,7 @@
 new Vue({
     el: '#appinfo',
     data: {
-        valeur: window.location.pathname.split("/", 3),
+        valeur: window.location.pathname.split("/", 4),
         machines: [],
         montant: [],
         info: [],
@@ -16,7 +16,7 @@ new Vue({
         }
     },
     mounted() {
-        fetch('/api/installationinfo/' + this.valeur[2], {
+        fetch('api/installationinfo/' + this.valeur[3], {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -28,7 +28,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-                fetch('/api/installationmontant/' + this.valeur[2], {
+                fetch('api/installationmontant/' + this.valeur[3], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -40,7 +40,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-                fetch('/api/onemachine/' + this.valeur[2], {
+                fetch('api/onemachine/' + this.valeur[3], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {

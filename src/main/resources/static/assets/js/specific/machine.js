@@ -31,7 +31,7 @@ new Vue({
     mounted() {
         this.sync(),
         this.randomString(),
-        fetch('/api/installationall/', {
+        fetch('api/installationall/', {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -57,7 +57,7 @@ new Vue({
             this.apikey = result;
         },
         sync: function () {
-            fetch("/api/machineall", {
+            fetch("api/machineall", {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -171,7 +171,7 @@ new Vue({
                                         status: this.status,
                                     }
 
-                                    fetch('/api/saveMachineEnregistre', {
+                                    fetch('api/saveMachineEnregistre', {
                                         method: 'POST',
                                         headers: {
                                             'Accept': 'application/json',

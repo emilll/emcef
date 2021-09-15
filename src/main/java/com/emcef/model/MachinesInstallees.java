@@ -79,17 +79,6 @@ public class MachinesInstallees implements Serializable {
 
     @OneToOne
     Installations id_installation;
-    
-    @Column(name = "apikey")
-    private String apikey;
-
-    public String getApikey() {
-        return apikey;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
 
     public Installations getId_installation() {
         return id_installation;
@@ -241,6 +230,11 @@ public class MachinesInstallees implements Serializable {
 
     public void setDernier_rapport_doc(String dernier_rapport_doc) {
         this.dernier_rapport_doc = dernier_rapport_doc;
+    }
+
+    @Override
+    public String toString() {
+        return "MachinesInstallees{" + "date_heure=" + date_heure + ", nom_proprietaire=" + nom_proprietaire + ", id_sim=" + id_sim + ", numero_sim=" + numero_sim + ", status=" + status + ", nim=" + nim + ", ifu=" + ifu + ", date_enregistement=" + date_enregistement + ", date_activation=" + date_activation + ", operateur=" + operateur + ", ident_machine_operateur=" + ident_machine_operateur + ", id_profile_personalisation=" + id_profile_personalisation + ", date_debut=" + date_debut + ", date_fin=" + date_fin + ", dernier_rapport=" + dernier_rapport + ", status_dernier_rapport=" + status_dernier_rapport + ", dernier_rapport_doc=" + dernier_rapport_doc + ", id_installation=" + id_installation + '}';
     }
 
 }

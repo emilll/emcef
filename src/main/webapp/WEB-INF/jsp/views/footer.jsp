@@ -1,4 +1,6 @@
 <script>
+    var getUrl = window.location;
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/";
     async function recherche1() {
         const man = Swal.mixin({
             customClass: {
@@ -26,7 +28,7 @@
             preConfirm: (login) => {
                 var variable;
                 if (document.getElementById('val1').value !== "") {
-                    variable = "http://localhost:8082/api/findcontribuablebyifu/" + document.getElementById('val1').value;
+                    variable = baseUrl+"api/findcontribuablebyifu/" + document.getElementById('val1').value;
                     return fetch(variable)
                             .then(response => {
                                 if (!response.ok) {
@@ -49,7 +51,7 @@
         }).then((result) => {
             if (result.isDismissed === false) {
                 if (result.value.ifu !== null) {
-                    window.location.href = "/contribuable/" + result.value.ifu;
+                    window.location.href = baseUrl + "contribuable/" + result.value.ifu;
                 }
                 if (result.value.ifu === null) {
                     Swal.fire({
@@ -89,7 +91,7 @@
             preConfirm: (login) => {
                 var variable;
                 if (document.getElementById('val1').value !== "") {
-                    variable = "http://localhost:8082/api/findmachinebyenim/" + document.getElementById('val1').value;
+                    variable = baseUrl+"api/findmachinebyenim/" + document.getElementById('val1').value;
                     return fetch(variable)
                             .then(response => {
                                 if (!response.ok) {
@@ -119,7 +121,7 @@
                     })
                 }
                 if (result.value.nim !== null) {
-                    window.location.href = "/machine/" + result.value.nim;
+                    window.location.href = baseUrl + "machine/" + result.value.nim;
                 }
             }
         })
@@ -152,7 +154,7 @@
             preConfirm: (login) => {
                 var variable;
                 if (document.getElementById('val1').value !== "") {
-                    variable = "http://localhost:8082/api/findsellerbyifu/" + document.getElementById('val1').value;
+                    variable = baseUrl+"api/findsellerbyifu/" + document.getElementById('val1').value;
                     return fetch(variable)
                             .then(response => {
                                 if (!response.ok) {
@@ -175,7 +177,7 @@
         }).then((result) => {
             if (result.isDismissed === false) {
                 if (result.value.ifuseller !== null) {
-                    window.location.href = "/installation/" + result.value.ifuseller;
+                    window.location.href = baseUrl + "installation/" + result.value.ifuseller;
                 }
                 if (result.value.ifuseller === null) {
                     Swal.fire({

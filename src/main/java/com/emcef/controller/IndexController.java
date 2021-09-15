@@ -30,6 +30,11 @@ public class IndexController {
     public String logout() {
         return "redirect:/";
     }
+    
+    @GetMapping("/swagger-ui")
+    public String apiInfo() {
+        return "redirect:/swagger-ui.html";
+    }
 
     @GetMapping("/")
     public String show() {

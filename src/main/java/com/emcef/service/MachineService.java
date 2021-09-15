@@ -39,10 +39,6 @@ public class MachineService {
         return machineRepository.findByIfu(ifu);
     }
     
-    public MachinesInstallees findByApikey(String ifu) {
-        return machineRepository.findByApikey(ifu);
-    }
-    
     public List<MachinesInstallees> findAllByIfu(String ifu) {
         return machineRepository.findAllByIfu(ifu);
     }

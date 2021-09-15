@@ -1,10 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * BOSSOU Emmanuel
  */
 package com.emcef.RestController;
 
+import com.emcef.utility.Utils;
+import com.emcef.model.Cles;
 import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.LigneDeFacture;
@@ -22,6 +22,7 @@ import com.emcef.request.PaymentDto;
 import com.emcef.response.FactureData;
 import com.emcef.response.FactureResponse;
 import com.emcef.response.FinalFactureResponse;
+import com.emcef.service.ClesService;
 import com.emcef.service.ErreurService;
 import com.emcef.service.FactureNormaliseeService;
 import com.emcef.service.FactureService;
@@ -36,8 +37,11 @@ import com.emcef.utility.JWTUtility;
 import com.emcef.utility.JwtRequest;
 import com.emcef.utility.JwtResponse;
 import com.emcef.utility.QRCodeGenerator;
+import static com.emcef.utility.Utils.hexStringToByteArray;
+import static com.emcef.utility.Utils.hmacSha1;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 
@@ -59,6 +63,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.commons.codec.binary.Base32;
 import org.joda.time.DateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,36 +91,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class FactureResController {
+    
+    private Utils utils;
 
     @Autowired
-    ErreurService erreurService;
+    private ClesService clesService;
 
     @Autowired
-    FactureService factureService;
+    private ErreurService erreurService;
 
     @Autowired
-    TaxesService taxesService;
+    private FactureService factureService;
 
     @Autowired
-    UserService userService;
+    private TaxesService taxesService;
 
     @Autowired
-    RapportService rapportService;
+    private UserService userService;
 
     @Autowired
-    MachineService machineService;
+    private RapportService rapportService;
 
     @Autowired
-    TypesFacturesService typesFacturesService;
+    private MachineService machineService;
 
     @Autowired
-    TypesPaiementService typesPaiementService;
+    private TypesFacturesService typesFacturesService;
 
     @Autowired
-    LigneDeFactureService ligneDeFactureService;
+    private TypesPaiementService typesPaiementService;
 
     @Autowired
-    FactureNormaliseeService factureNormaliseeService;
+    private LigneDeFactureService ligneDeFactureService;
+
+    @Autowired
+    private FactureNormaliseeService factureNormaliseeService;
 
     @Autowired
     private JWTUtility jwtUtility;
@@ -123,98 +133,7 @@ public class FactureResController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    String getAlphaNumericString(int n) {
-        // chose a Character random from this String
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
-        // create StringBuffer size of AlphaNumericString
-        StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            // generate a random number between
-            // 0 to AlphaNumericString variable length
-            int index
-                    = (int) (AlphaNumericString.length()
-                    * Math.random());
-            // add Character one by one in end of sb
-            sb.append(AlphaNumericString
-                    .charAt(index));
-        }
-        return sb.toString();
-    }
-
-    String numero(int valeur) {
-        String val = Integer.toString(valeur);
-        String padded = "";
-        if (val.length() == 0) {
-            padded = String.format("%05d", 1);
-        }
-        if (val.length() == 1) {
-            padded = String.format("%05d", valeur);
-        }
-        if (val.length() == 2) {
-            padded = String.format("%04d", valeur);
-        }
-        if (val.length() == 3) {
-            padded = String.format("%03d", valeur);
-        }
-        if (val.length() == 4) {
-            padded = String.format("%02d", valeur);
-        }
-        if (val.length() == 5) {
-            padded = String.format("%01d", valeur);
-        }
-        if (val.length() == 6) {
-            padded = val;
-        }
-        return padded;
-    }
-
-    public String transform(int valeur) {
-        String val = "" + valeur;
-        if (valeur < 10) {
-            val = "0" + valeur;
-        }
-        return val;
-    }
-
-    public int deuxChiffres(int valeur) {
-        int k = valeur;
-        if (valeur < 10) {
-            k = Integer.valueOf("0" + String.valueOf(valeur));
-        }
-        return k;
-    }
-
-    int count(Date date, List<FactureSelonSpecification> facture) {
-        int resultat = 0;
-        for (FactureSelonSpecification fct : facture) {
-            if (fct.getDateTime() == date) {
-                resultat = resultat + 1;
-            }
-        }
-        return resultat;
-    }
-
-    String getParticularString(int n) {
-        // chose a Character random from this String
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789";
-        // create StringBuffer size of AlphaNumericString
-        StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            // generate a random number between
-            // 0 to AlphaNumericString variable length
-            int index
-                    = (int) (AlphaNumericString.length()
-                    * Math.random());
-            // add Character one by one in end of sb
-            sb.append(AlphaNumericString
-                    .charAt(index));
-        }
-        return sb.toString();
-    }
-
+    //Génération de l'état
     @PostMapping("/export")
     public ResponseEntity<byte[]> export(@RequestBody String uid) throws JRException, FileNotFoundException, IOException, Exception {
         try {
@@ -312,7 +231,7 @@ public class FactureResController {
         }
     }
 
-    // Method to create the pdf file using the employee list datasource.
+    // Methode pour générer l'état d'une facture
     private static byte[] createPdfReport(final List<LigneDeFacture> article, FactureSelonSpecification facture, List<JSONObject> taxation/*, HttpServletResponse response*/) throws JRException, FileNotFoundException, IOException, Exception {
         try {
             File file = ResourceUtils.getFile("classpath:facture.jrxml");
@@ -365,11 +284,13 @@ public class FactureResController {
         }
     }
 
+    //Génération du QrCode
     @PostMapping(value = "/generateQRCode")
     public ResponseEntity<String> generateQRCode(@RequestBody String codeText) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(QRCodeGenerator.getQRCodeImageBase64(codeText, 300, 300));
     }
 
+    //Demande de détails sur la facture d'uid donnée
     @GetMapping("/invoice/{uid}")
     public FactureRequest detailsFacture(@PathVariable(value = "uid") String uid) {
         int id = factureService.uidId(uid);
@@ -418,6 +339,7 @@ public class FactureResController {
         return response;
     }
 
+    //Affichage d'une facture
     @GetMapping("/show/{code}")
     public FactureData factureData(@PathVariable(value = "code") String code) {
         FactureData response = new FactureData();
@@ -526,6 +448,7 @@ public class FactureResController {
         }
     }
 
+    //Information sur une facture en fonction de l'uid
     @GetMapping("/information/{uid}")
     public FactureData allInformation(@PathVariable(value = "uid") String uid) {
         FactureSelonSpecification facture = factureService.findAllByUid(uid);
@@ -627,6 +550,7 @@ public class FactureResController {
         return response;
     }
 
+    //Demande de Finalisation de la Facture
     @PostMapping("/invoice/{uid}/{action}")
     public FinalFactureResponse finaliser(@PathVariable(value = "uid") String uid, @PathVariable(value = "action") String action, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -635,6 +559,7 @@ public class FactureResController {
         MachinesInstallees machine = new MachinesInstallees();
 
         FactureNormalisee normale = new FactureNormalisee();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         FinalFactureResponse finalFactureResponse = new FinalFactureResponse();
         FactureSelonSpecification facture = factureService.findAllByUid(uid);
         List<FactureSelonSpecification> all = factureService.tout();
@@ -642,7 +567,7 @@ public class FactureResController {
         if (null != authorization && authorization.startsWith("Bearer ")) {
             try {
                 key = authorization.substring(7);
-                machine = machineService.findByApikey(key);
+                machine = clesService.findMachineByKey(key);
                 User user = userService.getUserByIfu(machine.getIfu());
                 if (user.getUsername().isEmpty()) {
                     throw new Exception("CLE INVALIDE");
@@ -657,45 +582,110 @@ public class FactureResController {
         }
 
         if ("confirm".equalsIgnoreCase(action)) {
-            int id = facture.getId();
-            Date date = facture.getDateTime();
-            String code = "", qrcode = "", datetime = "", counters = "", nim = facture.getNim();
-            String code1 = "", code2 = "", code3 = "", code4 = "", code5 = "", code6 = "";
-            int total = 0, actuel = 0;
-            for (FactureSelonSpecification str : all) {
-                if (str.getNim() == nim) {
-                    total += 1;
-                    if (str.getType().equalsIgnoreCase(facture.getType())) {
-                        actuel += 1;
+            if (facture.getStatus()) {
+                throw new Exception("FACTURE DEJA NORMALISEE");
+            } else {
+                Base32 base32 = new Base32();
+                String output = "";
+                Cles cles = clesService.findByEnim(facture.getNim());
+                int id = facture.getId();
+                JSONObject Type = factureService.typage(facture.getType(), facture.getNim());
+                Date date = facture.getDateTime();
+                //Initialisation des valeurs nécessaires pour la génération du code de la facture
+                int TRA = 0, TVA = 0, TAA = 0, TRB = 0, TVB = 0, TAB = 0, TRC = 0, TVC = 0, TAC = 0;
+                int TRD = 0, TVD = 0, TAD = 0, TRE = 0, TVE = 0, TAE = 0, TRF = 0, TVF = 0, TAF = 0;
+                String code = "", qrcode = "", datetime = "", counters = "", nim = facture.getNim(), signData = "";
+
+                //Génération du code de la facture
+                signData += df.format(facture.getDateTime());
+                signData += facture.getIfuseller();
+                if (facture.getIfu_client().isEmpty()) {
+                    signData += "";
+                } else {
+                    signData += facture.getIfu_client();
+                }
+                for (LigneDeFacture article : ligneDeFactureService.articles(facture)) {
+                    if ("A".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRA += (int) article.getTax();
+                        TVA += (int) article.getAmount();
+                        TAA += (int) article.getTaxamount();
+                    }
+                    if ("B".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRB += (int) article.getTax();
+                        TVB += (int) article.getAmount();
+                        TAB += (int) article.getTaxamount();
+                    }
+                    if ("C".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRC += (int) article.getTax();
+                        TVC += (int) article.getAmount();
+                        TAC += (int) article.getTaxamount();
+                    }
+                    if ("D".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRD += (int) article.getTax();
+                        TVD += (int) article.getAmount();
+                        TAD += (int) article.getTaxamount();
+                    }
+                    if ("E".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRE += (int) article.getTax();
+                        TVE += (int) article.getAmount();
+                        TAE += (int) article.getTaxamount();
+                    }
+                    if ("F".equalsIgnoreCase(article.getTaxratelabel())) {
+                        TRF += (int) article.getTax();
+                        TVF += (int) article.getAmount();
+                        TAF += (int) article.getTaxamount();
                     }
                 }
+                signData += TRA + TVA + TAA + TRB + TVB + TAB + TRC + TVC + TAC + TRD + TVD + TAD + TRE + TVE + TAE + TRF + TVF + TAF;
+                signData += facture.getTotal_tax_specifique() + facture.getAib() + facture.getMontant_aib() + facture.getTotal();
+                System.out.println("Type[0] = " + Type.get("only") + "Type[1] = " + Type.get("all") + "facture.getType() = " + facture.getType());
+                signData += facture.getNim() + Type.get("only") + Type.get("all") + facture.getType();
+                System.out.println("======= SIGNDATA ======= " + hmacSha1(signData, cles.getCleSignature()) + " END");
+                System.out.println("======= KEY ======= " + cles.getCleSignature());
+                System.out.println("======= HASH =======" + hmacSha1(signData, cles.getCleSignature()));
+                System.out.println("======= HASH REDUCED =======" + hmacSha1(signData, cles.getCleSignature()).substring(0, 30));
+                byte[] hexData = hexStringToByteArray(hmacSha1(signData, cles.getCleSignature()).substring(0, 30));
+                System.out.println("======= HEX DATA =======" + code);
+                code = base32.encodeAsString(hexData);
+                System.out.println("======= CODE =======" + code);
+                String filetowrite = "D:/signData.txt";
+                String filetowrite1 = "D:/hash.txt";
+                String filetowrite2 = "D:/code.txt";
+                FileWriter fw = new FileWriter(filetowrite);
+                FileWriter fw1 = new FileWriter(filetowrite1);
+                FileWriter fw2 = new FileWriter(filetowrite2);
+                fw.write(signData);
+                fw1.write(hmacSha1(signData, cles.getCleSignature()));
+                fw2.write(code);
+                fw.close();
+                output += code.substring(0, 4) + "-";
+                output += code.substring(4, 8) + "-";
+                output += code.substring(8, 12) + "-";
+                output += code.substring(12, 16) + "-";
+                output += code.substring(16, 20) + "-";
+                output += code.substring(20, 24);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                counters = Type.get("only") + "/" + Type.get("all") + " " + facture.getType();
+
+                datetime = utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + utils.transform(calendar.get(Calendar.MONTH) + 1) + "/" + utils.transform(calendar.get(Calendar.YEAR)) + " " + utils.transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + ":" + utils.transform(calendar.get(Calendar.MINUTE)) + ":" + utils.transform(calendar.get(Calendar.SECOND));
+                qrcode = "F;" + nim + ";" + code + ";" + userService.getUser(userName).getIfu() + ";" + utils.transform(calendar.get(Calendar.YEAR)) + utils.transform(calendar.get(Calendar.MONTH) + 1) + utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + utils.transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + utils.transform(calendar.get(Calendar.MINUTE)) + utils.transform(calendar.get(Calendar.SECOND));
+                normale.setCodeMECeFDGI(output);
+                normale.setCounters(counters);
+                normale.setDateTime(datetime);
+                normale.setNim(nim);
+                normale.setQrCode(qrcode);
+                factureNormaliseeService.save(normale);
+                facture.setFactureNormalisee(normale);
+                facture.setStatus(Boolean.TRUE);
+                factureService.saveFacture(facture);
+                finalFactureResponse.setCodeMECeFDGI(output);
+                finalFactureResponse.setCounters(counters);
+                finalFactureResponse.setDateTime(datetime);
+                finalFactureResponse.setNim(nim);
+                finalFactureResponse.setQrCode(qrcode);
             }
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            counters = total + "/" + actuel + " " + facture.getType();
-            code1 = getParticularString(4);
-            code2 = getParticularString(4);
-            code3 = getParticularString(4);
-            code4 = getParticularString(4);
-            code5 = getParticularString(4);
-            code6 = getParticularString(4);
-            code = code1 + "-" + code2 + "-" + code3 + "-" + code4 + "-" + code5 + "-" + code6;
-            datetime = transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + transform(calendar.get(Calendar.MONTH) + 1) + "/" + transform(calendar.get(Calendar.YEAR)) + " " + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + ":" + transform(calendar.get(Calendar.MINUTE)) + ":" + transform(calendar.get(Calendar.SECOND));
-            qrcode = "F;" + nim + ";" + code1 + code2 + code3 + code4 + code5 + code6 + ";" + userService.getUser(userName).getIfu() + ";" + transform(calendar.get(Calendar.YEAR)) + transform(calendar.get(Calendar.MONTH) + 1) + transform(calendar.get(Calendar.DAY_OF_MONTH)) + transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + transform(calendar.get(Calendar.MINUTE)) + transform(calendar.get(Calendar.SECOND));
-            normale.setCodeMECeFDGI(code);
-            normale.setCounters(counters);
-            normale.setDateTime(datetime);
-            normale.setNim(nim);
-            normale.setQrCode(qrcode);
-            factureNormaliseeService.save(normale);
-            facture.setFactureNormalisee(normale);
-            facture.setStatus(Boolean.TRUE);
-            factureService.saveFacture(facture);
-            finalFactureResponse.setCodeMECeFDGI(code);
-            finalFactureResponse.setCounters(counters);
-            finalFactureResponse.setDateTime(datetime);
-            finalFactureResponse.setNim(nim);
-            finalFactureResponse.setQrCode(qrcode);
         }
 
         if ("cancel".equalsIgnoreCase(action)) {
@@ -733,6 +723,7 @@ public class FactureResController {
         }
     }
 
+    //Demande de Facture
     @PostMapping("/invoice")
     public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
         String authorization = httpServletRequest.getHeader("Authorization");
@@ -758,7 +749,8 @@ public class FactureResController {
         }
 
         try {
-            machine = machineService.findByApikey(key);
+            machine = clesService.findMachineByKey(key);
+            machine.toString();
         } catch (Exception e) {
             last.setErrorCode("50");
             last.setErrorDesc("Demande de Facture - La machine n'existe pas.");
@@ -830,7 +822,7 @@ public class FactureResController {
         Date actuel = maintenant;
         actuel.setHours(maintenant.getHours() + 1);
 
-        String uid = getAlphaNumericString(8) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(4) + "-" + getAlphaNumericString(12);
+        String uid = utils.getAlphaNumericString(8) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(12);
         int position = factureService.tout().size() + 1;
         int taxe = 0;
 
@@ -927,7 +919,7 @@ public class FactureResController {
         facture.setDate_heure_controleur(actuel);
         facture.setDate_requette(actuel);
         facture.setDonneecontrole_controleur("");
-        facture.setId_document(numero(factureService.getAllFactureSelonSpecification().size()));
+        facture.setId_document(utils.numero(factureService.getAllFactureSelonSpecification().size()));
         facture.setId_fichier(0);
         facture.setIfu_client(factureRequest.getClient().getIfu());
         facture.setIfuseller(factureRequest.getIfu());
@@ -1129,6 +1121,7 @@ public class FactureResController {
         }
     }
 
+    //Montant ttc d'une année
     @GetMapping("/ttc")
     public List<Double> ttc() {
         try {
@@ -1194,6 +1187,7 @@ public class FactureResController {
         }
     }
 
+    //Montant ht d'une année
     @GetMapping("/ht")
     public List<Double> ht() {
         try {
@@ -1259,6 +1253,7 @@ public class FactureResController {
         }
     }
 
+    //Montant tva d'une année
     @GetMapping("/tva")
     public List<Double> tva() {
         try {
@@ -1370,6 +1365,7 @@ public class FactureResController {
         }
     }
 
+    //Nombre de facture
     @GetMapping("/countfacture")
     public long countfacture() {
         try {
@@ -1390,7 +1386,7 @@ public class FactureResController {
             String dt = sdf.format(ob.getDateTime());
             Date date = sdf.parse(dt);
             long millis = date.getTime() / 1000;
-            obj.put(millis, count(ob.getDateTime(), facture));
+            obj.put(millis, utils.count(ob.getDateTime(), facture));
         }
         return obj;
     }
@@ -1429,7 +1425,7 @@ public class FactureResController {
             double totalTTC = 0, totalHT = 0, totalTVA = 0;
             for (FactureSelonSpecification str : factureService.getAllFactureSelonSpecification()) {
                 calendar.setTime(str.getDateTime());
-                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
+                if (utils.deuxChiffres(calendar.get(Calendar.YEAR)) == year && utils.deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
                     nbre = nbre + 1;
                     totalTTC = totalTTC + str.getTotal();
                     totalHT = totalHT + str.getTotal_taxable();
@@ -1438,7 +1434,7 @@ public class FactureResController {
             }
             for (Rapportcr str : rapportService.all()) {
                 calendar.setTime(str.getDate_heure());
-                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
+                if (utils.deuxChiffres(calendar.get(Calendar.YEAR)) == year && utils.deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month) {
                     rapports = rapports + 1;
                 }
             }
@@ -1463,7 +1459,7 @@ public class FactureResController {
             for (FactureSelonSpecification str : factureService.getAllFactureSelonSpecification()) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(str.getDateTime());
-                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
+                if (utils.deuxChiffres(calendar.get(Calendar.YEAR)) == year && utils.deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && utils.deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
                     nbre = nbre + 1;
                     totalTTC = totalTTC + str.getTotal();
                     totalHT = totalHT + str.getTotal_taxable();
@@ -1473,7 +1469,7 @@ public class FactureResController {
             for (Rapportcr str : rapportService.all()) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(str.getDate_heure());
-                if (deuxChiffres(calendar.get(Calendar.YEAR)) == year && deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
+                if (utils.deuxChiffres(calendar.get(Calendar.YEAR)) == year && utils.deuxChiffres(calendar.get(Calendar.MONTH) + 1) == month && utils.deuxChiffres(calendar.get(Calendar.DAY_OF_MONTH)) == day) {
                     rapports = rapports + 1;
                 }
             }

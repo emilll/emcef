@@ -16,9 +16,9 @@ new Vue({
         ht: [],
         tva: [],
         banniere: [],
-        url1: "/api/totauxglobaux",
-        url2: "/api/totauxmonth/" + YYYY + "/" + MM,
-        url3: "/api/totauxday/" + YYYY + "/" + MM + "/" + DD
+        url1: "api/totauxglobaux",
+        url2: "api/totauxmonth/" + YYYY + "/" + MM,
+        url3: "api/totauxday/" + YYYY + "/" + MM + "/" + DD
     },
     created() {
         this.timer1 = setInterval(this.fetchData, 1000);
@@ -75,7 +75,7 @@ new Vue({
             }).catch(error => {
                 console.log("Erreur API")
             }),
-                    fetch("/api/banniere", {
+                    fetch("api/banniere", {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -89,7 +89,7 @@ new Vue({
             })
         },
         dash() {
-            fetch("/api/ttc", {
+            fetch("api/ttc", {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -101,7 +101,7 @@ new Vue({
             }).catch(error => {
                 console.log("Erreur API")
             }),
-                    fetch("/api/ht", {
+                    fetch("api/ht", {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -113,7 +113,7 @@ new Vue({
             }).catch(error => {
                 console.log("Erreur API")
             }),
-                    fetch("/api/tva", {
+                    fetch("api/tva", {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -394,19 +394,19 @@ async function GetRange() {
 
     if (formValues) {
         var ttc, rapports, factures;
-        const facture1 = await fetch('/api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        const facture1 = await fetch('api/betweenTtc/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
         ttc = await facture1.json();
         if (typeof ttc !== 'number') {
             ttc = 0;
         }
 
-        const facture2 = await fetch('/api/betweenRapports/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        const facture2 = await fetch('api/betweenRapports/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
         rapports = await facture2.json();
         if (typeof rapports !== 'number') {
             rapports = 0;
         }
 
-        const facture3 = await fetch('/api/betweenFactures/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
+        const facture3 = await fetch('api/betweenFactures/' + document.getElementById('swal-input1').value + '/' + document.getElementById('swal-input2').value);
         factures = await facture3.json();
         if (typeof factures !== 'number') {
             factures = 0;

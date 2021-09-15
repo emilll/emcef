@@ -5,6 +5,7 @@
  */
 package com.emcef.repository;
 
+import com.emcef.model.MachinesInstallees;
 import com.emcef.model.Machinesenregistrees;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MachineEnregistreRepository extends JpaRepository<Machinesenregistrees, Integer> {
-    
+    public Machinesenregistrees findByMachinesinstalles(MachinesInstallees machine);
 }

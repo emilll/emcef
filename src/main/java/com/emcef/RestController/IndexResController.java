@@ -7,14 +7,20 @@ package com.emcef.RestController;
 
 import com.emcef.model.FactureSelonSpecification;
 import com.emcef.model.MachinesInstallees;
+import com.emcef.model.User;
+import com.emcef.repository.UserRepository;
 import com.emcef.service.FactureService;
 import com.emcef.service.MachineService;
 import com.emcef.service.RapportService;
 import java.util.Date;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,10 +35,25 @@ public class IndexResController {
     FactureService factureService;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     RapportService rapportService;
 
     @Autowired
     MachineService machineService;
+
+    @PostMapping(value = "/check", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User verification(@RequestBody String username) {
+        User utilisateur = new User();
+        utilisateur = userRepository.findByUsername(username);
+        if (utilisateur != null) {
+            return utilisateur;
+        } else {
+            return new User();
+        }
+    }
 
     @GetMapping("/banniere")
     public JSONObject machines() {
@@ -49,7 +70,7 @@ public class IndexResController {
 
         for (MachinesInstallees str : machineService.getAllMachines()) {
             try {
-                if (now.getDate() - str.getDate_heure().getDate() < 2) {
+                if (now.getDate() - str.getDate_heure().getDate() < 7) {
                     connected++;
                 }
             } catch (Exception e) {

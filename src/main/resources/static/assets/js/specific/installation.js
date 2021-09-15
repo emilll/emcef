@@ -13,7 +13,7 @@ new Vue({
         }
     },
     mounted() {
-        fetch("/api/installationall", {
+        fetch("api/installationall", {
             "method": "GET",
             "headers": {}
         }).then(response => {

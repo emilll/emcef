@@ -10,6 +10,7 @@ package com.emcef.utility;
  * @author Holy
  */
 import com.emcef.model.User;
+import com.emcef.service.ClesService;
 import com.emcef.service.MachineService;
 import com.emcef.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private MachineService machineService;
     
+    @Autowired
+    private ClesService clesService;
+    
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -47,7 +51,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (null != authorization && authorization.startsWith("Bearer ")) {
             key = authorization.substring(7);
-            userName = userService.getUserByIfu(machineService.findByApikey(key).getIfu()).getUsername();
+            String ifu = clesService.findMachineByKey(key).getIfu();
+            userName = userService.getUserByIfu(ifu).getUsername();
+            
         }
 
         if(null != userName && SecurityContextHolder.getContext().getAuthentication() == null) {

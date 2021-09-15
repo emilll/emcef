@@ -7,28 +7,28 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="assets/img/favicon.png" rel="shortcut icon" >
+        <link href="${contextPath}/assets/img/favicon.png" rel="shortcut icon" >
         <title>Reglo</title>
 
-        <link href="assets/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/css/animate.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/new_style.css" rel="stylesheet">
-        <link href="assets/css/all.min.css" rel="stylesheet">
-        <link href="assets/css/aos.css" rel="stylesheet">
-        <link href="assets/css/slick.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cal-heatmap.css" />
-        <link href="assets/css/Chart.min.css" rel="stylesheet" type="text/css">
+        <link href="${contextPath}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/animate.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/new_style.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/all.min.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/aos.css" rel="stylesheet">
+        <link href="${contextPath}/assets/css/slick.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/assets/css/cal-heatmap.css" />
+        <link href="${contextPath}/assets/css/Chart.min.css" rel="stylesheet" type="text/css">
 
 
         <script type="text/javascript" src="${contextPath}/assets/js/vue.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="assets/js/dynamique.js"></script>
-        <script type="text/javascript" src="assets/js/aos.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/Chart.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/dynamique.js"></script>
+        <script type="text/javascript" src="${contextPath}/assets/js/aos.js"></script>
+        <script src="${contextPath}/assets/js/slick.min.js"></script>
+        <script src="${contextPath}/assets/js/Chart.min.js"></script>
         <script>
             $(document).ready(function () {
 
@@ -330,7 +330,7 @@
                 considerMissingDataAsZero: false,
                 itemSelector: "#pilier1",
                 subDomainTextFormat: "%d",
-                data: '/api/countfacturebydate',
+                data: 'api/countfacturebydate',
                 highlight: ["now", dt],
                 domainMargin: 5,
                 legendVerticalPosition: "center",
@@ -385,7 +385,7 @@
                     }
 
 
-                    fetch("/api/day/" + convert(date), {
+                    fetch("api/day/" + convert(date), {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {

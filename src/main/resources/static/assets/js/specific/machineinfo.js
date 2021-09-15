@@ -1,7 +1,7 @@
 new Vue({
     el: '#appinfo',
     data: {
-        valeur: window.location.pathname.split("/", 3),
+        valeur: window.location.pathname.split("/", 4),
         factures: [],
         machines: [],
         facturesInfo: {},
@@ -28,7 +28,7 @@ new Vue({
             const config = {responseType: 'blob', method: 'post', headers: {
                     'Content-Type': 'text/plain'
                 }};
-            axios.post("/api/export/", this.uid, config).then(response => {
+            axios.post("api/export/", this.uid, config).then(response => {
                 this.showMessage('info', "En cours de téléchargement . . . ")
                 this.name = response.headers.name;
                 return response;
@@ -46,10 +46,10 @@ new Vue({
             });
         },
         show: function (uid) {
-            axios.get("/api/information/" + uid).then(response => {
+            axios.get("api/information/" + uid).then(response => {
                 return response;
             }).then(response => {
-                axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                axios.post("api/generateQRCode", response.data.qrCode).then(response => {
                     return response;
                 }).then(response => {
                     document.getElementById("code").src = "data:image/png;base64," + response.data;
@@ -64,7 +64,7 @@ new Vue({
         }
     },
     mounted() {
-        fetch('/api/factures/' + this.valeur[2], {
+        fetch('api/factures/' + this.valeur[3], {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -79,7 +79,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-                fetch('/api/machineinfo/' + this.valeur[2], {
+                fetch('api/machineinfo/' + this.valeur[3], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -91,7 +91,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-                fetch('/api/moreinfo/' + this.valeur[2], {
+                fetch('api/moreinfo/' + this.valeur[3], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -105,3 +105,6 @@ new Vue({
         })
     }
 })
+
+
+//console.log(window.location.pathname.split("/", 3))

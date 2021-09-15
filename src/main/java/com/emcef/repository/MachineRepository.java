@@ -43,6 +43,4 @@ public interface MachineRepository extends JpaRepository<MachinesInstallees, Lon
     public MachinesInstallees findByIfu(String ifu);
 
     public List<MachinesInstallees> findAllByIfu(String ifu);
-
-    public MachinesInstallees findByApikey(String Apikey);
 }

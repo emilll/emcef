@@ -36,12 +36,12 @@ new Vue({
             if (code == '') {
                 this.showMessage('info', "Le Code MECeF, ne peut être nul.")
             } else {
-                axios.get("/api/show/" + code).then(response => {
+                axios.get("api/show/" + code).then(response => {
                     return response;
                 }).then(response => {
                     if (response.data.found) {
                         if (response.data.statut) {
-                            axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
+                            axios.post("api/generateQRCode", response.data.qrCode).then(response => {
                                 return response;
                             }).then(response => {
                                 document.getElementById("code").src = "data:image/png;base64," + response.data;

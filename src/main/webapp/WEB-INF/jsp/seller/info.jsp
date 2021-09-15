@@ -190,7 +190,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex">
-                                                            <a :href="${contextPath}'/machine/' + machine.nim" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
+                                                            <a :href="'${contextPath}/machine/' + machine.nim" title="Détail" class="text-info mr-2"><i class="fa fa-eye"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>

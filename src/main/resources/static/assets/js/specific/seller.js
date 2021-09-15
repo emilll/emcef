@@ -1,3 +1,5 @@
+//var getUrl = window.location;
+//var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/";
 new Vue({
     el: '#app',
     data: {
@@ -108,7 +110,7 @@ new Vue({
                                                 email: this.email,
                                                 contribuable: this.contribuable,
                                             },
-                                                    fetch('/save/place', {
+                                                    fetch('save/place', {
                                                         method: 'POST',
                                                         headers: {
                                                             'Accept': 'application/json',
@@ -142,7 +144,7 @@ new Vue({
             if (this.pays.nom === '') {
                 this.showMessage("false", "Le Nom du Pays est vide!")
             } else {
-                fetch("/save/pays/" + this.pays.nom, {
+                fetch("save/pays/" + this.pays.nom, {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -165,7 +167,7 @@ new Vue({
                 if (isNaN(this.departement.idpays)) {
                     this.showMessage("false", "Le Nom du Pays est vide!")
                 } else {
-                    fetch("/save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
+                    fetch("save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -184,7 +186,7 @@ new Vue({
         },
         fetchData: function () {
             //Récupérer les données nécessaires pour nourir la Select Box
-            fetch('/save/allPays/', {
+            fetch('save/allPays/', {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -199,7 +201,7 @@ new Vue({
 
             })
 
-            fetch('/save/allVilles/', {
+            fetch('save/allVilles/', {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -217,7 +219,7 @@ new Vue({
     },
     mounted() {
         this.fetchData();
-        fetch('/api/contribuableall/', {
+        fetch('api/contribuableall/', {
             "method": "GET",
             "headers": {}
         }).then(response => {

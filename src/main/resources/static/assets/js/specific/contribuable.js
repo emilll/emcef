@@ -17,7 +17,7 @@ new Vue({
         }
     },
     mounted() {
-        fetch("/api/contribuableall", {
+        fetch("api/contribuableall", {
             "method": "GET",
             "headers": {}
         }).then(response => {

@@ -7,8 +7,8 @@ package com.emcef.service;
 
 import com.emcef.model.FactureNormalisee;
 import com.emcef.model.FactureSelonSpecification;
-import com.emcef.model.LigneDeFacture;
 import com.emcef.repository.FactureRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -29,6 +29,27 @@ public class FactureService {
 
     public FactureSelonSpecification findAllByUid(String uid) {
         return factureRepository.findAllByUid(uid);
+    }
+
+    public JSONObject typage(String type, String nim) {
+        JSONObject reponse = new JSONObject();
+        int only = 0, all = 0;
+        List<FactureSelonSpecification> factureListe = new ArrayList<>();
+        factureListe = factureRepository.findAllByNim(nim);
+        if (!factureListe.isEmpty()) {
+            all = factureListe.size();
+            for (FactureSelonSpecification facture : factureListe) {
+                if (facture.getType().equals(type)) {
+                    only += 1;
+                }
+            }
+            reponse.put("only", only);
+            reponse.put("all", all);
+        } else {
+            reponse.put("only", only);
+            reponse.put("all", all);
+        }
+        return reponse;
     }
 
     public Double totalTTC() {
