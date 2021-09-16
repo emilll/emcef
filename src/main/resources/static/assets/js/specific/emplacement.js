@@ -53,7 +53,7 @@ new Vue({
             if (this.pays.nom === '') {
                 this.showMessage("false", "Le Nom du Pays est vide!")
             } else {
-                fetch("save/pays/" + this.pays.nom, {
+                fetch("/save/pays/" + this.pays.nom, {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
@@ -76,7 +76,7 @@ new Vue({
                 if (isNaN(this.departement.idpays)) {
                     this.showMessage("false", "Le Nom du Pays est vide!")
                 } else {
-                    fetch("save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
+                    fetch("/save/departement/" + this.departement.nom + "/" + this.departement.idpays, {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -100,7 +100,7 @@ new Vue({
                 if (isNaN(this.commune.iddepartement)) {
                     this.showMessage("false", "Le Nom du Département est vide!")
                 } else {
-                    fetch("save/commune/" + this.commune.nom + "/" + this.commune.iddepartement, {
+                    fetch("/save/commune/" + this.commune.nom + "/" + this.commune.iddepartement, {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -124,7 +124,7 @@ new Vue({
                 if (isNaN(this.ville.idcommune)) {
                     this.showMessage("false", "Le Nom de la commune est vide!")
                 } else {
-                    fetch("save/ville/" + this.ville.nom + "/" + this.ville.idcommune, {
+                    fetch("/save/ville/" + this.ville.nom + "/" + this.ville.idcommune, {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -148,7 +148,7 @@ new Vue({
                 if (isNaN(this.quartier.idville)) {
                     this.showMessage("false", "Le Nom du quartier est vide!")
                 } else {
-                    fetch("save/quartier/" + this.quartier.nom + "/" + this.quartier.idville, {
+                    fetch("/save/quartier/" + this.quartier.nom + "/" + this.quartier.idville, {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -167,7 +167,7 @@ new Vue({
         },
         fetchData: function () {
             //Récupérer les données nécessaires pour nourir la Select Box
-            fetch('save/allPays/', {
+            fetch('/save/allPays/', {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -181,7 +181,7 @@ new Vue({
             }).catch(error => {
                 console.log(error)
             }),
-                    fetch('save/allDepartements/', {
+                    fetch('/save/allDepartements/', {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -195,7 +195,7 @@ new Vue({
             }).catch(error => {
                 console.log(error)
             }),
-                    fetch('save/allCommunes/', {
+                    fetch('/save/allCommunes/', {
                         "method": "GET",
                         "headers": {}
                     }).then(response => {
@@ -208,7 +208,7 @@ new Vue({
                 }
             }).catch(error => {
                 console.log(error)
-            }), fetch('save/allVilles/', {
+            }), fetch('/save/allVilles/', {
                 "method": "GET",
                 "headers": {}
             }).then(response => {

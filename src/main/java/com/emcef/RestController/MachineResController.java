@@ -5,10 +5,13 @@
  */
 package com.emcef.RestController;
 
+import com.emcef.model.Cles;
 import com.emcef.model.MachinesInstallees;
 import com.emcef.model.Machinesenregistrees;
+import com.emcef.service.ClesService;
 import com.emcef.service.MachineEnregistreService;
 import com.emcef.service.MachineService;
+import com.emcef.utility.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONObject;
@@ -27,24 +30,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class MachineResController {
-
-    @Autowired
-    MachineService machineService;
+    
+    private Utils util = new Utils();
     
     @Autowired
-    MachineEnregistreService machineEnregistreService;
+    private ClesService clesService;
+
+    @Autowired
+    private MachineService machineService;
+    
+    @Autowired
+    private MachineEnregistreService machineEnregistreService;
     
     @PostMapping("/saveMachineEnregistre")
     public JSONObject saveMachineEnregistre(@RequestBody Machinesenregistrees machinesenregistrees) {
         JSONObject reponse = new JSONObject();
         boolean test = false;
+        String key = util.getAlphaNumericString(100);
         machineEnregistreService.saveMachine(machinesenregistrees);
         for (Machinesenregistrees str : machineEnregistreService.getAllMachines()) {
             if (str == machinesenregistrees) {
                 test = true;
             }
         }
+        Cles cle = new Cles();
+        cle.setCleInterne(key);
+        cle.setCleSignature(util.getSignature(50));
+        cle.setMachinesenregistrees(machinesenregistrees);
         if (test) {
+            clesService.save(cle);
+            reponse.put("key", key);
             reponse.put("status", true);
             return reponse;
         } else {

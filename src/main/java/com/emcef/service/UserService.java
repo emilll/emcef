@@ -9,7 +9,6 @@ package com.emcef.service;
  *
  * @author Holy
  */
-
 import org.springframework.beans.factory.annotation.Autowired;
 import com.emcef.model.User;
 import com.emcef.model.UserPrincipal;
@@ -32,15 +31,19 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        
+
         return new UserPrincipal(user);
 
     }
 
     public User getUser(String username) {
-        return userRepository.findByUsername(username);
+        try {
+            return userRepository.findByUsername(username);
+        } catch (Exception e) {
+            return new User();
+        }
     }
-    
+
     public User getUserByIfu(String ifu) {
         return userRepository.findByIfu(ifu);
     }

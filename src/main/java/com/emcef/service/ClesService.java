@@ -21,24 +21,28 @@ public class ClesService {
 
     @Autowired
     ClesRepository clesRepository;
-    
+
     @Autowired
     MachineService machineService;
-    
+
     @Autowired
     MachineEnregistreService machineEnregistreService;
 
-    public Cles findByMachine (Machinesenregistrees machinesenregistrees) {
+    public void save(Cles cles) {
+        clesRepository.save(cles);
+    }
+
+    public Cles findByMachine(Machinesenregistrees machinesenregistrees) {
         return clesRepository.findByMachinesenregistrees(machinesenregistrees);
     }
-    
-    public Cles findByEnim (String enim) {
+
+    public Cles findByEnim(String enim) {
         MachinesInstallees machine = machineService.findAllByNim(enim);
         Machinesenregistrees machineEnregistrees = machineEnregistreService.findByMachinesinstalles(machine);
         return findByMachine(machineEnregistrees);
     }
-    
-    public MachinesInstallees findMachineByKey(String key){
+
+    public MachinesInstallees findMachineByKey(String key) {
         return clesRepository.findByCleinterne(key).getMachinesenregistrees().getMachinesinstalles();
     }
 }

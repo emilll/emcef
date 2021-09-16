@@ -91,8 +91,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class FactureResController {
-    
-    private Utils utils;
+
+    private Utils utils = new Utils();
 
     @Autowired
     private ClesService clesService;
@@ -638,26 +638,9 @@ public class FactureResController {
                 }
                 signData += TRA + TVA + TAA + TRB + TVB + TAB + TRC + TVC + TAC + TRD + TVD + TAD + TRE + TVE + TAE + TRF + TVF + TAF;
                 signData += facture.getTotal_tax_specifique() + facture.getAib() + facture.getMontant_aib() + facture.getTotal();
-                System.out.println("Type[0] = " + Type.get("only") + "Type[1] = " + Type.get("all") + "facture.getType() = " + facture.getType());
                 signData += facture.getNim() + Type.get("only") + Type.get("all") + facture.getType();
-                System.out.println("======= SIGNDATA ======= " + hmacSha1(signData, cles.getCleSignature()) + " END");
-                System.out.println("======= KEY ======= " + cles.getCleSignature());
-                System.out.println("======= HASH =======" + hmacSha1(signData, cles.getCleSignature()));
-                System.out.println("======= HASH REDUCED =======" + hmacSha1(signData, cles.getCleSignature()).substring(0, 30));
                 byte[] hexData = hexStringToByteArray(hmacSha1(signData, cles.getCleSignature()).substring(0, 30));
-                System.out.println("======= HEX DATA =======" + code);
                 code = base32.encodeAsString(hexData);
-                System.out.println("======= CODE =======" + code);
-                String filetowrite = "D:/signData.txt";
-                String filetowrite1 = "D:/hash.txt";
-                String filetowrite2 = "D:/code.txt";
-                FileWriter fw = new FileWriter(filetowrite);
-                FileWriter fw1 = new FileWriter(filetowrite1);
-                FileWriter fw2 = new FileWriter(filetowrite2);
-                fw.write(signData);
-                fw1.write(hmacSha1(signData, cles.getCleSignature()));
-                fw2.write(code);
-                fw.close();
                 output += code.substring(0, 4) + "-";
                 output += code.substring(4, 8) + "-";
                 output += code.substring(8, 12) + "-";
@@ -669,8 +652,8 @@ public class FactureResController {
                 calendar.setTime(date);
                 counters = Type.get("only") + "/" + Type.get("all") + " " + facture.getType();
 
-                datetime = utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + utils.transform(calendar.get(Calendar.MONTH) + 1) + "/" + utils.transform(calendar.get(Calendar.YEAR)) + " " + utils.transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + ":" + utils.transform(calendar.get(Calendar.MINUTE)) + ":" + utils.transform(calendar.get(Calendar.SECOND));
-                qrcode = "F;" + nim + ";" + code + ";" + userService.getUser(userName).getIfu() + ";" + utils.transform(calendar.get(Calendar.YEAR)) + utils.transform(calendar.get(Calendar.MONTH) + 1) + utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + utils.transform(calendar.get(Calendar.HOUR_OF_DAY) + 1) + utils.transform(calendar.get(Calendar.MINUTE)) + utils.transform(calendar.get(Calendar.SECOND));
+                datetime = utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + "/" + utils.transform(calendar.get(Calendar.MONTH) + 1) + "/" + utils.transform(calendar.get(Calendar.YEAR)) + " " + utils.transform(calendar.get(Calendar.HOUR_OF_DAY)-1) + ":" + utils.transform(calendar.get(Calendar.MINUTE)) + ":" + utils.transform(calendar.get(Calendar.SECOND));
+                qrcode = "F;" + nim + ";" + code + ";" + userService.getUser(userName).getIfu() + ";" + utils.transform(calendar.get(Calendar.YEAR)) + utils.transform(calendar.get(Calendar.MONTH) + 1) + utils.transform(calendar.get(Calendar.DAY_OF_MONTH)) + utils.transform(calendar.get(Calendar.HOUR_OF_DAY)-1) + utils.transform(calendar.get(Calendar.MINUTE)) + utils.transform(calendar.get(Calendar.SECOND));
                 normale.setCodeMECeFDGI(output);
                 normale.setCounters(counters);
                 normale.setDateTime(datetime);
@@ -734,10 +717,11 @@ public class FactureResController {
         MachinesInstallees machine = new MachinesInstallees();
 
         FactureResponse last = new FactureResponse();
-        List<String> messages = Arrays.asList("A", "B", "");
+        List<String> messages = Arrays.asList("A", "B", "", null);
         List<String> taxeGroup = Arrays.asList("A", "B", "C", "D", "E", "F");
         List<String> tabPay = new ArrayList<>();
 
+        //Vérification des conditions d'émission de facture
         if (factureRequest.getIfu().length() != 13) {
             last.setErrorCode("600");
             last.setErrorDesc("Demande de Facture - L'ifu doit avoir 13 caractères.");
@@ -822,10 +806,12 @@ public class FactureResController {
         Date actuel = maintenant;
         actuel.setHours(maintenant.getHours() + 1);
 
+        //Génération de l'uid
         String uid = utils.getAlphaNumericString(8) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(4) + "-" + utils.getAlphaNumericString(12);
         int position = factureService.tout().size() + 1;
         int taxe = 0;
 
+        //Calcul des valeurs de chaque article avec son groupe de taxation
         for (ItemDto str : factureRequest.getItems()) {
             int remise = str.getRemise();
             double remiseMontant = (remise * str.getPrice()) / 100;
@@ -882,24 +868,32 @@ public class FactureResController {
             methode = pay.getName();
         }
 
-        switch (factureRequest.getAib()) {
-            case "A":
-                aib = 1;
-                montantAib = Math.round((ht * aib) / 100);
-                total += montantAib;
-                break;
-            case "B":
-                aib = 5;
-                montantAib = Math.round((ht * aib) / 100);
-                total += montantAib;
-                break;
-            case "":
-                aib = 0;
-                montantAib = Math.round((ht * aib) / 100);
-                total += montantAib;
-                break;
+        if (factureRequest.getAib() == null) {
+            aib = 0;
+            montantAib = Math.round((ht * aib) / 100);
+            total += montantAib;
+        } else {
+            switch (factureRequest.getAib()) {
+                case "A":
+                    aib = 1;
+                    montantAib = Math.round((ht * aib) / 100);
+                    total += montantAib;
+                    break;
+                case "B":
+                    aib = 5;
+                    montantAib = Math.round((ht * aib) / 100);
+                    total += montantAib;
+                    break;
+                case "":
+                    aib = 0;
+                    montantAib = Math.round((ht * aib) / 100);
+                    total += montantAib;
+                    break;
+            }
         }
 
+        
+        //Enregistrement de la facture
         facture.setAdresse1(machine.getId_installation().getAdresse());
         facture.setAdresse1_client(factureRequest.getClient().getAddress());
         facture.setAdresse2(machine.getId_installation().getAdresse1());
@@ -975,6 +969,7 @@ public class FactureResController {
         facture.setUid(uid);
         factureService.saveFacture(facture);
 
+        //Enregistrement des articles
         String group = "";
         for (ItemDto str : factureRequest.getItems()) {
 
@@ -1037,9 +1032,11 @@ public class FactureResController {
             ligneDeFactureService.saveArticle(article);
         }
 
+        //Modification de la date de connexion de la machine
         machine.setDate_heure(actuel);
         machineService.saveMachine(machine);
 
+        //Constitution de la réponse de retour
         last.setUid(uid);
         last.setTa(facture.getTaux_tax_a());
         last.setTb(facture.getTaux_tax_b());

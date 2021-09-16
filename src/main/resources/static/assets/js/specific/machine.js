@@ -10,6 +10,7 @@ new Vue({
         numero_sim: '',
         operateur: '',
         ifu: '',
+        ifuseller: '',
         status: '',
         vente: '',
         date_heure: '',
@@ -30,8 +31,7 @@ new Vue({
     },
     mounted() {
         this.sync(),
-        this.randomString(),
-        fetch('api/installationall/', {
+        fetch('/api/installationall/', {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -57,7 +57,7 @@ new Vue({
             this.apikey = result;
         },
         sync: function () {
-            fetch("api/machineall", {
+            fetch("/api/machineall", {
                 "method": "GET",
                 "headers": {}
             }).then(response => {
@@ -126,6 +126,7 @@ new Vue({
                     if (this.vente.contribuable.nom !== null) {
                         this.nom_proprietaire = this.vente.contribuable.nom
                         this.ifu = this.vente.contribuable.ifu
+                        this.ifuseller = this.vente.ifuseller
                     } else {
                         this.nom_proprietaire = ''
                     }
@@ -157,10 +158,9 @@ new Vue({
                                         nom_proprietaire: this.nom_proprietaire,
                                         numero_sim: this.numero_sim,
                                         operateur: this.operateur,
-                                        ifu: this.ifu,
+                                        ifu: this.ifuseller,
                                         status: this.status,
                                         id_installation: this.vente,
-                                        apikey: this.apikey,
                                     }
 
                                     this.machineEnregistre = {
@@ -171,7 +171,7 @@ new Vue({
                                         status: this.status,
                                     }
 
-                                    fetch('api/saveMachineEnregistre', {
+                                    fetch('/api/saveMachineEnregistre', {
                                         method: 'POST',
                                         headers: {
                                             'Accept': 'application/json',
@@ -193,6 +193,7 @@ new Vue({
                                             this.operateur = ''
                                             this.ifu = ''
                                             this.derniere_version = ''
+                                            this.apikey = response.key
                                             this.showMessage("info", "Clé: " + this.apikey)
                                         } else {
                                             this.showMessage("false", "Données non enregistrées!!!")

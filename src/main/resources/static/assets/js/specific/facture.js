@@ -10,7 +10,7 @@ new Vue({
         uid: ''
     },
     mounted() {
-        fetch("api/facturesall", {
+        fetch("/api/facturesall", {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -55,7 +55,7 @@ new Vue({
             const config = {responseType: 'blob', method: 'post', headers: {
                     'Content-Type': 'text/plain'
                 }};
-            axios.post("api/export/", this.uid, config).then(response => {
+            axios.post("/api/export/", this.uid, config).then(response => {
                 this.showMessage('info', "En cours de téléchargement . . . ")
                 this.name = response.headers.name;
                 return response;
@@ -73,10 +73,10 @@ new Vue({
             });
         },
         show: function (uid) {
-            axios.get("api/information/" + uid).then(response => {
+            axios.get("/api/information/" + uid).then(response => {
                 return response;
             }).then(response => {
-                axios.post("api/generateQRCode", response.data.qrCode).then(response => {
+                axios.post("/api/generateQRCode", response.data.qrCode).then(response => {
                     return response;
                 }).then(response => {
                     document.getElementById("code").src = "data:image/png;base64," + response.data;

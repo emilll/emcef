@@ -2,7 +2,7 @@
 new Vue({
     el: '#appinfo',
     data: {
-        valeur: window.location.pathname.split("/", 4),
+        valeur: window.location.pathname.split("/", 3),
         contribuables: [],
         machines: [],
         vide: true,
@@ -16,7 +16,7 @@ new Vue({
         }
     },
     mounted() {
-        fetch('api/contribuableall/' + this.valeur[3], {
+        fetch('/api/contribuableall/' + this.valeur[2], {
             "method": "GET",
             "headers": {}
         }).then(response => {
@@ -28,7 +28,7 @@ new Vue({
         }).catch(error => {
             console.log(error)
         }),
-        fetch('api/toutesmachines/' + this.valeur[3], {
+        fetch('/api/toutesmachines/' + this.valeur[2], {
                     "method": "GET",
                     "headers": {}
                 }).then(response => {
