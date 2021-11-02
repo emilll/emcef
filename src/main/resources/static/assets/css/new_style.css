@@ -74,22 +74,22 @@
 }
 
 .bg-title {
-  background-color: rgb(243,241,163) !important;
+    background-color: rgb(243,241,163) !important;
 }
 
 a.bg-title:hover, a.bg-title:focus,
 button.bg-title:hover,
 button.bg-title:focus {
-  background-color: rgb(243,241,163) !important;
+    background-color: rgb(243,241,163) !important;
 }
 
 .bg-content {
-  background-color: rgb(133,248,126) !important;
+    background-color: rgb(133,248,126) !important;
 }
 
 a.bg-content:hover, a.bg-content:focus,
 button.bg-content:hover,
 button.bg-content:focus {
-  background-color: rgb(133,248,126) !important;
+    background-color: rgb(133,248,126) !important;
 }
 

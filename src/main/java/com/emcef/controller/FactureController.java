@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Controller
 public class FactureController {
-    @GetMapping("/company/{ifu}")
-    public String entreprise(@PathVariable(value = "ifu") int ifu){
-        return "index1";
-    }
     
     @GetMapping("/factures")
     public String factures(){

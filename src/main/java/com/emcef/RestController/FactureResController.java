@@ -41,7 +41,6 @@ import static com.emcef.utility.Utils.hexStringToByteArray;
 import static com.emcef.utility.Utils.hmacSha1;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 
@@ -55,6 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -77,6 +77,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins={"*"})
 public class FactureResController {
 
     private Utils utils = new Utils();
@@ -708,7 +710,9 @@ public class FactureResController {
 
     //Demande de Facture
     @PostMapping("/invoice")
-    public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest) throws Exception {
+    public FactureResponse factureDemande(@RequestBody FactureRequest factureRequest, HttpServletRequest httpServletRequest, HttpServletResponse response) throws Exception {
+        //Set access IP Reglo Web
+        //response.setHeader("Access-Control-Allow-Origin", utils.getLink());
         String authorization = httpServletRequest.getHeader("Authorization");
         String key = null;
         String userName = null;
@@ -1043,7 +1047,7 @@ public class FactureResController {
         last.setTc(facture.getTaux_tax_c());
         last.setTd(facture.getTaux_tax_d());
         last.setTc(facture.getTauxtax_e());
-        last.setTd(facture.getTauxtax_f());
+        last.setTf(facture.getTauxtax_f());
         last.setTaa(facture.getTotal_a());
         last.setTab(facture.getTotal_b());
         last.setTac(facture.getTotal_c());
@@ -1485,5 +1489,12 @@ public class FactureResController {
     @GetMapping("/facturesall")
     public List<FactureSelonSpecification> tout() {
         return factureService.tout();
+    }
+    
+    @GetMapping("/facturesize")
+    public int toutTaille(HttpServletResponse response) {
+        //Set access IP Reglo Web
+        //response.setHeader("Access-Control-Allow-Origin", utils.getLink());
+        return factureService.toutTaille();
     }
 }

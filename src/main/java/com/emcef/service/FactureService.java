@@ -136,6 +136,10 @@ public class FactureService {
     public List<FactureSelonSpecification> tout() {
         return factureRepository.findAll();
     }
+    
+    public int toutTaille() {
+        return factureRepository.findAll().size();
+    }
 
     public FactureSelonSpecification findById(int position) {
         return factureRepository.findById(position);

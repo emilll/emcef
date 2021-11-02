@@ -16,10 +16,12 @@ import java.util.Date;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,15 +47,37 @@ public class IndexResController {
 
     @PostMapping(value = "/check", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public User verification(@RequestBody String username) {
+    public JSONObject verification(@RequestParam String username, @RequestParam String password) {
+        System.out.println(username + ' ' +password);
+        JSONObject resultat = new JSONObject();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User utilisateur = new User();
-        utilisateur = userRepository.findByUsername(username);
-        if (utilisateur != null) {
-            return utilisateur;
-        } else {
-            return new User();
+        try {
+            utilisateur = userRepository.findByUsername(username);
+            if (encoder.matches(password, utilisateur.getPassword())) {
+                resultat.put("auth", true);
+                resultat.put("ifu", utilisateur.getIfu());
+            } else {
+                resultat.put("auth", false);
+            }
+            return resultat;
+        } catch (Exception e) {
+            resultat.put("auth", false);
+            return resultat;
         }
     }
+
+    // @PostMapping(value = "/check", produces = MediaType.APPLICATION_JSON_VALUE)
+    // @ResponseBody
+    // public User verification(@RequestBody String username) {
+    //     User utilisateur = new User();
+    //     utilisateur = userRepository.findByUsername(username);
+    //     if (utilisateur != null) {
+    //         return utilisateur;
+    //     } else {
+    //         return new User();
+    //     }
+    // }
 
     @GetMapping("/banniere")
     public JSONObject machines() {
