@@ -1,6 +1,6 @@
 <script>
     var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/";
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" /*+ getUrl.pathname.split('/')[1] + "/"*/;
     async function recherche1() {
         const man = Swal.mixin({
             customClass: {
@@ -38,7 +38,7 @@
                             })
                             .catch(error => {
                                 Swal.showValidationMessage(
-                                        'La requête a échoué: ${error}'
+                                        'La requï¿½te a ï¿½chouï¿½: ${error}'
                                         )
                             })
                 } else {
@@ -101,7 +101,7 @@
                             })
                             .catch(error => {
                                 Swal.showValidationMessage(
-                                        'La requête a échoué: ${error}'
+                                        'La requï¿½te a ï¿½chouï¿½: ${error}'
                                         )
                             })
                 } else {
@@ -164,7 +164,7 @@
                             })
                             .catch(error => {
                                 Swal.showValidationMessage(
-                                        'La requête a échoué: ${error}'
+                                        'La requï¿½te a ï¿½chouï¿½: ${error}'
                                         )
                             })
                 } else {
